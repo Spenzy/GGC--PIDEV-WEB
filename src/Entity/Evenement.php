@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Evenement
  *
  * @ORM\Table(name="evenement")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\EvenementRepository")
  */
 class Evenement
 {
@@ -62,6 +62,83 @@ class Evenement
      * @ORM\Column(name="Titre", type="string", length=50, nullable=false)
      */
     private $titre;
+
+    public function getReference(): ?int
+    {
+        return $this->reference;
+    }
+
+    public function getDatedebut(): ?\DateTimeInterface
+    {
+        return $this->datedebut;
+    }
+
+    public function setDatedebut(\DateTimeInterface $datedebut): self
+    {
+        $this->datedebut = $datedebut;
+
+        return $this;
+    }
+
+    public function getDatefin(): ?\DateTimeInterface
+    {
+        return $this->datefin;
+    }
+
+    public function setDatefin(\DateTimeInterface $datefin): self
+    {
+        $this->datefin = $datefin;
+
+        return $this;
+    }
+
+    public function getLocalisation(): ?string
+    {
+        return $this->localisation;
+    }
+
+    public function setLocalisation(string $localisation): self
+    {
+        $this->localisation = $localisation;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getNbrparticipant(): ?int
+    {
+        return $this->nbrparticipant;
+    }
+
+    public function setNbrparticipant(int $nbrparticipant): self
+    {
+        $this->nbrparticipant = $nbrparticipant;
+
+        return $this;
+    }
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(string $titre): self
+    {
+        $this->titre = $titre;
+
+        return $this;
+    }
 
 
 }

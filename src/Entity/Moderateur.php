@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Moderateur
  *
  * @ORM\Table(name="moderateur")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ModerateurRepository")
  */
 class Moderateur
 {
@@ -20,6 +20,11 @@ class Moderateur
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idModerateur;
+
+    public function getIdModerateur(): ?int
+    {
+        return $this->idModerateur;
+    }
 
 
 }

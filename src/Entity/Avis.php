@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Avis
  *
  * @ORM\Table(name="avis", indexes={@ORM\Index(name="fk_avis_client", columns={"idClient"}), @ORM\Index(name="fk_avis_produit", columns={"referenceProduit"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\AvisRepository")
  */
 class Avis
 {
@@ -54,6 +54,59 @@ class Avis
      * })
      */
     private $referenceproduit;
+
+    public function getIdavis(): ?int
+    {
+        return $this->idavis;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getIdclient(): ?Client
+    {
+        return $this->idclient;
+    }
+
+    public function setIdclient(?Client $idclient): self
+    {
+        $this->idclient = $idclient;
+
+        return $this;
+    }
+
+    public function getReferenceproduit(): ?Produit
+    {
+        return $this->referenceproduit;
+    }
+
+    public function setReferenceproduit(?Produit $referenceproduit): self
+    {
+        $this->referenceproduit = $referenceproduit;
+
+        return $this;
+    }
 
 
 }

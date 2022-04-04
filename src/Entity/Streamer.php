@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Streamer
  *
  * @ORM\Table(name="streamer")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\StreamerRepository")
  */
 class Streamer
 {
@@ -37,6 +37,42 @@ class Streamer
      * })
      */
     private $idstreamer;
+
+    public function getInformations(): ?string
+    {
+        return $this->informations;
+    }
+
+    public function setInformations(string $informations): self
+    {
+        $this->informations = $informations;
+
+        return $this;
+    }
+
+    public function getLienstreaming(): ?string
+    {
+        return $this->lienstreaming;
+    }
+
+    public function setLienstreaming(string $lienstreaming): self
+    {
+        $this->lienstreaming = $lienstreaming;
+
+        return $this;
+    }
+
+    public function getIdstreamer(): ?Personne
+    {
+        return $this->idstreamer;
+    }
+
+    public function setIdstreamer(?Personne $idstreamer): self
+    {
+        $this->idstreamer = $idstreamer;
+
+        return $this;
+    }
 
 
 }

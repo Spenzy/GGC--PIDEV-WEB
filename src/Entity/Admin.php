@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Admin
  *
  * @ORM\Table(name="admin")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\AdminRepository")
  */
 class Admin
 {
@@ -23,6 +23,18 @@ class Admin
      * })
      */
     private $idAdmin;
+
+    public function getIdAdmin(): ?Personne
+    {
+        return $this->idAdmin;
+    }
+
+    public function setIdAdmin(?Personne $idAdmin): self
+    {
+        $this->idAdmin = $idAdmin;
+
+        return $this;
+    }
 
 
 }

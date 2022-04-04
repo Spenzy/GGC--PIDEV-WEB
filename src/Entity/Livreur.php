@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Livreur
  *
  * @ORM\Table(name="livreur")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\LivreurRepository")
  */
 class Livreur
 {
@@ -30,6 +30,30 @@ class Livreur
      * })
      */
     private $idlivreur;
+
+    public function getDisponibilite(): ?bool
+    {
+        return $this->disponibilite;
+    }
+
+    public function setDisponibilite(?bool $disponibilite): self
+    {
+        $this->disponibilite = $disponibilite;
+
+        return $this;
+    }
+
+    public function getIdlivreur(): ?Personne
+    {
+        return $this->idlivreur;
+    }
+
+    public function setIdlivreur(?Personne $idlivreur): self
+    {
+        $this->idlivreur = $idlivreur;
+
+        return $this;
+    }
 
 
 }
