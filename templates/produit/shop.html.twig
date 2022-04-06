@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification Produit{% endblock %}
+
+{% block body %}
+    <h1>Voici Nos Produit</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {% for item in produits %}
+        <div class="col-md-8 mb-5">
+                <div
+                        class="card h-100">
+                    <!-- Product image-->
+                    <img
+                            class="card-img-top" style="height:300px;" src="{{asset('uploads/') ~ item.image}}" alt="..."/>
+
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div
+                                class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">{{item.nomprod}}</h5>
+                            <p class="card-text">{{item.description}}</p>
+                            <!-- Product price-->
+                            <h6>{{item.Prix}}
+                            </h6>
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center">
+                            <a class="btn btn-outline-dark mt-auto" href="#">View options</a>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

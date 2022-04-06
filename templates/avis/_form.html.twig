@@ -1,0 +1,11 @@
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_label(form.referenceproduit,"Produit :") }}     {{ form_widget(form.referenceproduit) }}{{ form_errors(form.referenceproduit) }}
+<br>
+{{ form_label(form.type,"Type :") }}     {{ form_widget(form.type) }}{{ form_errors(form.type) }}
+<br>
+{{ form_label(form.description,"Description :") }}   {{ form_widget(form.description) }}{{ form_errors(form.description) }}
+<br>
+
+
+<button class="btn btn-secondary text-light rounded-pill py -2 px -4 mms -3">{{ button_label|default('Ajouter') }}</button>
+{{ form_end(form) }}
