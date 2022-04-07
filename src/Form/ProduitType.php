@@ -23,7 +23,7 @@ class ProduitType extends AbstractType
             ->add('libelle',TextType::class)
             ->add('categorie',TextType::class)
             ->add('description',TextType::class)
-            ->add('prix',FloatType::class)
+            ->add('prix')
         ;
     }
 
