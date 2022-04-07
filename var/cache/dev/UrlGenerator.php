@@ -24,6 +24,6 @@ return [
     'app_produit_index' => [[], ['_controller' => 'App\\Controller\\ProduitController::index'], [], [['text', '/produit']], [], []],
     'app_produit_new' => [[], ['_controller' => 'App\\Controller\\ProduitController::new'], [], [['text', '/produit/new']], [], []],
     'app_produit_show' => [['reference'], ['_controller' => 'App\\Controller\\ProduitController::show'], [], [['variable', '/', '[^/]++', 'reference'], ['text', '/produit']], [], []],
-    'app_produit_edit' => [['reference'], ['_controller' => 'App\\Controller\\ProduitController::edit'], [], [['text', '/edit'], ['variable', '/', '[^/]++', 'reference'], ['text', '/produit']], [], []],
-    'app_produit_delete' => [['reference'], ['_controller' => 'App\\Controller\\ProduitController::delete'], [], [['variable', '/', '[^/]++', 'reference'], ['text', '/produit']], [], []],
+    'app_produit_edit' => [['reference'], ['_controller' => 'App\\Controller\\ProduitController::edit'], [], [['variable', '/', '[^/]++', 'reference'], ['text', '/produit/edit']], [], []],
+    'app_produit_delete' => [['reference'], ['_controller' => 'App\\Controller\\ProduitController::delete'], [], [['variable', '/', '[^/]++', 'reference'], ['text', '/produit/delete']], [], []],
 ];

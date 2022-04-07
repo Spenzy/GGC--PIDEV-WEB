@@ -19,7 +19,7 @@ class ProduitType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('reference',IntegerType::class,)
+            ->add('reference',IntegerType::class)
             ->add('libelle',TextType::class)
             ->add('categorie',TextType::class)
             ->add('description',TextType::class)

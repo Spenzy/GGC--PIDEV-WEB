@@ -1,4 +1,5 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/index.html.twig' %}
+{% use "bootstrap_4_layout.html.twig" %}
 
 {% block title %}Ajout Produit{% endblock %}
 
@@ -7,5 +8,5 @@
 
     {{ include('produit/_form.html.twig') }}
 
-    <a href="{{ path('app_produit_index') }}">back to list</a>
+    <a href="{{ path('app_produit_index') }}" class="btn btn-outline-info">retour vers la liste</a>
 {% endblock %}

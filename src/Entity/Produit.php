@@ -18,6 +18,7 @@ class Produit
      * @ORM\Column(name="reference", type="integer", nullable=false)
      * @ORM\Id
      * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\NotNull
      */
     private $reference;
 
@@ -26,6 +27,7 @@ class Produit
      *
      * @ORM\Column(name="libelle", type="string", length=30, nullable=false)
      * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\NotNull
      */
     private $libelle;
 
@@ -34,6 +36,7 @@ class Produit
      *
      * @ORM\Column(name="categorie", type="string", length=30, nullable=false)
      * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\NotNull
      */
     private $categorie;
 
@@ -42,6 +45,7 @@ class Produit
      *
      * @ORM\Column(name="description", type="string", length=100, nullable=false)
      * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\NotNull
      */
     private $description;
 
@@ -50,6 +54,7 @@ class Produit
      *
      * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
      * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\NotNull
      * @Assert\PositiveOrZero(message="Le prix doit etre positif")
      */
     private $prix;

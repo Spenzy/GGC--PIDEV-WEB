@@ -1,4 +1,5 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/index.html.twig' %}
+{% use "bootstrap_4_layout.html.twig" %}
 
 {% block title %}Liste des Produit{% endblock %}
 
@@ -27,8 +28,9 @@
                 <td>{{ produit.prix }}</td>
                 <td>{{ produit.note }}</td>
                 <td>
-                    <a href="{{ path('app_produit_show', {'reference': produit.reference}) }}" class="btn btn-link">Consulter</a>
-                    <a href="{{ path('app_produit_edit', {'reference': produit.reference}) }}" class="btn ">Modifier</a>
+                    <a href="{{ path('app_produit_show', {'reference': produit.reference}) }}" class="btn btn-outline-info">Consulter</a>
+                    <a href="{{ path('app_produit_edit', {'reference': produit.reference}) }}" class="btn btn-outline-secondary">Modifier</a>
+
 
                 </td>
             </tr>
@@ -40,5 +42,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_produit_new') }}">Create new</a>
+    <a class="btn btn-outline-primary " href="{{ path('app_produit_new') }}">Create new</a>
 {% endblock %}

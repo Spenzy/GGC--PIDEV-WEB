@@ -41,10 +41,10 @@ return [
                     .'|/edit(*:199)'
                     .'|(*:207)'
                 .')'
-                .'|/produit/([^/]++)(?'
-                    .'|(*:236)'
-                    .'|/edit(*:249)'
-                    .'|(*:257)'
+                .'|/produit/(?'
+                    .'|([^/]++)(*:236)'
+                    .'|edit/([^/]++)(*:257)'
+                    .'|delete/([^/]++)(*:280)'
                 .')'
             .')/?$}sD',
     ],
@@ -60,8 +60,8 @@ return [
         199 => [[['_route' => 'app_avis_edit', '_controller' => 'App\\Controller\\AvisController::edit'], ['idavis'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
         207 => [[['_route' => 'app_avis_delete', '_controller' => 'App\\Controller\\AvisController::delete'], ['idavis'], ['POST' => 0], null, false, true, null]],
         236 => [[['_route' => 'app_produit_show', '_controller' => 'App\\Controller\\ProduitController::show'], ['reference'], ['GET' => 0], null, false, true, null]],
-        249 => [[['_route' => 'app_produit_edit', '_controller' => 'App\\Controller\\ProduitController::edit'], ['reference'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        257 => [
+        257 => [[['_route' => 'app_produit_edit', '_controller' => 'App\\Controller\\ProduitController::edit'], ['reference'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
+        280 => [
             [['_route' => 'app_produit_delete', '_controller' => 'App\\Controller\\ProduitController::delete'], ['reference'], ['POST' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
