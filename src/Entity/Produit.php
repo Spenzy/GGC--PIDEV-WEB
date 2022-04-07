@@ -60,6 +60,14 @@ class Produit
     private $prix;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="img", type="string" , length=255 , nullable=true)
+     *
+     */
+    private $img;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="note", type="integer", nullable=false)

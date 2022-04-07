@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Avis;
+use App\Entity\Client;
+use App\Entity\Personne;
 use App\Form\AvisType;
 use App\Repository\AvisRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,23 +28,25 @@ class AvisController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="app_avis_new", methods={"GET", "POST"})
+     * @Route("/new/{reference}", name="app_avis_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, AvisRepository $avisRepository): Response
+    public function new(int $reference,Request $request, AvisRepository $avisRepository): Response
     {
         $avi = new Avis();
         $form = $this->createForm(AvisType::class, $avi);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $avi->setIdclient(1);
+            $client=$this->getDoctrine()->getRepository(Client::class)->find(6);
+            $avi->setIdclient($client);
             $avisRepository->add($avi);
-            return $this->redirectToRoute('app_avis_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_produit_details', ['reference'=>$avi->getReferenceproduit()->getReference()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('avis/new.html.twig', [
             'avi' => $avi,
             'form' => $form->createView(),
+            'referenceProduit' => $reference,
         ]);
     }
 
@@ -66,7 +70,7 @@ class AvisController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $avisRepository->add($avi);
-            return $this->redirectToRoute('app_avis_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_produit_details', ['reference'=>$avi->getReferenceproduit()->getReference()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('avis/edit.html.twig', [
@@ -84,6 +88,6 @@ class AvisController extends AbstractController
             $avisRepository->remove($avi);
         }
 
-        return $this->redirectToRoute('app_avis_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_produit_details', ['reference'=>$avi->getReferenceproduit()->getReference()], Response::HTTP_SEE_OTHER);
     }
 }

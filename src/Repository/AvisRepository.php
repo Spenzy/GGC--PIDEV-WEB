@@ -44,6 +44,14 @@ class AvisRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
+    public function findAvis(int $reference)
+{
+    return $this->createQueryBuilder('a')
+                                    ->where('a.referenceproduit=?1 ')
+                                    ->setParameter('1',$reference)
+                                    ->getQuery()
+                                    ->getResult();
+}
 
     // /**
     //  * @return Avis[] Returns an array of Avis objects

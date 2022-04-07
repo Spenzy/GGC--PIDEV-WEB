@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Produit;
 use App\Form\ProduitType;
+use App\Repository\AvisRepository;
 use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,6 +55,8 @@ class ProduitController extends AbstractController
         ]);
     }
 
+
+
     /**
      * @Route("/produit/{reference}", name="app_produit_show", methods={"GET"})
      */
@@ -63,7 +66,18 @@ class ProduitController extends AbstractController
             'produit' => $produit,
         ]);
     }
-
+    /**
+     * @Route("/produit/details/{reference}", name="app_produit_details", methods={"GET"})
+     */
+    public function details(int $reference,ProduitRepository $rep,AvisRepository $repAvis): Response
+    {
+        $produit=$rep->find($reference);
+        $avis=$repAvis->findAvis($reference);
+        return $this->render('produit/details.html.twig', [
+            'produit' => $produit,
+            'avis' => $avis,
+        ]);
+    }
     /**
      * @Route("/produit/edit/{reference}", name="app_produit_edit", methods={"GET", "POST"})
      */
@@ -94,4 +108,6 @@ class ProduitController extends AbstractController
 
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
 }

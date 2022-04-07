@@ -16,7 +16,7 @@ return [
     '_profiler_exception' => [['token'], ['_controller' => 'web_profiler.controller.exception_panel::body'], [], [['text', '/exception'], ['variable', '/', '[^/]++', 'token'], ['text', '/_profiler']], [], []],
     '_profiler_exception_css' => [['token'], ['_controller' => 'web_profiler.controller.exception_panel::stylesheet'], [], [['text', '/exception.css'], ['variable', '/', '[^/]++', 'token'], ['text', '/_profiler']], [], []],
     'app_avis_index' => [[], ['_controller' => 'App\\Controller\\AvisController::index'], [], [['text', '/avis/']], [], []],
-    'app_avis_new' => [[], ['_controller' => 'App\\Controller\\AvisController::new'], [], [['text', '/avis/new']], [], []],
+    'app_avis_new' => [['reference'], ['_controller' => 'App\\Controller\\AvisController::new'], [], [['variable', '/', '[^/]++', 'reference'], ['text', '/avis/new']], [], []],
     'app_avis_show' => [['idavis'], ['_controller' => 'App\\Controller\\AvisController::show'], [], [['variable', '/', '[^/]++', 'idavis'], ['text', '/avis']], [], []],
     'app_avis_edit' => [['idavis'], ['_controller' => 'App\\Controller\\AvisController::edit'], [], [['text', '/edit'], ['variable', '/', '[^/]++', 'idavis'], ['text', '/avis']], [], []],
     'app_avis_delete' => [['idavis'], ['_controller' => 'App\\Controller\\AvisController::delete'], [], [['variable', '/', '[^/]++', 'idavis'], ['text', '/avis']], [], []],
@@ -25,6 +25,7 @@ return [
     'app_produit_shop' => [[], ['_controller' => 'App\\Controller\\ProduitController::shop'], [], [['text', '/produit/shop']], [], []],
     'app_produit_new' => [[], ['_controller' => 'App\\Controller\\ProduitController::new'], [], [['text', '/produit/new']], [], []],
     'app_produit_show' => [['reference'], ['_controller' => 'App\\Controller\\ProduitController::show'], [], [['variable', '/', '[^/]++', 'reference'], ['text', '/produit']], [], []],
+    'app_produit_details' => [['reference'], ['_controller' => 'App\\Controller\\ProduitController::details'], [], [['variable', '/', '[^/]++', 'reference'], ['text', '/produit/details']], [], []],
     'app_produit_edit' => [['reference'], ['_controller' => 'App\\Controller\\ProduitController::edit'], [], [['variable', '/', '[^/]++', 'reference'], ['text', '/produit/edit']], [], []],
     'app_produit_delete' => [['reference'], ['_controller' => 'App\\Controller\\ProduitController::delete'], [], [['variable', '/', '[^/]++', 'reference'], ['text', '/produit/delete']], [], []],
 ];
