@@ -22,6 +22,7 @@ return [
     'app_avis_delete' => [['idavis'], ['_controller' => 'App\\Controller\\AvisController::delete'], [], [['variable', '/', '[^/]++', 'idavis'], ['text', '/avis']], [], []],
     'app_home_page' => [[], ['_controller' => 'App\\Controller\\HomePageController::index'], [], [['text', '/']], [], []],
     'app_produit_index' => [[], ['_controller' => 'App\\Controller\\ProduitController::index'], [], [['text', '/produit']], [], []],
+    'app_produit_shop' => [[], ['_controller' => 'App\\Controller\\ProduitController::shop'], [], [['text', '/produit/shop']], [], []],
     'app_produit_new' => [[], ['_controller' => 'App\\Controller\\ProduitController::new'], [], [['text', '/produit/new']], [], []],
     'app_produit_show' => [['reference'], ['_controller' => 'App\\Controller\\ProduitController::show'], [], [['variable', '/', '[^/]++', 'reference'], ['text', '/produit']], [], []],
     'app_produit_edit' => [['reference'], ['_controller' => 'App\\Controller\\ProduitController::edit'], [], [['variable', '/', '[^/]++', 'reference'], ['text', '/produit/edit']], [], []],

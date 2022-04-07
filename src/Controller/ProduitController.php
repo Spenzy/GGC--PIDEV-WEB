@@ -24,6 +24,16 @@ class ProduitController extends AbstractController
     }
 
     /**
+     * @Route("/produit/shop", name="app_produit_shop", methods={"GET"})
+     */
+    public function shop(ProduitRepository $produitRepository): Response
+    {
+        return $this->render('produit/shop.html.twig', [
+            'produits' => $produitRepository->findAll(),
+        ]);
+    }
+
+    /**
      * @Route("/produit/new", name="app_produit_new", methods={"GET", "POST"})
      */
     public function new(Request $request, ProduitRepository $produitRepository): Response
