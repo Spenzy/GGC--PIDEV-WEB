@@ -24,6 +24,10 @@ class ProduitType extends AbstractType
             ->add('categorie',TextType::class)
             ->add('description',TextType::class)
             ->add('prix')
+            ->add('img',FileType::class,[
+                'mapped'=>false,
+                'label'=>'veuillez selectionner votre image'
+            ])
         ;
     }
 

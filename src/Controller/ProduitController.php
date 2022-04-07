@@ -44,6 +44,12 @@ class ProduitController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //image settings
+            $file=$form->get('img')->getData();
+            $filename=md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move($this->getParameter('upload_directory'), $filename);
+            $produit->setImg($filename);
+
             $produit->setNote(0);
             $produitRepository->add($produit);
             return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
@@ -87,6 +93,19 @@ class ProduitController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //image settings
+            $file=$form->get('img')->getData();
+            $filename=md5(uniqid()) . '.' . $file->guessExtension();
+            try {
+                $file->move(
+                    $this->getParameter('upload_directory'),
+                    $filename
+                );
+            } catch (FileException $e) {
+                // ... handle exception if something happens during file upload
+            }
+            $produit->setImg($filename);
+
             $produitRepository->add($produit);
             return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
         }

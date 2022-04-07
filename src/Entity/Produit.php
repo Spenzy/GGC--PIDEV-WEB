@@ -59,13 +59,7 @@ class Produit
      */
     private $prix;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="img", type="string" , length=255 , nullable=true)
-     *
-     */
-    private $img;
+
 
     /**
      * @var int
@@ -73,6 +67,14 @@ class Produit
      * @ORM\Column(name="note", type="integer", nullable=false)
      */
     private $note;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="img", type="string" , length=255 , nullable=true)
+     *
+     */
+    private $img;
 
     public function getReference(): ?int
     {
@@ -140,6 +142,18 @@ class Produit
     public function setNote(int $note): self
     {
         $this->note = $note;
+
+        return $this;
+    }
+
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    public function setImg(?string $img): self
+    {
+        $this->img = $img;
 
         return $this;
     }
