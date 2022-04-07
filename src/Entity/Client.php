@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use App\Entity\Personne;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="client")
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
  */
-class Client
+class Client 
 {
     /**
      * @var int
@@ -44,7 +44,7 @@ class Client
      * @var \Personne
      *
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     
      * @ORM\OneToOne(targetEntity="Personne")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idClient", referencedColumnName="id_personne")
@@ -112,5 +112,7 @@ class Client
         return $this;
     }
 
+    
+ 
 
 }
