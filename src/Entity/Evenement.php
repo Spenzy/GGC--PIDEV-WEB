@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Evenement
@@ -17,21 +18,23 @@ class Evenement
      *
      * @ORM\Column(name="reference", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     
      */
     private $reference;
 
     /**
-     * @var \DateTime
-     *
+
      * @ORM\Column(name="dateDebut", type="date", nullable=false)
+     * @Assert\GreaterThanOrEqual("today")
      */
     private $datedebut;
 
     /**
-     * @var \DateTime
+     
      *
      * @ORM\Column(name="dateFin", type="date", nullable=false)
+     * @Assert\GreaterThanOrEqual(propertyPath="dateDebut",
+       message="La date du fin doit être supérieure à la date début")
      */
     private $datefin;
 
@@ -39,6 +42,12 @@ class Evenement
      * @var string
      *
      * @ORM\Column(name="localisation", type="string", length=50, nullable=false)
+         * @Assert\Length(
+     *      min = 4,
+     *      max = 100,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $localisation;
 
@@ -46,8 +55,21 @@ class Evenement
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=50, nullable=false)
+     *  * @Assert\Length(
+     *      min = 10,
+     *      max = 250,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
      */
     private $description;
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="photo", type="string", length=50, nullable=true)
+       * @Assert\NotBlank(message="Please, upload the photo.")
+     *  @Assert\File(mimeTypes={ "image/png", "image/jpeg" , "image/jpg" })
+     */
+    private $photo;
 
     /**
      * @var int
@@ -104,6 +126,12 @@ class Evenement
         return $this;
     }
 
+    public function setReference(int $reference): self
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
     public function getDescription(): ?string
     {
         return $this->description;
@@ -112,6 +140,17 @@ class Evenement
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
 
         return $this;
     }
