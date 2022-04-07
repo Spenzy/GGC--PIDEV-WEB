@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Personne
@@ -23,21 +24,22 @@ class Personne
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="please enter your name")
      * @ORM\Column(name="nom", type="string", length=30, nullable=false)
      */
     private $nom;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="please enter your prenom")
      * @ORM\Column(name="prenom", type="string", length=30, nullable=false)
      */
     private $prenom;
 
     /**
      * @var \DateTime
-     *
+     * @Assert\Date
+     * @Assert\GreaterThanOrEqual(propertyPath="dateDebut", message="La date du fin doit être supérieure à la date début")
      * @ORM\Column(name="dateNaissance", type="date", nullable=false)
      */
     private $datenaissance;
@@ -45,7 +47,8 @@ class Personne
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=50, nullable=false)
+     * @Assert\NotBlank(message="please enter your email")
+     *  @ORM\Column(name="email", type="string", length=50, nullable=false)
      */
     private $email;
 
@@ -57,7 +60,7 @@ class Personne
     private $telephone;
 
     /**
-     * @var string
+     * @var string The hashed password
      *
      * @ORM\Column(name="password", type="string", length=50, nullable=false)
      */
