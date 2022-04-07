@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Commentaire
@@ -34,6 +35,7 @@ class Commentaire
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=250, nullable=false)
+     * @Assert\NotBlank(message="Veuillez taper un commentaire!")
      */
     private $description;
 

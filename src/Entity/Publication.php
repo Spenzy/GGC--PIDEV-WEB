@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Publication
@@ -25,6 +26,7 @@ class Publication
      * @var string
      *
      * @ORM\Column(name="object", type="string", length=100, nullable=false)
+     * @Assert\NotBlank(message="Veuillez entrer un objet!")
      */
     private $object;
 

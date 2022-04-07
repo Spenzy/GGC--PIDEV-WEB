@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * Vote
  *
@@ -27,6 +28,7 @@ class Vote
      * @ORM\Column(name="idPublication", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
+     *
      */
     private $idpublication;
 
