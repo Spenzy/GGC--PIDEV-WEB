@@ -67,10 +67,10 @@ class Produit extends \App\Entity\Produit implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'reference', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'libelle', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'categorie', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'description', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'prix', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'note'];
+            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'reference', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'libelle', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'categorie', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'description', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'prix', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'note', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'img'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'reference', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'libelle', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'categorie', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'description', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'prix', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'note'];
+        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'reference', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'libelle', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'categorie', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'description', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'prix', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'note', '' . "\0" . 'App\\Entity\\Produit' . "\0" . 'img'];
     }
 
     /**
@@ -311,6 +311,28 @@ class Produit extends \App\Entity\Produit implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNote', [$note]);
 
         return parent::setNote($note);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getImg(): ?string
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getImg', []);
+
+        return parent::getImg();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setImg(?string $img): \App\Entity\Produit
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setImg', [$img]);
+
+        return parent::setImg($img);
     }
 
 }

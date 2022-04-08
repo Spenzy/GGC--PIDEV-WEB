@@ -24,7 +24,7 @@
                 <td>{{ avi.description }}</td>
                 <td>
                     <a href="{{ path('app_avis_show', {'idavis': avi.idavis}) }}">show</a>
-                    <a href="{{ path('app_avis_edit', {'idavis': avi.idavis}) }}">edit</a>
+                    <a href="{{ path('app_avis_edit',  {'idavis': avi.idavis,  'reference': avi.referenceproduit.reference }) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -35,5 +35,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_avis_new') }}">Create new</a>
+    <a href="{{ path('app_produit_details', {'reference': referenceProduit}) }}">retour aux détails du produit</a>
 {% endblock %}

@@ -36,21 +36,20 @@ return [
                         .'|(*:159)'
                     .')'
                 .')'
-                .'|/avis/(?'
-                    .'|new/([^/]++)(*:190)'
-                    .'|([^/]++)(?'
-                        .'|(*:209)'
-                        .'|/edit(*:222)'
-                        .'|(*:230)'
+                .'|/avis/([^/]++)(?'
+                    .'|/(?'
+                        .'|new(*:193)'
+                        .'|([^/]++)/edit(*:214)'
                     .')'
+                    .'|(*:223)'
                 .')'
                 .'|/produit/(?'
-                    .'|([^/]++)(*:260)'
+                    .'|([^/]++)(*:252)'
                     .'|de(?'
-                        .'|tails/([^/]++)(*:287)'
-                        .'|lete/([^/]++)(*:308)'
+                        .'|tails/([^/]++)(*:279)'
+                        .'|lete/([^/]++)(*:300)'
                     .')'
-                    .'|edit/([^/]++)(*:330)'
+                    .'|edit/([^/]++)(*:322)'
                 .')'
             .')/?$}sD',
     ],
@@ -62,14 +61,16 @@ return [
         136 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         149 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
         159 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-        190 => [[['_route' => 'app_avis_new', '_controller' => 'App\\Controller\\AvisController::new'], ['reference'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
-        209 => [[['_route' => 'app_avis_show', '_controller' => 'App\\Controller\\AvisController::show'], ['idavis'], ['GET' => 0], null, false, true, null]],
-        222 => [[['_route' => 'app_avis_edit', '_controller' => 'App\\Controller\\AvisController::edit'], ['idavis'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        230 => [[['_route' => 'app_avis_delete', '_controller' => 'App\\Controller\\AvisController::delete'], ['idavis'], ['POST' => 0], null, false, true, null]],
-        260 => [[['_route' => 'app_produit_show', '_controller' => 'App\\Controller\\ProduitController::show'], ['reference'], ['GET' => 0], null, false, true, null]],
-        287 => [[['_route' => 'app_produit_details', '_controller' => 'App\\Controller\\ProduitController::details'], ['reference'], ['GET' => 0], null, false, true, null]],
-        308 => [[['_route' => 'app_produit_delete', '_controller' => 'App\\Controller\\ProduitController::delete'], ['reference'], ['POST' => 0], null, false, true, null]],
-        330 => [
+        193 => [[['_route' => 'app_avis_new', '_controller' => 'App\\Controller\\AvisController::new'], ['reference'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        214 => [[['_route' => 'app_avis_edit', '_controller' => 'App\\Controller\\AvisController::edit'], ['reference', 'idavis'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        223 => [
+            [['_route' => 'app_avis_show', '_controller' => 'App\\Controller\\AvisController::show'], ['idavis'], ['GET' => 0], null, false, true, null],
+            [['_route' => 'app_avis_delete', '_controller' => 'App\\Controller\\AvisController::delete'], ['idavis'], ['POST' => 0], null, false, true, null],
+        ],
+        252 => [[['_route' => 'app_produit_show', '_controller' => 'App\\Controller\\ProduitController::show'], ['reference'], ['GET' => 0], null, false, true, null]],
+        279 => [[['_route' => 'app_produit_details', '_controller' => 'App\\Controller\\ProduitController::details'], ['reference'], ['GET' => 0], null, false, true, null]],
+        300 => [[['_route' => 'app_produit_delete', '_controller' => 'App\\Controller\\ProduitController::delete'], ['reference'], ['POST' => 0], null, false, true, null]],
+        322 => [
             [['_route' => 'app_produit_edit', '_controller' => 'App\\Controller\\ProduitController::edit'], ['reference'], ['GET' => 0, 'POST' => 1], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

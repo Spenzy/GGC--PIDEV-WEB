@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Avis;
 use App\Entity\Client;
 use App\Entity\Personne;
+use App\Entity\Produit;
 use App\Form\AvisType;
 use App\Repository\AvisRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,19 +29,22 @@ class AvisController extends AbstractController
     }
 
     /**
-     * @Route("/new/{reference}", name="app_avis_new", methods={"GET", "POST"})
+     * @Route("/{reference}/new", name="app_avis_new", methods={"GET", "POST"})
      */
     public function new(int $reference,Request $request, AvisRepository $avisRepository): Response
     {
         $avi = new Avis();
+        $client=$this->getDoctrine()->getRepository(Client::class)->find(6);
+        $avi->setIdclient($client);
+        $produit=$this->getDoctrine()->getRepository(Produit::class)->find($reference);
+        $avi->setReferenceproduit($produit);
         $form = $this->createForm(AvisType::class, $avi);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $client=$this->getDoctrine()->getRepository(Client::class)->find(6);
-            $avi->setIdclient($client);
+
             $avisRepository->add($avi);
-            return $this->redirectToRoute('app_produit_details', ['reference'=>$avi->getReferenceproduit()->getReference()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_produit_details', ['reference'=>$reference], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('avis/new.html.twig', [
@@ -49,6 +53,8 @@ class AvisController extends AbstractController
             'referenceProduit' => $reference,
         ]);
     }
+
+
 
     /**
      * @Route("/{idavis}", name="app_avis_show", methods={"GET"})
@@ -61,21 +67,22 @@ class AvisController extends AbstractController
     }
 
     /**
-     * @Route("/{idavis}/edit", name="app_avis_edit", methods={"GET", "POST"})
+     * @Route("/{reference}/{idavis}/edit", name="app_avis_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Avis $avi, AvisRepository $avisRepository): Response
+    public function edit(int $reference,Request $request, Avis $avi, AvisRepository $avisRepository): Response
     {
         $form = $this->createForm(AvisType::class, $avi);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $avisRepository->add($avi);
-            return $this->redirectToRoute('app_produit_details', ['reference'=>$avi->getReferenceproduit()->getReference()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_produit_details', ['reference'=>$reference], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('avis/edit.html.twig', [
             'avi' => $avi,
             'form' => $form->createView(),
+            'reference' => $reference,
         ]);
     }
 
@@ -88,6 +95,7 @@ class AvisController extends AbstractController
             $avisRepository->remove($avi);
         }
 
-        return $this->redirectToRoute('app_produit_details', ['reference'=>$avi->getReferenceproduit()->getReference()], Response::HTTP_SEE_OTHER);
+        $reference=$avi->getReferenceproduit()->getReference();
+        return $this->redirectToRoute('app_produit_details', ['reference'=>$reference], Response::HTTP_SEE_OTHER);
     }
 }

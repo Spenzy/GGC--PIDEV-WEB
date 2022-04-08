@@ -63,11 +63,11 @@
         <div class="container my-5 py-5 px-lg-5">
             <div class="row g-5 py-5">
                 <div class="col-lg-6 text-center text-lg-start">
-                    <h1 class="text-white mb-4 animated zoomIn"> Avis Sur {{ referenceProduit}} </h1>
-                    <p class="text-white pb-3 animated zoomIn">Ajouez votre avis sur le produit {{ referenceProduit }}</p>
-                    <a href="" class="btn btn-light py-sm-3 px-sm-5 rounded-pill me-3 animated slideInLeft">Free Quote</a>
+                    <h1 class="text-white mb-4 animated zoomIn"> Avis Sur produit </h1>
+                    <p class="text-white pb-3 animated zoomIn">Ajouez votre avis sur le produit dont la référence est {{ referenceProduit }}</p>
+             {#        <a href="" class="btn btn-light py-sm-3 px-sm-5 rounded-pill me-3 animated slideInLeft">Free Quote</a>
                     <a href="" class="btn btn-outline-light py-sm-3 px-sm-5 rounded-pill animated slideInRight">Contact Us</a>
-                </div>
+             #}   </div>
                 <div class="col-lg-6 text-center text-lg-start">
                     <img class="img-fluid" src="img/hero.png" alt="">
                 </div>
@@ -78,9 +78,9 @@
 
 
 {% block body %}
-    <h1>Ajouter un Avis</h1>
+    <h1>Donnez votre Avis</h1>
 
     {{ include('avis/_form.html.twig') }}
 
-    <a href="{{ path('app_produit_details', {'reference': referenceProduit}) }}">back to list</a>
+    <a class ="btn btn-light py-sm-3 px-sm-5 rounded-pill me-3 animated slideInLeft" href="{{ path('app_produit_details', {'reference': referenceProduit }) }}">retour aux détails du produit</a>
 {% endblock %}
