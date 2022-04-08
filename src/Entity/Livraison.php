@@ -13,18 +13,21 @@ use Doctrine\ORM\Mapping as ORM;
 class Livraison
 {
     /**
-     * @var int
+     * @var \Commande
      *
-     * @ORM\Column(name="idCommande", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\ManyToOne(targetEntity="Commande")
+     * @ORM\JoinColumn(name="idCommande", referencedColumnName="idCommande")
      */
     private $idcommande;
 
     /**
-     * @var int
+     * @var \Livreur
      *
-     * @ORM\Column(name="idLivreur", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Livreur")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idLivreur", referencedColumnName="idLivreur")
+     * })
      */
     private $idlivreur;
 
@@ -35,17 +38,17 @@ class Livraison
      */
     private $dateheure;
 
-    public function getIdcommande(): ?int
+    public function getIdcommande(): ?Commande
     {
         return $this->idcommande;
     }
 
-    public function getIdlivreur(): ?int
+    public function getIdlivreur(): ?Livreur
     {
         return $this->idlivreur;
     }
 
-    public function setIdlivreur(int $idlivreur): self
+    public function setIdlivreur(Livreur $idlivreur): self
     {
         $this->idlivreur = $idlivreur;
 

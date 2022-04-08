@@ -52,8 +52,7 @@ class Commande
     /**
      * @var \Client
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     *
      * @ORM\OneToOne(targetEntity="Client")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idClient", referencedColumnName="idClient")
@@ -126,5 +125,9 @@ class Commande
         return $this;
     }
 
+    public function __toString()
+    {
+        return (string) $this->getIdcommande();
+    }
 
 }
