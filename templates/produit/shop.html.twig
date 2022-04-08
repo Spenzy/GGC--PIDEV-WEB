@@ -45,7 +45,7 @@
                             <a href="#" class="nav-item nav-link">Contact</a>
                         </div>
                         <butaton type="button" class="btn text-secondary ms-3" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fa fa-search"></i></butaton>
-                        <a href="#" class="btn btn-secondary text-light rounded-pill py-2 px-4 ms-3">Sign In</a>
+                        <a href="#" class="btn btn-secondary text-light rounded-pill py-2 px-4 ms-3">Déconnexion</a>
                     </div>
                 </nav>
             </div>
@@ -60,8 +60,8 @@
                 <div class="col-lg-6 text-center text-lg-start">
                     <h1 class="text-white mb-4 animated zoomIn"> Shop </h1>
                     <p class="text-white pb-3 animated zoomIn">voici nos produits</p>
-                    <a href="" class="btn btn-light py-sm-3 px-sm-5 rounded-pill me-3 animated slideInLeft">Free Quote</a>
-                    <a href="" class="btn btn-outline-light py-sm-3 px-sm-5 rounded-pill animated slideInRight">Contact Us</a>
+               {#      <a href="" class="btn btn-light py-sm-3 px-sm-5 rounded-pill me-3 animated slideInLeft">Free Quote</a>
+                    <a href="" class="btn btn-outline-light py-sm-3 px-sm-5 rounded-pill animated slideInRight">Contact Us</a>#}
                 </div>
                 <div class="col-lg-6 text-center text-lg-start">
                     <img class="img-fluid" src="img/hero.png" alt="">
@@ -86,7 +86,7 @@
                     <!-- Restaurant Item -->
                     <div class="item">
                         <!-- Item's image -->
-                        <img src="{{ asset('img/')~produit.img }}" width="100" higth="100">
+                        <img src="{{ asset('uploads/img/')~produit.img }}" width="100" higth="100">
                         <!-- Item details -->
                         <div class="item-dtls">
                             <!-- product title -->

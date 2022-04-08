@@ -25,6 +25,7 @@ class ProduitType extends AbstractType
             ->add('description',TextType::class)
             ->add('prix')
             ->add('img',FileType::class,[
+                'required'=>false,
                 'mapped'=>false,
                 'label'=>'veuillez selectionner votre image'
             ])
