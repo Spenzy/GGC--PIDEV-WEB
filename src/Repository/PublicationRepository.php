@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Publication;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
@@ -70,7 +72,15 @@ class PublicationRepository extends ServiceEntityRepository
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
+
+    $qb = $entityManager->createQueryBuilder();
+$qb->select('count(account.id)');
+$qb->from('ZaysoCoreBundle:Account','account');
+
+$count = $qb->getQuery()->getSingleScalarResult();
         ;
     }
     */
+
+
 }

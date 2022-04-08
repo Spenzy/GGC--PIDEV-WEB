@@ -19,6 +19,8 @@ class Commentaire
      * @ORM\Column(name="idCommentaire", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
+     * @Assert\NotBlank
+     * @Assert\Type("integer")
      */
     private $idcommentaire;
 
@@ -28,6 +30,7 @@ class Commentaire
      * @ORM\Column(name="idPublication", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
+     * @Assert\NotBlank
      */
     private $idpublication;
 
@@ -36,6 +39,7 @@ class Commentaire
      *
      * @ORM\Column(name="description", type="string", length=250, nullable=false)
      * @Assert\NotBlank(message="Veuillez taper un commentaire!")
+     * @Assert\Type("string", message="The value {{ description }} is not a valid {{ type }}.")
      */
     private $description;
 
@@ -43,6 +47,7 @@ class Commentaire
      * @var int
      *
      * @ORM\Column(name="idClient", type="integer", nullable=false)
+     * @Assert\NotBlank
      */
     private $idclient;
 
@@ -50,6 +55,8 @@ class Commentaire
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="date", nullable=false)
+     * @Assert\NotBlank
+     * @Assert\Type("Date")
      */
     private $date;
 

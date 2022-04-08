@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -45,14 +47,17 @@ class Publication
     private $archive;
 
     /**
-     * @var int
+     * @var \Client
      *
-     * @ORM\Column(name="idClient", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Client")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idClient", referencedColumnName="idClient")
+     * })
      */
     private $idclient;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="date", type="date", nullable=false)
      */
@@ -99,29 +104,27 @@ class Publication
         return $this;
     }
 
-    public function getIdclient(): ?int
+    public function getIdclient(): ?Client
     {
         return $this->idclient;
     }
 
-    public function setIdclient(int $idclient): self
+    public function setIdclient(?Client $idclient): self
     {
         $this->idclient = $idclient;
 
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate(): ?DateTimeInterface
     {
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(DateTimeInterface $date): self
     {
         $this->date = $date;
 
         return $this;
     }
-
-
 }

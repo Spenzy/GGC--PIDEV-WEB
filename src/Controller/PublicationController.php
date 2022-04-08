@@ -4,24 +4,35 @@ namespace App\Controller;
 
 use App\Entity\Publication;
 use App\Form\PublicationType;
+use App\Repository\CommentaireRepository;
 use App\Repository\PublicationRepository;
+use App\Repository\VoteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/publication")
+ * @Route("/forum")
  */
 class PublicationController extends AbstractController
 {
     /**
      * @Route("/", name="app_publication_index", methods={"GET"})
      */
-    public function index(PublicationRepository $publicationRepository): Response
+    public function index(PublicationRepository $publicationRepository, CommentaireRepository $cr,VoteRepository $vr): Response
     {
-        return $this->render('publication/index.html.twig', [
-            'publications' => $publicationRepository->findAll(),
+        $rs = $publicationRepository->findAll();
+        $publications = array();
+        foreach ($rs as $p){
+            $publications[] = array(
+                $p,
+                $cr->findCommentCountByPost($p->getIdpublication()),
+                $vr->findVoteCountByPost($p->getIdpublication())
+            );
+        }
+        return $this->render('forum/home.html.twig', [
+            'publications' => $publications,
         ]);
     }
 
@@ -48,10 +59,12 @@ class PublicationController extends AbstractController
     /**
      * @Route("/{idpublication}", name="app_publication_show", methods={"GET"})
      */
-    public function show(Publication $publication): Response
+    public function show(Publication $publication, CommentaireRepository $cr,VoteRepository $vr): Response
     {
         return $this->render('publication/show.html.twig', [
-            'publication' => $publication,
+            'p' => $publication,
+            'c' => $cr->findCommentCountByPost($publication->getIdpublication()),
+            'v' => $vr->findVoteCountByPost($publication->getIdpublication()),
         ]);
     }
 

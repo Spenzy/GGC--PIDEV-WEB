@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Vote;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
@@ -43,6 +45,20 @@ class VoteRepository extends ServiceEntityRepository
         if ($flush) {
             $this->_em->flush();
         }
+    }
+
+    public function findVoteCountByPost($idPublication): ?int
+    {
+        try {
+            return $this->createQueryBuilder('v')
+                ->Where(':idPub = v.idpublication')
+                ->setParameter('idPub', $idPublication)
+                ->select('count(v)')
+                ->getQuery()
+                ->getSingleScalarResult();
+        } catch (NoResultException|NonUniqueResultException $e) {
+        }
+        return -1;
     }
 
     // /**
