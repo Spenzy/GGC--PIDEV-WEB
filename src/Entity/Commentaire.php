@@ -44,9 +44,12 @@ class Commentaire
     private $description;
 
     /**
-     * @var int
+     * @var \Client
      *
-     * @ORM\Column(name="idClient", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Client")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idClient", referencedColumnName="idClient")
+     * })
      * @Assert\NotBlank
      */
     private $idclient;
@@ -82,12 +85,12 @@ class Commentaire
         return $this;
     }
 
-    public function getIdclient(): ?int
+    public function getIdclient(): ?Client
     {
         return $this->idclient;
     }
 
-    public function setIdclient(int $idclient): self
+    public function setIdclient(?Client $idclient): self
     {
         $this->idclient = $idclient;
 

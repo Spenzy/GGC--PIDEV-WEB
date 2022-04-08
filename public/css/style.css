@@ -523,3 +523,7 @@ h6,
     padding-right: 0;
     border-right: none;
 }
+
+li {
+    margin: 0 0 3rem 0;
+}

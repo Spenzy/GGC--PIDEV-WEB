@@ -2,8 +2,8 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
-    <link href="{{asset("css/forum.css")}}" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="{{asset("css/post.css")}}" rel="stylesheet">
 {% endblock %}
 
 {% block title %}Publication
@@ -11,33 +11,91 @@
 
 {% block body %}
 
-    <article class="post vt-post">
-        <div class="row">
-            <div class="col-xs-12 col-sm-5 col-md-5 col-lg-4">
-                <div class="post-type post-img">
-                    <a><img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="img-responsive" alt="image post"></a>
-                </div>
+        <article class="row post vt-post shadow-sm">
+            <div class="col-xs-11 col-sm-4 col-md-4 col-lg-3">
+                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="post-img img-responsive" alt="image post" width="275" height="250">
                 <div class="author-info author-info-2">
-                    <ul class="list-inline">
-                        <li>
-                            <div class="info">
-                                <p>Posted on:</p>
-                                <strong>{{ p.date }}</strong></div>
-                        </li>
-                        <li>
-                            <div class="info">
-                                <p>Comments:</p>
-                                <strong>127</strong></div>
-                        </li>
-                    </ul>
+                    <div class="list-inline">
+                        <div class="info">
+                            <p>Publié le: <strong>{{ p.date | date('Y-m-d') }}</strong> </p>
+                        </div>
+                        <div class="info">
+                            <p>Comments: <strong>{{ nbrC }}</strong></p>
+                        </div>
+                        <div class="info">
+                            <p>Votes: <strong>{{ nbrV }}</strong></p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-8">
                 <div class="caption">
                     <h3 class="md-heading"><a href="#">{{ p.object }}</a></h3>
-                    <p> {{ p.desc }}</p>
+                    <p> {{ p.description }}</p>
+                </div>
+            </div>
+        </article>
+
+    <!-- Comment Section -->
+    <div class="container">
+        <div class="col-lg-8">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Activity Feed</h3>
+                </div>
+                <div class="panel-content panel-activity">
+                    <!-- Comment FORM -->
+                    <form action="#" class="panel-activity__status">
+                        <textarea name="user_activity" placeholder="Share what you've been up to..." class="form-control"></textarea>
+                        <div class="actions">
+                            <div class="btn-group">
+                                <button type="button" class="btn-link" title="" data-toggle="tooltip" data-original-title="Post an Image">
+                                    <i class="fa fa-image"></i>
+                                </button>
+                                <button type="button" class="btn-link" title="" data-toggle="tooltip" data-original-title="Post an Video">
+                                    <i class="fa fa-video-camera"></i>
+                                </button>
+                                <button type="button" class="btn-link" title="" data-toggle="tooltip" data-original-title="Post an Idea">
+                                    <i class="fa fa-lightbulb-o"></i>
+                                </button>
+                                <button type="button" class="btn-link" title="" data-toggle="tooltip" data-original-title="Post an Question">
+                                    <i class="fa fa-question-circle-o"></i>
+                                </button>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-rounded btn-info">
+                                Post
+                            </button>
+                        </div>
+                    </form>
+                    <!-- /Comment FORM -->
+
+                    <!-- Comments -->
+                    <ul class="panel-activity__list">
+                        {% for c in commentaires %}
+                        <li>
+                            <i class="activity__list__icon fa fa-question-circle-o"></i>
+                            <div class="activity__list__header">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" />
+                                <a href="#">{{ c.idclient.idclient.nom }}</a> a répondu à : <a href="#">{{ p.object }}</a>
+                            </div>
+                            <div class="activity__list__body entry-content">
+                                <blockquote>
+                                    <p>
+                                        {{ c.description }}
+                                    </p>
+                                </blockquote>
+                            </div>
+                            <div class="activity__list__footer">
+                                <a href="#"> <i class="fa fa-thumbs-up"></i>123</a>
+                                <a href="#"> <i class="fa fa-comments"></i>23</a>
+                                <span> <i class="fa fa-clock"></i>{{ c.date | date('Y-m-d')}}</span>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
-    </article>
+    </div>
 
 {% endblock %}

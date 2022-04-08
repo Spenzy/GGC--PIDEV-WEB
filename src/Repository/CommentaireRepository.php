@@ -60,6 +60,19 @@ class CommentaireRepository extends ServiceEntityRepository
         return -1;
     }
 
+    /**
+    * @return Commentaire[] Returns an array of Commentaire objects
+    */
+    public function findByPost($idPublication)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.idpublication = :idPub')
+            ->setParameter('idPub', $idPublication)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Commentaire[] Returns an array of Commentaire objects
     //  */

@@ -63,8 +63,9 @@ class PublicationController extends AbstractController
     {
         return $this->render('publication/show.html.twig', [
             'p' => $publication,
-            'c' => $cr->findCommentCountByPost($publication->getIdpublication()),
-            'v' => $vr->findVoteCountByPost($publication->getIdpublication()),
+            'nbrC' => $cr->findCommentCountByPost($publication->getIdpublication()),
+            'nbrV' => $vr->findVoteCountByPost($publication->getIdpublication()),
+            'commentaires' => $cr->findByPost($publication->getIdpublication())
         ]);
     }
 
