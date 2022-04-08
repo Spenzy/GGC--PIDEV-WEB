@@ -141,7 +141,7 @@ class Personne
     }
     public function __toString()
     {
-        return (string) $this->getIdPersonne();
+        return (string) $this->nom;
     }
 
 }

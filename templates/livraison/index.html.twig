@@ -1,16 +1,16 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/index.html.twig' %}
 
-{% block title %}Livraison index{% endblock %}
+{% block title %}Liste des livraisons{% endblock %}
 
 {% block body %}
-    <h1>Livraison index</h1>
+    <h1>Voici les livraisons</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Idcommande</th>
-                <th>Idlivreur</th>
-                <th>Dateheure</th>
+                <th>Id Commande</th>
+                <th>Id Livreur</th>
+                <th>Date Livraison</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -21,17 +21,17 @@
                 <td>{{ livraison.idlivreur }}</td>
                 <td>{{ livraison.dateheure ? livraison.dateheure|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_livraison_show', {'idcommande': livraison.idcommande}) }}">show</a>
-                    <a href="{{ path('app_livraison_edit', {'idcommande': livraison.idcommande}) }}">edit</a>
+                    <a href="{{ path('app_livraison_show', {'idcommande': livraison.idcommande}) }}" class="btn btn-outline-info">Consulter</a>
+                    <a href="{{ path('app_livraison_edit', {'idcommande': livraison.idcommande}) }}" class="btn btn-outline-secondary" >Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">aucune ligne trouvée</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_livraison_new') }}">Create new</a>
+    <a class="btn btn-outline-primary " href="{{ path('app_livraison_new') }}">Ajouter une livraison</a>
 {% endblock %}

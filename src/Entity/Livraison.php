@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Livraison
@@ -17,7 +18,11 @@ class Livraison
      *
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Commande")
+     *  @ORM\JoinColumns({
      * @ORM\JoinColumn(name="idCommande", referencedColumnName="idCommande")
+     * })
+     * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\NotNull(message="Champ obligatoire")
      */
     private $idcommande;
 
@@ -28,6 +33,8 @@ class Livraison
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idLivreur", referencedColumnName="idLivreur")
      * })
+     * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\NotNull(message="Champ obligatoire")
      */
     private $idlivreur;
 
@@ -35,6 +42,10 @@ class Livraison
      * @var \DateTime
      *
      * @ORM\Column(name="DateHeure", type="date", nullable=false)
+     * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\NotNull(message="Champ obligatoire")
+     * @Assert\GreaterThan(value="today" ,message="Veuillez saisir une date supérieure à celle d'aujourd'hui")
+     *
      */
     private $dateheure;
 
@@ -42,7 +53,12 @@ class Livraison
     {
         return $this->idcommande;
     }
+    public function setIdcommande(Commande $idcommande): self
+    {
+        $this->idcommande = $idcommande;
 
+        return $this;
+    }
     public function getIdlivreur(): ?Livreur
     {
         return $this->idlivreur;

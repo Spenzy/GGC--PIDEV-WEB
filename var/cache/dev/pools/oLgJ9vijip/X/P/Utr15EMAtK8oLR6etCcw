@@ -4,7 +4,10 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
     $o = [
         clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Doctrine\\ORM\\Mapping\\Id'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\Id')),
         clone ($p['Doctrine\\ORM\\Mapping\\ManyToOne'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\ManyToOne')),
+        clone ($p['Doctrine\\ORM\\Mapping\\JoinColumns'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\JoinColumns')),
         clone ($p['Doctrine\\ORM\\Mapping\\JoinColumn'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\JoinColumn')),
+        clone ($p['Symfony\\Component\\Validator\\Constraints\\NotBlank'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Symfony\\Component\\Validator\\Constraints\\NotBlank')),
+        clone ($p['Symfony\\Component\\Validator\\Constraints\\NotNull'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Symfony\\Component\\Validator\\Constraints\\NotNull')),
     ],
     null,
     [
@@ -12,11 +15,28 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
             'targetEntity' => [
                 1 => 'Commande',
             ],
+            'value' => [
+                2 => [
+                    $o[3],
+                ],
+            ],
             'name' => [
-                2 => 'idCommande',
+                3 => 'idCommande',
             ],
             'referencedColumnName' => [
-                2 => 'idCommande',
+                3 => 'idCommande',
+            ],
+            'message' => [
+                4 => 'Champ obligatoire',
+                'Champ obligatoire',
+            ],
+            'groups' => [
+                4 => [
+                    'Default',
+                ],
+                [
+                    'Default',
+                ],
             ],
         ],
     ],
@@ -24,6 +44,8 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
         $o[0],
         $o[1],
         $o[2],
+        $o[4],
+        $o[5],
     ],
     []
 ); }];
