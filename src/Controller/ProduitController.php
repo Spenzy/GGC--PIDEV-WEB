@@ -7,6 +7,7 @@ use App\Form\ProduitType;
 use App\Repository\AvisRepository;
 use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -43,7 +44,8 @@ class ProduitController extends AbstractController
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() ) {
+
             //image settings
             $file=$form->get('img')->getData();
             $filename=md5(uniqid()) . '.' . $file->guessExtension();
@@ -91,6 +93,7 @@ class ProduitController extends AbstractController
     {
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             //image settings

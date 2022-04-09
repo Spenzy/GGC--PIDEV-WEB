@@ -19,15 +19,38 @@ class ProduitType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('reference',IntegerType::class)
-            ->add('libelle',TextType::class)
-            ->add('categorie',TextType::class)
-            ->add('description',TextType::class)
+            ->add('reference',IntegerType::class,[
+                'required'=>true,
+                'constraints' => array(
+                    new \Symfony\Component\Validator\Constraints\NotNull(['message' => 'Ce champ est obligatoire']),
+                ),
+            ])
+            ->add('libelle',TextType::class,[
+                'required'=>true,
+                'constraints' => array(
+                new \Symfony\Component\Validator\Constraints\NotNull(['message' => 'Ce champ est obligatoire']),
+            ),
+            ])
+            ->add('categorie',TextType::class,[
+                'required'=>true,
+                'constraints' => array(
+                    new \Symfony\Component\Validator\Constraints\NotNull(['message' => 'Ce champ est obligatoire']),
+                ),
+            ])
+            ->add('description',TextType::class,[
+                'required'=>true,
+                'constraints' => array(
+                    new \Symfony\Component\Validator\Constraints\NotNull(['message' => 'Ce champ est obligatoire']),
+                ),
+            ])
             ->add('prix')
             ->add('img',FileType::class,[
-                'required'=>false,
+                'required'=>true,
                 'mapped'=>false,
-                'label'=>'veuillez selectionner votre image'
+                'label'=>'veuillez selectionner votre image',
+                'constraints' => array(
+                        new \Symfony\Component\Validator\Constraints\NotBlank(['message' => 'Veuillez selectionner votre image']),
+                ),
             ])
         ;
     }

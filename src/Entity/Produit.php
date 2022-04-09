@@ -3,12 +3,14 @@
 namespace App\Entity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Produit
  *
  * @ORM\Table(name="produit")
  * @ORM\Entity(repositoryClass="App\Repository\ProduitRepository")
+ * @UniqueEntity("reference",message="Cette référence est déja attribuée à un produit")
  */
 class Produit
 {
@@ -17,8 +19,8 @@ class Produit
      *
      * @ORM\Column(name="reference", type="integer", nullable=false)
      * @ORM\Id
-     * @Assert\NotBlank(message="Champ obligatoire")
-     * @Assert\NotNull
+     * @Assert\NotBlank(message="Vous devez remplir ce champ")
+     * @Assert\NotNull(message="Champ obligatoire")
      */
     private $reference;
 
@@ -26,8 +28,8 @@ class Produit
      * @var string
      *
      * @ORM\Column(name="libelle", type="string", length=30, nullable=false)
-     * @Assert\NotBlank(message="Champ obligatoire")
-     * @Assert\NotNull
+     * @Assert\NotBlank(message="Vous devez remplir ce champ")
+     * @Assert\NotNull(message="Champ obligatoire")
      */
     private $libelle;
 
@@ -35,8 +37,8 @@ class Produit
      * @var string
      *
      * @ORM\Column(name="categorie", type="string", length=30, nullable=false)
-     * @Assert\NotBlank(message="Champ obligatoire")
-     * @Assert\NotNull
+     * @Assert\NotBlank(message="Vous devez remplir ce champ")
+     * @Assert\NotNull(message="Champ obligatoire")
      */
     private $categorie;
 
@@ -44,8 +46,8 @@ class Produit
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=100, nullable=false)
-     * @Assert\NotBlank(message="Champ obligatoire")
-     * @Assert\NotNull
+     * @Assert\NotBlank(message="Vous devez remplir ce champ")
+     * @Assert\NotNull(message="Champ obligatoire")
      */
     private $description;
 
@@ -53,8 +55,9 @@ class Produit
      * @var float
      *
      * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
-     * @Assert\NotBlank(message="Champ obligatoire")
-     * @Assert\NotNull
+     * @Assert\NotBlank(message="Vous devez remplir ce champ")
+     * @Assert\NotNull(message="Champ obligatoire")
+     * @Assert\Type(type="float", message="Veuillez saisir un entier")
      * @Assert\PositiveOrZero(message="Le prix doit etre positif")
      */
     private $prix;
@@ -72,7 +75,6 @@ class Produit
      * @var string
      *
      * @ORM\Column(name="img", type="string" , length=255 , nullable=true)
-     *
      */
     private $img;
 
