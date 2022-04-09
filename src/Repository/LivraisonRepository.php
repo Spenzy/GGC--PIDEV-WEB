@@ -44,7 +44,14 @@ class LivraisonRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
+    public function CommandeNonLivree(){
+        $res1=$this->createQueryBuilder('l')
+                    ->select(l.idcommande)
+                    ->getQuery()
+                    ->getResult();
 
+        
+    }
     // /**
     //  * @return Livraison[] Returns an array of Livraison objects
     //  */

@@ -54,6 +54,9 @@ class CommandeRepository extends ServiceEntityRepository
                     ->getQuery()->getResult();
     }
 
+    public function CommandeNonLivree(){
+        return $this->createQueryBuilder('c')->where('c.livree=0');
+    }
     // /**
     //  * @return Commande[] Returns an array of Commande objects
     //  */
