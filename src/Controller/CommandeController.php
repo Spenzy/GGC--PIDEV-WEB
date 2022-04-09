@@ -73,7 +73,6 @@ class CommandeController extends AbstractController
 
                 $product = $produitRepository->find($id);
 
-                var_dump($product);
 
                 $ligne->setIdproduit($product);
                 $ligne->setQuantite($quantite);

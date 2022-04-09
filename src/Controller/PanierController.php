@@ -84,7 +84,7 @@ class PanierController extends AbstractController
         $session->remove("panier");
         $lignes=$lignecommandeRepository->findCommande($idcommande);
         $panier = $session->get("panier", []);
-        echo $lignes[0]->getIdproduit();
+       // echo $lignes[0]->getIdproduit();
         foreach($lignes as $item){
 
          /*   $produit = $item->getIdproduit();

@@ -5,12 +5,9 @@
     {{ parent() }}
 
     <!-- Template Stylesheet -->
-    <link href={{asset("css/details.css")}} rel="stylesheet">
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-
+    <link href={{asset("css/shop.css")}} rel="">
 
 {% endblock %}
-
 
 {% block header %}
     <header>
@@ -50,7 +47,7 @@
                             <a href="{{ path('panier_index') }}" class="nav-item nav-link active">Panier</a>
                         </div>
                         <butaton type="button" class="btn text-secondary ms-3" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fa fa-search"></i></butaton>
-                        <a href="#" class="btn btn-secondary text-light rounded-pill py-2 px-4 ms-3">Sign In</a>
+                        <a href="#" class="btn btn-secondary text-light rounded-pill py-2 px-4 ms-3">Déconnexion</a>
                     </div>
                 </nav>
             </div>
@@ -58,6 +55,7 @@
     </header>
     <!-- Navbar -->
 {% endblock %}
+
 {% block hero %}
     <div class="container-xxl py-5 bg-primary hero-header mb-5">
         <div class="container my-5 py-5 px-lg-5">
