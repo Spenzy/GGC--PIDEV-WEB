@@ -25,33 +25,24 @@ class LignecommandeController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/new", name="app_lignecommande_new", methods={"GET", "POST"})
-     */
-    public function new(Request $request, LignecommandeRepository $lignecommandeRepository): Response
+    public function new(Request $request, LignecommandeRepository $lignecommandeRepository, Lignecommande $lignecommande)
     {
-        $lignecommande = new Lignecommande();
         $form = $this->createForm(LignecommandeType::class, $lignecommande);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $lignecommandeRepository->add($lignecommande);
-            return $this->redirectToRoute('app_lignecommande_index', [], Response::HTTP_SEE_OTHER);
         }
-
-        return $this->render('lignecommande/new.html.twig', [
-            'lignecommande' => $lignecommande,
-            'form' => $form->createView(),
-        ]);
     }
 
     /**
-     * @Route("/{idligne}", name="app_lignecommande_show", methods={"GET"})
+     * @Route("/{idcommande}", name="app_lignecommande_show", methods={"GET"})
      */
-    public function show(Lignecommande $lignecommande): Response
+    public function show(int $idcommande,LignecommandeRepository $lignecommandeRepository): Response
     {
+        $lignes=$lignecommandeRepository->findCommande($idcommande);
         return $this->render('lignecommande/show.html.twig', [
-            'lignecommande' => $lignecommande,
+            'lignes' => $lignes,
         ]);
     }
 

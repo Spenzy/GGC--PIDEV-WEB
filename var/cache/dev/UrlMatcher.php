@@ -16,11 +16,13 @@ return [
         '/avis' => [[['_route' => 'app_avis_index', '_controller' => 'App\\Controller\\AvisController::index'], null, ['GET' => 0], null, true, false, null]],
         '/commande' => [[['_route' => 'app_commande_index', '_controller' => 'App\\Controller\\CommandeController::index'], null, ['GET' => 0], null, true, false, null]],
         '/commande/new' => [[['_route' => 'app_commande_new', '_controller' => 'App\\Controller\\CommandeController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        '/commande/show' => [[['_route' => 'app_commande_show', '_controller' => 'App\\Controller\\CommandeController::show'], null, ['GET' => 0], null, false, false, null]],
         '/' => [[['_route' => 'app_home_page', '_controller' => 'App\\Controller\\HomePageController::index'], null, null, null, false, false, null]],
         '/lignecommande' => [[['_route' => 'app_lignecommande_index', '_controller' => 'App\\Controller\\LignecommandeController::index'], null, ['GET' => 0], null, true, false, null]],
-        '/lignecommande/new' => [[['_route' => 'app_lignecommande_new', '_controller' => 'App\\Controller\\LignecommandeController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/livraison' => [[['_route' => 'app_livraison_index', '_controller' => 'App\\Controller\\LivraisonController::index'], null, ['GET' => 0], null, true, false, null]],
         '/livraison/new' => [[['_route' => 'app_livraison_new', '_controller' => 'App\\Controller\\LivraisonController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        '/panier' => [[['_route' => 'panier_index', '_controller' => 'App\\Controller\\PanierController::index'], null, null, null, true, false, null]],
+        '/panier/delete' => [[['_route' => 'panier_delete_all', '_controller' => 'App\\Controller\\PanierController::deleteAll'], null, null, null, false, false, null]],
         '/produit' => [[['_route' => 'app_produit_index', '_controller' => 'App\\Controller\\ProduitController::index'], null, ['GET' => 0], null, false, false, null]],
         '/produit/shop' => [[['_route' => 'app_produit_shop', '_controller' => 'App\\Controller\\ProduitController::shop'], null, ['GET' => 0], null, false, false, null]],
         '/produit/new' => [[['_route' => 'app_produit_new', '_controller' => 'App\\Controller\\ProduitController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
@@ -50,29 +52,36 @@ return [
                     .'|(*:223)'
                 .')'
                 .'|/commande/([^/]++)(?'
-                    .'|(*:253)'
-                    .'|/edit(*:266)'
-                    .'|(*:274)'
+                    .'|/edit(*:258)'
+                    .'|(*:266)'
                 .')'
                 .'|/li(?'
                     .'|gnecommande/([^/]++)(?'
-                        .'|(*:312)'
-                        .'|/edit(*:325)'
-                        .'|(*:333)'
+                        .'|(*:304)'
+                        .'|/edit(*:317)'
+                        .'|(*:325)'
                     .')'
                     .'|vraison/([^/]++)(?'
-                        .'|(*:361)'
-                        .'|/edit(*:374)'
-                        .'|(*:382)'
+                        .'|(*:353)'
+                        .'|/edit(*:366)'
+                        .'|(*:374)'
                     .')'
                 .')'
-                .'|/produit/(?'
-                    .'|([^/]++)(*:412)'
-                    .'|de(?'
-                        .'|tails/([^/]++)(*:439)'
-                        .'|lete/([^/]++)(*:460)'
+                .'|/p(?'
+                    .'|anier/(?'
+                        .'|add/([^/]++)(*:410)'
+                        .'|edit/([^/]++)(*:431)'
+                        .'|remove/([^/]++)(*:454)'
+                        .'|delete/([^/]++)(*:477)'
                     .')'
-                    .'|edit/([^/]++)(*:482)'
+                    .'|roduit/(?'
+                        .'|([^/]++)(*:504)'
+                        .'|de(?'
+                            .'|tails/([^/]++)(*:531)'
+                            .'|lete/([^/]++)(*:552)'
+                        .')'
+                        .'|edit/([^/]++)(*:574)'
+                    .')'
                 .')'
             .')/?$}sD',
     ],
@@ -90,19 +99,22 @@ return [
             [['_route' => 'app_avis_show', '_controller' => 'App\\Controller\\AvisController::show'], ['idavis'], ['GET' => 0], null, false, true, null],
             [['_route' => 'app_avis_delete', '_controller' => 'App\\Controller\\AvisController::delete'], ['idavis'], ['POST' => 0], null, false, true, null],
         ],
-        253 => [[['_route' => 'app_commande_show', '_controller' => 'App\\Controller\\CommandeController::show'], ['idcommande'], ['GET' => 0], null, false, true, null]],
-        266 => [[['_route' => 'app_commande_edit', '_controller' => 'App\\Controller\\CommandeController::edit'], ['idcommande'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        274 => [[['_route' => 'app_commande_delete', '_controller' => 'App\\Controller\\CommandeController::delete'], ['idcommande'], ['POST' => 0], null, false, true, null]],
-        312 => [[['_route' => 'app_lignecommande_show', '_controller' => 'App\\Controller\\LignecommandeController::show'], ['idligne'], ['GET' => 0], null, false, true, null]],
-        325 => [[['_route' => 'app_lignecommande_edit', '_controller' => 'App\\Controller\\LignecommandeController::edit'], ['idligne'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        333 => [[['_route' => 'app_lignecommande_delete', '_controller' => 'App\\Controller\\LignecommandeController::delete'], ['idligne'], ['POST' => 0], null, false, true, null]],
-        361 => [[['_route' => 'app_livraison_show', '_controller' => 'App\\Controller\\LivraisonController::show'], ['idcommande'], ['GET' => 0], null, false, true, null]],
-        374 => [[['_route' => 'app_livraison_edit', '_controller' => 'App\\Controller\\LivraisonController::edit'], ['idcommande'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        382 => [[['_route' => 'app_livraison_delete', '_controller' => 'App\\Controller\\LivraisonController::delete'], ['idcommande'], ['POST' => 0], null, false, true, null]],
-        412 => [[['_route' => 'app_produit_show', '_controller' => 'App\\Controller\\ProduitController::show'], ['reference'], ['GET' => 0], null, false, true, null]],
-        439 => [[['_route' => 'app_produit_details', '_controller' => 'App\\Controller\\ProduitController::details'], ['reference'], ['GET' => 0], null, false, true, null]],
-        460 => [[['_route' => 'app_produit_delete', '_controller' => 'App\\Controller\\ProduitController::delete'], ['reference'], ['POST' => 0], null, false, true, null]],
-        482 => [
+        258 => [[['_route' => 'app_commande_edit', '_controller' => 'App\\Controller\\CommandeController::edit'], ['idcommande'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        266 => [[['_route' => 'app_commande_delete', '_controller' => 'App\\Controller\\CommandeController::delete'], ['idcommande'], ['POST' => 0], null, false, true, null]],
+        304 => [[['_route' => 'app_lignecommande_show', '_controller' => 'App\\Controller\\LignecommandeController::show'], ['idcommande'], ['GET' => 0], null, false, true, null]],
+        317 => [[['_route' => 'app_lignecommande_edit', '_controller' => 'App\\Controller\\LignecommandeController::edit'], ['idligne'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        325 => [[['_route' => 'app_lignecommande_delete', '_controller' => 'App\\Controller\\LignecommandeController::delete'], ['idligne'], ['POST' => 0], null, false, true, null]],
+        353 => [[['_route' => 'app_livraison_show', '_controller' => 'App\\Controller\\LivraisonController::show'], ['idcommande'], ['GET' => 0], null, false, true, null]],
+        366 => [[['_route' => 'app_livraison_edit', '_controller' => 'App\\Controller\\LivraisonController::edit'], ['idcommande'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        374 => [[['_route' => 'app_livraison_delete', '_controller' => 'App\\Controller\\LivraisonController::delete'], ['idcommande'], ['POST' => 0], null, false, true, null]],
+        410 => [[['_route' => 'panier_add', '_controller' => 'App\\Controller\\PanierController::add'], ['id'], null, null, false, true, null]],
+        431 => [[['_route' => 'panier_edit', '_controller' => 'App\\Controller\\PanierController::edit'], ['idcommande'], null, null, false, true, null]],
+        454 => [[['_route' => 'panier_remove', '_controller' => 'App\\Controller\\PanierController::remove'], ['id'], null, null, false, true, null]],
+        477 => [[['_route' => 'panier_delete', '_controller' => 'App\\Controller\\PanierController::delete'], ['id'], null, null, false, true, null]],
+        504 => [[['_route' => 'app_produit_show', '_controller' => 'App\\Controller\\ProduitController::show'], ['reference'], ['GET' => 0], null, false, true, null]],
+        531 => [[['_route' => 'app_produit_details', '_controller' => 'App\\Controller\\ProduitController::details'], ['reference'], ['GET' => 0], null, false, true, null]],
+        552 => [[['_route' => 'app_produit_delete', '_controller' => 'App\\Controller\\ProduitController::delete'], ['reference'], ['POST' => 0], null, false, true, null]],
+        574 => [
             [['_route' => 'app_produit_edit', '_controller' => 'App\\Controller\\ProduitController::edit'], ['reference'], ['GET' => 0, 'POST' => 1], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

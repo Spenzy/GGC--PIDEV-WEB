@@ -111,6 +111,10 @@ class Client
 
         return $this;
     }
+    public function __toString()
+    {
+        return (string) $this->getIdclient();
+    }
 
 
 }

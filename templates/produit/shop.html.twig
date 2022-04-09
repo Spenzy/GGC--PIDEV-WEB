@@ -38,11 +38,11 @@
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Shop</a>
                                 <div class="dropdown-menu m-0">
-                                    <a href="#" class="dropdown-item">Produits</a>
-                                    <a href="#" class="dropdown-item">Commande</a>
+                                    <a href="{{ path('app_produit_shop') }}" class="dropdown-item">Produits</a>
+                                    <a href="{{ path('app_commande_show') }}" class="dropdown-item">Commande</a>
                                 </div>
                             </div>
-                            <a href="#" class="nav-item nav-link">Panier</a>
+                            <a href="{{ path('panier_index') }}" class="nav-item nav-link">Panier</a>
                         </div>
                         <butaton type="button" class="btn text-secondary ms-3" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fa fa-search"></i></butaton>
                         <a href="#" class="btn btn-secondary text-light rounded-pill py-2 px-4 ms-3">Déconnexion</a>

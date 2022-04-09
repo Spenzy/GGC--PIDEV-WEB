@@ -287,4 +287,15 @@ class Client extends \App\Entity\Client implements \Doctrine\ORM\Proxy\Proxy
         return parent::setIdclient($idclient);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function __toString()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__toString', []);
+
+        return parent::__toString();
+    }
+
 }

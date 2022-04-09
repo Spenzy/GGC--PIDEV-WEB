@@ -22,7 +22,7 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
                 null,
             ],
             'strategy' => [
-                2 => 'NONE',
+                2 => 'IDENTITY',
             ],
         ],
     ],

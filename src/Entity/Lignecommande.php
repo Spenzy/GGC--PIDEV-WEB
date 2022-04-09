@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,18 +18,18 @@ class Lignecommande
      *
      * @ORM\Column(name="idLigne", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue
      */
     private $idligne;
 
     /**
      * @var \Commande
      *
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Commande")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idCommande", referencedColumnName="idCommande")
      * })
+     * @Assert\NotNull(message="Champ obligatoire")
      */
     private $idcommande;
 
@@ -39,6 +40,7 @@ class Lignecommande
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idProduit", referencedColumnName="reference")
      * })
+     * @Assert\NotNull(message="Champ obligatoire")
      */
     private $idproduit;
 
@@ -46,6 +48,7 @@ class Lignecommande
      * @var int
      *
      * @ORM\Column(name="quantite", type="integer", nullable=false)
+     * @Assert\NotNull(message="Champ obligatoire")
      */
     private $quantite;
 
@@ -53,6 +56,7 @@ class Lignecommande
      * @var float
      *
      * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
+     * @Assert\NotNull(message="Champ obligatoire")
      */
     private $prix;
 
@@ -64,6 +68,13 @@ class Lignecommande
     public function getIdcommande(): ?Commande
     {
         return $this->idcommande;
+    }
+
+    public function setIdcommande(Commande $idcommande) : self
+    {
+        $this->idcommande=$idcommande;
+
+        return $this;
     }
 
     public function getIdproduit(): ?Produit

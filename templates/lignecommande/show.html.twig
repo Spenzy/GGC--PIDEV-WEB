@@ -3,28 +3,44 @@
 {% block title %}Lignecommande{% endblock %}
 
 {% block body %}
-    <h1>Lignecommande</h1>
+    <div class="section-title position-relative text-center mb-5 pb-2 wow fadeInUp">
+        <h2 class="mt-2">  Validez les détails de votre commande </h2>
+    </div>    </section>
+
 
     <table class="table">
+        <thead>
+        <tr>
+            <th>Produit</th>
+            <th>Quantite</th>
+            <th>Prix</th>
+        </tr>
+        </thead>
         <tbody>
+        {% set total=0 %}
+
+        {% for lignecommande in lignes %}
+            {% set total=total+ lignecommande.prix  %}
+
             <tr>
-                <th>Idligne</th>
-                <td>{{ lignecommande.idligne }}</td>
-            </tr>
-            <tr>
-                <th>Quantite</th>
+                <td>{{ lignecommande.idproduit.libelle }}</td>
                 <td>{{ lignecommande.quantite }}</td>
-            </tr>
-            <tr>
-                <th>Prix</th>
                 <td>{{ lignecommande.prix }}</td>
             </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Aucun produit trouvé dans cette commande</td>
+            </tr>
+        {% endfor %}
+        <tfoot>
+        <tr>
+            <td> Prix Total : </td>
+            <td class="text-primary">{{ total }} DT</td>
+        </tr>
+        </tfoot>
         </tbody>
     </table>
 
-    <a href="{{ path('app_lignecommande_index') }}">back to list</a>
 
-    <a href="{{ path('app_lignecommande_edit', {'idligne': lignecommande.idligne}) }}">edit</a>
 
-    {{ include('lignecommande/_delete_form.html.twig') }}
 {% endblock %}

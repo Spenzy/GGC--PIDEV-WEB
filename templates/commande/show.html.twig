@@ -5,34 +5,41 @@
 {% block body %}
     <h1>Commande</h1>
 
+
+
+
     <table class="table">
+
+        <tr>
+            <th>Id Commande</th>
+            <th>Adresse</th>
+            <th>Prix Total</th>
+            <th>Date Commande</th>
+            <th>Livraison</th>
+            <th>Actions</th>
+        </tr>
+    {% for commande in commandes %}
         <tbody>
-            <tr>
-                <th>Idcommande</th>
-                <td>{{ commande.idcommande }}</td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ commande.adresse }}</td>
-            </tr>
-            <tr>
-                <th>Prix</th>
-                <td>{{ commande.prix }}</td>
-            </tr>
-            <tr>
-                <th>Livree</th>
-                <td>{{ commande.livree ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Datecommande</th>
-                <td>{{ commande.datecommande ? commande.datecommande|date('Y-m-d') : '' }}</td>
-            </tr>
+
+        <tr>
+            <td>{{ commande.idcommande }}</td>
+            <td>{{ commande.adresse }}</td>
+            <td>{{ commande.prix }}</td>
+            <td>{{ commande.datecommande ? commande.datecommande|date('Y-m-d') : '' }}</td>
+            <td>{{ commande.livree ? 'Oui' : 'Non' }}</td>
+            <td>
+                <div class="d-flex justify-content-end">
+                    <a href="{{ path('app_lignecommande_show', {'idcommande': commande.idcommande}) }}" class="btn btn-outline-dark">Détails</a>{{ include('commande/_delete_form.html.twig') }}
+                </div>
+            </td>
+        </tr>
+
         </tbody>
+
+{% else %}
+    <tr>
+        <td colspan="5" class="text-center">Vous n'avez passé aucune commande</td>
+    </tr>
+    {% endfor %}
     </table>
-
-    <a href="{{ path('app_commande_index') }}">back to list</a>
-
-    <a href="{{ path('app_commande_edit', {'idcommande': commande.idcommande}) }}">edit</a>
-
-    {{ include('commande/_delete_form.html.twig') }}
 {% endblock %}
