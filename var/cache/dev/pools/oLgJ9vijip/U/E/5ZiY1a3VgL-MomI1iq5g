@@ -21,9 +21,6 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
             'scale' => [
                 null,
             ],
-            'strategy' => [
-                2 => 'NONE',
-            ],
         ],
     ],
     [

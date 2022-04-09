@@ -1,20 +1,138 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PanierController!{% endblock %}
+{% block title %}Votre panier{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <!-- Template Stylesheet -->
+    <link href={{asset("css/shop.css")}} rel="">
+
+{% endblock %}
+
+{% block header %}
+    <header>
+        <div class="container-xxl bg-white p-0">
+            <!-- Spinner Start -->
+            <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+                <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <!-- Spinner End -->
+
+
+            <!-- Navbar Start -->
+            <div class="container-xxl position-relative p-0">
+                <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+                    <a href="" class="navbar-brand p-0">
+                        {#<h1 class="m-0"><i class="fa fa-search me-2"></i>SEO<span class="fs-5">Master</span></h1> #}
+                        <img src={{asset("img/LogoGGC.png")}} alt="Logo">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="fa fa-bars"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <div class="navbar-nav ms-auto py-0">
+                            <a href="#" class="nav-item nav-link ">Home</a>
+                            <a href="#" class="nav-item nav-link">Forum</a>
+                            <a href="#" class="nav-item nav-link">Streamers</a>
+                            <a href="#" class="nav-item nav-link">Evennements</a>
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown">Shop</a>
+                                <div class="dropdown-menu m-0">
+                                    <a href="{{ path('app_produit_shop') }}" class="dropdown-item">Produits</a>
+                                    <a href="{{ path('app_commande_show') }}" class="dropdown-item">Commande</a>
+                                </div>
+                            </div>
+                            <a href="{{ path('panier_index') }}" class="nav-item nav-link active">Panier</a>
+                        </div>
+                        <butaton type="button" class="btn text-secondary ms-3" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fa fa-search"></i></butaton>
+                        <a href="#" class="btn btn-secondary text-light rounded-pill py-2 px-4 ms-3">Déconnexion</a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- Navbar -->
+{% endblock %}
+
+{% block hero %}
+    <div class="container-xxl py-5 bg-primary hero-header mb-5">
+        <div class="container my-5 py-5 px-lg-5">
+            <div class="row g-5 py-5">
+                <div class="col-lg-6 text-center text-lg-start">
+
+                    <h1 class="text-white mb-4 animated zoomIn">Comandez ce que vous voulez</h1>
+                    <p class="text-white pb-3 animated zoomIn">Voici votre panier </p>
+                    {#     <a href="" class="btn btn-light py-sm-3 px-sm-5 rounded-pill me-3 animated slideInLeft">Free Quote</a>
+                        <a href="" class="btn btn-outline-light py-sm-3 px-sm-5 rounded-pill animated slideInRight">Contact Us</a>#}
+                </div>
+                <div class="col-lg-6 text-center text-lg-start">
+                    <img class="img-fluid" src="img/hero.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <section class=" p-3">
+        <div class="section-title position-relative text-center mb-5 pb-2 wow fadeInUp">
+            <h2 class="mt-2">  Validez votre commande </h2>
+        </div>    </section>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Prix</th>
+                <th>Quantité</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for element in dataPanier %}
+                <tr>
+                    <td>{{ element.produit.libelle }}</td>
+                    <td>{{ element.produit.prix }} Dt</td>
+                    <td>{{ element.quantite }}</td>
+                    <td>{{ element.quantite * element.produit.prix }} Dt</td>
+                    <td>
+                        <a href="{{path("panier_add", {id: element.produit.reference})}}" class="btn btn-outline-success rounded-pill">
+                            +
+                        </a>
+                        <a href="{{path("panier_remove", {id: element.produit.reference})}}" class="btn btn-outline-dark rounded-pill">
+                            -
+                        </a>
+                        <a href="{{path("panier_delete", {id: element.produit.reference})}}" class="btn btn-close rounded-pill">
+                            <i class="bi bi-panier-x"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">Votre panier est vide</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <a href="{{ path('app_produit_shop') }}" class="btn btn-outline-primary" >Retour au shop</a>
+        <tfoot>
+            <tr>
+                <td colspan="3">Total</td>
+                <td class="">{{ total }} DT</td>
+                <td>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Mr/Desktop/3ème année/2 sem/pidev/GGC--PIDEV-WEB/src/Controller/PanierController.php'|file_link(0) }}">src/Controller/PanierController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Mr/Desktop/3ème année/2 sem/pidev/GGC--PIDEV-WEB/templates/panier/index.html.twig'|file_link(0) }}">templates/panier/index.html.twig</a></code></li>
-    </ul>
-</div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <div class="d-flex justify-content-center">
+    {% if (dataPanier is not empty) %}
+    <a href="{{ path('app_commande_new') }}" class ="btn btn-outline-primary"  >Valider</a>
+    {% endif %}
+    <a href="{{path("panier_delete_all")}}" class="btn btn-outline-danger">
+        <i class="bi bi-panier-x"></i>Annuler
+    </a>
+    </div>
 {% endblock %}

@@ -22,11 +22,8 @@ class LivraisonType extends AbstractType
             ->add('idcommande',EntityType::class,[
 
                 'class'=>Commande::class,
-                'query_builder' => function(LivraisonRepository $repoLiv) {
-                return $repoLiv->createQueryBuilder('l')
-                               ->leftOuterJoin('l.idcommande','c')
-                               ->select('c.idcommande')
-                               ->where('c.livree = 0');
+                'query_builder' => function(CommandeRepository $repcmd) {
+                 return $repcmd->CommandeNonLivree();
 
                 }
 
