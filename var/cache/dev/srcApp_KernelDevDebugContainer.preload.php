@@ -10,7 +10,7 @@ if (in_array(PHP_SAPI, ['cli', 'phpdbg'], true)) {
 }
 
 require dirname(__DIR__, 3).''.\DIRECTORY_SEPARATOR.'vendor/autoload.php';
-require __DIR__.'/ContainerYl67fgC/srcApp_KernelDevDebugContainer.php';
+require __DIR__.'/ContainerD6CIns0/srcApp_KernelDevDebugContainer.php';
 
 $classes = [];
 $classes[] = 'Symfony\Bundle\FrameworkBundle\FrameworkBundle';
@@ -34,9 +34,15 @@ $classes[] = 'Symfony\Bundle\FrameworkBundle\EventListener\ResolveControllerName
 $classes[] = 'Symfony\Component\HttpFoundation\RequestMatcher';
 $classes[] = 'Symfony\Component\DependencyInjection\ServiceLocator';
 $classes[] = 'App\Controller\AvisController';
+$classes[] = 'App\Controller\CommandeController';
 $classes[] = 'App\Controller\HomePageController';
+$classes[] = 'App\Controller\LignecommandeController';
+$classes[] = 'App\Controller\LivraisonController';
 $classes[] = 'App\Controller\ProduitController';
 $classes[] = 'App\Form\AvisType';
+$classes[] = 'App\Form\CommandeType';
+$classes[] = 'App\Form\LignecommandeType';
+$classes[] = 'App\Form\LivraisonType';
 $classes[] = 'App\Form\ProduitType';
 $classes[] = 'App\Repository\AdminRepository';
 $classes[] = 'App\Repository\AvisRepository';

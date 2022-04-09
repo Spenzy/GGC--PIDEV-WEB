@@ -22,18 +22,23 @@ class Lignecommande
     private $idligne;
 
     /**
-     * @var int
+     * @var \Commande
      *
-     * @ORM\Column(name="idCommande", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\ManyToOne(targetEntity="Commande")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idCommande", referencedColumnName="idCommande")
+     * })
      */
     private $idcommande;
 
     /**
-     * @var int
+     * @var \Produit
      *
-     * @ORM\Column(name="idProduit", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Produit")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idProduit", referencedColumnName="reference")
+     * })
      */
     private $idproduit;
 
@@ -56,17 +61,17 @@ class Lignecommande
         return $this->idligne;
     }
 
-    public function getIdcommande(): ?int
+    public function getIdcommande(): ?Commande
     {
         return $this->idcommande;
     }
 
-    public function getIdproduit(): ?int
+    public function getIdproduit(): ?Produit
     {
         return $this->idproduit;
     }
 
-    public function setIdproduit(int $idproduit): self
+    public function setIdproduit(Produit $idproduit): self
     {
         $this->idproduit = $idproduit;
 

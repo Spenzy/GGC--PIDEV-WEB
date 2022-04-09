@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Livraison
@@ -13,18 +14,27 @@ use Doctrine\ORM\Mapping as ORM;
 class Livraison
 {
     /**
-     * @var int
+     * @var \Commande
      *
-     * @ORM\Column(name="idCommande", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\ManyToOne(targetEntity="Commande")
+     *  @ORM\JoinColumns({
+     * @ORM\JoinColumn(name="idCommande", referencedColumnName="idCommande")
+     * })
+     * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\NotNull(message="Champ obligatoire")
      */
     private $idcommande;
 
     /**
-     * @var int
+     * @var \Livreur
      *
-     * @ORM\Column(name="idLivreur", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Livreur")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idLivreur", referencedColumnName="idLivreur")
+     * })
+     * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\NotNull(message="Champ obligatoire")
      */
     private $idlivreur;
 
@@ -32,20 +42,29 @@ class Livraison
      * @var \DateTime
      *
      * @ORM\Column(name="DateHeure", type="date", nullable=false)
+     * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\NotNull(message="Champ obligatoire")
+     * @Assert\GreaterThan(value="today" ,message="Veuillez saisir une date supérieure à celle d'aujourd'hui")
+     *
      */
     private $dateheure;
 
-    public function getIdcommande(): ?int
+    public function getIdcommande(): ?Commande
     {
         return $this->idcommande;
     }
+    public function setIdcommande(Commande $idcommande): self
+    {
+        $this->idcommande = $idcommande;
 
-    public function getIdlivreur(): ?int
+        return $this;
+    }
+    public function getIdlivreur(): ?Livreur
     {
         return $this->idlivreur;
     }
 
-    public function setIdlivreur(int $idlivreur): self
+    public function setIdlivreur(Livreur $idlivreur): self
     {
         $this->idlivreur = $idlivreur;
 

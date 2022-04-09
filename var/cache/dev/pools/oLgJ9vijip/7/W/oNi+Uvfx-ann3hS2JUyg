@@ -2,27 +2,48 @@
 
 return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
     $o = [
-        clone (\Symfony\Component\VarExporter\Internal\Registry::$prototypes['Doctrine\\ORM\\Mapping\\Column'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\Column')),
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Doctrine\\ORM\\Mapping\\ManyToOne'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\ManyToOne')),
+        clone ($p['Doctrine\\ORM\\Mapping\\JoinColumns'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\JoinColumns')),
+        clone ($p['Doctrine\\ORM\\Mapping\\JoinColumn'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\JoinColumn')),
+        clone ($p['Symfony\\Component\\Validator\\Constraints\\NotBlank'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Symfony\\Component\\Validator\\Constraints\\NotBlank')),
+        clone ($p['Symfony\\Component\\Validator\\Constraints\\NotNull'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Symfony\\Component\\Validator\\Constraints\\NotNull')),
     ],
     null,
     [
         'stdClass' => [
+            'targetEntity' => [
+                'Livreur',
+            ],
+            'value' => [
+                1 => [
+                    $o[2],
+                ],
+            ],
             'name' => [
-                'idLivreur',
+                2 => 'idLivreur',
             ],
-            'type' => [
-                'integer',
+            'referencedColumnName' => [
+                2 => 'idLivreur',
             ],
-            'precision' => [
-                null,
+            'message' => [
+                3 => 'Champ obligatoire',
+                'Champ obligatoire',
             ],
-            'scale' => [
-                null,
+            'groups' => [
+                3 => [
+                    'Default',
+                ],
+                [
+                    'Default',
+                ],
             ],
         ],
     ],
     [
         $o[0],
+        $o[1],
+        $o[3],
+        $o[4],
     ],
     []
 ); }];
