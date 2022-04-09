@@ -18,19 +18,17 @@ class Commentaire
      *
      * @ORM\Column(name="idCommentaire", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @Assert\NotBlank
-     * @Assert\Type("integer")
+     * @ORM\GeneratedValue
      */
     private $idcommentaire;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="idPublication", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @Assert\NotBlank
+     * @ORM\ManyToOne(targetEntity="Publication")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idPublication", referencedColumnName="idPublication")
+     * })
      */
     private $idpublication;
 
@@ -68,9 +66,15 @@ class Commentaire
         return $this->idcommentaire;
     }
 
-    public function getIdpublication(): ?int
+    public function getIdpublication(): ?Publication
     {
         return $this->idpublication;
+    }
+
+    public function setIdpublication(Publication $pub): self
+    {
+        $this->idpublication = $pub;
+        return $this;
     }
 
     public function getDescription(): ?string

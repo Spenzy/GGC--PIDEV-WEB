@@ -1,4 +1,19 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit" class="btn">{{ button_label|default('Commenter') }}</button>
+{{ form_start(form,{'attr': {'class': 'panel-activity__status'}}) }}
+    <!-- Comment FORM -->
+    {{ form_label(form.description, 'Répondre:', {'label_attr': {'class': 'foo'}}) }}
+                            {{ form_widget(form.description,{'attr': {'class': 'form-control'}}) }}
+    <div class="actions">
+        <div class="btn-group">
+            <button type="button" class="btn-link" title="" data-toggle="tooltip" data-original-title="Post an Image">
+                <i class="fa fa-image"></i>
+            </button>
+            {{ form_errors(form.description) }}
+        </div>
+        <button type="submit" class="btn btn-sm btn-rounded btn-info">
+            {{ button_label|default('Commenter') }}
+        </button>
+
+    </div>
+
+    <!-- /Comment FORM -->
 {{ form_end(form) }}

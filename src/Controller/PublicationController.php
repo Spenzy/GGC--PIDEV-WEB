@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Commentaire;
 use App\Entity\Publication;
+use App\Form\CommentaireType;
 use App\Form\PublicationType;
+use App\Repository\ClientRepository;
 use App\Repository\CommentaireRepository;
 use App\Repository\PublicationRepository;
 use App\Repository\VoteRepository;
@@ -17,14 +20,15 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PublicationController extends AbstractController
 {
+
     /**
      * @Route("/", name="app_publication_index", methods={"GET"})
      */
-    public function index(PublicationRepository $publicationRepository, CommentaireRepository $cr,VoteRepository $vr): Response
+    public function index(PublicationRepository $publicationRepository, CommentaireRepository $cr, VoteRepository $vr): Response
     {
         $rs = $publicationRepository->findAll();
         $publications = array();
-        foreach ($rs as $p){
+        foreach ($rs as $p) {
             $publications[] = array(
                 $p,
                 $cr->findCommentCountByPost($p->getIdpublication()),
@@ -57,15 +61,33 @@ class PublicationController extends AbstractController
     }
 
     /**
-     * @Route("/{idpublication}", name="app_publication_show", methods={"GET"})
+     * @Route("/{idpublication}", name="app_publication_show", methods={"GET", "POST"})
      */
-    public function show(Publication $publication, CommentaireRepository $cr,VoteRepository $vr): Response
+    public function show(Request $request, Publication $publication,ClientRepository $clientr,PublicationRepository $pr, CommentaireRepository $cr, VoteRepository $vr): Response
     {
+        $userid = 1; //to be changed later
+
+        $commentaire = new Commentaire();
+        $formAdd = $this->createForm(CommentaireType::class, $commentaire);
+        $formAdd->handleRequest($request);
+
+        if ($formAdd->isSubmitted()) {
+            $commentaire->setDate(new \DateTime('today'));
+            $commentaire->setIdpublication($pr->find($publication->getIdpublication()));
+            $commentaire->setIdclient($clientr->find($userid));
+            $cr->add($commentaire);
+            return $this->redirectToRoute('app_publication_show', [
+                'idpublication' => $publication->getIdpublication(),
+            ], Response::HTTP_SEE_OTHER);
+        }
+
         return $this->render('publication/show.html.twig', [
+            'uid' => $userid,
             'p' => $publication,
             'nbrC' => $cr->findCommentCountByPost($publication->getIdpublication()),
             'nbrV' => $vr->findVoteCountByPost($publication->getIdpublication()),
-            'commentaires' => $cr->findByPost($publication->getIdpublication())
+            'commentaires' => $cr->findByPost($publication->getIdpublication()),
+            'form' => $formAdd->createView(),
         ]);
     }
 
@@ -93,7 +115,7 @@ class PublicationController extends AbstractController
      */
     public function delete(Request $request, Publication $publication, PublicationRepository $publicationRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$publication->getIdpublication(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $publication->getIdpublication(), $request->request->get('_token'))) {
             $publicationRepository->remove($publication);
         }
 
