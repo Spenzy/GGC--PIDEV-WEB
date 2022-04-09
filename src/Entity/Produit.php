@@ -72,11 +72,7 @@ class Produit
      * @var string
      *
      * @ORM\Column(name="img", type="string" , length=255 , nullable=true)
-     *  @Assert\File(
      *
-     *     mimeTypes = {"image/png"},
-     *     mimeTypesMessage = "Veuillez séléctionner un format png"
-     * )
      */
     private $img;
 
