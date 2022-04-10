@@ -27,8 +27,8 @@
     </table>
     <a class ="btn btn-light py-sm-3 px-sm-5 rounded-pill me-3 animated slideInLeft" href="{{ path('app_produit_details', {'reference': avi.referenceproduit.reference }) }}">retour aux détails du produit</a>
 
-<div class="btn btn-outline-primary">
-    <a href="{{ path('app_avis_edit', {'idavis': avi.idavis,  'reference': avi.referenceproduit.reference }) }}">Modifier</a>
+<div class="btn btn-outline-primary ">
+    <a class="" href="{{ path('app_avis_edit', {'idavis': avi.idavis,  'reference': avi.referenceproduit.reference }) }}"></a>
     </div>
 
  {{ include('avis/_delete_form.html.twig') }}

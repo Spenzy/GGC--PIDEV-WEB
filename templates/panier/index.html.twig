@@ -1,13 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Votre panier{% endblock %}
-{% block stylesheets %}
-    {{ parent() }}
-
-    <!-- Template Stylesheet -->
-    <link href={{asset("css/shop.css")}} rel="">
-
-{% endblock %}
 
 {% block header %}
     <header>
@@ -85,6 +78,7 @@
         <thead>
             <tr>
                 <th>Produit</th>
+                <th>Libellé</th>
                 <th>Prix</th>
                 <th>Quantité</th>
                 <th>Total</th>
@@ -94,6 +88,9 @@
         <tbody>
             {% for element in dataPanier %}
                 <tr>
+                    <td><div class="zoom">
+                            <img src="{{ asset('uploads/img/')~element.produit.img }}" width="100" higth="100">
+                        </div></td>
                     <td>{{ element.produit.libelle }}</td>
                     <td>{{ element.produit.prix }} Dt</td>
                     <td>{{ element.quantite }}</td>
@@ -116,7 +113,7 @@
                 </tr>
             {% endfor %}
         </tbody>
-        <a href="{{ path('app_produit_shop') }}" class="btn btn-outline-primary" >Retour au shop</a>
+        <a href="{{ path('app_produit_shop') }}"class="btn btn-outline-dark rounded-pill"><i class="bi bi-arrow-left"></i></a>
         <tfoot>
             <tr>
                 <td colspan="3">Total</td>
