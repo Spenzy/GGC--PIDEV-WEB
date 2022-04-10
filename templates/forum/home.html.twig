@@ -1,57 +1,59 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-	{{ parent() }}
-	<link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
-	<link href="{{asset("css/forum.css")}}" rel="stylesheet">
+    {{ parent() }}
+    <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+    <link href="{{ asset("css/forum.css") }}" rel="stylesheet">
+    <link href="{{ asset("css/post.css") }}" rel="stylesheet">
 {% endblock %}
 
 {% block title %}Forum
 {% endblock %}
 
 {% block body %}
-	<div id="forum-container" class="container forum-body">
+    <div id="forum-container" class="container forum-body">
         <!-- Main content -->
-        <div class="navbar navbar-dark bg-dark d-flex justify-content-between">
-            <button href="{{ path('app_publication_show', {'idpublication': p.idpublication}) }}" class="btn btn-outline-light py-sm-3 px-sm-5 rounded-pill animated slideInRight">Publier</button>
+        <div class="p-5">
+            {{ include('publication/_form.html.twig') }}
         </div>
         <!-- End of post -->
         {% for pub in publications %}
             {% set p = pub[0] %}
             {% set nbrV = pub[2] %}
             {% set nbrC = pub[1] %}
-        <div class="card row-hover pos-relative py-3 px-3 mb-3 border-primary border-top-0 border-right-0 border-bottom-0 rounded-0 shadow-lg">
-            <div class="row align-items-center">
-                <div class="col-md-8 mb-3 mb-sm-0">
-                    <h5>
-                        <a href="{{ path('app_publication_show', {'idpublication': p.idpublication}) }}" class="text-primary">{{ p.object }}</a>
-                    </h5>
-                    <p class="text-sm">
-                        <span class="op-6">Posted</span>
-                        <a class="text-black">{{ p.date | date('Y-m-d') }}</a>
-                        <span class="op-6">by</span>
-                        <a class="text-black" href="#">{{ p.idclient.idclient.nom }}</a>
-                    </p>
-                </div>
-                <div class="col-md-4 op-7">
-                    <div class="row text-center op-7">
-                        <div class="col px-1">
-                            <i class="ion-connection-bars icon-1x"></i>
-                            <span class="d-block text-sm">{{ nbrV }} Votes</span>
-                        </div>
-                        <div class="col px-1">
-                            <i class="ion-ios-chatboxes-outline icon-1x"></i>
-                            <span class="d-block text-sm">{{ nbrC }} Reponses</span>
-                        </div>
-                        <div class="col px-1">
-                            <i class="ion-ios-eye-outline icon-1x"></i>
-                            <span class="d-block text-sm">290 Views</span>
+            <div class="card row-hover pos-relative py-3 px-3 mb-3 border-primary border-top-0 border-right-0 border-bottom-0 rounded-0 shadow-lg">
+                <div class="row align-items-center">
+                    <div class="col-md-8 mb-3 mb-sm-0">
+                        <h5>
+                            <a href="{{ path('app_publication_show', {'idpublication': p.idpublication}) }}"
+                               class="text-primary">{{ p.object }}</a>
+                        </h5>
+                        <p class="text-sm">
+                            <span class="op-6">Posted</span>
+                            <a class="text-black">{{ p.date | date('Y-m-d') }}</a>
+                            <span class="op-6">by</span>
+                            <a class="text-black" href="#">{{ p.idclient.idclient.nom }}</a>
+                        </p>
+                    </div>
+                    <div class="col-md-4 op-7">
+                        <div class="row text-center op-7">
+                            <div class="col px-1">
+                                <i class="ion-connection-bars icon-1x"></i>
+                                <span class="d-block text-sm">{{ nbrV }} Votes</span>
+                            </div>
+                            <div class="col px-1">
+                                <i class="ion-ios-chatboxes-outline icon-1x"></i>
+                                <span class="d-block text-sm">{{ nbrC }} Réponses</span>
+                            </div>
+                            <div class="col px-1">
+                                <i class="ion-ios-eye-outline icon-1x"></i>
+                                <span class="d-block text-sm">290 Views</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- /End of post -->
+            <!-- /End of post -->
         {% endfor %}
     </div>
 

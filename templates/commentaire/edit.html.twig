@@ -3,11 +3,21 @@
 {% block title %}Edit Commentaire{% endblock %}
 
 {% block body %}
-    <h1>Edit Commentaire</h1>
-
-    {{ include('commentaire/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_commentaire_index') }}">back to list</a>
-
-    {{ include('commentaire/_delete_form.html.twig') }}
+    {{ include('publication/article.html.twig') }}
+    <!-- Comment Section -->
+    <div class="container d-flex justify-content-center">
+        <div class="col-lg-8 shadow-lg">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Activity Feed</h3>
+                </div>
+                <div class="panel-content panel-activity">
+                    <!-- Comments -->
+                    <ul class="panel-activity__list">
+                        {{ include('commentaire/_form.html.twig', {'button_label': 'Update'}) }}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

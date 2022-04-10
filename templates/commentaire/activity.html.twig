@@ -1,0 +1,48 @@
+<!-- Comment Section -->
+<div class="container d-flex justify-content-center">
+    <div class="col-lg-8 shadow-lg">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Activity Feed</h3>
+            </div>
+            <div class="panel-content panel-activity">
+                <!-- Comments -->
+                <ul class="panel-activity__list">
+                    {% for c in commentaires %}
+                        <li>
+                            <i class="activity__list__icon fa fa-question-circle-o"></i>
+                            <div class="activity__list__header">
+                                <div class="d-flex justify-content-start">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""/>
+                                    <a href="#">{{ c.idclient.idclient.nom }} </a> a répondu à : <a href="#"> {{ p.object }}</a>
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    {% if uid == c.idclient.idclient.idpersonne %}
+                                        <button href="{{ path('app_commentaire_edit', {'idcommentaire': c.idcommentaire}) }}"
+                                                class="btn btn-outline-dark"><i class="fa fa-edit"></i>
+                                        </button>
+                                        {{ include('commentaire/_delete_form.html.twig') }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="activity__list__body entry-content">
+                                <blockquote>
+                                    <p>
+                                        {{ c.description }}
+                                    </p>
+                                </blockquote>
+                            </div>
+                            <div class="activity__list__footer">
+                                <a href="#"> <i class="fa fa-thumbs-up"></i>123</a>
+                                <a href="#"> <i class="fa fa-comments"></i>23</a>
+                                <span> <i class="fa fa-clock"></i>{{ c.date | date('Y-m-d') }}</span>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {{ include('commentaire/_form.html.twig') }}
+
+            </div>
+        </div>
+    </div>
+</div>

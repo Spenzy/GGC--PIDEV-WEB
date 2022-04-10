@@ -22,10 +22,11 @@ class PublicationController extends AbstractController
 {
 
     /**
-     * @Route("/", name="app_publication_index", methods={"GET"})
+     * @Route("/", name="app_publication_index", methods={"GET", "POST"})
      */
-    public function index(PublicationRepository $publicationRepository, CommentaireRepository $cr, VoteRepository $vr): Response
+    public function index(Request $request, PublicationRepository $publicationRepository, ClientRepository $clientr, CommentaireRepository $cr, VoteRepository $vr): Response
     {
+        $userid = 1;
         $rs = $publicationRepository->findAll();
         $publications = array();
         foreach ($rs as $p) {
@@ -35,47 +36,46 @@ class PublicationController extends AbstractController
                 $vr->findVoteCountByPost($p->getIdpublication())
             );
         }
-        return $this->render('forum/home.html.twig', [
-            'publications' => $publications,
-        ]);
-    }
 
-    /**
-     * @Route("/new", name="app_publication_new", methods={"GET", "POST"})
-     */
-    public function new(Request $request, PublicationRepository $publicationRepository): Response
-    {
         $publication = new Publication();
         $form = $this->createForm(PublicationType::class, $publication);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $publication->setDate(new \DateTime('today'));
+            $publication->setArchive(false);
+            $publication->setIdclient($clientr->find($userid));
             $publicationRepository->add($publication);
             return $this->redirectToRoute('app_publication_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('publication/new.html.twig', [
-            'publication' => $publication,
+        return $this->render('forum/home.html.twig', [
+            'publications' => $publications,
+            'p' => $publication,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{idpublication}", name="app_publication_show", methods={"GET", "POST"})
+     * @Route("/{idpublication}/activity", name="app_publication_show", methods={"GET", "POST"})
      */
-    public function show(Request $request, Publication $publication,ClientRepository $clientr,PublicationRepository $pr, CommentaireRepository $cr, VoteRepository $vr): Response
+    public function show(Request $request, Publication $publication,
+                         ClientRepository $clientr, PublicationRepository $pr,
+                         CommentaireRepository $cr, VoteRepository $vr): Response
     {
         $userid = 1; //to be changed later
 
         $commentaire = new Commentaire();
-        $formAdd = $this->createForm(CommentaireType::class, $commentaire);
-        $formAdd->handleRequest($request);
+        $form = $this->createForm(CommentaireType::class, $commentaire);
+        $form->handleRequest($request);
 
-        if ($formAdd->isSubmitted()) {
+        if ($form->isSubmitted() ) {
             $commentaire->setDate(new \DateTime('today'));
             $commentaire->setIdpublication($pr->find($publication->getIdpublication()));
             $commentaire->setIdclient($clientr->find($userid));
+            echo"ola mi amor";
             $cr->add($commentaire);
+            echo"oops";
             return $this->redirectToRoute('app_publication_show', [
                 'idpublication' => $publication->getIdpublication(),
             ], Response::HTTP_SEE_OTHER);
@@ -87,25 +87,32 @@ class PublicationController extends AbstractController
             'nbrC' => $cr->findCommentCountByPost($publication->getIdpublication()),
             'nbrV' => $vr->findVoteCountByPost($publication->getIdpublication()),
             'commentaires' => $cr->findByPost($publication->getIdpublication()),
-            'form' => $formAdd->createView(),
+            'form' => $form->createView(),
         ]);
     }
 
     /**
      * @Route("/{idpublication}/edit", name="app_publication_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Publication $publication, PublicationRepository $publicationRepository): Response
+    public function edit(Request $request, Publication $publication, PublicationRepository $publicationRepository, CommentaireRepository $cr, VoteRepository $vr): Response
     {
+        $userid = 1; //to be changed later
         $form = $this->createForm(PublicationType::class, $publication);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $publicationRepository->add($publication);
-            return $this->redirectToRoute('app_publication_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_publication_show', [
+                'idpublication' => $publication->getIdpublication()
+            ], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('publication/edit.html.twig', [
-            'publication' => $publication,
+        return $this->render('publication/show.html.twig', [
+            'uid' => $userid,
+            'p' => $publication,
+            'nbrC' => $cr->findCommentCountByPost($publication->getIdpublication()),
+            'nbrV' => $vr->findVoteCountByPost($publication->getIdpublication()),
+            'commentaires' => $cr->findByPost($publication->getIdpublication()),
             'form' => $form->createView(),
         ]);
     }
@@ -118,7 +125,6 @@ class PublicationController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $publication->getIdpublication(), $request->request->get('_token'))) {
             $publicationRepository->remove($publication);
         }
-
         return $this->redirectToRoute('app_publication_index', [], Response::HTTP_SEE_OTHER);
     }
 }

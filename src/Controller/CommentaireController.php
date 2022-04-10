@@ -9,52 +9,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
 /**
- * @Route("/commentaire")
+ * @Route("/forum")
  */
+
 class CommentaireController extends AbstractController
 {
-    /**
-     * @Route("/", name="app_commentaire_index", methods={"GET"})
-     */
-    public function index(CommentaireRepository $commentaireRepository): Response
-    {
-        return $this->render('commentaire/index.html.twig', [
-            'commentaires' => $commentaireRepository->findAll(),
-        ]);
-    }
-
-    /**
-     * @Route("/new", name="app_commentaire_new", methods={"GET", "POST"})
-     */
-    public function new(Request $request, CommentaireRepository $commentaireRepository): Response
-    {
-        $commentaire = new Commentaire();
-        $form = $this->createForm(CommentaireType::class, $commentaire);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $commentaireRepository->add($commentaire);
-            return $this->redirectToRoute('app_commentaire_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('commentaire/new.html.twig', [
-            'commentaire' => $commentaire,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{idcommentaire}", name="app_commentaire_show", methods={"GET"})
-     */
-    public function show(Commentaire $commentaire): Response
-    {
-        return $this->render('commentaire/show.html.twig', [
-            'commentaire' => $commentaire,
-        ]);
-    }
-
     /**
      * @Route("/{idcommentaire}/edit", name="app_commentaire_edit", methods={"GET", "POST"})
      */
@@ -65,7 +25,9 @@ class CommentaireController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $commentaireRepository->add($commentaire);
-            return $this->redirectToRoute('app_commentaire_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_publication_show', [
+                'idpublication' => $commentaire->getIdpublication()->getIdpublication()
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('commentaire/edit.html.twig', [
@@ -81,9 +43,10 @@ class CommentaireController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$commentaire->getIdcommentaire(), $request->request->get('_token'))) {
             $cr->remove($commentaire);
-            return $this->redirectToRoute('app_publication_show', [
-                'idpublication' => $commentaire->getIdpublication()->getIdpublication(),
-            ], Response::HTTP_SEE_OTHER);
         }
+        return $this->redirectToRoute('app_publication_show', [
+            'idpublication' => $commentaire->getIdpublication()->getIdpublication(),
+        ], Response::HTTP_SEE_OTHER);
     }
+
 }

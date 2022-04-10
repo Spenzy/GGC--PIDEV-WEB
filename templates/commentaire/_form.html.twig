@@ -1,7 +1,7 @@
 {{ form_start(form,{'attr': {'class': 'panel-activity__status'}}) }}
     <!-- Comment FORM -->
-    {{ form_label(form.description, 'Répondre:', {'label_attr': {'class': 'foo'}}) }}
-                            {{ form_widget(form.description,{'attr': {'class': 'form-control'}}) }}
+    {{ form_label(form.description, 'Répondre:') }}
+    {{ form_widget(form.description,{'attr': {'class': 'form-control'}}) }}
     <div class="actions">
         <div class="btn-group">
             <button type="button" class="btn-link" title="" data-toggle="tooltip" data-original-title="Post an Image">
@@ -14,6 +14,5 @@
         </button>
 
     </div>
-
     <!-- /Comment FORM -->
 {{ form_end(form) }}
