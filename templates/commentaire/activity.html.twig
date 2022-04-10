@@ -18,9 +18,9 @@
                                 </div>
                                 <div class="d-flex justify-content-end">
                                     {% if uid == c.idclient.idclient.idpersonne %}
-                                        <button href="{{ path('app_commentaire_edit', {'idcommentaire': c.idcommentaire}) }}"
+                                        <a href="{{ path('app_commentaire_edit', { 'idpublication':c.idpublication.idpublication, 'idcommentaire': c.idcommentaire}) }}"
                                                 class="btn btn-outline-dark"><i class="fa fa-edit"></i>
-                                        </button>
+                                        </a>
                                         {{ include('commentaire/_delete_form.html.twig') }}
                                     {% endif %}
                                 </div>

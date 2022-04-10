@@ -37,7 +37,8 @@ class Commentaire
      *
      * @ORM\Column(name="description", type="string", length=250, nullable=false)
      * @Assert\NotBlank(message="Veuillez taper un commentaire!")
-     * @Assert\Type("string", message="The value {{ description }} is not a valid {{ type }}.")
+     * @Assert\NotNull(message="Veuillez taper un commentaire!")
+     * @Assert\Type("string", message="Le contenu {{ description }} n'est pas une chaine valide.")
      */
     private $description;
 
@@ -48,7 +49,6 @@ class Commentaire
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idClient", referencedColumnName="idClient")
      * })
-     * @Assert\NotBlank
      */
     private $idclient;
 

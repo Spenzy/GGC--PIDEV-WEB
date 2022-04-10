@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Commentaire;
 use App\Form\CommentaireType;
 use App\Repository\CommentaireRepository;
+use App\Repository\VoteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,9 +17,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommentaireController extends AbstractController
 {
     /**
-     * @Route("/{idcommentaire}/edit", name="app_commentaire_edit", methods={"GET", "POST"})
+     * @Route("/{idpublication}/{idcommentaire}/modif", name="app_commentaire_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Commentaire $commentaire, CommentaireRepository $commentaireRepository): Response
+    public function edit(Request $request, Commentaire $commentaire, CommentaireRepository $commentaireRepository, VoteRepository $vr): Response
     {
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($request);
@@ -31,6 +32,9 @@ class CommentaireController extends AbstractController
         }
 
         return $this->render('commentaire/edit.html.twig', [
+            'p' => $commentaire->getIdpublication(),
+            'nbrC' => $commentaireRepository->findCommentCountByPost($commentaire->getIdpublication()->getIdpublication()),
+            'nbrV' => $vr->findVoteCountByPost($commentaire->getIdpublication()->getIdpublication()),
             'commentaire' => $commentaire,
             'form' => $form->createView(),
         ]);

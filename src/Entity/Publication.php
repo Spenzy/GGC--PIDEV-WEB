@@ -29,6 +29,7 @@ class Publication
      *
      * @ORM\Column(name="object", type="string", length=100, nullable=false)
      * @Assert\NotBlank(message="Veuillez entrer un objet!")
+     * @Assert\Type("string", message="Le contenu {{ description }} n'est pas une chaine valide.")
      */
     private $object;
 
@@ -36,6 +37,7 @@ class Publication
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=250, nullable=false)
+     * @Assert\Type("string", message="Le contenu {{ description }} n'est pas une chaine valide.")
      */
     private $description;
 

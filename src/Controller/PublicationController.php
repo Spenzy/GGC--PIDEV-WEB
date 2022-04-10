@@ -69,13 +69,11 @@ class PublicationController extends AbstractController
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() ) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $commentaire->setDate(new \DateTime('today'));
             $commentaire->setIdpublication($pr->find($publication->getIdpublication()));
             $commentaire->setIdclient($clientr->find($userid));
-            echo"ola mi amor";
             $cr->add($commentaire);
-            echo"oops";
             return $this->redirectToRoute('app_publication_show', [
                 'idpublication' => $publication->getIdpublication(),
             ], Response::HTTP_SEE_OTHER);
@@ -92,7 +90,7 @@ class PublicationController extends AbstractController
     }
 
     /**
-     * @Route("/{idpublication}/edit", name="app_publication_edit", methods={"GET", "POST"})
+     * @Route("/{idpublication}/modification", name="app_publication_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Publication $publication, PublicationRepository $publicationRepository, CommentaireRepository $cr, VoteRepository $vr): Response
     {
@@ -107,12 +105,11 @@ class PublicationController extends AbstractController
             ], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('publication/show.html.twig', [
+        return $this->render('publication/edit.html.twig', [
             'uid' => $userid,
             'p' => $publication,
             'nbrC' => $cr->findCommentCountByPost($publication->getIdpublication()),
             'nbrV' => $vr->findVoteCountByPost($publication->getIdpublication()),
-            'commentaires' => $cr->findByPost($publication->getIdpublication()),
             'form' => $form->createView(),
         ]);
     }

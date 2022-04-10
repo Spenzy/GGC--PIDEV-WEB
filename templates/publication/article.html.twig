@@ -1,4 +1,13 @@
 <article class="row post vt-post shadow-sm d-flex justify-content-center shadow-lg">
+    <div class="d-flex justify-content-end">
+        <a href="{{ path('app_publication_edit', {'idpublication': p.idpublication}) }} "
+                class="btn btn-outline-warning">
+            <i class="fa fa-edit"></i>
+        </a>
+        <button class="btn btn-outline-warning">
+            <i class="fa fa-archive"></i>
+        </button>
+    </div>
     <div class="col-xs-11 col-sm-4 col-md-4 col-lg-3">
         <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="post-img img-responsive"
              alt="image post" width="275" height="250">

@@ -26,9 +26,6 @@ class Vote
      * @var int
      *
      * @ORM\Column(name="idPublication", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     *
      */
     private $idpublication;
 

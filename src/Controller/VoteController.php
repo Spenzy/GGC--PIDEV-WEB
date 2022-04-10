@@ -15,69 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class VoteController extends AbstractController
 {
-    /**
-     * @Route("/", name="app_vote_index", methods={"GET"})
-     */
-    public function index(VoteRepository $voteRepository): Response
-    {
-        return $this->render('vote/index.html.twig', [
-            'votes' => $voteRepository->findAll(),
-        ]);
-    }
-
-    /**
-     * @Route("/new", name="app_vote_new", methods={"GET", "POST"})
-     */
-    public function new(Request $request, VoteRepository $voteRepository): Response
-    {
-        $vote = new Vote();
-        $form = $this->createForm(VoteType::class, $vote);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $voteRepository->add($vote);
-            return $this->redirectToRoute('app_vote_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('vote/new.html.twig', [
-            'vote' => $vote,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{idclient}", name="app_vote_show", methods={"GET"})
-     */
-    public function show(Vote $vote): Response
-    {
-        return $this->render('vote/show.html.twig', [
-            'vote' => $vote,
-        ]);
-    }
-
-    /**
-     * @Route("/{idclient}/edit", name="app_vote_edit", methods={"GET", "POST"})
-     */
-    public function edit(Request $request, Vote $vote, VoteRepository $voteRepository): Response
-    {
-        $form = $this->createForm(VoteType::class, $vote);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $voteRepository->add($vote);
-            return $this->redirectToRoute('app_vote_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('vote/edit.html.twig', [
-            'vote' => $vote,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{idclient}", name="app_vote_delete", methods={"POST"})
-     */
-    public function delete(Request $request, Vote $vote, VoteRepository $voteRepository): Response
+    public function vote(Request $request, Vote $vote, VoteRepository $voteRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$vote->getIdclient(), $request->request->get('_token'))) {
             $voteRepository->remove($vote);
