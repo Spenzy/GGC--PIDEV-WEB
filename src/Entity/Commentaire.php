@@ -23,7 +23,7 @@ class Commentaire
     private $idcommentaire;
 
     /**
-     * @var int
+     * @var \Publication
      *
      * @ORM\ManyToOne(targetEntity="Publication")
      * @ORM\JoinColumns({
