@@ -2,86 +2,69 @@
 
 namespace App\Entity;
 
+use App\Repository\ParticipationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Participation
- *
- * @ORM\Table(name="participation", indexes={@ORM\Index(name="fk_client_participation", columns={"idClient"}), @ORM\Index(name="fk_participation_event", columns={"idEvent"})})
- * @ORM\Entity(repositoryClass="App\Repository\ParticipationRepository")
+ * @ORM\Entity(repositoryClass=ParticipationRepository::class)
  */
 class Participation
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="idParticipation", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
      */
-    private $idparticipation;
+    private $idParticipation;
+
+    public function getIdParticipation(): ?int
+    {
+        return $this->idParticipation;
+    }
+     /**
+     * @ORM\ManyToOne(targetEntity=Client::class)
+     * @ORM\JoinColumn(name="idClient",referencedColumnName="idClient",nullable=false)
+     */
+    private $idClient;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="idEvent", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\ManyToOne(targetEntity=Evenement::class)
+     * @ORM\JoinColumn(name="idEvent",referencedColumnName="reference",nullable=false)
      */
-    private $idevent;
+    private $idEvent;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="nbrEtoile", type="integer", nullable=false)
-     */
-    private $nbretoile;
 
-    /**
-     * @var \Client
-     *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="Client")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idClient", referencedColumnName="idClient")
-     * })
-     */
-    private $idclient;
+   
 
-    public function getIdparticipation(): ?int
+
+
+    public function getIdClient(): ?Client
     {
-        return $this->idparticipation;
+        return $this->idClient;
     }
 
-    public function getIdevent(): ?int
+    public function setIdClient(?Client $idClient): self
     {
-        return $this->idevent;
-    }
-
-    public function getNbretoile(): ?int
-    {
-        return $this->nbretoile;
-    }
-
-    public function setNbretoile(int $nbretoile): self
-    {
-        $this->nbretoile = $nbretoile;
+        $this->idClient = $idClient;
 
         return $this;
     }
 
-    public function getIdclient(): ?Client
+    public function getIdEvent(): ?Evenement
     {
-        return $this->idclient;
+        return $this->idEvent;
     }
 
-    public function setIdclient(?Client $idclient): self
+
+    public function setIdEvent(?Evenement $idEvent): self
     {
-        $this->idclient = $idclient;
+        $this->idEvent = $idEvent;
 
         return $this;
     }
+
+
 
 
 }

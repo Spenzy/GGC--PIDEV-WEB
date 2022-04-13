@@ -4,12 +4,16 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * Evenement
  *
  * @ORM\Table(name="evenement")
  * @ORM\Entity(repositoryClass="App\Repository\EvenementRepository")
+ * @UniqueEntity(fields="reference", message="Un evenement existe déjà avec cette reference.")
  */
 class Evenement
 {
@@ -18,6 +22,7 @@ class Evenement
      *
      * @ORM\Column(name="reference", type="integer", nullable=false)
      * @ORM\Id
+    
      
      */
     private $reference;
@@ -25,7 +30,7 @@ class Evenement
     /**
 
      * @ORM\Column(name="dateDebut", type="date", nullable=false)
-     * @Assert\GreaterThanOrEqual("today")
+     * @Assert\GreaterThanOrEqual("today",message="La date du debut doit être supérieure à la date d'aujourd'hui"))
      */
     private $datedebut;
 
@@ -59,7 +64,7 @@ class Evenement
      *      min = 10,
      *      max = 250,
      *      minMessage = "Your first name must be at least {{ limit }} characters long",
-     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters")
      */
     private $description;
      /**
@@ -75,6 +80,8 @@ class Evenement
      * @var int
      *
      * @ORM\Column(name="nbrParticipant", type="integer", nullable=false)
+     * @Assert\Positive(
+     message="le nbr Participants doit etre positive")
      */
     private $nbrparticipant;
 
@@ -179,5 +186,25 @@ class Evenement
         return $this;
     }
 
+ /**
+     * @return Collection|Participation[]
+     */
+    public function getParticipation(): Collection
+    {
+        return $this->participation;
+    }
 
+    /**
+     * @ORM\OneToMany(targetEntity=Participation::class, mappedBy="idEvent",cascade={"remove"}, orphanRemoval=true )
+     */
+    private $participation;
+
+    public function __construct2()
+    {
+        $this->participation = new ArrayCollection();
+    }
+    public function __toString()
+    {
+        return (string)$this->getReference();
+    }
 }

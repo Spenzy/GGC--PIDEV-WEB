@@ -18,7 +18,7 @@
             rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href={{asset("css/sb-admin-2.min.css")}} rel="stylesheet">
 
 </head>
 
@@ -55,45 +55,21 @@
                 Espace de gestion
             </div>
 
-            <!-- Nav Item - Gestion d'utilisateur -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Gestion d'utilisateur</span></a>
-            </li>
-              <!-- Nav Item - Gestion d'utilisateur -->
+            
+
+            <!-- Nav Item - Gestion des evenements -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('event') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Gestion evenement</span></a>
+                    <span>Gestion des evenements</span></a>
             </li>
-
-            <!-- Nav Item - Gestion des moderateurs -->
+      
+           
+           <!-- Nav Item - Forum -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="{{ path('MesPar') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Gestion des moderateurs</span></a>
-            </li>
-
-            <!-- Nav Item - Gestion Produits -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Gestion Produits</span></a>
-            </li>
-
-            <!-- Nav Item - Gestions Commandes -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Gestions Commandes</span></a>
-            </li>
-
-            <!-- Nav Item - Forum -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Forum</span></a>
+                    <span>Gestion participation</span></a>
             </li>
 
         </ul>
@@ -104,7 +80,7 @@
 
             <!-- Main Content -->
             <div id="content">
-
+                {% block navbar %}
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -112,7 +88,7 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
+                
                     <!-- Topbar Search -->
                     <form
                             class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
@@ -221,7 +197,7 @@
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
+                                        <img class="rounded-circle" src={{asset("img/undraw_profile_1.svg")}}
                                              alt="...">
                                         <div class="status-indicator bg-success"></div>
                                     </div>
@@ -233,7 +209,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
+                                        <img class="rounded-circle" src={{asset("img/undraw_profile_2.svg")}}
                                              alt="...">
                                         <div class="status-indicator"></div>
                                     </div>
@@ -245,7 +221,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
+                                        <img class="rounded-circle" src={{asset("img/undraw_profile_3.svg")}}
                                              alt="...">
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
@@ -279,7 +255,7 @@
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
                                 <img class="img-profile rounded-circle"
-                                     src="img/undraw_profile.svg">
+                                     src={{asset("img/undraw_profile.svg")}}>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -307,18 +283,21 @@
                     </ul>
 
                 </nav>
+                {% endblock %}
                 <!-- End of Topbar -->
             </div>
-        </div>
-
-        <!-- Page Content -->
-        <div class="container-fluid">
             {% block body %}
 
             {% endblock %}
         </div>
 
+        <!-- Page Content -->
+        
+            
+      
+
 
     </div>
+    
 
 </body>

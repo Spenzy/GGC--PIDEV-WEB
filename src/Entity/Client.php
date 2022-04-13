@@ -50,7 +50,7 @@ class Client
      *   @ORM\JoinColumn(name="idClient", referencedColumnName="id_personne")
      * })
      */
-    private $idclient;
+    private $idClient;
 
     public function getNbravertissement(): ?int
     {
@@ -100,17 +100,20 @@ class Client
         return $this;
     }
 
-    public function getIdclient(): ?Personne
+    public function getIdClient(): ?Personne
     {
-        return $this->idclient;
+        return $this->idClient;
     }
 
-    public function setIdclient(?Personne $idclient): self
+    public function setIdClient(?Personne $idClient): self
     {
-        $this->idclient = $idclient;
+        $this->idClient = $idClient;
 
         return $this;
     }
 
-
+    public function __toString()
+    {
+        return (string)$this->getIdClient();
+    }
 }

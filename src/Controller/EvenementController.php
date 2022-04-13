@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/")
@@ -19,11 +20,17 @@ class EvenementController extends AbstractController
     /**
      * @Route("/evenement", name="event", methods={"GET"})
      */
-    public function index(EvenementRepository $evenementRepository): Response
+    public function index(EvenementRepository $evenementRepository,PaginatorInterface $paginator): Response
     {
         return $this->render('evenement/index.html.twig', [
             'evenements' => $evenementRepository->findAll(),
         ]);
+        
+        $eventl = $paginator->paginate(
+            $eventl, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            4 // Nombre de résultats par page
+        );
     }
 
     /**
@@ -61,7 +68,8 @@ class EvenementController extends AbstractController
             'evenement' => $evenement,
         ]);
     }
-
+    
+   
     /**
      * @Route("edit{reference}", name="edit", methods={"GET", "POST"})
      */
