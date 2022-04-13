@@ -38,8 +38,6 @@ class Personne
 
     /**
      * @var \DateTime
-     * @Assert\Date
-     * @Assert\GreaterThanOrEqual(propertyPath="dateDebut", message="La date du fin doit être supérieure à la date début")
      * @ORM\Column(name="dateNaissance", type="date", nullable=false)
      */
     private $datenaissance;

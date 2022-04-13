@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity;
+use App\Entity\Personne;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -13,17 +14,26 @@ use Doctrine\ORM\Mapping as ORM;
 class Moderateur
 {
     /**
-     * @var int
+     * @var \Personne
      *
-     * @ORM\Column(name="id_moderateur", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\OneToOne(targetEntity="Personne")
+     * @ORM\JoinColumns({
+     * @ORM\JoinColumn(name="id_moderateur", referencedColumnName="id_personne")
+     * })
+     * 
      */
     private $idModerateur;
 
-    public function getIdModerateur(): ?int
+    public function getIdModerateur(): ?Personne
     {
         return $this->idModerateur;
+    }
+    public function setIdModerateur(?Personne $idModerateur): self
+    {
+        $this->idModerateur = $idModerateur;
+
+        return $this;
     }
 
 

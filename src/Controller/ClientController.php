@@ -69,26 +69,21 @@ class ClientController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($personne);          
-            $em->flush();
+            //$em = $this->getDoctrine()->getManager();
+            //$em->persist($personne);          
+            //$em->flush();
+            $personneRepository->add($personne);
             //$id_selected = $form->getData()->getIdPersonne();
             $client->setIdclient($personne);
-            $em->persist($client);
-            $em->flush();
+            //$em->persist($client);
+            //$em->flush();
+            $clientRepository->add($client);
             return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
         }
         
-        //$client->setIdclient($personne->getIdPersonne());
-        //$em->persist($client);
-        //$em->flush();
-        
         $em = $this->getDoctrine()->getManager();
         
-        
-
-
-        return $this->render('client/new.html.twig', [
+             return $this->render('client/new.html.twig', [
             'client' => $client,
             'form' => $form->createView(),
         ]);

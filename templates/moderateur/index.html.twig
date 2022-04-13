@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Moderateur index{% endblock %}
+
+{% block body %}
+    <h1>Moderateur index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for moderateur in moderateurs %}
+            <tr>
+                <td>
+                    <a href="{{ path('app_moderateur_show', {'idModerateur': moderateur.idModerateur}) }}">show</a>
+                    <a href="{{ path('app_moderateur_edit', {'idModerateur': moderateur.idModerateur}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="1">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_moderateur_ajout') }}">Create new</a>
+{% endblock %}
