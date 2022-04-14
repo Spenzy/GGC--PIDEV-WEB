@@ -17,16 +17,17 @@ class Plan
      *
      * @ORM\Column(name="idPlan", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue
      */
     private $idplan;
 
     /**
-     * @var int
+     * @var \Personne
      *
-     * @ORM\Column(name="idStreamer", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToOne(targetEntity="Personne")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idStreamer", referencedColumnName="id_personne")
+     * })
      */
     private $idstreamer;
 
@@ -70,9 +71,15 @@ class Plan
         return $this->idplan;
     }
 
-    public function getIdstreamer(): ?int
+    public function getIdstreamer(): ?Personne
     {
         return $this->idstreamer;
+    }
+
+    public function setIdstreamer(Personne $s): self
+    {
+        $this->idstreamer = $s;
+        return $this;
     }
 
     public function getDate(): ?\DateTimeInterface

@@ -30,7 +30,6 @@ class Streamer
      * @var \Personne
      *
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\OneToOne(targetEntity="Personne")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idStreamer", referencedColumnName="id_personne")
