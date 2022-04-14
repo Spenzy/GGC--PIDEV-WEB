@@ -44,7 +44,6 @@ class ParticipationController extends AbstractController
 
         if ($form->isSubmitted() and $form->isValid()) {
 
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($Participation);
             $em->flush();

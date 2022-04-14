@@ -48,7 +48,7 @@ class Evenement
      *
      * @ORM\Column(name="localisation", type="string", length=50, nullable=false)
          * @Assert\Length(
-     *      min = 4,
+     *      min = 3,
      *      max = 100,
      *      minMessage = "Your first name must be at least {{ limit }} characters long",
      *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"

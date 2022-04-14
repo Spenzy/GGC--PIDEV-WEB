@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Evenements{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset("css/event.css") }}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+
+<div class="container">
+    <h1>Events</h1>
+    <div class="row">
+    {% for evenement in evenement %}
+        <article class="card fl-left">
+            <section class="date">
+                <time datetime="23th feb">
+                <span>{{ evenement.titre }}</span>
+                </time>
+            </section>
+            <section class="card-cont ">
+            <div class="d-flex justify-content-between">
+                <div class="container-fluid">
+                    <small></small>
+                    <h3></h3>
+                    <div class="even-date">
+                    <i ></i>
+                    <time>
+                    <span >Date debut :  {{ evenement.datedebut ? evenement.datedebut|date('Y-m-d') : '' }}</span> 
+                    <span >Date fin   :  {{ evenement.datefin ? evenement.datefin|date('Y-m-d') : '' }}</span>
+                    </time>
+                    </div>
+                    
+                    <span> Localisation : {{ evenement.localisation }}</span>
+                    
+            
+                    <p>
+                        Description :{{ evenement.description }}
+                    </p>
+                </div>
+                <div class="container-fluid">
+                    <img src="{{ asset('images/'~evenement.photo) }}" 
+                    alt="  {{ evenement.photo }}" 
+                    width="150" height="150">
+
+                    <a href="{{ path('addParticipation',{'id': evenement.reference }) }}">Participer</a>
+                </div>
+                </div>
+
+            </section>
+            <section>
+            </section>
+        </article>
+    {% endfor %}
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+    {#<h1>Nos Evenements</h1>
+
+    <table class="table">
+        <tbody>
+         {% for evenement in evenement %}
+        </tr>
+            <a href="{{ path('event',{'reference': evenement.reference}) }}">
+                        <img src="{{ asset('images/'~evenement.photo) }}" alt="  {{ evenement.photo }}" width="250" height="250"></a></td>
+                <td>
+                </tr>
+          
+            <tr>
+                <th>Datedebut</th>
+                <td>{{ evenement.datedebut ? evenement.datedebut|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Datefin</th>
+                <td>{{ evenement.datefin ? evenement.datefin|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Localisation</th>
+                <td>{{ evenement.localisation }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ evenement.description }}</td>
+            </tr>
+            <tr>
+                <th>Nbrparticipant</th>
+                <td>{{ evenement.nbrparticipant }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ evenement.titre }}</td>
+            </tr>
+             {% endfor %}
+        </tbody>
+    </table>#}
+
+{% endblock %}

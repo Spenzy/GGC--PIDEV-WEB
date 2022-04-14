@@ -45,6 +45,6 @@
     <a href="{{ path('event') }}">back to list</a>
 
     <a href="{{ path('edit', {'reference': evenement.reference}) }}">edit</a>
-<a href="{{ path('addParticipation',{'id': evenement.reference }) }}" class="btn">Reserver</a>
+<a href="{{ path('addParticipation',{'id': evenement.reference }) }}" class="btn">participer</a>
     {{ include('evenement/_delete_form.html.twig') }}
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends 'admin/index.html.twig' %}
+{% extends 'base.html.twig' %}
          {% block body %}
 
 
@@ -8,7 +8,7 @@
                  <thead>
                  <tr>
 
-                     <th>idClient</th>
+                     
                      <th>titre event</th>
 
                  </tr>
@@ -17,9 +17,7 @@
                  {% for i in participations %}
                      <tr>
 
-                         <td>
-                             {{ i.idClient }}
-                         </td>
+                        
 
                          <td>
                              {{ i.idEvent.getTitre()}}
