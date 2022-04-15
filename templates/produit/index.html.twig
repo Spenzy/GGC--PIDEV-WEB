@@ -4,6 +4,8 @@
 {% block title %}Liste des Produits{% endblock %}
 
 {% block body %}
+    <a href="{{ path('app_produit_note',{'reference':0}) }}" class="btn btn-outline-dark">Note</a>
+
     <h1>Liste des produits</h1>
 
     <table class="table">

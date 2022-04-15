@@ -145,5 +145,24 @@ class ProduitController extends AbstractController
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
     }
 
+    /**
+     * @Route("/{reference}/note", name="app_produit_note", methods={"POST","GET"})
+     */
+    public function excuse(ProduitRepository $produitRepository,AvisRepository $avisRepository): Response
+    {
+        $produits=$produitRepository->findAll();
+        foreach ($produits as $produit) {
+            $nbExcellent=$avisRepository->countExcellentByProduit($produit->getReference());
+            $nbMoyen=$avisRepository->countMoyenByProduit($produit->getReference());
+            $nbMediocre=$avisRepository->countMediocreByProduit($produit->getReference());
+            echo $nbMediocre;
+            $note=2*$nbExcellent+$nbMoyen-$nbMediocre;
+            $produit->setNote($note);
+            $produitRepository->add($produit);
+        }
+
+
+        return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+    }
 
 }

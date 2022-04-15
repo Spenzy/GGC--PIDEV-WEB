@@ -81,6 +81,7 @@ return [
                             .'|lete/([^/]++)(*:552)'
                         .')'
                         .'|edit/([^/]++)(*:574)'
+                        .'|([^/]++)/note(*:595)'
                     .')'
                 .')'
             .')/?$}sD',
@@ -114,8 +115,9 @@ return [
         504 => [[['_route' => 'app_produit_show', '_controller' => 'App\\Controller\\ProduitController::show'], ['reference'], ['GET' => 0], null, false, true, null]],
         531 => [[['_route' => 'app_produit_details', '_controller' => 'App\\Controller\\ProduitController::details'], ['reference'], ['GET' => 0], null, false, true, null]],
         552 => [[['_route' => 'app_produit_delete', '_controller' => 'App\\Controller\\ProduitController::delete'], ['reference'], ['POST' => 0], null, false, true, null]],
-        574 => [
-            [['_route' => 'app_produit_edit', '_controller' => 'App\\Controller\\ProduitController::edit'], ['reference'], ['GET' => 0, 'POST' => 1], null, false, true, null],
+        574 => [[['_route' => 'app_produit_edit', '_controller' => 'App\\Controller\\ProduitController::edit'], ['reference'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
+        595 => [
+            [['_route' => 'app_produit_note', '_controller' => 'App\\Controller\\ProduitController::excuse'], ['reference'], ['POST' => 0, 'GET' => 1], null, false, false, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

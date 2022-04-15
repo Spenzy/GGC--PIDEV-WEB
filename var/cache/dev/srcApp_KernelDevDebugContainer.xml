@@ -5666,7 +5666,14 @@
         <argument key="produitRepository" type="service_closure" id="App\Repository\ProduitRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.V3dRymS" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.mSkg7fz" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="avisRepository" type="service_closure" id="App\Repository\AvisRepository"/>
+        <argument key="produitRepository" type="service_closure" id="App\Repository\ProduitRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.wjJGJ1Z" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\AvisController::delete" type="service_closure" id=".service_locator.kxiOLSN"/>
@@ -5699,6 +5706,7 @@
         <argument key="App\Controller\ProduitController::delete" type="service_closure" id=".service_locator.3m502IA"/>
         <argument key="App\Controller\ProduitController::details" type="service_closure" id=".service_locator.IGG.WBf"/>
         <argument key="App\Controller\ProduitController::edit" type="service_closure" id=".service_locator.3m502IA"/>
+        <argument key="App\Controller\ProduitController::excuse" type="service_closure" id=".service_locator.mSkg7fz"/>
         <argument key="App\Controller\ProduitController::index" type="service_closure" id=".service_locator.D_VxfLH"/>
         <argument key="App\Controller\ProduitController::new" type="service_closure" id=".service_locator.D_VxfLH"/>
         <argument key="App\Controller\ProduitController::shop" type="service_closure" id=".service_locator.erPnm9F"/>
@@ -5733,6 +5741,7 @@
         <argument key="App\Controller\ProduitController:delete" type="service_closure" id=".service_locator.3m502IA"/>
         <argument key="App\Controller\ProduitController:details" type="service_closure" id=".service_locator.IGG.WBf"/>
         <argument key="App\Controller\ProduitController:edit" type="service_closure" id=".service_locator.3m502IA"/>
+        <argument key="App\Controller\ProduitController:excuse" type="service_closure" id=".service_locator.mSkg7fz"/>
         <argument key="App\Controller\ProduitController:index" type="service_closure" id=".service_locator.D_VxfLH"/>
         <argument key="App\Controller\ProduitController:new" type="service_closure" id=".service_locator.D_VxfLH"/>
         <argument key="App\Controller\ProduitController:shop" type="service_closure" id=".service_locator.erPnm9F"/>
@@ -6233,12 +6242,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.V3dRymS"/>
+      <argument type="service" id=".service_locator.wjJGJ1Z"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.V3dRymS"/>
+      <argument type="service" id=".service_locator.wjJGJ1Z"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -6648,7 +6657,7 @@
     <service id="Knp\Component\Pager\PaginatorInterface" alias="knp_paginator"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.CmORmuK" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.V3dRymS"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.wjJGJ1Z"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>
