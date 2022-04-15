@@ -100,7 +100,9 @@ class CommandeController extends AbstractController
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
-        $pdfOptions->set('isHtml5ParserEnabled' , true);$pdfOptions->set( 'isRemoteEnabled' , true);
+       $pdfOptions->set('isHtml5ParserEnabled' , true);
+       $pdfOptions->set( 'isRemoteEnabled' , true);
+
         // Instantiate Dompdf with our options
         $dompdf = new Dompdf($pdfOptions);
 
@@ -126,6 +128,8 @@ class CommandeController extends AbstractController
             'dataPanier' => $dataPanier,
             'total' =>$total,
         ]);
+
+        $dompdf->set_base_path('css/style.css');
 
         // Load HTML to Dompdf
         $dompdf->loadHtml($html);
@@ -224,5 +228,20 @@ class CommandeController extends AbstractController
         }
 
         return $this->redirectToRoute('app_commande_show', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/{idcommande}/livree", name="app_commande_livree", methods={"POST","GET"})
+     */
+    public function Livree(int $idcommande,CommandeRepository $commandeRepository): Response
+    {
+        $commande=$commandeRepository->find($idcommande);
+
+        if($commande->getLivree()==true)
+            $commande->setLivree(false);
+        else $commande->setLivree(true);
+
+        $commandeRepository->add($commande);
+        return $this->redirectToRoute('app_livraison_index', [], Response::HTTP_SEE_OTHER);
     }
 }

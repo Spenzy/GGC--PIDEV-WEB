@@ -3,8 +3,9 @@
 {% block title %}Liste des livraisons{% endblock %}
 
 {% block body %}
-    <h1>Voici les livraisons</h1>
+    <a href="{{ path('app_livraison_excuse', {'idcommande': 0}) }}" class="btn btn-check" >Excuse des livraisons en retard</a>
 
+    <h1>Voici les livraisons</h1>
     <table class="table">
         <thead>
             <tr>
@@ -15,8 +16,9 @@
             </tr>
         </thead>
         <tbody>
-        {% for livraison in livraisons %}
             <tr>
+                {% for livraison in livraisons %}
+
                 <td>{{ livraison.idcommande }}</td>
                 <td>{{ livraison.idlivreur }}</td>
                 <td>{{ livraison.dateheure ? livraison.dateheure|date('Y-m-d') : '' }}</td>
@@ -24,6 +26,16 @@
                     <a href="{{ path('app_livraison_show', {'idcommande': livraison.idcommande}) }}" class="btn btn-outline-info">Consulter</a>
                     <a href="{{ path('app_livraison_edit', {'idcommande': livraison.idcommande}) }}" class="btn btn-outline-secondary" >Modifier</a>
                 </td>
+                {% if livraison.idcommande.livree ==0  %}
+                <td>
+                    <a href="{{ path('app_commande_livree', {'idcommande': livraison.idcommande}) }}" class="btn btn-outline-dark" >délivrée</a>
+                </td>
+                {% else %}
+                    <td>
+                        <a href="{{ path('app_commande_livree', {'idcommande': livraison.idcommande}) }}" class="btn btn-dark" >Annuler délivrée</a>
+                    </td>
+                    {% endif %}
+
             </tr>
         {% else %}
             <tr>

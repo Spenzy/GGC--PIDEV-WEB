@@ -1,0 +1,12 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block title %}Liste des livraisons{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_livraison_excuse', {'idcommande': 0}) }}" class="btn btn-check" >Excuse des livraisons en retard</a>
+
+    <h1>Bonjour Mr/Mme {{ client.idclient.nom }}</h1>
+    <p>Nous nous excusons pour le retard de la livraison de votre commande, nous vous offrons 50% de remise pour y remédier et voici le numéro de votre livreur mr {{ livreur.idlivreur.nom }}</p>
+    <p>Veuillez le contactez en cas de besoin sur le : {{ livreur.idlivreur.telephone }} </p>
+    <a class="btn btn-outline-primary " href="{{ path('app_livraison_new') }}">Ajouter une livraison</a>
+{% endblock %}

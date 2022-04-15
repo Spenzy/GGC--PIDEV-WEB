@@ -346,10 +346,6 @@
         <parameter>dump</parameter>
         <parameter>@Debug/Profiler/dump.html.twig</parameter>
       </parameter>
-      <parameter key="mailer.data_collector" type="collection">
-        <parameter>mailer</parameter>
-        <parameter>@WebProfiler/Collector/mailer.html.twig</parameter>
-      </parameter>
       <parameter key="data_collector.config" type="collection">
         <parameter>config</parameter>
         <parameter>@WebProfiler/Collector/config.html.twig</parameter>
@@ -603,7 +599,6 @@
         <argument key="cache.annotations" type="service" id="cache.annotations" on-invalid="ignore_uninitialized"/>
         <argument key="cache.property_info" type="service" id="cache.property_info" on-invalid="ignore_uninitialized"/>
         <argument key="form.choice_list_factory.cached" type="service" id="form.choice_list_factory.cached" on-invalid="ignore_uninitialized"/>
-        <argument key="mailer.logger_message_listener" type="service" id="mailer.logger_message_listener" on-invalid="ignore_uninitialized"/>
         <argument key="profiler" type="service" id="profiler" on-invalid="ignore_uninitialized"/>
         <argument key="debug.validator" type="service" id="debug.validator" on-invalid="ignore_uninitialized"/>
         <argument key="debug.stopwatch" type="service" id="debug.stopwatch" on-invalid="ignore_uninitialized"/>
@@ -637,9 +632,6 @@
           <argument>reset</argument>
         </argument>
         <argument key="form.choice_list_factory.cached" type="collection">
-          <argument>reset</argument>
-        </argument>
-        <argument key="mailer.logger_message_listener" type="collection">
           <argument>reset</argument>
         </argument>
         <argument key="profiler" type="collection">
@@ -1379,60 +1371,6 @@
       <argument type="service" id="assets.empty_version_strategy"/>
       <argument type="service" id="assets.context"/>
     </service>
-    <service id="mailer.mailer" class="Symfony\Component\Mailer\Mailer">
-      <argument type="service" id="mailer.transports"/>
-      <argument>null</argument>
-      <argument type="service" id="debug.event_dispatcher" on-invalid="ignore"/>
-    </service>
-    <service id="mailer.transports" class="Symfony\Component\Mailer\Transport\Transports">
-      <argument type="collection">
-        <argument key="main">%env(MAILER_DSN)%</argument>
-      </argument>
-      <factory service="mailer.transport_factory" method="fromStrings"/>
-    </service>
-    <service id="mailer.transport_factory" class="Symfony\Component\Mailer\Transport">
-      <argument type="tagged_iterator" tag="mailer.transport_factory"/>
-    </service>
-    <service id="mailer.default_transport" class="Symfony\Component\Mailer\Transport\TransportInterface">
-      <argument>%env(MAILER_DSN)%</argument>
-      <factory service="mailer.transport_factory" method="fromString"/>
-    </service>
-    <service id="mailer.messenger.message_handler" class="Symfony\Component\Mailer\Messenger\MessageHandler">
-      <tag name="messenger.message_handler"/>
-      <argument type="service" id="mailer.transports"/>
-    </service>
-    <service id="mailer.envelope_listener" class="Symfony\Component\Mailer\EventListener\EnvelopeListener">
-      <tag name="kernel.event_subscriber"/>
-      <argument>null</argument>
-      <argument>null</argument>
-    </service>
-    <service id="mailer.logger_message_listener" class="Symfony\Component\Mailer\EventListener\MessageLoggerListener">
-      <tag name="kernel.event_subscriber"/>
-      <tag name="kernel.reset" method="reset"/>
-    </service>
-    <service id="mailer.transport_factory.abstract" class="Symfony\Component\Mailer\Transport\AbstractTransportFactory" abstract="true">
-      <argument type="service" id="debug.event_dispatcher"/>
-      <argument type="service" id=".debug.http_client" on-invalid="ignore"/>
-      <argument type="service" id="monolog.logger" on-invalid="ignore"/>
-    </service>
-    <service id="mailer.transport_factory.null" class="Symfony\Component\Mailer\Transport\NullTransportFactory">
-      <tag name="mailer.transport_factory"/>
-      <argument type="service" id="debug.event_dispatcher"/>
-      <argument type="service" id=".debug.http_client" on-invalid="ignore"/>
-      <argument type="service" id="monolog.logger" on-invalid="ignore"/>
-    </service>
-    <service id="mailer.transport_factory.sendmail" class="Symfony\Component\Mailer\Transport\SendmailTransportFactory">
-      <tag name="mailer.transport_factory"/>
-      <argument type="service" id="debug.event_dispatcher"/>
-      <argument type="service" id=".debug.http_client" on-invalid="ignore"/>
-      <argument type="service" id="monolog.logger" on-invalid="ignore"/>
-    </service>
-    <service id="mailer.transport_factory.smtp" class="Symfony\Component\Mailer\Transport\Smtp\EsmtpTransportFactory">
-      <tag name="mailer.transport_factory" priority="-100"/>
-      <argument type="service" id="debug.event_dispatcher"/>
-      <argument type="service" id=".debug.http_client" on-invalid="ignore"/>
-      <argument type="service" id="monolog.logger" on-invalid="ignore"/>
-    </service>
     <service id="validator.builder" class="Symfony\Component\Validator\ValidatorBuilder" public="false">
       <call method="setConstraintValidatorFactory">
         <argument type="service" id="validator.validator_factory"/>
@@ -2164,9 +2102,6 @@
         <argument type="service" id="data_collector.dump"/>
       </call>
       <call method="add">
-        <argument type="service" id="mailer.data_collector"/>
-      </call>
-      <call method="add">
         <argument type="service" id="data_collector.config"/>
       </call>
     </service>
@@ -2288,10 +2223,6 @@
     <service id="data_collector.translation" class="Symfony\Component\Translation\DataCollector\TranslationDataCollector" public="false">
       <tag name="data_collector" template="@WebProfiler/Collector/translation.html.twig" id="translation" priority="275"/>
       <argument type="service" id="translator.data_collector"/>
-    </service>
-    <service id="mailer.data_collector" class="Symfony\Component\Mailer\DataCollector\MessageDataCollector">
-      <tag name="data_collector" template="@WebProfiler/Collector/mailer.html.twig" id="mailer"/>
-      <argument type="service" id="mailer.logger_message_listener"/>
     </service>
     <service id="data_collector.http_client" class="Symfony\Component\HttpClient\DataCollector\HttpClientDataCollector">
       <tag name="data_collector" template="@WebProfiler/Collector/http_client.html.twig" id="http_client" priority="250"/>
@@ -2491,22 +2422,6 @@
         <argument>0</argument>
       </call>
       <call method="addListener">
-        <argument>Symfony\Component\Mailer\Event\MessageEvent</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="mailer.envelope_listener"/>
-          <argument>onMessage</argument>
-        </argument>
-        <argument>-255</argument>
-      </call>
-      <call method="addListener">
-        <argument>Symfony\Component\Mailer\Event\MessageEvent</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="mailer.logger_message_listener"/>
-          <argument>onMessage</argument>
-        </argument>
-        <argument>-255</argument>
-      </call>
-      <call method="addListener">
         <argument>kernel.response</argument>
         <argument type="collection">
           <argument type="service_closure" id="profiler_listener"/>
@@ -2655,14 +2570,6 @@
         <argument type="collection">
           <argument type="service_closure" id="framework_extra_bundle.event.is_granted"/>
           <argument>onKernelControllerArguments</argument>
-        </argument>
-        <argument>0</argument>
-      </call>
-      <call method="addListener">
-        <argument>Symfony\Component\Mailer\Event\MessageEvent</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="twig.mailer.message_listener"/>
-          <argument>onMessage</argument>
         </argument>
         <argument>0</argument>
       </call>
@@ -3559,14 +3466,6 @@
       <call method="setName">
         <argument>lint:twig</argument>
       </call>
-    </service>
-    <service id="twig.mailer.message_listener" class="Symfony\Component\Mailer\EventListener\MessageListener">
-      <tag name="kernel.event_subscriber"/>
-      <argument>null</argument>
-      <argument type="service" id="twig.mime_body_renderer"/>
-    </service>
-    <service id="twig.mime_body_renderer" class="Symfony\Bridge\Twig\Mime\BodyRenderer">
-      <argument type="service" id="twig"/>
     </service>
     <service id=".2_HtmlDumper~UlQRKlK" class="Symfony\Component\VarDumper\Dumper\HtmlDumper" public="false">
       <argument>null</argument>
@@ -5642,6 +5541,22 @@
         <argument key="livraisonRepository" type="service_closure" id="App\Repository\LivraisonRepository"/>
       </argument>
     </service>
+    <service id=".service_locator.14v14T1" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="client" type="service_closure" id=".errored..service_locator.14v14T1.App\Entity\Client"/>
+        <argument key="livreur" type="service_closure" id=".errored..service_locator.14v14T1.App\Entity\Livreur"/>
+        <argument key="mailer" type="service_closure" id="swiftmailer.mailer.default"/>
+      </argument>
+    </service>
+    <service id=".service_locator.bSjwLyw" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="commandeRepository" type="service_closure" id="App\Repository\CommandeRepository"/>
+        <argument key="livraisonRepository" type="service_closure" id="App\Repository\LivraisonRepository"/>
+        <argument key="mailer" type="service_closure" id="swiftmailer.mailer.default"/>
+      </argument>
+    </service>
     <service id=".service_locator.B5Vnr4V" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5695,7 +5610,7 @@
         <argument key="produitRepository" type="service_closure" id="App\Repository\ProduitRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.05kyvAb" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.07yvr0i" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\AvisController::delete" type="service_closure" id=".service_locator.kxiOLSN"/>
@@ -5703,6 +5618,7 @@
         <argument key="App\Controller\AvisController::index" type="service_closure" id=".service_locator.Sjp.d_T"/>
         <argument key="App\Controller\AvisController::new" type="service_closure" id=".service_locator.Sjp.d_T"/>
         <argument key="App\Controller\AvisController::show" type="service_closure" id=".service_locator.qLlfcwm"/>
+        <argument key="App\Controller\CommandeController::Livree" type="service_closure" id=".service_locator.IZKkrRw"/>
         <argument key="App\Controller\CommandeController::Mailsend" type="service_closure" id=".service_locator.t6RYuxQ"/>
         <argument key="App\Controller\CommandeController::PdfCommandeRecu" type="service_closure" id=".service_locator.huSVGJz"/>
         <argument key="App\Controller\CommandeController::delete" type="service_closure" id=".service_locator.eUOjapW"/>
@@ -5715,8 +5631,10 @@
         <argument key="App\Controller\LignecommandeController::index" type="service_closure" id=".service_locator.q5KkydN"/>
         <argument key="App\Controller\LignecommandeController::new" type="service_closure" id=".service_locator.WJxlHpL"/>
         <argument key="App\Controller\LignecommandeController::show" type="service_closure" id=".service_locator.q5KkydN"/>
+        <argument key="App\Controller\LivraisonController::Mailsend" type="service_closure" id=".service_locator.14v14T1"/>
         <argument key="App\Controller\LivraisonController::delete" type="service_closure" id=".service_locator.ItTxtGJ"/>
         <argument key="App\Controller\LivraisonController::edit" type="service_closure" id=".service_locator.ItTxtGJ"/>
+        <argument key="App\Controller\LivraisonController::excuse" type="service_closure" id=".service_locator.bSjwLyw"/>
         <argument key="App\Controller\LivraisonController::index" type="service_closure" id=".service_locator.MvS2xH3"/>
         <argument key="App\Controller\LivraisonController::new" type="service_closure" id=".service_locator.MvS2xH3"/>
         <argument key="App\Controller\LivraisonController::show" type="service_closure" id=".service_locator.t9z1pbv"/>
@@ -5739,6 +5657,7 @@
         <argument key="App\Controller\AvisController:index" type="service_closure" id=".service_locator.Sjp.d_T"/>
         <argument key="App\Controller\AvisController:new" type="service_closure" id=".service_locator.Sjp.d_T"/>
         <argument key="App\Controller\AvisController:show" type="service_closure" id=".service_locator.qLlfcwm"/>
+        <argument key="App\Controller\CommandeController:Livree" type="service_closure" id=".service_locator.IZKkrRw"/>
         <argument key="App\Controller\CommandeController:Mailsend" type="service_closure" id=".service_locator.t6RYuxQ"/>
         <argument key="App\Controller\CommandeController:PdfCommandeRecu" type="service_closure" id=".service_locator.huSVGJz"/>
         <argument key="App\Controller\CommandeController:delete" type="service_closure" id=".service_locator.eUOjapW"/>
@@ -5751,8 +5670,10 @@
         <argument key="App\Controller\LignecommandeController:index" type="service_closure" id=".service_locator.q5KkydN"/>
         <argument key="App\Controller\LignecommandeController:new" type="service_closure" id=".service_locator.WJxlHpL"/>
         <argument key="App\Controller\LignecommandeController:show" type="service_closure" id=".service_locator.q5KkydN"/>
+        <argument key="App\Controller\LivraisonController:Mailsend" type="service_closure" id=".service_locator.14v14T1"/>
         <argument key="App\Controller\LivraisonController:delete" type="service_closure" id=".service_locator.ItTxtGJ"/>
         <argument key="App\Controller\LivraisonController:edit" type="service_closure" id=".service_locator.ItTxtGJ"/>
+        <argument key="App\Controller\LivraisonController:excuse" type="service_closure" id=".service_locator.bSjwLyw"/>
         <argument key="App\Controller\LivraisonController:index" type="service_closure" id=".service_locator.MvS2xH3"/>
         <argument key="App\Controller\LivraisonController:new" type="service_closure" id=".service_locator.MvS2xH3"/>
         <argument key="App\Controller\LivraisonController:show" type="service_closure" id=".service_locator.t9z1pbv"/>
@@ -6266,12 +6187,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.05kyvAb"/>
+      <argument type="service" id=".service_locator.07yvr0i"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.05kyvAb"/>
+      <argument type="service" id=".service_locator.07yvr0i"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -6288,6 +6209,8 @@
     <service id=".errored..service_locator.WJxlHpL.App\Entity\Lignecommande" class="App\Entity\Lignecommande"/>
     <service id=".errored..service_locator.t9z1pbv.App\Entity\Livraison" class="App\Entity\Livraison"/>
     <service id=".errored..service_locator.ItTxtGJ.App\Entity\Livraison" class="App\Entity\Livraison"/>
+    <service id=".errored..service_locator.14v14T1.App\Entity\Client" class="App\Entity\Client"/>
+    <service id=".errored..service_locator.14v14T1.App\Entity\Livreur" class="App\Entity\Livreur"/>
     <service id=".errored..service_locator.ZRiJYj9.App\Entity\Produit" class="App\Entity\Produit"/>
     <service id=".errored..service_locator.J966qaa.App\Entity\Produit" class="App\Entity\Produit"/>
     <service id=".errored..service_locator.3m502IA.App\Entity\Produit" class="App\Entity\Produit"/>
@@ -6604,9 +6527,6 @@
     <service id="form.choice_list_factory" alias="form.choice_list_factory.cached" public="false"/>
     <service id="Symfony\Component\Asset\Packages" alias="assets.packages" public="false"/>
     <service id="Symfony\Contracts\HttpClient\HttpClientInterface" alias=".debug.http_client"/>
-    <service id="mailer" alias="swiftmailer.mailer.default" public="true"/>
-    <service id="Symfony\Component\Mailer\MailerInterface" alias="mailer.mailer"/>
-    <service id="Symfony\Component\Mailer\Transport\TransportInterface" alias="mailer.default_transport"/>
     <service id="Symfony\Component\Validator\Validator\ValidatorInterface" alias="debug.validator" public="false"/>
     <service id="validator.mapping.class_metadata_factory" alias="debug.validator" public="false"/>
     <service id="Symfony\Component\Translation\Reader\TranslationReaderInterface" alias="translation.reader" public="false"/>
@@ -6696,9 +6616,10 @@
     <service id="swiftmailer.transport" alias="swiftmailer.mailer.default.transport.spool" public="true"/>
     <service id="Swift_Mailer" alias="swiftmailer.mailer.default" public="false"/>
     <service id="Swift_Transport" alias="swiftmailer.mailer.default.transport.spool" public="false"/>
+    <service id="mailer" alias="swiftmailer.mailer.default" public="true"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.CmORmuK" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.05kyvAb"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.07yvr0i"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>

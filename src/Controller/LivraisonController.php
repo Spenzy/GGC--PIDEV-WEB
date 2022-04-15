@@ -3,11 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Livraison;
+use App\Entity\Livreur;
+use App\Entity\Client;
 use App\Form\LivraisonType;
+use App\Repository\CommandeRepository;
 use App\Repository\LivraisonRepository;
+use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -85,4 +90,52 @@ class LivraisonController extends AbstractController
 
         return $this->redirectToRoute('app_livraison_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    public function Mailsend(\Swift_Mailer $mailer,Client $client,Livreur $livreur)
+    {
+
+
+        $message = (new \Swift_Message('Email Excuse'))
+            ->setFrom('gamergeekscommunity@gmail.com')
+            ->setTo('marwa.ayari97@gmail.com')
+            ->setBody(
+                $this->renderView(
+                    'livraison/excuse.html.twig', compact('client','livreur')
+                ),
+                'text/html'
+            )
+        ;
+        $mailer->send($message);
+
+        $this->addFlash('message', 'Votre message a été transmis, nous vous répondrons dans les meilleurs délais.'); // Permet un message flash de renvoi
+        $mailer->send($message);
+
+        return $this->redirectToRoute('app_produit_shop', [], Response::HTTP_SEE_OTHER);
+    }
+    /**
+     * @Route("/{idcommande}/excuse", name="app_livraison_excuse", methods={"POST","GET"})
+     */
+    public function excuse(LivraisonRepository $livraisonRepository,CommandeRepository $commandeRepository,\Swift_Mailer $mailer): Response
+    {
+        $commandes = $commandeRepository->findAll();
+        foreach ($commandes as $commande) {
+            $livraison = $livraisonRepository->find($commande->getIdcommande());
+            $sysdate = new \DateTime('today');
+            if ($livraison!=null && $livraison->getDateheure() < $sysdate && $commande->getLivree()==false) {
+                //mail excuse
+                $livreur=$livraison->getIdlivreur();
+                $client=$commande->getIdclient();
+                $this->Mailsend($mailer,$client,$livreur);
+
+                //remise commande
+                $commande->setPrix($commande->getPrix() / 2);
+                $commandeRepository->add($commande);
+            }
+
+        }
+
+
+        return $this->redirectToRoute('app_livraison_index', [], Response::HTTP_SEE_OTHER);
+    }
+
 }

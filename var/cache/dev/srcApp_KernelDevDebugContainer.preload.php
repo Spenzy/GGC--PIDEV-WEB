@@ -10,7 +10,7 @@ if (in_array(PHP_SAPI, ['cli', 'phpdbg'], true)) {
 }
 
 require dirname(__DIR__, 3).''.\DIRECTORY_SEPARATOR.'vendor/autoload.php';
-require __DIR__.'/ContainerED77S7l/srcApp_KernelDevDebugContainer.php';
+require __DIR__.'/ContainerGOZ21xc/srcApp_KernelDevDebugContainer.php';
 
 $classes = [];
 $classes[] = 'Symfony\Bundle\FrameworkBundle\FrameworkBundle';
@@ -266,8 +266,6 @@ $classes[] = 'Symfony\Component\HttpKernel\Controller\ArgumentResolver';
 $classes[] = 'App\Kernel';
 $classes[] = 'Symfony\Component\HttpKernel\EventListener\LocaleAwareListener';
 $classes[] = 'Symfony\Component\HttpKernel\EventListener\LocaleListener';
-$classes[] = 'Symfony\Component\Mailer\EventListener\EnvelopeListener';
-$classes[] = 'Symfony\Component\Mailer\EventListener\MessageLoggerListener';
 $classes[] = 'Symfony\Bundle\MakerBundle\Command\MakerCommand';
 $classes[] = 'Symfony\Bundle\MakerBundle\Maker\MakeAuthenticator';
 $classes[] = 'Symfony\Bundle\MakerBundle\Security\SecurityControllerBuilder';
@@ -329,7 +327,6 @@ $classes[] = 'Doctrine\Bundle\DoctrineBundle\DataCollector\DoctrineDataCollector
 $classes[] = 'Doctrine\Bundle\MigrationsBundle\Collector\MigrationsCollector';
 $classes[] = 'Doctrine\Bundle\MigrationsBundle\Collector\MigrationsFlattener';
 $classes[] = 'Symfony\Bundle\SwiftmailerBundle\DataCollector\MessageDataCollector';
-$classes[] = 'Symfony\Component\Mailer\DataCollector\MessageDataCollector';
 $classes[] = 'Symfony\Component\HttpKernel\DataCollector\ConfigDataCollector';
 $classes[] = 'Symfony\Component\HttpKernel\EventListener\ProfilerListener';
 $classes[] = 'Symfony\Component\PropertyAccess\PropertyAccessor';
@@ -491,8 +488,6 @@ $classes[] = 'Symfony\Bridge\Twig\Command\DebugCommand';
 $classes[] = 'Symfony\Bundle\TwigBundle\Command\LintCommand';
 $classes[] = 'Symfony\Component\Form\FormRenderer';
 $classes[] = 'Symfony\Bridge\Twig\Form\TwigRendererEngine';
-$classes[] = 'Symfony\Component\Mailer\EventListener\MessageListener';
-$classes[] = 'Symfony\Bridge\Twig\Mime\BodyRenderer';
 $classes[] = 'Twig\Profiler\Profile';
 $classes[] = 'Symfony\Bridge\Twig\Extension\HttpKernelRuntime';
 $classes[] = 'Symfony\Component\HttpKernel\DependencyInjection\LazyLoadingFragmentHandler';
