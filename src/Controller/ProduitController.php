@@ -12,11 +12,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Knp\Component\Pager\PaginatorInterface;
 
+/**
+ * @Route("/produit")
+ */
 class ProduitController extends AbstractController
 {
     /**
-     * @Route("/produit", name="app_produit_index", methods={"GET"})
+     * @Route("/", name="app_produit_index", methods={"GET"})
      */
     public function index(ProduitRepository $produitRepository): Response
     {
@@ -26,17 +30,23 @@ class ProduitController extends AbstractController
     }
 
     /**
-     * @Route("/produit/shop", name="app_produit_shop", methods={"GET"})
+     * @Route("/shop", name="app_produit_shop", methods={"GET"})
      */
-    public function shop(ProduitRepository $produitRepository): Response
+    public function shop(ProduitRepository $produitRepository, PaginatorInterface $paginator,Request $request): Response
     {
+        $Listproduits=$produitRepository->findAll();
+        $produits = $paginator->paginate(
+            $Listproduits, // Requête contenant les données à paginer (ici nos produits)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            6 // Nombre de résultats par page
+        );
         return $this->render('produit/shop.html.twig', [
-            'produits' => $produitRepository->findAll(),
+            'produits' => $produits,
         ]);
     }
 
     /**
-     * @Route("/produit/new", name="app_produit_new", methods={"GET", "POST"})
+     * @Route("/new", name="app_produit_new", methods={"GET", "POST"})
      */
     public function new(Request $request, ProduitRepository $produitRepository): Response
     {
@@ -66,7 +76,7 @@ class ProduitController extends AbstractController
 
 
     /**
-     * @Route("/produit/{reference}", name="app_produit_show", methods={"GET"})
+     * @Route("/{reference}", name="app_produit_show", methods={"GET"})
      */
     public function show(Produit $produit): Response
     {
@@ -75,7 +85,7 @@ class ProduitController extends AbstractController
         ]);
     }
     /**
-     * @Route("/produit/details/{reference}", name="app_produit_details", methods={"GET"})
+     * @Route("/details/{reference}", name="app_produit_details", methods={"GET"})
      */
     public function details(int $reference,ProduitRepository $rep,AvisRepository $repAvis): Response
     {
@@ -87,10 +97,13 @@ class ProduitController extends AbstractController
         ]);
     }
     /**
-     * @Route("/produit/edit/{reference}", name="app_produit_edit", methods={"GET", "POST"})
+     * @Route("/edit/{reference}", name="app_produit_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Produit $produit, ProduitRepository $produitRepository): Response
     {
+
+
+
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
 
@@ -121,7 +134,7 @@ class ProduitController extends AbstractController
     }
 
     /**
-     * @Route("/produit/delete/{reference}", name="app_produit_delete", methods={"POST"})
+     * @Route("/delete/{reference}", name="app_produit_delete", methods={"POST"})
      */
     public function delete(Request $request, Produit $produit, ProduitRepository $produitRepository): Response
     {

@@ -41,7 +41,7 @@ return [
     'panier_remove' => [['id'], ['_controller' => 'App\\Controller\\PanierController::remove'], [], [['variable', '/', '[^/]++', 'id'], ['text', '/panier/remove']], [], []],
     'panier_delete' => [['id'], ['_controller' => 'App\\Controller\\PanierController::delete'], [], [['variable', '/', '[^/]++', 'id'], ['text', '/panier/delete']], [], []],
     'panier_delete_all' => [[], ['_controller' => 'App\\Controller\\PanierController::deleteAll'], [], [['text', '/panier/delete']], [], []],
-    'app_produit_index' => [[], ['_controller' => 'App\\Controller\\ProduitController::index'], [], [['text', '/produit']], [], []],
+    'app_produit_index' => [[], ['_controller' => 'App\\Controller\\ProduitController::index'], [], [['text', '/produit/']], [], []],
     'app_produit_shop' => [[], ['_controller' => 'App\\Controller\\ProduitController::shop'], [], [['text', '/produit/shop']], [], []],
     'app_produit_new' => [[], ['_controller' => 'App\\Controller\\ProduitController::new'], [], [['text', '/produit/new']], [], []],
     'app_produit_show' => [['reference'], ['_controller' => 'App\\Controller\\ProduitController::show'], [], [['variable', '/', '[^/]++', 'reference'], ['text', '/produit']], [], []],

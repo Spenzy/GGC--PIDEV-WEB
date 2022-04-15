@@ -3,12 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Produit;
-use Doctrine\DBAL\Types\FloatType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,36 +21,24 @@ class ProduitType extends AbstractType
         $builder
             ->add('reference',IntegerType::class,[
                 'required'=>true,
-                'constraints' => array(
-                    new \Symfony\Component\Validator\Constraints\NotNull(['message' => 'Ce champ est obligatoire']),
-                ),
+
             ])
             ->add('libelle',TextType::class,[
                 'required'=>true,
-                'constraints' => array(
-                new \Symfony\Component\Validator\Constraints\NotNull(['message' => 'Ce champ est obligatoire']),
-            ),
+
             ])
             ->add('categorie',TextType::class,[
                 'required'=>true,
-                'constraints' => array(
-                    new \Symfony\Component\Validator\Constraints\NotNull(['message' => 'Ce champ est obligatoire']),
-                ),
+
             ])
             ->add('description',TextType::class,[
                 'required'=>true,
-                'constraints' => array(
-                    new \Symfony\Component\Validator\Constraints\NotNull(['message' => 'Ce champ est obligatoire']),
-                ),
+
             ])
-            ->add('prix')
+            ->add('prix',NumberType::class)
             ->add('img',FileType::class,[
-                'required'=>true,
                 'mapped'=>false,
-                'label'=>'veuillez selectionner votre image',
-                'constraints' => array(
-                        new \Symfony\Component\Validator\Constraints\NotBlank(['message' => 'Veuillez selectionner votre image']),
-                ),
+
             ])
         ;
     }
