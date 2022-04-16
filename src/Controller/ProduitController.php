@@ -217,16 +217,19 @@ class ProduitController extends AbstractController
     public function Recherche(ProduitRepository $produitRepository, PaginatorInterface $paginator,Request $request): Response{
 
         $libelle=$request->get("search","");
-        $Listproduits=$produitRepository->rechercheLibelle($libelle);
-        $produits = $paginator->paginate(
-            $Listproduits, // Requête contenant les données à paginer (ici nos produits)
-            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-            8 // Nombre de résultats par page
-        );
-        return $this->render('produit/shop.html.twig', [
-            'produits' => $produits,
-        ]);
-
+        if($libelle==""){
+            return $this->redirectToRoute('app_produit_shop', [], Response::HTTP_SEE_OTHER);
+        }else {
+            $Listproduits = $produitRepository->rechercheLibelle($libelle);
+            $produits = $paginator->paginate(
+                $Listproduits, // Requête contenant les données à paginer (ici nos produits)
+                $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+                12 // Nombre de résultats par page
+            );
+            return $this->render('produit/shop.html.twig', [
+                'produits' => $produits,
+            ]);
+        }
     }
 
 
