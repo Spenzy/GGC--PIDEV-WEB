@@ -12705,3 +12705,14 @@ e88840,127.0.0.1,POST,http://localhost:8000/commande/new,1650117019,,303
 e801ea,127.0.0.1,POST,http://localhost:8000/commande/new,1650117134,,303
 bbb0d7,127.0.0.1,POST,http://localhost:8000/commande/new,1650117254,,303
 84d4c9,127.0.0.1,POST,http://localhost:8000/commande/new,1650117370,,303
+c90a6c,127.0.0.1,GET,http://localhost:8000/produit/shop,1650117606,,200
+d549b5,127.0.0.1,GET,http://localhost:8000/produit/img/hero.png,1650117607,071e2c,404
+071e2c,127.0.0.1,GET,http://localhost:8000/produit/img/hero.png,1650117607,,404
+b73384,127.0.0.1,GET,http://localhost:8000/produit/shop,1650117611,,200
+ddd6fd,127.0.0.1,GET,http://localhost:8000/produit/img/hero.png,1650117612,381cbd,404
+381cbd,127.0.0.1,GET,http://localhost:8000/produit/img/hero.png,1650117612,,404
+026b07,127.0.0.1,GET,http://localhost:8000/commande/show,1650117615,,200
+49e89a,127.0.0.1,GET,http://localhost:8000/commande/path/to/font-awesome/css/font-awesome.min.css,1650117616,7eb597,404
+7eb597,127.0.0.1,GET,http://localhost:8000/commande/path/to/font-awesome/css/font-awesome.min.css,1650117616,,404
+4edda8,127.0.0.1,GET,http://localhost:8000/commande/img/hero.png,1650117617,6c4e39,404
+6c4e39,127.0.0.1,GET,http://localhost:8000/commande/img/hero.png,1650117617,,404
