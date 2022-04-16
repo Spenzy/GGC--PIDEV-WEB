@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Commande;
 use App\Entity\Livraison;
 use App\Entity\Livreur;
 use App\Entity\Client;
@@ -33,7 +34,7 @@ class LivraisonController extends AbstractController
     /**
      * @Route("/new", name="app_livraison_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, LivraisonRepository $livraisonRepository): Response
+    public function new(Request $request, LivraisonRepository $livraisonRepository,\Swift_Mailer $mailer): Response
     {
         $livraison = new Livraison();
         $form = $this->createForm(LivraisonType::class, $livraison);
@@ -41,6 +42,7 @@ class LivraisonController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $livraisonRepository->add($livraison);
+            $this->MailsendAffectation($mailer,$livraison->getIdcommande()->getIdclient(),$livraison->getIdlivreur(),$livraison->getIdcommande(),$livraison);
             return $this->redirectToRoute('app_livraison_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -91,24 +93,44 @@ class LivraisonController extends AbstractController
         return $this->redirectToRoute('app_livraison_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    public function Mailsend(\Swift_Mailer $mailer,Client $client,Livreur $livreur)
+    public function MailsendAffectation(\Swift_Mailer $mailer,Client $client,Livreur $livreur,Commande $commande,Livraison $livraison)
     {
 
 
-        $message = (new \Swift_Message('Email Excuse'))
+        $message = (new \Swift_Message('Email Livraison'))
             ->setFrom('gamergeekscommunity@gmail.com')
-            ->setTo('marwa.ayari97@gmail.com')
+            ->setTo($client->getIdclient()->getEmail())
             ->setBody(
                 $this->renderView(
-                    'livraison/excuse.html.twig', compact('client','livreur')
+                    'emails/affectation.html.twig', compact('client','livreur','commande','livraison')
                 ),
                 'text/html'
             )
         ;
         $mailer->send($message);
 
-        $this->addFlash('message', 'Votre message a été transmis, nous vous répondrons dans les meilleurs délais.'); // Permet un message flash de renvoi
+
+
+        return $this->redirectToRoute('app_produit_shop', [], Response::HTTP_SEE_OTHER);
+    }
+
+    public function MailsendExcuse(\Swift_Mailer $mailer,Client $client,Livreur $livreur,Commande $commande)
+    {
+
+
+        $message = (new \Swift_Message('Email Excuse'))
+            ->setFrom('gamergeekscommunity@gmail.com')
+            ->setTo($client->getIdclient()->getEmail())
+            ->setBody(
+                $this->renderView(
+                    'emails/excuse.html.twig', compact('client','livreur','commande')
+                ),
+                'text/html'
+            )
+        ;
         $mailer->send($message);
+
+
 
         return $this->redirectToRoute('app_produit_shop', [], Response::HTTP_SEE_OTHER);
     }
@@ -122,14 +144,16 @@ class LivraisonController extends AbstractController
             $livraison = $livraisonRepository->find($commande->getIdcommande());
             $sysdate = new \DateTime('today');
             if ($livraison!=null && $livraison->getDateheure() < $sysdate && $commande->getLivree()==false) {
-                //mail excuse
-                $livreur=$livraison->getIdlivreur();
-                $client=$commande->getIdclient();
-                $this->Mailsend($mailer,$client,$livreur);
+
 
                 //remise commande
                 $commande->setPrix($commande->getPrix() / 2);
                 $commandeRepository->add($commande);
+
+                //mail excuse
+                $livreur=$livraison->getIdlivreur();
+                $client=$commande->getIdclient();
+                $this->MailsendExcuse($mailer,$client,$livreur,$commande);
             }
 
         }

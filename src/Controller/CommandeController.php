@@ -20,6 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
+use Knp\Component\Pager\PaginatorInterface;
 /**
  * @Route("/commande")
  */
@@ -142,14 +143,14 @@ class CommandeController extends AbstractController
 
         // Output the generated PDF to Browser (inline view)
         $dompdf->stream("Reçu.pdf", [
-            "Attachment" => false
+            "Attachment" => true
         ]);
     }
 
 
 
-
-    public function Mailsend(\Swift_Mailer $mailer,SessionInterface $session,ProduitRepository $produitRepository)
+/*
+    public function MailsendReçu(\Swift_Mailer $mailer,SessionInterface $session,ProduitRepository $produitRepository)
     {
         $panier = $session->get("panier", []);
         // On "fabrique" les données
@@ -185,15 +186,23 @@ class CommandeController extends AbstractController
 
         return $this->redirectToRoute('app_produit_shop', [], Response::HTTP_SEE_OTHER);
     }
-
+*/
 
     /**
      * @Route("/show", name="app_commande_show", methods={"GET"})
      */
-    public function show(CommandeRepository $commandeRepository,ClientRepository $clientRepository): Response
+    public function show(LignecommandeRepository $lignecommandeRepository,Request $request,CommandeRepository $commandeRepository,ClientRepository $clientRepository, PaginatorInterface $paginator): Response
     {
         $uid=111;
-        $commandes=$commandeRepository->afficheCommandesClients($uid);
+
+        $donnees=$commandeRepository->afficheCommandesClients($uid);
+
+        $commandes = $paginator->paginate(
+            $donnees, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            3 // Nombre de résultats par page
+        );
+
         return $this->render('commande/show.html.twig', [
             'commandes' => $commandes,
         ]);

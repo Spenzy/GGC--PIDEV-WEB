@@ -3,7 +3,6 @@
 {% block title %}Liste des livraisons{% endblock %}
 
 {% block body %}
-    <a href="{{ path('app_livraison_excuse', {'idcommande': 0}) }}" class="btn btn-check" >Excuse des livraisons en retard</a>
 
     <h1>Voici les livraisons</h1>
     <table class="table">
@@ -46,4 +45,6 @@
     </table>
 
     <a class="btn btn-outline-primary " href="{{ path('app_livraison_new') }}">Ajouter une livraison</a>
+    <a href="{{ path('app_livraison_excuse', {'idcommande': 0}) }}" class="btn btn-outline-dark" >Excuse des livraisons en retard</a>
+
 {% endblock %}

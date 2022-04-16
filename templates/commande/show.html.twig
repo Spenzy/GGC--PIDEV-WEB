@@ -12,6 +12,7 @@
 
 {% block header %}
     <header>
+
         <div class="container-xxl bg-white p-0">
             <!-- Spinner Start -->
             <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -65,7 +66,7 @@
                     <h1 class="text-white mb-4 animated zoomIn">Commandes :</h1>
                     <p class="text-white pb-3 animated zoomIn">Voici toutes vos commande déja passer </p>
 
-                    </div>
+                </div>
                 <div class="col-lg-6 text-center text-lg-start">
                     <img class="img-fluid" src="img/hero.png" alt="">
                 </div>
@@ -73,41 +74,46 @@
         </div>
     </div>
 {% endblock %}
+
 {% block body %}
-    <h1>Commande</h1>
+    <!-- Service Start -->
+    <div class="container-xxl ">
+        <div class="container ">
+            <div class="section-title position-relative text-center mb-5 pb-2 wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="position-relative d-inline text-primary ps-4">Vos commandes</h6>
+                <h2 class="mt-2">Vous pouvez consultez les détails de vos commandes</h2>
+            </div>
 
-    <table class="table">
+            <div class="row g-4">
 
-        <tr>
-            <th>Id Commande</th>
-            <th>Adresse</th>
-            <th>Prix Total</th>
-            <th>Date Commande</th>
-            <th>Livraison</th>
-            <th>Actions</th>
-        </tr>
-    {% for commande in commandes %}
-        <tbody>
-
-        <tr>
-            <td>{{ commande.idcommande }}</td>
-            <td>{{ commande.adresse }}</td>
-            <td>{{ commande.prix }}</td>
-            <td>{{ commande.datecommande ? commande.datecommande|date('Y-m-d') : '' }}</td>
-            <td>{{ commande.livree ? 'Oui' : 'Non' }}</td>
-            <td>
-                <div class="d-flex justify-content-end">
-                    <a href="{{ path('app_lignecommande_show', {'idcommande': commande.idcommande}) }}" class="btn btn-outline-dark">Détails</a>{{ include('commande/_delete_form.html.twig') }}
+                {% for commande in commandes %}
+                    <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.6s">
+                        <div class="service-item d-flex flex-column justify-content-center text-center rounded">
+                            <div class="service-icon flex-shrink-0">
+                                <i class="fa fa-home fa-2x"></i>
+                            </div>
+                            <h5 class="mb-3">Commande N°{{ commande.idcommande }}</h5>
+                            <p>Livrée : {{ commande.livree ? 'Oui' : 'Non' }}</p>
+                            {% if commande.livree %}
+                                <p>Livrée à {{ commande.adresse }}</p>
+                            {% else %}
+                                <p>Sera livrée à {{ commande.adresse }}</p>
+                            {% endif %}
+                            <p>Commande passée le {{ commande.datecommande ? commande.datecommande|date('Y-m-d') : '' }}</p>
+                            <h5>Prix total : {{ commande.prix }} DT</h5>
+                            <a href="{{ path('app_lignecommande_show', {'idcommande': commande.idcommande}) }}" class="btn px-3 mt-auto mx-auto">Détails</a>
+                            <a>{{ include('commande/_delete_form.html.twig') }}</a>
+                        </div>
+                    </div>
+                {% else %}
+                <p class="section-title position-relative text-center mb-5 pb-2 wow fadeInUp">Vous n'avez passé aucune commande</p>
+                {% endfor %}
+                <div class="d-inline-flex justify-content-center">
+                    {{ knp_pagination_render(commandes, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig') }}
                 </div>
-            </td>
-        </tr>
+            </div>
+        </div>
+    </div>
+    <!-- Service End -->
 
-        </tbody>
-
-{% else %}
-    <tr>
-        <td colspan="5" class="text-center">Vous n'avez passé aucune commande</td>
-    </tr>
-    {% endfor %}
-    </table>
 {% endblock %}

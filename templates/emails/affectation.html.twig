@@ -1,0 +1,25 @@
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<section class="mail-seccess section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3 col-12">
+                <!-- Error Inner -->
+                <div class="success-inner">
+                    <h1><img src="C:/Users/Mr/Desktop/GGC--PIDEV-WEB/public/img/LogoGGC.png')" alt="GGC logo">
+                        <span>Votre commande vous sera prochainement livrée!</span></h1>
+
+                    <h1>Bonjour Mr/Mme {{ client.idclient.nom }}</h1>
+                    <p>Nous vous informons que votre commande N°{{ commande.idcommande }} vous sera livrée le {{ livraison.dateheure ? livraison.dateheure|date('Y-m-d') : '' }} à l'adresse : {{ commande.adresse }}</p>
+                    <p>Veuillez contactez votre livreur Mr {{ livreur.idlivreur.prenom }} {{ livreur.idlivreur.nom }} en cas de besoin sur :</p>
+                    <p>Numéros de téléphone : {{ livreur.idlivreur.telephone }}</p>
+                    <p>Adresse Mail : {{ livreur.idlivreur.email }}</p>
+
+                    <a href="{{ path('app_home_page') }}" class="btn btn-primary btn-lg">Go Home</a>
+                </div>
+                <!--/ End Error Inner -->
+            </div>
+        </div>
+    </div>
+</section>

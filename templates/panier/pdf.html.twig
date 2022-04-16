@@ -4,9 +4,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Reçu de la commande numéro {{ commande.idCommande }}</title>
     <style>body{margin-top:20px;
-            background:#eee;
+            background:#EBFAFA;
         }
 
         /*Invoice*/
@@ -116,14 +115,17 @@
                 height:800px;
             }
         }</style>
+    <title>Reçu de la commande numéro {{ commande.idCommande }}</title>
+
 </head>
 
 <body>
 
+<img src="C:\Users\Mr\Desktop\3ème année\2 sem\pidev\GGC--PIDEV-WEB\public\img\LogoGGC.png" alt="Logo">
+
 <h1 class="text-center">Reçu de la commande numéro {{ commande.idCommande }}</h1>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
-<img src="C:/Users/Mr/Desktop/GGC--PIDEV-WEB/public/img/LogoGGC.png" alt="Logo">
 <h4>Chèr(e) client(e) {{ commande.idClient.idClient.nom }}, nous vous remerçions pour votre confiance.</h4>
 <p>Voici le reçu de votre commande, contactez-nous sur "gamergeekscommunity@gmail.som" si vous avez des questions.</p>
 <div class="container bootstrap snippets bootdeys">
@@ -131,16 +133,13 @@
         <div class="col-sm-12">
             <div class="panel panel-default invoice" id="invoice">
                 <div class="panel-body">
-                    <div class="invoice-ribbon"><div class="ribbon-inner">PAID</div></div>
+                    <div class="invoice-ribbon"><div class="ribbon-inner">Reçu</div></div>
                     <div class="row">
 
-                        <div class="col-sm-6 top-left">
-                            <i class="fa fa-rocket"></i>
-                        </div>
+
 
                         <div class="col-sm-6 top-right">
-                            <h3 class="marginright">INVOICE-1234578</h3>
-                            <span class="marginright">14 April 2014</span>
+                            <span class="marginright">{{ "now"|date("m/d/Y") }}</span>
                         </div>
 
                     </div>
@@ -148,14 +147,14 @@
 
 
                     <div class="row table-row ">
-                        <table class="table table-striped">
+                        <table class="table table-striped d-inline-flex justify-content-center">
                             <thead>
                             <tr>
-                                <th class="text-center" style="width:5%">Référence</th>
+                                <th class="text-center" >Référence</th>
                                 <th style="width:50%">Libelle</th>
-                                <th class="text-right" style="width:15%">Prix Unitaire</th>
-                                <th class="text-right" style="width:15%">Quantité</th>
-                                <th class="text-right" style="width:15%">Prix Total</th>
+                                <th class="text-right" >Prix Unitaire</th>
+                                <th class="text-right" >Quantité</th>
+                                <th class="text-right">Prix Total</th>
                             </tr>
                             </thead>
                             <tbody>
