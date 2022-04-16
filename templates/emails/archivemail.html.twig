@@ -1,0 +1,16 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<section class="mail-seccess section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3 col-12">
+                <!-- Error Inner -->
+                <div class="success-inner">
+                    <h1><img src="{{ asset('img/LogoGGC.png') }}" alt="GGC logo"><span>Votre publication a été {{ archive }}!</span></h1>
+                    <p>Votre publication : {{ p.object }} a été {{ archive }} le {{ date | date('Y-m-d')}}</p>
+                    <a href="{{ path('app_home_page') }}" class="btn btn-primary btn-lg">Go Home</a>
+                </div>
+                <!--/ End Error Inner -->
+            </div>
+        </div>
+    </div>
+</section>
