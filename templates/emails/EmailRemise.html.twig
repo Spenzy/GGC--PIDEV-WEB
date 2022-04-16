@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<section class="mail-seccess section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3 col-12">
+                <!-- Error Inner -->
+                <div class="success-inner">
+                    <h1><img src="C:/Users/Mr/Desktop/GGC--PIDEV-WEB/public/img/LogoGGC.png')" alt="GGC logo">
+                        <span>Une remise à ne pas rater!</span></h1>
+
+                    <h1>Bonjour Mr/Mme {{ client.idclient.nom }}</h1>
+                    <p>Nous offrons une remise de {{ montant }}% sur tous les produits de la catégorie {{ categorie }} </p>
+                    <p>n'hésitez pas à consulter notre shop </p>
+
+                    <a href="{{ path('app_produit_shop') }}" class="btn btn-primary btn-lg">Shop</a>
+                </div>
+                <!--/ End Error Inner -->
+            </div>
+        </div>
+    </div>
+</section>

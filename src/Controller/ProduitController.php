@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Produit;
+use App\Entity\Client;
 use App\Form\ProduitType;
 use App\Repository\AvisRepository;
+use App\Repository\ClientRepository;
 use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
@@ -165,10 +167,31 @@ class ProduitController extends AbstractController
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
     }
 
+    public function sendMailRemise(\Swift_Mailer $mailer,Client $client,$categorie,$montant)
+    {
+
+
+        $message = (new \Swift_Message('Notification Remise au shop'))
+            ->setFrom('gamergeekscommunity@gmail.com')
+            ->setTo($client->getIdclient()->getEmail())
+            ->setBody(
+                $this->renderView(
+                    'emails/EmailRemise.html.twig', compact('client','categorie','montant')
+                ),
+                'text/html'
+            )
+        ;
+        $mailer->send($message);
+
+
+
+        return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+    }
+
     /**
      * @Route("/remise", name="app_produit_remise", methods={"POST","GET"})
      */
-    public function RemiseAffecter(ProduitRepository $produitRepository,Request $request){
+    public function RemiseAffecter(ProduitRepository $produitRepository,Request $request,ClientRepository $clientRepository,\Swift_Mailer $mailer){
         $categorie=$request->get("categorie","");
         $montant=$request->get("montant",100);
         $produits=$produitRepository->findAll();
@@ -179,6 +202,10 @@ class ProduitController extends AbstractController
                 $produitRepository->add($produit);
                 }
             }
+        }
+        $clients=$clientRepository->findAll();
+        foreach ($clients as $client){
+            $this->sendMailRemise($mailer,$client,$categorie,$montant);
         }
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
 
