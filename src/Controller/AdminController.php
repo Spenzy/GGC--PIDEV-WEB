@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Publication;
+use App\Repository\CommentaireRepository;
 use App\Repository\PublicationRepository;
+use App\Repository\VoteRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,12 +69,41 @@ class AdminController extends AbstractController
     /**
      * @Route("/forum/{idpublication}", name="app_forum_archive")
      */
-    public function archiver(int $idpublication, PublicationRepository $publicationRepository): Response
+    public function archiver(int $idpublication, PublicationRepository $publicationRepository, \Swift_Mailer $mailer): Response
     {
         $publication = $publicationRepository->find($idpublication);
-        $publication->setArchive(!$publication->getArchive());
+        $etat = $publication->getArchive();
+        $publication->setArchive(!$etat);
         $publicationRepository->add($publication);
+        if($etat)
+            $this->mail("Archivé", $publication ,$mailer);
+        else $this->mail("Désarchivé", $publication, $mailer);
+
+
 
         return $this->redirectToRoute('app_admin_pubnonarchive',[],Response::HTTP_SEE_OTHER);
     }
+
+    public function mail(string $etat, Publication $publication, \Swift_Mailer $mailer)
+    {
+        $message = (new \Swift_Message('Hello Email'))
+            ->setFrom('gamergeekscommunity@gmail.com')
+            ->setTo('dridi.zied@esprit.tn')
+            ->setSubject("Publication Archivé")
+            ->setBody(
+                $this->renderView(
+                    'emails/archivemail.html.twig', [
+                        'p' => $publication,
+                        'date' => new \DateTime('today'),
+                        'archive' => $etat
+                     ]
+                ),
+                'text/html'
+            )
+        ;
+
+        $mailer->send($message);
+    }
+
 }
+
