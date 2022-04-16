@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator as CustomValidator;
 
 /**
  * Commentaire
@@ -38,6 +39,7 @@ class Commentaire
      * @ORM\Column(name="description", type="string", length=250, nullable=false)
      * @Assert\NotBlank(message="Veuillez taper un commentaire!")
      * @Assert\Type("string", message="Le contenu {{ description }} n'est pas une chaine valide.")
+     * @CustomValidator\BadWords()
      */
     private $description;
 
