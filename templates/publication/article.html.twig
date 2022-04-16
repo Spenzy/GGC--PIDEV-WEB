@@ -1,4 +1,5 @@
 <article class="row post vt-post shadow-sm d-flex justify-content-center shadow-lg">
+    {% if uid == p.idclient.idclient.idpersonne %}
     <div class="d-flex justify-content-end">
         <a href="{{ path('app_publication_edit', {'idpublication': p.idpublication}) }} "
                 class="btn btn-outline-warning">
@@ -8,6 +9,7 @@
             <i class="fa fa-archive"></i>
         </button>
     </div>
+    {% endif %}
     <div class="col-xs-11 col-sm-4 col-md-4 col-lg-3">
         <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="post-img img-responsive"
              alt="image post" width="275" height="250">
@@ -20,15 +22,17 @@
                     <p>Comments: <strong>{{ nbrC }}</strong></p>
                 </div>
                 <div class="info">
-                    <p>Votes: <strong>{{ nbrV }}</strong></p>
+                    {{ include('vote/show.html.twig') }}
                 </div>
             </div>
         </div>
     </div>
+
     <div class="col-xs-10 col-sm-5 col-md-5 col-lg-6">
         <div class="caption">
             <h3 class="md-heading"><a href="#">{{ p.object }}</a></h3>
             <p> {{ p.description }}</p>
         </div>
     </div>
+
 </article>

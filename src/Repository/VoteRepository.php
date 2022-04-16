@@ -47,18 +47,48 @@ class VoteRepository extends ServiceEntityRepository
         }
     }
 
-    public function findVoteCountByPost($idPublication): ?int
+    public function findVoteCountByPost(int $idPublication): ?int
+    {
+        $nbrV = -1;
+        try {
+             $upvote = $this->createQueryBuilder('v')
+                ->Where(':idPub = v.idpublication')
+                 ->andWhere('v.type LIKE :UP')->setParameter('UP','UP')
+                ->setParameter('idPub', $idPublication)
+                ->Select('count(v.idclient)')
+                ->getQuery()
+                ->getSingleScalarResult();
+
+            $downvote = $this->createQueryBuilder('v')
+                ->Where(':idPub = v.idpublication')
+                ->andWhere('v.type LIKE :DOWN')->setParameter('DOWN','DOWN')
+                ->setParameter('idPub', $idPublication)
+                ->Select('count(v.idclient)')
+                ->getQuery()
+                ->getSingleScalarResult();
+            $nbrV = $upvote - $downvote;
+            return $nbrV;
+        } catch (NoResultException|NonUniqueResultException $e) {
+        }
+
+        return $nbrV;
+       /* return $this->getEntityManager()->createQuery('select count(v) from App\Entity\Vote v where v.idpublication = :idpub')
+                ->setParameter('idpub',$idPublication)->getSingleScalarResult();*/
+    }
+
+    public function findVoteByPublication(int $idpub, int $idclient)
     {
         try {
             return $this->createQueryBuilder('v')
-                ->Where(':idPub = v.idpublication')
-                ->setParameter('idPub', $idPublication)
-                ->select('count(v)')
+                ->where('v.idpublication = :idpub')
+                ->andWhere('v.idclient = :idcl')
+                ->setParameter('idpub', $idpub)
+                ->setParameter('idcl', $idclient)
                 ->getQuery()
-                ->getSingleScalarResult();
+                ->getSingleResult();
         } catch (NoResultException|NonUniqueResultException $e) {
         }
-        return -1;
+        return null;
     }
 
     // /**

@@ -10,8 +10,25 @@
 {% block title %}Forum
 {% endblock %}
 
+{% block hero %}
+    <div class="container-xxl py-4 bg-primary hero-header mb-4">
+        <div class="container my-4 py-4 px-lg-4">
+            <div class="row g-5 py-5">
+                <div class="col-lg-6 text-center text-lg-start">
+                    <h1 class="text-white mb-4 animated zoomIn">GGC Forum!<br> Communiquez, c'est exister!</h1>
+                    <p class="text-white pb-3 animated zoomIn">Bienvenu à l'espace forum de gamer geeks community!</p>
+                </div>
+                <div class="col-lg-6 text-center text-lg-start">
+                    <img class="img-fluid" src="{{ asset('img/newsletter.png') }}" alt="Forum Home">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
 {% block body %}
     <div id="forum-container" class="container forum-body">
+        <h2 class="d-flex justify-content-center">Partagez votre avis!</h2>
         <!-- Main content -->
         <div class="p-5">
             {{ include('publication/_form.html.twig') }}

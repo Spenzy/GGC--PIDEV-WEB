@@ -30,6 +30,7 @@ class PublicationController extends AbstractController
         $rs = $publicationRepository->findAll();
         $publications = array();
         foreach ($rs as $p) {
+            echo $p->getIdpublication();
             $publications[] = array(
                 $p,
                 $cr->findCommentCountByPost($p->getIdpublication()),
@@ -61,7 +62,7 @@ class PublicationController extends AbstractController
      */
     public function show(Request $request, Publication $publication,
                          ClientRepository $clientr, PublicationRepository $pr,
-                         CommentaireRepository $cr, VoteRepository $vr): Response
+                         CommentaireRepository $cr, VoteRepository $vr, VoteController $vc): Response
     {
         $userid = 1; //to be changed later
 
@@ -69,7 +70,7 @@ class PublicationController extends AbstractController
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $commentaire->setDate(new \DateTime('today'));
             $commentaire->setIdpublication($pr->find($publication->getIdpublication()));
             $commentaire->setIdclient($clientr->find($userid));
@@ -98,7 +99,7 @@ class PublicationController extends AbstractController
         $form = $this->createForm(PublicationType::class, $publication);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $publicationRepository->add($publication);
             return $this->redirectToRoute('app_publication_show', [
                 'idpublication' => $publication->getIdpublication()

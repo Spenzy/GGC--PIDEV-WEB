@@ -24,7 +24,7 @@ class CommentaireController extends AbstractController
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $commentaireRepository->add($commentaire);
             return $this->redirectToRoute('app_publication_show', [
                 'idpublication' => $commentaire->getIdpublication()->getIdpublication()

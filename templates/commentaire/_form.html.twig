@@ -8,12 +8,12 @@
             <button type="button" class="btn-link" title="" data-toggle="tooltip" data-original-title="Post an Image">
                 <i class="fa fa-image"></i>
             </button>
-            {{ form_errors(form.description) }}
         </div>
         <button type="submit" class="btn btn-sm btn-rounded btn-info">
             {{ button_label|default('Commenter') }}
         </button>
-
     </div>
+    {{ form_errors(form.description) }}
     <!-- /Comment FORM -->
+
 {{ form_end(form) }}

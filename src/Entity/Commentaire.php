@@ -37,7 +37,6 @@ class Commentaire
      *
      * @ORM\Column(name="description", type="string", length=250, nullable=false)
      * @Assert\NotBlank(message="Veuillez taper un commentaire!")
-     * @Assert\NotNull(message="Veuillez taper un commentaire!")
      * @Assert\Type("string", message="Le contenu {{ description }} n'est pas une chaine valide.")
      */
     private $description;

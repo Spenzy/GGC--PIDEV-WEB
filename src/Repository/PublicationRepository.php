@@ -47,6 +47,19 @@ class PublicationRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Publication[] Returns an array of Publication objects
+     */
+    public function findByArchivage($value)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.archive = :archive')
+            ->setParameter('archive', $value)
+            ->getQuery()
+            ->getResult();
+    }
+
+
     // /**
     //  * @return Publication[] Returns an array of Publication objects
     //  */
