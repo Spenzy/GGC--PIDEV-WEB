@@ -45,6 +45,9 @@ class ProduitRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllProducts(){
+        return $this->getEntityManager()->createQuery('select p from App\Entity\Produit p order by p.note desc')->getResult();
+    }
     // /**
     //  * @return Produit[] Returns an array of Produit objects
     //  */

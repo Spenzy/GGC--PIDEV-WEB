@@ -25,7 +25,7 @@ class ProduitController extends AbstractController
     public function index(ProduitRepository $produitRepository): Response
     {
         return $this->render('produit/index.html.twig', [
-            'produits' => $produitRepository->findAll(),
+            'produits' => $produitRepository->findAllProducts(),
         ]);
     }
 
@@ -34,11 +34,11 @@ class ProduitController extends AbstractController
      */
     public function shop(ProduitRepository $produitRepository, PaginatorInterface $paginator,Request $request): Response
     {
-        $Listproduits=$produitRepository->findAll();
+        $Listproduits=$produitRepository->findAllProducts();
         $produits = $paginator->paginate(
             $Listproduits, // Requête contenant les données à paginer (ici nos produits)
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-            6 // Nombre de résultats par page
+            8 // Nombre de résultats par page
         );
         return $this->render('produit/shop.html.twig', [
             'produits' => $produits,
