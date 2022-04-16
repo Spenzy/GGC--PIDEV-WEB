@@ -1,0 +1,17 @@
+<h2 class ="d-flex justify-content-center">Remise sur les produits par catégorie</h2>
+
+<div class="container-fluid d-flex justify-content-center">
+    <form class="form-group" action="{{ path('app_produit_remise') }}" method="POST">
+        <div>
+            <label> Catégorie </label>
+            <input class="form-control" type="text" name="categorie" id="categorie">
+        </div>
+        <div>
+            <label>Montant de la remise (%)</label>
+            <input class="form-control" type="number" name="montant" id="montant">
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-outline-primary mt-2">Affecter remise</button>
+        </div>
+    </form>
+</div>

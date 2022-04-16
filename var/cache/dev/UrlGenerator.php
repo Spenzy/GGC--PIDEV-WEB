@@ -49,4 +49,5 @@ return [
     'app_produit_edit' => [['reference'], ['_controller' => 'App\\Controller\\ProduitController::edit'], [], [['variable', '/', '[^/]++', 'reference'], ['text', '/produit/edit']], [], []],
     'app_produit_delete' => [['reference'], ['_controller' => 'App\\Controller\\ProduitController::delete'], [], [['variable', '/', '[^/]++', 'reference'], ['text', '/produit/delete']], [], []],
     'app_produit_note' => [['reference'], ['_controller' => 'App\\Controller\\ProduitController::excuse'], [], [['text', '/note'], ['variable', '/', '[^/]++', 'reference'], ['text', '/produit']], [], []],
+    'app_produit_remise' => [[], ['_controller' => 'App\\Controller\\ProduitController::RemiseAffecter'], [], [['text', '/produit/remise']], [], []],
 ];

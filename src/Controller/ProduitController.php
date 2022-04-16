@@ -165,4 +165,21 @@ class ProduitController extends AbstractController
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
     }
 
+    /**
+     * @Route("/remise", name="app_produit_remise", methods={"POST","GET"})
+     */
+    public function RemiseAffecter(ProduitRepository $produitRepository,Request $request){
+        $categorie=$request->get("categorie","");
+        $montant=$request->get("montant",100);
+        $produits=$produitRepository->findAll();
+        foreach($produits as $produit){echo "popo";
+            if($produit->getCategorie()==$categorie){
+                $produit->setPrix($produit->getPrix()*$montant/100);
+                $produitRepository->add($produit);
+            }
+        }
+        return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+
+    }
+
 }
