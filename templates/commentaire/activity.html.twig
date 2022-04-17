@@ -14,7 +14,7 @@
                             <div class="activity__list__header">
                                 <div class="d-flex justify-content-start">
                                     <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""/>
-                                    <a href="#">{{ c.idclient.idclient.nom }} </a> a répondu à : <a href="#"> {{ p.object }}</a>
+                                    <a href="#">{{ c.idclient.idclient.nom }} </a> a répondu à : <a href="#"> {{ p.object  }}</a>
                                 </div>
                                 <div class="d-flex justify-content-end">
                                     {% if uid == c.idclient.idclient.idpersonne %}
@@ -28,7 +28,7 @@
                             <div class="activity__list__body entry-content">
                                 <blockquote>
                                     <p>
-                                        {{ c.description }}
+                                        {{ c.description | raw }}
                                     </p>
                                 </blockquote>
                             </div>
