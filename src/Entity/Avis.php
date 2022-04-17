@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -9,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="avis", indexes={@ORM\Index(name="fk_avis_client", columns={"idClient"}), @ORM\Index(name="fk_avis_produit", columns={"referenceProduit"})})
  * @ORM\Entity(repositoryClass="App\Repository\AvisRepository")
+ *
  */
 class Avis
 {
@@ -25,6 +27,7 @@ class Avis
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=100, nullable=false)
+     * @Assert\NotBlank(message="Champ obligatoire")
      */
     private $description;
 
@@ -32,6 +35,7 @@ class Avis
      * @var string
      *
      * @ORM\Column(name="type", type="string", length=50, nullable=false)
+     * @Assert\NotBlank(message="Champ obligatoire")
      */
     private $type;
 
@@ -42,6 +46,8 @@ class Avis
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idClient", referencedColumnName="idClient")
      * })
+     * @Assert\NotBlank(message="Champ obligatoire")
+
      */
     private $idclient;
 
@@ -52,6 +58,7 @@ class Avis
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="referenceProduit", referencedColumnName="reference")
      * })
+     * @Assert\NotBlank(message="Champ obligatoire")
      */
     private $referenceproduit;
 

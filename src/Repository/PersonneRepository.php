@@ -45,6 +45,15 @@ class PersonneRepository extends ServiceEntityRepository
         }
     }
 
+    /*Marwa en a besoin pour envoyer le reçu de la commande aux clients par mail/PDF
+    public function recupererLivreur(int $idLivreur){
+        return $this->createQueryBuilder('l')
+                ->where('idPersonne= :idlivreur')
+                ->setParameter('idlivreur',$idLivreur)
+                ->getQuery()
+                ->getResult();
+    }
+*/
     // /**
     //  * @return Personne[] Returns an array of Personne objects
     //  */

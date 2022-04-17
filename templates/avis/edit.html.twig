@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Avis{% endblock %}
+
+{% block body %}
+    <h1>Modification Avis</h1>
+
+    {{ include('avis/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    {{ include('avis/_delete_form.html.twig') }}
+    <a class ="btn btn-light py-sm-3 px-sm-5 rounded-pill me-3 animated slideInLeft" href="{{ path('app_produit_details', {'reference': reference }) }}">retour aux détails du produit</a>
+
+{% endblock %}

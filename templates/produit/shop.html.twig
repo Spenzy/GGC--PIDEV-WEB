@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <!-- Template Stylesheet -->
+    <link href={{asset("css/shop.css")}} rel="stylesheet">
+
+{% endblock %}
+
+{% block header %}
+    <header>
+        <div class="container-xxl bg-white p-0">
+            <!-- Spinner Start -->
+            <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+                <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <!-- Spinner End -->
+
+
+            <!-- Navbar Start -->
+            <div class="container-xxl position-relative p-0">
+                <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+                    <a href="" class="navbar-brand p-0">
+                        {#<h1 class="m-0"><i class="fa fa-search me-2"></i>SEO<span class="fs-5">Master</span></h1> #}
+                        <img src={{asset("img/LogoGGC.png")}} alt="Logo">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="fa fa-bars"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <div class="navbar-nav ms-auto py-0">
+                            <a href="#" class="nav-item nav-link ">Home</a>
+                            <a href="#" class="nav-item nav-link">Forum</a>
+                            <a href="#" class="nav-item nav-link">Streamers</a>
+                            <a href="#" class="nav-item nav-link">Evennements</a>
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Shop</a>
+                                <div class="dropdown-menu m-0">
+                                    <a href="{{ path('app_produit_shop') }}" class="dropdown-item">Produits</a>
+                                    <a href="{{ path('app_commande_show') }}" class="dropdown-item">Commande</a>
+                                </div>
+                            </div>
+                            <a href="{{ path('panier_index') }}" class="nav-item nav-link">Panier</a>
+                        </div>
+                        <butaton type="button" class="btn text-secondary ms-3" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fa fa-search"></i></butaton>
+                        <a href="#" class="btn btn-secondary text-light rounded-pill py-2 px-4 ms-3">Déconnexion</a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- Navbar -->
+{% endblock %}
+{% block hero %}
+    <div class="container-xxl py-5 bg-primary hero-header mb-5">
+        <div class="container my-5 py-5 px-lg-5">
+            <div class="row g-5 py-5">
+                <div class="col-lg-6 text-center text-lg-start">
+                    <h1 class="text-white mb-4 animated zoomIn"> Shop </h1>
+                    <p class="text-white pb-3 animated zoomIn">voici nos produits</p>
+               {#      <a href="" class="btn btn-light py-sm-3 px-sm-5 rounded-pill me-3 animated slideInLeft">Free Quote</a>
+                    <a href="" class="btn btn-outline-light py-sm-3 px-sm-5 rounded-pill animated slideInRight">Contact Us</a>#}
+                </div>
+                <div class="col-lg-6 text-center text-lg-start">
+                    <img class="img-fluid" src="img/hero.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block title %}Shop{% endblock %}
+
+{% block body %}
+    <h1>Voici la liste des Produits</h1>
+
+
+    <div class="shop-items">
+        <div class="container-fluid">
+            <div class="row">
+                {% for produit in produits %}
+                <div class="col-md-3 col-sm-6">
+                    <!-- Restaurant Item -->
+                    <div class="item">
+                        <!-- Item's image -->
+                        <div class="zoom">
+                        <img src="{{ asset('uploads/img/')~produit.img }}" width="100" higth="100">
+                        </div>
+                            <!-- Item details -->
+                        <div class="item-dtls">
+                            <!-- product title -->
+                            <h4><a href="#">{{  produit.libelle}}</a></h4>
+                            <!-- price -->
+                            <span class="price lblue">{{ produit.prix}} DT</span>
+                        </div>
+                        <!-- add to cart btn -->
+                        <div class="ecom bg-lblue">
+                            <a href="{{ path('app_produit_details', {'reference': produit.reference}) }}" class="btn" >Consulter</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor%}
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

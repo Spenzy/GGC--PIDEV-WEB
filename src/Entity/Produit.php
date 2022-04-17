@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,7 +17,8 @@ class Produit
      *
      * @ORM\Column(name="reference", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\NotNull
      */
     private $reference;
 
@@ -25,6 +26,8 @@ class Produit
      * @var string
      *
      * @ORM\Column(name="libelle", type="string", length=30, nullable=false)
+     * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\NotNull
      */
     private $libelle;
 
@@ -32,6 +35,8 @@ class Produit
      * @var string
      *
      * @ORM\Column(name="categorie", type="string", length=30, nullable=false)
+     * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\NotNull
      */
     private $categorie;
 
@@ -39,6 +44,8 @@ class Produit
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=100, nullable=false)
+     * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\NotNull
      */
     private $description;
 
@@ -46,8 +53,13 @@ class Produit
      * @var float
      *
      * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
+     * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\NotNull
+     * @Assert\PositiveOrZero(message="Le prix doit etre positif")
      */
     private $prix;
+
+
 
     /**
      * @var int
@@ -56,9 +68,26 @@ class Produit
      */
     private $note;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="img", type="string" , length=255 , nullable=true)
+     *  @Assert\File(
+     *
+     *     mimeTypes = {"image/png"},
+     *     mimeTypesMessage = "Veuillez séléctionner un format png"
+     * )
+     */
+    private $img;
+
     public function getReference(): ?int
     {
         return $this->reference;
+    }
+    public function setReference(int $reference): self
+    {
+        $this->reference=$reference;
+        return $this;
     }
 
     public function getLibelle(): ?string
@@ -120,6 +149,24 @@ class Produit
 
         return $this;
     }
+
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    public function setImg(?string $img): self
+    {
+        $this->img = $img;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->reference;
+    }
+
 
 
 }

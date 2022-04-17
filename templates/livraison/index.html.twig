@@ -1,0 +1,50 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block title %}Liste des livraisons{% endblock %}
+
+{% block body %}
+
+    <h1>Voici les livraisons</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id Commande</th>
+                <th>Id Livreur</th>
+                <th>Date Livraison</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for livraison in livraisons %}
+
+                <td>{{ livraison.idcommande }}</td>
+                <td>{{ livraison.idlivreur }}</td>
+                <td>{{ livraison.dateheure ? livraison.dateheure|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_livraison_show', {'idcommande': livraison.idcommande}) }}" class="btn btn-outline-info">Consulter</a>
+                    <a href="{{ path('app_livraison_edit', {'idcommande': livraison.idcommande}) }}" class="btn btn-outline-secondary" >Modifier</a>
+                </td>
+                {% if livraison.idcommande.livree ==0  %}
+                <td>
+                    <a href="{{ path('app_commande_livree', {'idcommande': livraison.idcommande}) }}" class="btn btn-outline-dark" >délivrée</a>
+                </td>
+                {% else %}
+                    <td>
+                        <a href="{{ path('app_commande_livree', {'idcommande': livraison.idcommande}) }}" class="btn btn-dark" >Annuler délivrée</a>
+                    </td>
+                    {% endif %}
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">aucune ligne trouvée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-outline-primary " href="{{ path('app_livraison_new') }}">Ajouter une livraison</a>
+    <a href="{{ path('app_livraison_excuse', {'idcommande': 0}) }}" class="btn btn-outline-dark" >Excuse des livraisons en retard</a>
+
+{% endblock %}
