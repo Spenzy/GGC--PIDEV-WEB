@@ -10,7 +10,7 @@ if (in_array(PHP_SAPI, ['cli', 'phpdbg'], true)) {
 }
 
 require dirname(__DIR__, 3).''.\DIRECTORY_SEPARATOR.'vendor/autoload.php';
-require __DIR__.'/ContainerNixx0o2/srcApp_KernelDevDebugContainer.php';
+require __DIR__.'/Container3J70jug/srcApp_KernelDevDebugContainer.php';
 
 $classes = [];
 $classes[] = 'Symfony\Bundle\FrameworkBundle\FrameworkBundle';
@@ -25,7 +25,6 @@ $classes[] = 'Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle';
 $classes[] = 'Symfony\Bundle\SecurityBundle\SecurityBundle';
 $classes[] = 'Twig\Extra\TwigExtraBundle\TwigExtraBundle';
 $classes[] = 'Symfony\Bundle\WebServerBundle\WebServerBundle';
-$classes[] = 'Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle';
 $classes[] = 'Knp\Bundle\PaginatorBundle\KnpPaginatorBundle';
 $classes[] = 'Symfony\Component\HttpClient\TraceableHttpClient';
 $classes[] = 'Symfony\Contracts\HttpClient\HttpClientInterface';
@@ -272,6 +271,15 @@ $classes[] = 'Knp\Bundle\PaginatorBundle\Subscriber\SlidingPaginationSubscriber'
 $classes[] = 'Knp\Component\Pager\Event\Subscriber\Sortable\SortableSubscriber';
 $classes[] = 'Symfony\Component\HttpKernel\EventListener\LocaleAwareListener';
 $classes[] = 'Symfony\Component\HttpKernel\EventListener\LocaleListener';
+$classes[] = 'Symfony\Component\Mailer\EventListener\EnvelopeListener';
+$classes[] = 'Symfony\Component\Mailer\EventListener\MessageLoggerListener';
+$classes[] = 'Symfony\Component\Mailer\Mailer';
+$classes[] = 'Symfony\Component\Mailer\Transport\Transports';
+$classes[] = 'Symfony\Component\Mailer\Transport';
+$classes[] = 'Symfony\Component\Mailer\Bridge\Google\Transport\GmailTransportFactory';
+$classes[] = 'Symfony\Component\Mailer\Transport\NullTransportFactory';
+$classes[] = 'Symfony\Component\Mailer\Transport\SendmailTransportFactory';
+$classes[] = 'Symfony\Component\Mailer\Transport\Smtp\EsmtpTransportFactory';
 $classes[] = 'Symfony\Bundle\MakerBundle\Command\MakerCommand';
 $classes[] = 'Symfony\Bundle\MakerBundle\Maker\MakeAuthenticator';
 $classes[] = 'Symfony\Bundle\MakerBundle\Security\SecurityControllerBuilder';
@@ -332,7 +340,7 @@ $classes[] = 'Symfony\Component\HttpClient\DataCollector\HttpClientDataCollector
 $classes[] = 'Doctrine\Bundle\DoctrineBundle\DataCollector\DoctrineDataCollector';
 $classes[] = 'Doctrine\Bundle\MigrationsBundle\Collector\MigrationsCollector';
 $classes[] = 'Doctrine\Bundle\MigrationsBundle\Collector\MigrationsFlattener';
-$classes[] = 'Symfony\Bundle\SwiftmailerBundle\DataCollector\MessageDataCollector';
+$classes[] = 'Symfony\Component\Mailer\DataCollector\MessageDataCollector';
 $classes[] = 'Symfony\Component\HttpKernel\DataCollector\ConfigDataCollector';
 $classes[] = 'Symfony\Component\HttpKernel\EventListener\ProfilerListener';
 $classes[] = 'Symfony\Component\PropertyAccess\PropertyAccessor';
@@ -429,17 +437,6 @@ $classes[] = 'Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStor
 $classes[] = 'Symfony\Component\HttpFoundation\Session\Storage\MetadataBag';
 $classes[] = 'Symfony\Component\HttpKernel\EventListener\SessionListener';
 $classes[] = 'Symfony\Component\HttpKernel\EventListener\StreamedResponseListener';
-$classes[] = 'Symfony\Bundle\SwiftmailerBundle\Command\DebugCommand';
-$classes[] = 'Symfony\Bundle\SwiftmailerBundle\Command\NewEmailCommand';
-$classes[] = 'Symfony\Bundle\SwiftmailerBundle\Command\SendEmailCommand';
-$classes[] = 'Symfony\Bundle\SwiftmailerBundle\EventListener\EmailSenderListener';
-$classes[] = 'Swift_Mailer';
-$classes[] = 'Swift_Plugins_MessageLogger';
-$classes[] = 'Swift_Events_SimpleEventDispatcher';
-$classes[] = 'Swift_Transport';
-$classes[] = 'Symfony\Bundle\SwiftmailerBundle\DependencyInjection\SwiftmailerTransportFactory';
-$classes[] = 'Swift_Transport_SpoolTransport';
-$classes[] = 'Swift_MemorySpool';
 $classes[] = 'Symfony\Component\Translation\Extractor\ChainExtractor';
 $classes[] = 'Symfony\Component\Translation\Extractor\PhpExtractor';
 $classes[] = 'Symfony\Bridge\Twig\Translation\TwigExtractor';
@@ -486,6 +483,7 @@ $classes[] = 'Symfony\Bridge\Twig\Extension\SecurityExtension';
 $classes[] = 'Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension';
 $classes[] = 'Symfony\Component\VarDumper\Dumper\HtmlDumper';
 $classes[] = 'Doctrine\Bundle\DoctrineBundle\Twig\DoctrineExtension';
+$classes[] = 'Twig\Extra\CssInliner\CssInlinerExtension';
 $classes[] = 'Knp\Bundle\PaginatorBundle\Twig\Extension\PaginationExtension';
 $classes[] = 'Knp\Bundle\PaginatorBundle\Helper\Processor';
 $classes[] = 'Symfony\Bridge\Twig\AppVariable';
@@ -496,6 +494,8 @@ $classes[] = 'Symfony\Bridge\Twig\Command\DebugCommand';
 $classes[] = 'Symfony\Bundle\TwigBundle\Command\LintCommand';
 $classes[] = 'Symfony\Component\Form\FormRenderer';
 $classes[] = 'Symfony\Bridge\Twig\Form\TwigRendererEngine';
+$classes[] = 'Symfony\Component\Mailer\EventListener\MessageListener';
+$classes[] = 'Symfony\Bridge\Twig\Mime\BodyRenderer';
 $classes[] = 'Twig\Profiler\Profile';
 $classes[] = 'Symfony\Bridge\Twig\Extension\HttpKernelRuntime';
 $classes[] = 'Symfony\Component\HttpKernel\DependencyInjection\LazyLoadingFragmentHandler';
