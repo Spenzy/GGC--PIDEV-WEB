@@ -48,8 +48,9 @@
             </tbody>
         </table>
     </div>
-
+<div class="container-fluid d-flex justify-content-center ">
     <a class="btn btn-outline-primary " href="{{ path('app_produit_new') }}">Ajouter un produit</a>
     <a href="{{ path('app_produit_note',{'reference':0}) }}" class="btn btn-outline-dark ">Notes produits</a>
-
+    <a href="{{ path('app_produit_pdf',{'reference':0}) }}" class="btn btn-outline-dark ">Télécharger liste</a>
+</div>
 {% endblock %}

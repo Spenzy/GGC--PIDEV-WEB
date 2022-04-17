@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>body{margin-top:20px;
+            background:#EBFAFA;
+        }
+
+        @media(max-width:575px) {
+            .invoice .top-left,.invoice .top-right,.invoice .payment-details {
+                text-align:center;
+            }
+            .invoice .from,.invoice .to,.invoice .payment-details {
+                float:none;
+                width:100%;
+                text-align:center;
+                margin-bottom:25px;
+            }
+            .invoice p.lead,.invoice .from p.lead,.invoice .to p.lead,.invoice .payment-details p.lead {
+                font-size:22px;
+            }
+            .invoice .btn {
+                margin-top:10px;
+            }
+        }
+        @media print {
+            .invoice {
+                width:900px;
+                height:800px;
+            }
+        }</style>
+    <title>Liste des produits : Shop</title>
+
+</head>
+
+<body>
+
+<img src="C:\Users\dell\Desktop\LogoGGC.png" >
+
+<div class="container mt-5">
+    <h1 class="d-flex justify-content-center">Liste des produits du shop</h1>
+
+    <table class="table-bordered ">
+        <thead>
+        <tr>
+            <th>Référence</th>
+            <th>Libéllé</th>
+            <th>Catégorie</th>
+            <th>Description</th>
+            <th>Prix</th>
+            <th>Note</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+            <tr>
+                <td>{{ produit.reference }}</td>
+                <td>{{ produit.libelle }}</td>
+                <td>{{ produit.categorie }}</td>
+                <td>{{ produit.description }}</td>
+                <td>{{ produit.prix }}</td>
+                <td>{{ produit.note }}</td>
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">aucun produit trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

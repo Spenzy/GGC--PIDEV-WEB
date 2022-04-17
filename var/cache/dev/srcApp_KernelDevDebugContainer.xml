@@ -5858,7 +5858,7 @@
         <argument key="produitRepository" type="service_closure" id="App\Repository\ProduitRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.vPD6QA8" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.6_W_oVG" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\AvisController::delete" type="service_closure" id=".service_locator.kxiOLSN"/>
@@ -5888,6 +5888,7 @@
         <argument key="App\Controller\PanierController::edit" type="service_closure" id=".service_locator.Ba4wKSL"/>
         <argument key="App\Controller\PanierController::index" type="service_closure" id=".service_locator.B5Vnr4V"/>
         <argument key="App\Controller\PanierController::remove" type="service_closure" id=".service_locator.ZRiJYj9"/>
+        <argument key="App\Controller\ProduitController::PdfListeProduits" type="service_closure" id=".service_locator.D_VxfLH"/>
         <argument key="App\Controller\ProduitController::Recherche" type="service_closure" id=".service_locator.erPnm9F"/>
         <argument key="App\Controller\ProduitController::RemiseAffecter" type="service_closure" id=".service_locator.jD9obl3"/>
         <argument key="App\Controller\ProduitController::delete" type="service_closure" id=".service_locator.3m502IA"/>
@@ -5926,6 +5927,7 @@
         <argument key="App\Controller\PanierController:edit" type="service_closure" id=".service_locator.Ba4wKSL"/>
         <argument key="App\Controller\PanierController:index" type="service_closure" id=".service_locator.B5Vnr4V"/>
         <argument key="App\Controller\PanierController:remove" type="service_closure" id=".service_locator.ZRiJYj9"/>
+        <argument key="App\Controller\ProduitController:PdfListeProduits" type="service_closure" id=".service_locator.D_VxfLH"/>
         <argument key="App\Controller\ProduitController:Recherche" type="service_closure" id=".service_locator.erPnm9F"/>
         <argument key="App\Controller\ProduitController:RemiseAffecter" type="service_closure" id=".service_locator.jD9obl3"/>
         <argument key="App\Controller\ProduitController:delete" type="service_closure" id=".service_locator.3m502IA"/>
@@ -6433,12 +6435,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.vPD6QA8"/>
+      <argument type="service" id=".service_locator.6_W_oVG"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.vPD6QA8"/>
+      <argument type="service" id=".service_locator.6_W_oVG"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -6866,7 +6868,7 @@
     <service id="Swift_Transport" alias="swiftmailer.mailer.default.transport.spool" public="false"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.CmORmuK" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.vPD6QA8"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.6_W_oVG"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>

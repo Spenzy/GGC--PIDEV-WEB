@@ -84,6 +84,7 @@ return [
                         .'|([^/]++)/note(*:595)'
                         .'|remise(*:609)'
                         .'|search(*:623)'
+                        .'|([^/]++)//pdf(*:644)'
                     .')'
                 .')'
             .')/?$}sD',
@@ -120,8 +121,9 @@ return [
         574 => [[['_route' => 'app_produit_edit', '_controller' => 'App\\Controller\\ProduitController::edit'], ['reference'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
         595 => [[['_route' => 'app_produit_note', '_controller' => 'App\\Controller\\ProduitController::excuse'], ['reference'], ['POST' => 0, 'GET' => 1], null, false, false, null]],
         609 => [[['_route' => 'app_produit_remise', '_controller' => 'App\\Controller\\ProduitController::RemiseAffecter'], [], ['POST' => 0, 'GET' => 1], null, false, false, null]],
-        623 => [
-            [['_route' => 'app_produit_search', '_controller' => 'App\\Controller\\ProduitController::Recherche'], [], ['POST' => 0, 'GET' => 1], null, false, false, null],
+        623 => [[['_route' => 'app_produit_search', '_controller' => 'App\\Controller\\ProduitController::Recherche'], [], ['POST' => 0, 'GET' => 1], null, false, false, null]],
+        644 => [
+            [['_route' => 'app_produit_pdf', '_controller' => 'App\\Controller\\ProduitController::PdfListeProduits'], ['reference'], ['POST' => 0, 'GET' => 1], null, false, false, null],
             [null, null, null, null, false, false, 0],
         ],
     ],
