@@ -133,7 +133,7 @@
                         <div class="ps-3">
                             <h6 class="text-white mb-1">Client Name: {{ avi.idclient.idclient.nom }}</h6>
                             <small>{{ avi.type }}</small>
-<br>                        {% if (avi.idclient.idclient.idPersonne == 6) %}
+<br>                        {% if (avi.idclient.idclient.idPersonne == uid) %}
                                 <a class="btn btn-outline-primary fa fa-trash-alt rounded-pill px-3 py-2 col" href="{{ path('app_avis_delete', {'idavis': avi.idavis }) }}"></a>
                                 <a class="btn btn-outline-primary rounded-pill px-3 py-2 col" href="{{ path('app_avis_edit', {'idavis': avi.idavis, 'reference': produit.reference }) }}">Modifier</a>
                             {% endif %}

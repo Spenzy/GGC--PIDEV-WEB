@@ -39,8 +39,10 @@ class CommandeController extends AbstractController
     /**
      * @Route("/new", name="app_commande_new", methods={"GET", "POST"})
      */
-    public function new(\Swift_Mailer $mailer,Request $request,LignecommandeRepository $lignecommandeRepository, CommandeRepository $commandeRepository,ProduitRepository $produitRepository,PanierService $cartservice ,SessionInterface $session): Response
+    public function new(SessionInterface $session,Request $request,LignecommandeRepository $lignecommandeRepository, CommandeRepository $commandeRepository,ProduitRepository $produitRepository,PanierService $cartservice ): Response
     {
+        $userid=111;//$uiserid=$session['userid'];
+
         $commande = new Commande();
 
         //ajouter le prix total dans la commande à partir de la session
@@ -49,7 +51,9 @@ class CommandeController extends AbstractController
 
         $commande->setPrix($total);
 
-        $client=$this->getDoctrine()->getRepository(Client::class)->find(111);
+        $client=$this->getDoctrine()->getRepository(Client::class)->find(
+            $userid
+        );
         $commande->setIdclient($client);
 
         $commande->setLivree(false);
@@ -87,7 +91,7 @@ class CommandeController extends AbstractController
             $this->PdfCommandeRecu($commande,$session,$produitRepository);
             $session->remove("panier");
 
-            return $this->redirectToRoute('app_produit_shop', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_home_page', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('commande/new.html.twig', [
@@ -145,6 +149,7 @@ class CommandeController extends AbstractController
         $dompdf->stream("Reçu.pdf", [
             "Attachment" => true
         ]);
+
     }
 
 
@@ -191,9 +196,9 @@ class CommandeController extends AbstractController
     /**
      * @Route("/show", name="app_commande_show", methods={"GET"})
      */
-    public function show(LignecommandeRepository $lignecommandeRepository,Request $request,CommandeRepository $commandeRepository,ClientRepository $clientRepository, PaginatorInterface $paginator): Response
+    public function show(SessionInterface $session,LignecommandeRepository $lignecommandeRepository,Request $request,CommandeRepository $commandeRepository,ClientRepository $clientRepository, PaginatorInterface $paginator): Response
     {
-        $uid=111;
+        $uid=111;//$uid=$session['userid'];
 
         $donnees=$commandeRepository->afficheCommandesClients($uid);
 

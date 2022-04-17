@@ -9,6 +9,7 @@ use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -75,13 +76,16 @@ class ProduitController extends AbstractController
     /**
      * @Route("/produit/details/{reference}", name="app_produit_details", methods={"GET"})
      */
-    public function details(int $reference,ProduitRepository $rep,AvisRepository $repAvis): Response
+    public function details(SessionInterface $session,int $reference,ProduitRepository $rep,AvisRepository $repAvis): Response
     {
+        $userid=6;//$serid=$session[''];
+
         $produit=$rep->find($reference);
         $avis=$repAvis->findAvis($reference);
         return $this->render('produit/details.html.twig', [
             'produit' => $produit,
             'avis' => $avis,
+            'uid' => $userid,
         ]);
     }
     /**

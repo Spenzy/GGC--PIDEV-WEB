@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Notifier\Message\SmsMessage;
+use Symfony\Component\Notifier\TexterInterface;
 
 /**
  * @Route("/livraison")
@@ -34,7 +36,7 @@ class LivraisonController extends AbstractController
     /**
      * @Route("/new", name="app_livraison_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, LivraisonRepository $livraisonRepository,\Swift_Mailer $mailer): Response
+    public function new(TexterInterface $texter, Request $request, LivraisonRepository $livraisonRepository,\Swift_Mailer $mailer): Response
     {
         $livraison = new Livraison();
         $form = $this->createForm(LivraisonType::class, $livraison);
@@ -42,7 +44,24 @@ class LivraisonController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $livraisonRepository->add($livraison);
+            //mail affectation
             $this->MailsendAffectation($mailer,$livraison->getIdcommande()->getIdclient(),$livraison->getIdlivreur(),$livraison->getIdcommande(),$livraison);
+           //SMS affectation de votre commande a une livraison
+
+
+
+
+
+            $sms = new SmsMessage(
+            // the phone number to send the SMS message to
+                '+21654342461',
+                // the message
+                'A new login was detected!'
+            );
+
+            $sentMessage = $texter->send($sms);
+
+
             return $this->redirectToRoute('app_livraison_index', [], Response::HTTP_SEE_OTHER);
         }
 
