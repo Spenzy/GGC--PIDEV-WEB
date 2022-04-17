@@ -49,7 +49,7 @@ class LivraisonController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $livraisonRepository->add($livraison);
             //mail affectation
-            $this->mailExcuse($livraison->getIdcommande()->getIdclient(),$livraison->getIdlivreur(),
+            $this->mailAffectation($livraison->getIdcommande()->getIdclient(),$livraison->getIdlivreur(),
                 $livraison->getIdcommande(), $livraison, $mailer);
            //SMS affectation de votre commande a une livraison
             \Mediumart\Orange\SMS\Http\SMSClientRequest::verify(false);
@@ -111,7 +111,7 @@ class LivraisonController extends AbstractController
         return $this->redirectToRoute('app_livraison_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    public function mailExcuse(Client $client,Livreur $livreur,Commande $commande,Livraison $livraison,MailerInterface $mailer)
+    public function mailAffectation(Client $client,Livreur $livreur,Commande $commande,Livraison $livraison,MailerInterface $mailer)
     {
         $email = (new TemplatedEmail())
             ->from('gamergeekscommunity@gmail.com')
@@ -129,49 +129,32 @@ class LivraisonController extends AbstractController
         }
     }
 
- /*   public function MailsendAffectation(\Swift_Mailer $mailer,Client $client,Livreur $livreur,Commande $commande,Livraison $livraison)
+
+
+    public function MailsendExcuse(MailerInterface $mailer,Client $client,Livreur $livreur,Commande $commande)
     {
+        $email = (new TemplatedEmail())
+            ->from('gamergeekscommunity@gmail.com')
+            ->to($client->getIdclient()->getEmail())
+            ->subject('Email Excuse')
+            ->text('Sending emails is fun again!')
+            ->embedFromPath('img/LogoGGC.png', 'logo')
+            ->htmlTemplate('emails/excuse.html.twig')
+            ->context(compact('client','livreur','commande'));
 
-        $message= (new \Swift_Message('Email Livraison'))
-            ->setFrom('gamergeekscommunity@gmail.com')
-            ->setTo($client->getIdclient()->getEmail())
-            ->setBody(
-                $this->renderView(
-                    'emails/affectation.html.twig', compact('client','livreur','commande','livraison')
-                )
-            )
-        ;
-        $mailer->send($message);
-
-
-
-        return $this->redirectToRoute('app_produit_shop', [], Response::HTTP_SEE_OTHER);
-    }*/
-/*
-    public function MailsendExcuse(\Swift_Mailer $mailer,Client $client,Livreur $livreur,Commande $commande)
-    {
+        try {
+            $mailer->send($email);
+        } catch (TransportExceptionInterface $e) {
+            var_dump($e->getMessage());
+        }
 
 
-        $message = (new \Swift_Message('Email Excuse'))
-            ->setFrom('gamergeekscommunity@gmail.com')
-            ->setTo($client->getIdclient()->getEmail())
-            ->setBody(
-                $this->renderView(
-                    'emails/excuse.html.twig', compact('client','livreur','commande')
-                ),
-                'text/html'
-            )
-        ;
-        $mailer->send($message);
+    }
 
-
-
-        return $this->redirectToRoute('app_produit_shop', [], Response::HTTP_SEE_OTHER);
-    }*/
     /**
      * @Route("/{idcommande}/excuse", name="app_livraison_excuse", methods={"POST","GET"})
      */
-    public function excuse(LivraisonRepository $livraisonRepository,CommandeRepository $commandeRepository): Response
+    public function excuse(LivraisonRepository $livraisonRepository,CommandeRepository $commandeRepository,MailerInterface $mailer): Response
     {
         $commandes = $commandeRepository->findAll();
         foreach ($commandes as $commande) {
@@ -187,7 +170,7 @@ class LivraisonController extends AbstractController
                 //mail excuse
                 $livreur=$livraison->getIdlivreur();
                 $client=$commande->getIdclient();
-              //  $this->MailsendExcuse($mailer,$client,$livreur,$commande);
+                $this->MailsendExcuse($mailer,$client,$livreur,$commande);
             }
 
         }

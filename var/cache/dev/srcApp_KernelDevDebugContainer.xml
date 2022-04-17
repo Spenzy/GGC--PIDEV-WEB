@@ -5652,11 +5652,21 @@
         <argument key="mailer" type="service_closure" id="mailer.mailer"/>
       </argument>
     </service>
-    <service id=".service_locator.n1N1dZP" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.MRANtn3" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="client" type="service_closure" id=".errored..service_locator.MRANtn3.App\Entity\Client"/>
+        <argument key="commande" type="service_closure" id=".errored..service_locator.MRANtn3.App\Entity\Commande"/>
+        <argument key="livreur" type="service_closure" id=".errored..service_locator.MRANtn3.App\Entity\Livreur"/>
+        <argument key="mailer" type="service_closure" id="mailer.mailer"/>
+      </argument>
+    </service>
+    <service id=".service_locator.YW24pO5" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="commandeRepository" type="service_closure" id="App\Repository\CommandeRepository"/>
         <argument key="livraisonRepository" type="service_closure" id="App\Repository\LivraisonRepository"/>
+        <argument key="mailer" type="service_closure" id="mailer.mailer"/>
       </argument>
     </service>
     <service id=".service_locator.B5Vnr4V" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -5713,7 +5723,7 @@
         <argument key="produitRepository" type="service_closure" id="App\Repository\ProduitRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.XSayl43" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.7Vj8Gy0" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\AvisController::delete" type="service_closure" id=".service_locator.kxiOLSN"/>
@@ -5733,11 +5743,12 @@
         <argument key="App\Controller\LignecommandeController::index" type="service_closure" id=".service_locator.q5KkydN"/>
         <argument key="App\Controller\LignecommandeController::new" type="service_closure" id=".service_locator.WJxlHpL"/>
         <argument key="App\Controller\LignecommandeController::show" type="service_closure" id=".service_locator.q5KkydN"/>
+        <argument key="App\Controller\LivraisonController::MailsendExcuse" type="service_closure" id=".service_locator.MRANtn3"/>
         <argument key="App\Controller\LivraisonController::delete" type="service_closure" id=".service_locator.ItTxtGJ"/>
         <argument key="App\Controller\LivraisonController::edit" type="service_closure" id=".service_locator.ItTxtGJ"/>
-        <argument key="App\Controller\LivraisonController::excuse" type="service_closure" id=".service_locator.n1N1dZP"/>
+        <argument key="App\Controller\LivraisonController::excuse" type="service_closure" id=".service_locator.YW24pO5"/>
         <argument key="App\Controller\LivraisonController::index" type="service_closure" id=".service_locator.MvS2xH3"/>
-        <argument key="App\Controller\LivraisonController::mailExcuse" type="service_closure" id=".service_locator.5FTn1X3"/>
+        <argument key="App\Controller\LivraisonController::mailAffectation" type="service_closure" id=".service_locator.5FTn1X3"/>
         <argument key="App\Controller\LivraisonController::new" type="service_closure" id=".service_locator.N.EH_6X"/>
         <argument key="App\Controller\LivraisonController::show" type="service_closure" id=".service_locator.t9z1pbv"/>
         <argument key="App\Controller\PanierController::add" type="service_closure" id=".service_locator.ZRiJYj9"/>
@@ -5771,11 +5782,12 @@
         <argument key="App\Controller\LignecommandeController:index" type="service_closure" id=".service_locator.q5KkydN"/>
         <argument key="App\Controller\LignecommandeController:new" type="service_closure" id=".service_locator.WJxlHpL"/>
         <argument key="App\Controller\LignecommandeController:show" type="service_closure" id=".service_locator.q5KkydN"/>
+        <argument key="App\Controller\LivraisonController:MailsendExcuse" type="service_closure" id=".service_locator.MRANtn3"/>
         <argument key="App\Controller\LivraisonController:delete" type="service_closure" id=".service_locator.ItTxtGJ"/>
         <argument key="App\Controller\LivraisonController:edit" type="service_closure" id=".service_locator.ItTxtGJ"/>
-        <argument key="App\Controller\LivraisonController:excuse" type="service_closure" id=".service_locator.n1N1dZP"/>
+        <argument key="App\Controller\LivraisonController:excuse" type="service_closure" id=".service_locator.YW24pO5"/>
         <argument key="App\Controller\LivraisonController:index" type="service_closure" id=".service_locator.MvS2xH3"/>
-        <argument key="App\Controller\LivraisonController:mailExcuse" type="service_closure" id=".service_locator.5FTn1X3"/>
+        <argument key="App\Controller\LivraisonController:mailAffectation" type="service_closure" id=".service_locator.5FTn1X3"/>
         <argument key="App\Controller\LivraisonController:new" type="service_closure" id=".service_locator.N.EH_6X"/>
         <argument key="App\Controller\LivraisonController:show" type="service_closure" id=".service_locator.t9z1pbv"/>
         <argument key="App\Controller\PanierController:add" type="service_closure" id=".service_locator.ZRiJYj9"/>
@@ -6288,12 +6300,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.XSayl43"/>
+      <argument type="service" id=".service_locator.7Vj8Gy0"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.XSayl43"/>
+      <argument type="service" id=".service_locator.7Vj8Gy0"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -6314,6 +6326,9 @@
     <service id=".errored..service_locator.5FTn1X3.App\Entity\Commande" class="App\Entity\Commande"/>
     <service id=".errored..service_locator.5FTn1X3.App\Entity\Livraison" class="App\Entity\Livraison"/>
     <service id=".errored..service_locator.5FTn1X3.App\Entity\Livreur" class="App\Entity\Livreur"/>
+    <service id=".errored..service_locator.MRANtn3.App\Entity\Client" class="App\Entity\Client"/>
+    <service id=".errored..service_locator.MRANtn3.App\Entity\Commande" class="App\Entity\Commande"/>
+    <service id=".errored..service_locator.MRANtn3.App\Entity\Livreur" class="App\Entity\Livreur"/>
     <service id=".errored..service_locator.ZRiJYj9.App\Entity\Produit" class="App\Entity\Produit"/>
     <service id=".errored..service_locator.J966qaa.App\Entity\Produit" class="App\Entity\Produit"/>
     <service id=".errored..service_locator.3m502IA.App\Entity\Produit" class="App\Entity\Produit"/>
@@ -6709,7 +6724,7 @@
     <service id="Knp\Component\Pager\PaginatorInterface" alias="knp_paginator"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.CmORmuK" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.XSayl43"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.7Vj8Gy0"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>

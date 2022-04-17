@@ -376,11 +376,11 @@
                                 <div class="text" style="padding: 0 2.5em; text-align: center;">
                                     <h1><span>Votre commande vous sera prochainement livrée!</span></h1>
 
-                                    <h1>Bonjour Mr/Mme {{ client.idclient.nom }}</h1>
-                                    <p>Nous vous informons que votre commande N°{{ commande.idcommande }} vous sera livrée le {{ livraison.dateheure ? livraison.dateheure|date('Y-m-d') : '' }} à l'adresse : {{ commande.adresse }}</p>
-                                    <p>Veuillez contactez votre livreur Mr {{ livreur.idlivreur.prenom }} {{ livreur.idlivreur.nom }} en cas de besoin sur :</p>
-                                    <p>Numéros de téléphone : {{ livreur.idlivreur.telephone }}</p>
-                                    <p>Adresse Mail : {{ livreur.idlivreur.email }}</p>
+                                    <h3>Bonjour Mr/Mme {{ client.idclient.nom }},</h3>
+                                    <h4>Nous vous informons que votre commande N°{{ commande.idcommande }} vous sera livrée le {{ livraison.dateheure ? livraison.dateheure|date('Y-m-d') : '' }} à l'adresse : {{ commande.adresse }}</h4>
+                                    <h4>Veuillez contactez votre livreur Mr {{ livreur.idlivreur.prenom }} {{ livreur.idlivreur.nom }} en cas de besoin sur :</h4>
+                                    <h4>Numéros de téléphone : {{ livreur.idlivreur.telephone }}</h4>
+                                    <h4>Adresse Mail : {{ livreur.idlivreur.email }}</h4>
 
                                     <a href="{{ path('app_home_page') }}" class="btn btn-primary btn-lg">Go Home</a>
                                 </div>
