@@ -201,7 +201,7 @@ class ProduitController extends AbstractController
     /**
      * @Route("/remise", name="app_produit_remise", methods={"POST","GET"})
      */
-    public function RemiseAffecter(ProduitRepository $produitRepository,Request $request,ClientRepository $clientRepository,MailerInterface $mailer): Response
+    public function RemiseAffecter(ProduitRepository $produitRepository,Request $request,ClientRepository $clientRepository,MailerInterface $mailer)
     {
         $categorie=$request->get("categorie","");
         $montant=$request->get("montant",0);
