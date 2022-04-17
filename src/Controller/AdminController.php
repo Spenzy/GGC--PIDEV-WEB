@@ -10,7 +10,11 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 
 /**
@@ -69,7 +73,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/forum/{idpublication}", name="app_forum_archive")
      */
-    public function archiver(int $idpublication, PublicationRepository $publicationRepository, \Swift_Mailer $mailer): Response
+    public function archiver(int $idpublication, PublicationRepository $publicationRepository, MailerInterface $mailer): Response
     {
         $publication = $publicationRepository->find($idpublication);
         $etat = $publication->getArchive();
@@ -84,26 +88,48 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('app_admin_pubnonarchive',[],Response::HTTP_SEE_OTHER);
     }
 
-    public function mail(string $etat, Publication $publication, \Swift_Mailer $mailer)
+    /* public function mail(string $etat, Publication $publication, \Swift_Mailer $mailer)
+     {
+         $message = (new \Swift_Message('Hello Email'))
+             ->setFrom('gamergeekscommunity@gmail.com')
+             ->setTo('dridi.zied@esprit.tn')
+             ->setSubject("Publication Archivé")
+             ->setBody(
+                 $this->renderView(
+                     'emails/archivemail.html.twig', [
+                         'p' => $publication,
+                         'date' => new \DateTime('today'),
+                         'archive' => $etat
+                      ]
+                 ),
+                 'text/html'
+             )
+         ;
+public function mail(string $etat, Publication $publication,MailerInterface $mailer)
     {
-        $message = (new \Swift_Message('Hello Email'))
-            ->setFrom('gamergeekscommunity@gmail.com')
-            ->setTo('dridi.zied@esprit.tn')
-            ->setSubject("Publication Archivé")
-            ->setBody(
-                $this->renderView(
-                    'emails/archivemail.html.twig', [
-                        'p' => $publication,
-                        'date' => new \DateTime('today'),
-                        'archive' => $etat
-                     ]
-                ),
-                'text/html'
-            )
-        ;
+        $email = (new TemplatedEmail())
+            ->from('gamergeekscommunity@gmail.com')
+            ->to('dridi.zied@esprit.tn')
+            ->subject('Time for Symfony Mailer!')
+            ->text('Sending emails is fun again!')
+            ->embedFromPath('img/LogoGGC.png', 'logo')
+            ->htmlTemplate('emails/archivemail.html.twig')
+            ->context([
+                'p' => $publication,
+                'date' => new \DateTime('today'),
+                'archive' => $etat
+            ]);
 
-        $mailer->send($message);
+        try {
+            $mailer->send($email);
+        } catch (TransportExceptionInterface $e) {
+            var_dump($e->getMessage());
+        }
     }
+         $mailer->send($message);
+    }*/
+
+
 
 }
 

@@ -14,7 +14,6 @@ return [
     Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
     Symfony\Bundle\WebServerBundle\WebServerBundle::class => ['dev' => true],
     Knp\Bundle\PaginatorBundle\KnpPaginatorBundle::class => ['all' => true],
-    Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle::class => ['all' => true],
     FOS\CKEditorBundle\FOSCKEditorBundle::class => ['all' => true],
     FM\ElfinderBundle\FMElfinderBundle::class => ['all' => true],
 ];
