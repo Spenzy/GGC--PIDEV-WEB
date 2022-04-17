@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Publication;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
@@ -45,6 +47,19 @@ class PublicationRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Publication[] Returns an array of Publication objects
+     */
+    public function findByArchivage($value)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.archive = :archive')
+            ->setParameter('archive', $value)
+            ->getQuery()
+            ->getResult();
+    }
+
+
     // /**
     //  * @return Publication[] Returns an array of Publication objects
     //  */
@@ -70,7 +85,15 @@ class PublicationRepository extends ServiceEntityRepository
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
+
+    $qb = $entityManager->createQueryBuilder();
+$qb->select('count(account.id)');
+$qb->from('ZaysoCoreBundle:Account','account');
+
+$count = $qb->getQuery()->getSingleScalarResult();
         ;
     }
     */
+
+
 }

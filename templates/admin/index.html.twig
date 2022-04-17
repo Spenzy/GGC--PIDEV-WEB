@@ -80,14 +80,23 @@
             <li class="nav-item">
                 <a class="nav-link" >
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Gestions Commandes</span></a>
+                    <span>Gestion Commandes</span></a>
             </li>
 
-            <!-- Nav Item - Forum -->
+            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Forum</span></a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForum"
+                   aria-expanded="true" aria-controls="collapseForum">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Gestion Forum</span>
+                </a>
+                <div id="collapseForum" class="collapse" aria-labelledby="headingForum" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Archivage:</h6>
+                        <a class="collapse-item" href="{{ path('app_admin_pubarchive', {'button_label': "Désarchiver"}) }}">Archivée</a>
+                        <a class="collapse-item" href="{{ path('app_admin_pubnonarchive') }}">Non Archivée</a>
+                    </div>
+                </div>
             </li>
 
         </ul>
@@ -313,5 +322,24 @@
         
     </div>
     
+
+    {% block javascripts %}
+        <!-- Bootstrap core JavaScript-->
+        <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+        <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+
+        <!-- Page level plugins -->
+        <script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>
+
+        <!-- Page level custom scripts -->
+        <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
+        <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
+    {% endblock %}
 
 </body>
