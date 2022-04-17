@@ -36,12 +36,18 @@ class EvenementController extends AbstractController
     /**
      * @Route("/affichEvent", name="affichEvent", methods={"GET"})
      */
-    public function affichEvent(EvenementRepository $evenementRepository): Response
+    public function affichEvent(EvenementRepository $evenementRepository ,Request $request,PaginatorInterface $paginator): Response
     {
+     
+        $ListeEvenements=$evenementRepository->findAll();
+        $eventl = $paginator->paginate(
+            $ListeEvenements, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            2 // Nombre de résultats par page
+        );
         return $this->render('evenement/affichEvent.html.twig', [
-            'evenement' => $evenementRepository->findAll(),
+            'evenement' => $eventl,
         ]);
-        
     }
 
     /**
