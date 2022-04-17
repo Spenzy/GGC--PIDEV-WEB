@@ -23,7 +23,7 @@ return [
         '/livraison/new' => [[['_route' => 'app_livraison_new', '_controller' => 'App\\Controller\\LivraisonController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/panier' => [[['_route' => 'panier_index', '_controller' => 'App\\Controller\\PanierController::index'], null, null, null, true, false, null]],
         '/panier/delete' => [[['_route' => 'panier_delete_all', '_controller' => 'App\\Controller\\PanierController::deleteAll'], null, null, null, false, false, null]],
-        '/produit' => [[['_route' => 'app_produit_index', '_controller' => 'App\\Controller\\ProduitController::index'], null, ['GET' => 0], null, false, false, null]],
+        '/produit' => [[['_route' => 'app_produit_index', '_controller' => 'App\\Controller\\ProduitController::index'], null, ['GET' => 0], null, true, false, null]],
         '/produit/shop' => [[['_route' => 'app_produit_shop', '_controller' => 'App\\Controller\\ProduitController::shop'], null, ['GET' => 0], null, false, false, null]],
         '/produit/new' => [[['_route' => 'app_produit_new', '_controller' => 'App\\Controller\\ProduitController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
     ],
@@ -87,6 +87,10 @@ return [
                             .'|lete/([^/]++)(*:587)'
                         .')'
                         .'|edit/([^/]++)(*:609)'
+                        .'|([^/]++)/note(*:630)'
+                        .'|remise(*:644)'
+                        .'|search(*:658)'
+                        .'|([^/]++)//pdf(*:679)'
                     .')'
                 .')'
             .')/?$}sD',
@@ -122,8 +126,12 @@ return [
         539 => [[['_route' => 'app_produit_show', '_controller' => 'App\\Controller\\ProduitController::show'], ['reference'], ['GET' => 0], null, false, true, null]],
         566 => [[['_route' => 'app_produit_details', '_controller' => 'App\\Controller\\ProduitController::details'], ['reference'], ['GET' => 0], null, false, true, null]],
         587 => [[['_route' => 'app_produit_delete', '_controller' => 'App\\Controller\\ProduitController::delete'], ['reference'], ['POST' => 0], null, false, true, null]],
-        609 => [
-            [['_route' => 'app_produit_edit', '_controller' => 'App\\Controller\\ProduitController::edit'], ['reference'], ['GET' => 0, 'POST' => 1], null, false, true, null],
+        609 => [[['_route' => 'app_produit_edit', '_controller' => 'App\\Controller\\ProduitController::edit'], ['reference'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
+        630 => [[['_route' => 'app_produit_note', '_controller' => 'App\\Controller\\ProduitController::excuse'], ['reference'], ['POST' => 0, 'GET' => 1], null, false, false, null]],
+        644 => [[['_route' => 'app_produit_remise', '_controller' => 'App\\Controller\\ProduitController::RemiseAffecter'], [], ['POST' => 0, 'GET' => 1], null, false, false, null]],
+        658 => [[['_route' => 'app_produit_search', '_controller' => 'App\\Controller\\ProduitController::Recherche'], [], ['POST' => 0, 'GET' => 1], null, false, false, null]],
+        679 => [
+            [['_route' => 'app_produit_pdf', '_controller' => 'App\\Controller\\ProduitController::PdfListeProduits'], ['reference'], ['POST' => 0, 'GET' => 1], null, false, false, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

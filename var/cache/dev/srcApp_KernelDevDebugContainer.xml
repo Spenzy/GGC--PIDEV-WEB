@@ -5702,6 +5702,13 @@
         <argument key="produitRepository" type="service_closure" id="App\Repository\ProduitRepository"/>
       </argument>
     </service>
+    <service id=".service_locator.erPnm9F" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="paginator" type="service_closure" id="knp_paginator"/>
+        <argument key="produitRepository" type="service_closure" id="App\Repository\ProduitRepository"/>
+      </argument>
+    </service>
     <service id=".service_locator.J966qaa" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5723,7 +5730,29 @@
         <argument key="produitRepository" type="service_closure" id="App\Repository\ProduitRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.7Vj8Gy0" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.mSkg7fz" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="avisRepository" type="service_closure" id="App\Repository\AvisRepository"/>
+        <argument key="produitRepository" type="service_closure" id="App\Repository\ProduitRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.pAl1XPS" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="client" type="service_closure" id=".errored..service_locator.pAl1XPS.App\Entity\Client"/>
+        <argument key="mailer" type="service_closure" id="mailer.mailer"/>
+      </argument>
+    </service>
+    <service id=".service_locator.u_iRZnk" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="clientRepository" type="service_closure" id="App\Repository\ClientRepository"/>
+        <argument key="mailer" type="service_closure" id="mailer.mailer"/>
+        <argument key="produitRepository" type="service_closure" id="App\Repository\ProduitRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.NOiOQKM" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\AvisController::delete" type="service_closure" id=".service_locator.kxiOLSN"/>
@@ -5758,12 +5787,17 @@
         <argument key="App\Controller\PanierController::edit" type="service_closure" id=".service_locator.Ba4wKSL"/>
         <argument key="App\Controller\PanierController::index" type="service_closure" id=".service_locator.B5Vnr4V"/>
         <argument key="App\Controller\PanierController::remove" type="service_closure" id=".service_locator.ZRiJYj9"/>
+        <argument key="App\Controller\ProduitController::PdfListeProduits" type="service_closure" id=".service_locator.D_VxfLH"/>
+        <argument key="App\Controller\ProduitController::Recherche" type="service_closure" id=".service_locator.erPnm9F"/>
+        <argument key="App\Controller\ProduitController::RemiseAffecter" type="service_closure" id=".service_locator.u_iRZnk"/>
         <argument key="App\Controller\ProduitController::delete" type="service_closure" id=".service_locator.3m502IA"/>
         <argument key="App\Controller\ProduitController::details" type="service_closure" id=".service_locator.D_1eMGl"/>
         <argument key="App\Controller\ProduitController::edit" type="service_closure" id=".service_locator.3m502IA"/>
+        <argument key="App\Controller\ProduitController::excuse" type="service_closure" id=".service_locator.mSkg7fz"/>
         <argument key="App\Controller\ProduitController::index" type="service_closure" id=".service_locator.D_VxfLH"/>
         <argument key="App\Controller\ProduitController::new" type="service_closure" id=".service_locator.D_VxfLH"/>
-        <argument key="App\Controller\ProduitController::shop" type="service_closure" id=".service_locator.D_VxfLH"/>
+        <argument key="App\Controller\ProduitController::sendMailRemise" type="service_closure" id=".service_locator.pAl1XPS"/>
+        <argument key="App\Controller\ProduitController::shop" type="service_closure" id=".service_locator.erPnm9F"/>
         <argument key="App\Controller\ProduitController::show" type="service_closure" id=".service_locator.J966qaa"/>
         <argument key="App\Controller\AvisController:delete" type="service_closure" id=".service_locator.kxiOLSN"/>
         <argument key="App\Controller\AvisController:edit" type="service_closure" id=".service_locator.kxiOLSN"/>
@@ -5797,12 +5831,17 @@
         <argument key="App\Controller\PanierController:edit" type="service_closure" id=".service_locator.Ba4wKSL"/>
         <argument key="App\Controller\PanierController:index" type="service_closure" id=".service_locator.B5Vnr4V"/>
         <argument key="App\Controller\PanierController:remove" type="service_closure" id=".service_locator.ZRiJYj9"/>
+        <argument key="App\Controller\ProduitController:PdfListeProduits" type="service_closure" id=".service_locator.D_VxfLH"/>
+        <argument key="App\Controller\ProduitController:Recherche" type="service_closure" id=".service_locator.erPnm9F"/>
+        <argument key="App\Controller\ProduitController:RemiseAffecter" type="service_closure" id=".service_locator.u_iRZnk"/>
         <argument key="App\Controller\ProduitController:delete" type="service_closure" id=".service_locator.3m502IA"/>
         <argument key="App\Controller\ProduitController:details" type="service_closure" id=".service_locator.D_1eMGl"/>
         <argument key="App\Controller\ProduitController:edit" type="service_closure" id=".service_locator.3m502IA"/>
+        <argument key="App\Controller\ProduitController:excuse" type="service_closure" id=".service_locator.mSkg7fz"/>
         <argument key="App\Controller\ProduitController:index" type="service_closure" id=".service_locator.D_VxfLH"/>
         <argument key="App\Controller\ProduitController:new" type="service_closure" id=".service_locator.D_VxfLH"/>
-        <argument key="App\Controller\ProduitController:shop" type="service_closure" id=".service_locator.D_VxfLH"/>
+        <argument key="App\Controller\ProduitController:sendMailRemise" type="service_closure" id=".service_locator.pAl1XPS"/>
+        <argument key="App\Controller\ProduitController:shop" type="service_closure" id=".service_locator.erPnm9F"/>
         <argument key="App\Controller\ProduitController:show" type="service_closure" id=".service_locator.J966qaa"/>
       </argument>
     </service>
@@ -6300,12 +6339,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.7Vj8Gy0"/>
+      <argument type="service" id=".service_locator.NOiOQKM"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.7Vj8Gy0"/>
+      <argument type="service" id=".service_locator.NOiOQKM"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -6332,6 +6371,7 @@
     <service id=".errored..service_locator.ZRiJYj9.App\Entity\Produit" class="App\Entity\Produit"/>
     <service id=".errored..service_locator.J966qaa.App\Entity\Produit" class="App\Entity\Produit"/>
     <service id=".errored..service_locator.3m502IA.App\Entity\Produit" class="App\Entity\Produit"/>
+    <service id=".errored..service_locator.pAl1XPS.App\Entity\Client" class="App\Entity\Client"/>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <argument type="service" id=".service_locator.TfYcj5y"/>
       <argument type="collection">
@@ -6724,7 +6764,7 @@
     <service id="Knp\Component\Pager\PaginatorInterface" alias="knp_paginator"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.CmORmuK" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.7Vj8Gy0"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.NOiOQKM"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>

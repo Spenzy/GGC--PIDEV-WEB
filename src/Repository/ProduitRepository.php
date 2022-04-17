@@ -45,6 +45,18 @@ class ProduitRepository extends ServiceEntityRepository
         }
     }
 
+    //tri des produits selon l'ordre décroissant des notes"
+    public function findAllProducts(){
+        return $this->getEntityManager()->createQuery('select p from App\Entity\Produit p order by p.note desc')->getResult();
+    }
+
+    public function rechercheLibelle(string $libelle){
+        return $this->createQueryBuilder('p')
+                ->where('p.libelle like :libelle')
+                ->setParameter('libelle','%'.$libelle.'%')
+                ->getQuery()
+                ->getResult();
+}
     // /**
     //  * @return Produit[] Returns an array of Produit objects
     //  */
