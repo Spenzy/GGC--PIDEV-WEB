@@ -13,6 +13,9 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
 use Knp\Component\Pager\PaginatorInterface;
 use Dompdf\Dompdf;
@@ -169,31 +172,33 @@ class ProduitController extends AbstractController
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    public function sendMailRemise(\Swift_Mailer $mailer,Client $client,$categorie,$montant)
+    public function sendMailRemise(MailerInterface $mailer,Client $client,$categorie,$montant)
     {
 
+        $email = (new TemplatedEmail())
+            ->from('gamergeekscommunity@gmail.com')
+            ->to($client->getIdclient()->getEmail())
+            ->subject('Une remise à ne pas rater!')
+            ->text('venez au shop!')
+            ->embedFromPath('img/LogoGGC.png', 'logo')
+            ->htmlTemplate('emails/EmailRemise.html.twig')
+            ->context(compact('client','categorie','montant')
+            );
 
-        $message = (new \Swift_Message('Notification Remise au shop'))
-            ->setFrom('gamergeekscommunity@gmail.com')
-            ->setTo($client->getIdclient()->getEmail())
-            ->setBody(
-                $this->renderView(
-                    'emails/EmailRemise.html.twig', compact('client','categorie','montant')
-                ),
-                'text/html'
-            )
-        ;
-        $mailer->send($message);
+        try {
+            $mailer->send($email);
+        } catch (TransportExceptionInterface $e) {
+            var_dump($e->getMessage());
+        }
 
 
-
-        return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
     }
 
     /**
      * @Route("/remise", name="app_produit_remise", methods={"POST","GET"})
      */
-    public function RemiseAffecter(ProduitRepository $produitRepository,Request $request,ClientRepository $clientRepository,\Swift_Mailer $mailer){
+    public function RemiseAffecter(ProduitRepository $produitRepository,Request $request,ClientRepository $clientRepository,MailerInterface $mailer)
+    {
         $categorie=$request->get("categorie","");
         $montant=$request->get("montant",0);
         if($categorie!="" && $montant!=0){
