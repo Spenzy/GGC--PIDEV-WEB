@@ -39,10 +39,11 @@
                             </div>
                         </li>
                     {% endfor %}
-                    {{ knp_pagination_render(commentaires, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig') }}
+                    <div class="d-flex justify-content-center">
+                        {{ knp_pagination_render(commentaires, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig') }}
+                    </div>
                 </ul>
                 {{ include('commentaire/_form.html.twig') }}
-
             </div>
         </div>
     </div>
