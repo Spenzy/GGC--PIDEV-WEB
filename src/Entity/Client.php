@@ -16,14 +16,14 @@ class Client
     /**
      * @var int
      *
-     * @ORM\Column(name="nbrAvertissement", type="integer", nullable=false)
+     * @ORM\Column(name="nbrAvertissement", type="integer", nullable=true)
      */
     private $nbravertissement;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="ban", type="integer", nullable=false)
+     * @ORM\Column(name="ban", type="integer", nullable=true)
      */
     private $ban;
 
@@ -45,7 +45,6 @@ class Client
      * @var \Personne
      *
      * @ORM\Id
-     
      * @ORM\OneToOne(targetEntity="Personne")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idClient", referencedColumnName="id_personne")

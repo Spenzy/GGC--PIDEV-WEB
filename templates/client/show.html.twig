@@ -8,6 +8,12 @@
 
     <table class="table">
         <tbody>
+        {% for client in clients %}
+            <tr>
+                <th> nom</th>
+                <td>{{ client.idclient.nom }}</td>
+             </tr>
+             {% endfor %}
             <tr>
                 <th>Nbravertissement</th>
                 <td>{{ client.nbravertissement }}</td>

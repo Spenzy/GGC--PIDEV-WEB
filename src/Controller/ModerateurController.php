@@ -8,6 +8,7 @@ use App\Entity\Moderateur;
 use App\Form\Moderateur1Type;
 use App\Repository\ModerateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\PercentType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -69,7 +70,7 @@ class ModerateurController extends AbstractController
      */
     public function edit(Request $request, Moderateur $moderateur, ModerateurRepository $moderateurRepository): Response
     {
-        $form = $this->createForm(Moderateur1Type::class, $moderateur);
+        $form = $this->createForm(PersonneType::class, $moderateur->getIdModerateur());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -94,34 +95,6 @@ class ModerateurController extends AbstractController
 
         return $this->redirectToRoute('app_moderateur_index', [], Response::HTTP_SEE_OTHER);
     }
-
-    /**
-     * @Route("/ajout/test", name="app_moderateur_ajout", methods={"GET", "POST"})
-     */
-    public function new2(Request $request, ModerateurRepository $moderateurRepository, PersonneRepository $personneRepository): Response
-    {
-        $personne = new Personne();
-        $form = $this->createForm(PersonneType::class, $personne);
-        $form->handleRequest($request);
-        $moderateur = new Moderateur();
-        
-
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $personneRepository->add($personne);
-            $moderateur->setIdModerateur($personne);
-            $moderateurRepository->add($moderateur);
-            return $this->redirectToRoute('app_moderateur_index', [], Response::HTTP_SEE_OTHER);
-        }
-        
-        $em = $this->getDoctrine()->getManager();
-        
-             return $this->render('moderateur/new.html.twig', [
-            'moderateur' => $moderateur,
-            'form' => $form->createView(),
-        ]);
-    }
-
 
 
 
