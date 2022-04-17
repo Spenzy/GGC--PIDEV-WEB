@@ -195,7 +195,8 @@ class ProduitController extends AbstractController
      */
     public function RemiseAffecter(ProduitRepository $produitRepository,Request $request,ClientRepository $clientRepository,\Swift_Mailer $mailer){
         $categorie=$request->get("categorie","");
-        $montant=$request->get("montant",100);
+        $montant=$request->get("montant",0);
+        if($categorie!="" && $montant!=0){
         $produits=$produitRepository->findAll();
         foreach($produits as $produit){
             if($produit->getCategorie()==$categorie){
@@ -208,6 +209,7 @@ class ProduitController extends AbstractController
         $clients=$clientRepository->findAll();
         foreach ($clients as $client){
             $this->sendMailRemise($mailer,$client,$categorie,$montant);
+        }
         }
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
 

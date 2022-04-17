@@ -45,6 +45,7 @@ class ProduitRepository extends ServiceEntityRepository
         }
     }
 
+    //tri des produits selon l'ordre décroissant des notes"
     public function findAllProducts(){
         return $this->getEntityManager()->createQuery('select p from App\Entity\Produit p order by p.note desc')->getResult();
     }

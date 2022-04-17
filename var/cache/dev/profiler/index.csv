@@ -687,3 +687,7 @@ d592a2,127.0.0.1,POST,http://localhost:8000/produit/remise,1650184592,,303
 8a0a66,127.0.0.1,GET,http://localhost:8000/produit/,1650184606,,200
 b12f60,127.0.0.1,GET,http://localhost:8000/produit/vendor/fontawesome-free/css/all.min.css,1650184607,3e8669,404
 3e8669,127.0.0.1,GET,http://localhost:8000/produit/vendor/fontawesome-free/css/all.min.css,1650184607,,404
+d34fb7,127.0.0.1,POST,http://localhost:8000/produit/remise,1650189327,,303
+291535,127.0.0.1,GET,http://localhost:8000/produit/,1650189328,,200
+f4fb84,127.0.0.1,GET,http://localhost:8000/produit/vendor/fontawesome-free/css/all.min.css,1650189329,da4d3a,404
+da4d3a,127.0.0.1,GET,http://localhost:8000/produit/vendor/fontawesome-free/css/all.min.css,1650189329,,404
