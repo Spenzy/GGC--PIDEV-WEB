@@ -10,6 +10,7 @@ use App\Repository\ClientRepository;
 use App\Repository\CommentaireRepository;
 use App\Repository\PublicationRepository;
 use App\Repository\VoteRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +25,8 @@ class PublicationController extends AbstractController
     /**
      * @Route("/", name="app_publication_index", methods={"GET", "POST"})
      */
-    public function index(Request $request, PublicationRepository $publicationRepository, ClientRepository $clientr, CommentaireRepository $cr, VoteRepository $vr): Response
+    public function index(Request $request, PublicationRepository $publicationRepository, PaginatorInterface $paginator,
+                          ClientRepository $clientr, CommentaireRepository $cr, VoteRepository $vr): Response
     {
         $userid = 1;
         $rs = $publicationRepository->findAll();
@@ -50,8 +52,14 @@ class PublicationController extends AbstractController
             return $this->redirectToRoute('app_publication_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $pubs = $paginator->paginate(
+            $publications, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            5 // Nombre de résultats par page
+        );
+
         return $this->render('forum/home.html.twig', [
-            'publications' => $publications,
+            'publications' => $pubs,
             'p' => $publication,
             'form' => $form->createView(),
         ]);
@@ -60,7 +68,7 @@ class PublicationController extends AbstractController
     /**
      * @Route("/{idpublication}/activity", name="app_publication_show", methods={"GET", "POST"})
      */
-    public function show(Request $request, Publication $publication,
+    public function show(Request $request, Publication $publication, PaginatorInterface $paginator,
                          ClientRepository $clientr, PublicationRepository $pr,
                          CommentaireRepository $cr, VoteRepository $vr, VoteController $vc): Response
     {
@@ -79,13 +87,19 @@ class PublicationController extends AbstractController
                 'idpublication' => $publication->getIdpublication(),
             ], Response::HTTP_SEE_OTHER);
         }
+        $listecomm = $cr->findByPost($publication->getIdpublication());
+        $commentaires = $paginator->paginate(
+            $listecomm, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            5 // Nombre de résultats par page
+        );
 
         return $this->render('publication/show.html.twig', [
             'uid' => $userid,
             'p' => $publication,
             'nbrC' => $cr->findCommentCountByPost($publication->getIdpublication()),
             'nbrV' => $vr->findVoteCountByPost($publication->getIdpublication()),
-            'commentaires' => $cr->findByPost($publication->getIdpublication()),
+            'commentaires' => $commentaires,
             'form' => $form->createView(),
         ]);
     }

@@ -28,11 +28,7 @@
 
 {% block body %}
     <div id="forum-container" class="container forum-body">
-        <h2 class="d-flex justify-content-center">Partagez votre avis!</h2>
         <!-- Main content -->
-        <div class="p-5">
-            {{ include('publication/_form.html.twig') }}
-        </div>
         <!-- End of post -->
         {% for pub in publications %}
             {% set p = pub[0] %}
@@ -72,7 +68,16 @@
             </div>
             <!-- /End of post -->
         {% endfor %}
+        <div class="d-flex justify-content-center">
+            {{ knp_pagination_render(publications, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig') }}
+
+        </div>
+        <div class="p-5">
+            <h2 class="d-flex justify-content-center">Partagez votre avis!</h2>
+            {{ include('publication/_form.html.twig') }}
+        </div>
     </div>
+
 
 
 

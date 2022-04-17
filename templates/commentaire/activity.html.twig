@@ -39,6 +39,7 @@
                             </div>
                         </li>
                     {% endfor %}
+                    {{ knp_pagination_render(commentaires, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig') }}
                 </ul>
                 {{ include('commentaire/_form.html.twig') }}
 
