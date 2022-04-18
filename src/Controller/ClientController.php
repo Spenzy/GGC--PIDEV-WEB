@@ -12,55 +12,40 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * @Route("/client")
  */
 class ClientController extends AbstractController 
 {
-
-  
-
-
-
-
     /**
      * @Route("/", name="app_client_index", methods={"GET"})
      */
-    public function index(ClientRepository $clientRepository): Response
+    public function index(SessionInterface $session,PersonneRepository $personneRepository,ClientRepository $clientRepository): Response
     {
+        if($personneRepository->findOneBy(array('idPersonne'=>$session->get("user_id")))->getRoles()=="admin"){
+
+
         return $this->render('client/index.html.twig', [
             'clients' => $clientRepository->findAll(),
         ]);
+    }else{
+        //page not found
+        return $this->redirectToRoute('app_home_page', [], Response::HTTP_SEE_OTHER);
+
+    }
     }
 
-    /**
-     * @Route("/new", name="app_client_new", methods={"GET", "POST"})
-     */
-    public function new(Request $request, ClientRepository $clientRepository): Response
-    {
-        $client = new Client();
-        $form = $this->createForm(ClientType::class, $client);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $clientRepository->add($client);
-            return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('client/new.html.twig', [
-            'client' => $client,
-            'form' => $form->createView(),
-        ]);
-    }
 
 
     /**
      * @Route("/new2", name="app_client_new2", methods={"GET", "POST"})
      */
-    public function new2(Request $request, ClientRepository $clientRepository, PersonneRepository $personneRepository): Response
+    public function new2(SessionInterface $session,Request $request, ClientRepository $clientRepository, PersonneRepository $personneRepository): Response
     {
+        if($personneRepository->findOneBy(array('idPersonne'=>$session->get("user_id")))->getRoles()=="admin"){
+
         $personne = new Personne();
         $form = $this->createForm(PersonneType::class, $personne);
         $form->handleRequest($request);
@@ -72,6 +57,7 @@ class ClientController extends AbstractController
             //$em = $this->getDoctrine()->getManager();
             //$em->persist($personne);          
             //$em->flush();
+            $personne->setRoles("user");
             $personneRepository->add($personne);
             //$id_selected = $form->getData()->getIdPersonne();
             $client->setIdclient($personne);
@@ -87,24 +73,38 @@ class ClientController extends AbstractController
             'client' => $client,
             'form' => $form->createView(),
         ]);
+    }else{
+ //page not found
+ return $this->redirectToRoute('app_home_page', [], Response::HTTP_SEE_OTHER);
+
+    }
     }
 
 
     /**
      * @Route("/{idclient}", name="app_client_show", methods={"GET"})
      */
-    public function show(Client $client): Response
+    public function show(SessionInterface $session,PersonneRepository $personneRepository,Client $client): Response
     {
+        if($personneRepository->findOneBy(array('idPersonne'=>$session->get("user_id")))->getRoles()=="admin"){
+
         return $this->render('client/show.html.twig', [
             'client' => $client,
         ]);
+    }else{
+         //page not found
+             return $this->redirectToRoute('app_home_page', [], Response::HTTP_SEE_OTHER);
+
+    }
     }
 
     /**
      * @Route("/{idclient}/edit", name="app_client_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Client $client, ClientRepository $clientRepository): Response
+    public function edit(SessionInterface $session,PersonneRepository $personneRepository,Request $request, Client $client, ClientRepository $clientRepository): Response
     {
+        if($personneRepository->findOneBy(array('idPersonne'=>$session->get("user_id")))->getRoles()=="admin"){
+
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
@@ -117,17 +117,30 @@ class ClientController extends AbstractController
             'client' => $client,
             'form' => $form->createView(),
         ]);
+    }else{
+         //page not found
+        return $this->redirectToRoute('app_home_page', [], Response::HTTP_SEE_OTHER);
+
+    }
     }
 
     /**
      * @Route("/{idclient}", name="app_client_delete", methods={"POST"})
      */
-    public function delete(Request $request, Client $client, ClientRepository $clientRepository): Response
+    public function delete(SessionInterface $session,PersonneRepository $personneRepository,Request $request, Client $client, ClientRepository $clientRepository): Response
     {
+        if($personneRepository->findOneBy(array('idPersonne'=>$session->get("user_id")))->getRoles()=="admin"){
+
         if ($this->isCsrfTokenValid('delete'.$client->getIdclient(), $request->request->get('_token'))) {
             $clientRepository->remove($client);
         }
 
         return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
+    }else {
+         //page not found
+         return $this->redirectToRoute('app_home_page', [], Response::HTTP_SEE_OTHER);
+
     }
+}
+    
 }

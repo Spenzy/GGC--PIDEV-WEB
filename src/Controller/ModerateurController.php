@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\PercentType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -21,18 +22,26 @@ class ModerateurController extends AbstractController
     /**
      * @Route("/", name="app_moderateur_index", methods={"GET"})
      */
-    public function index(ModerateurRepository $moderateurRepository): Response
+    public function index(SessionInterface $session,ModerateurRepository $moderateurRepository,PersonneRepository $personneRepository): Response
     {
+        if($personneRepository->findOneBy(array('idPersonne'=>$session->get("user_id")))->getRoles()=="admin"){
+
         return $this->render('moderateur/index.html.twig', [
             'moderateurs' => $moderateurRepository->findAll(),
         ]);
     }
+    else {
+        // page not found
+        return $this->redirectToRoute('app_home_page', [], Response::HTTP_SEE_OTHER);
+    }
+}
 
     /**
      * @Route("/new", name="app_moderateur_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, ModerateurRepository $moderateurRepository, PersonneRepository $personneRepository): Response
+    public function new(SessionInterface $session,Request $request, ModerateurRepository $moderateurRepository, PersonneRepository $personneRepository): Response
     {
+        if($personneRepository->findOneBy(array('idPersonne'=>$session->get("user_id")))->getRoles()=="admin"){
         $personne = new Personne();
         $form = $this->createForm(PersonneType::class, $personne);
         $form->handleRequest($request);
@@ -41,6 +50,8 @@ class ModerateurController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $personne->setRoles("moderateur");
+
             $personneRepository->add($personne);
             $moderateur->setIdModerateur($personne);
             $moderateurRepository->add($moderateur);
@@ -53,23 +64,37 @@ class ModerateurController extends AbstractController
             'moderateur' => $moderateur,
             'form' => $form->createView(),
         ]);
+
+    }else {
+        //page not found
+        return $this->redirectToRoute('app_home_page', [], Response::HTTP_SEE_OTHER);
+    }
     }
 
     /**
      * @Route("/{idModerateur}", name="app_moderateur_show", methods={"GET"})
      */
-    public function show(Moderateur $moderateur): Response
+    public function show(SessionInterface $session,PersonneRepository $personneRepository,Moderateur $moderateur): Response
+
+    
     {
+        if($personneRepository->findOneBy(array('idPersonne'=>$session->get("user_id")))->getRoles()=="admin"){
         return $this->render('moderateur/show.html.twig', [
             'moderateur' => $moderateur,
         ]);
+        } else {
+            //page not found
+        return $this->redirectToRoute('app_home_page', [], Response::HTTP_SEE_OTHER);
+        }
     }
 
     /**
      * @Route("/{idModerateur}/edit", name="app_moderateur_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Moderateur $moderateur, ModerateurRepository $moderateurRepository): Response
+    public function edit(SessionInterface $session,PersonneRepository $personneRepository,Request $request, Moderateur $moderateur, ModerateurRepository $moderateurRepository): Response
     {
+        if($personneRepository->findOneBy(array('idPersonne'=>$session->get("user_id")))->getRoles()=="admin"){
+
         $form = $this->createForm(PersonneType::class, $moderateur->getIdModerateur());
         $form->handleRequest($request);
 
@@ -82,22 +107,34 @@ class ModerateurController extends AbstractController
             'moderateur' => $moderateur,
             'form' => $form->createView(),
         ]);
+    }else{
+        //page not found
+        return $this->redirectToRoute('app_home_page', [], Response::HTTP_SEE_OTHER);
+    }
     }
 
     /**
      * @Route("/{idModerateur}", name="app_moderateur_delete", methods={"POST"})
      */
-    public function delete(Request $request, Moderateur $moderateur, ModerateurRepository $moderateurRepository): Response
+    public function delete(SessionInterface $session,PersonneRepository $personneRepository,Request $request, Moderateur $moderateur, ModerateurRepository $moderateurRepository): Response
     {
+        if($personneRepository->findOneBy(array('idPersonne'=>$session->get("user_id")))->getRoles()=="admin"){
+
         if ($this->isCsrfTokenValid('delete'.$moderateur->getIdModerateur(), $request->request->get('_token'))) {
             $moderateurRepository->remove($moderateur);
         }
 
         return $this->redirectToRoute('app_moderateur_index', [], Response::HTTP_SEE_OTHER);
+    }else {
+        //page not found
+        return $this->redirectToRoute('app_home_page', [], Response::HTTP_SEE_OTHER);
+
     }
-
-
-
-
-
 }
+}
+
+
+
+
+
+

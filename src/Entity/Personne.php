@@ -85,14 +85,21 @@ class Personne
     private $telephone;
 
     /**
-     * @var string The hashed password
      *
      * @ORM\Column(name="password", type="string", length=50, nullable=false)
      * @Assert\NotBlank(message="entrer votre password")
      * @Assert\Length(min="6")
+     * @var string The hashed password
      * 
      */
     private $password;
+     /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $roles;
+
+
 
     public function getIdPersonne(): ?int
     {
@@ -158,6 +165,7 @@ class Personne
 
         return $this;
     }
+  
 
     public function getPassword(): ?string
     {
@@ -175,6 +183,15 @@ class Personne
     {
         return 'Personne';
     }
+    public function setRoles(string $roles): self
+    {
+        $this->roles = $roles;
 
+        return $this;
+    }
 
+    public function getRoles(): ?string
+    {
+        return $this->roles;
+    }
 }
