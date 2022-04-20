@@ -6,6 +6,7 @@ use App\Entity\Personne;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 
 class PersonneType extends AbstractType
 {
@@ -18,6 +19,7 @@ class PersonneType extends AbstractType
             ->add('email')
             ->add('telephone')
             ->add('password')
+            ->add('captcha', CaptchaType::class)
         ;
     }
 

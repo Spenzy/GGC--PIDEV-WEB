@@ -33,10 +33,6 @@ class AdminController extends AbstractController
      */
     public function indexLogin(): Response
     {
-
-
-
-
         return $this->render('Login/login.html.twig', [
             'controller_name' => 'AdminController',
         ]);

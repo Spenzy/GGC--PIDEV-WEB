@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Knp\Component\Pager\PaginatorInterface;
+
 
 /**
  * @Route("/client")
@@ -22,13 +24,18 @@ class ClientController extends AbstractController
     /**
      * @Route("/", name="app_client_index", methods={"GET"})
      */
-    public function index(SessionInterface $session,PersonneRepository $personneRepository,ClientRepository $clientRepository): Response
+    public function index(Request $request ,SessionInterface $session,PersonneRepository $personneRepository,ClientRepository $clientRepository, PaginatorInterface $paginator): Response
     {
         if($personneRepository->findOneBy(array('idPersonne'=>$session->get("user_id")))->getRoles()=="admin"){
 
-
+            $clients =  $clientRepository->findAll();
+            $clients = $paginator->paginate(
+                $clients, /* query NOT result */
+                $request->query->getInt('page', 1), /*page number*/
+                3 /*limit per page*/
+            );
         return $this->render('client/index.html.twig', [
-            'clients' => $clientRepository->findAll(),
+            'clients' => $clients,
         ]);
     }else{
         //page not found
@@ -142,5 +149,9 @@ class ClientController extends AbstractController
 
     }
 }
+
+
+
+
     
 }
