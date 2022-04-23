@@ -101,7 +101,24 @@
             </div>
         </div>
         <!-- Spinner End -->
-    {% endblock %}
+        {% endblock %}
+        <!-- Navbar & Hero End -->
+    <!-- chatbot-->
+    <script>
+        var botmanWidget = {
+            frameEndpoint: '{{ path("chatframe") }}',
+            chatServer: '{{ path("message") }}',
+            introMessage: 'Hello, I am a Foody ,You Can Ask Me Any Thing ',
+            title: 'Easy to Eat Chatbot',
+            mainColor: '#456765',
+            bubbleBackground: '#ff76f4',
+            aboutText: ''
+        };
+    </script>
+    <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+    <!-- chatbot-->
+
+
 
     <div class="container-xxl py-5 bg-white mb-5">
     {% block body %}

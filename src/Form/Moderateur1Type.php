@@ -2,13 +2,12 @@
 
 namespace App\Form;
 
-use App\Entity\Personne;
+use App\Entity\Moderateur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Gregwar\CaptchaBundle\Type\CaptchaType;
 
-class PersonneType extends AbstractType
+class Moderateur1Type extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -19,14 +18,14 @@ class PersonneType extends AbstractType
             ->add('email')
             ->add('telephone')
             ->add('password')
-            ->add('captcha', CaptchaType::class)
+
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Personne::class,
+            'data_class' => Moderateur::class,
         ]);
     }
 }
