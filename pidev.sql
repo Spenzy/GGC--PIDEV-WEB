@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 17, 2022 at 02:48 PM
+-- Generation Time: Apr 23, 2022 at 05:44 PM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `DateCommande` date NOT NULL,
   PRIMARY KEY (`idCommande`,`idClient`) USING BTREE,
   KEY `fk_client_commande` (`idClient`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `commande`
@@ -133,7 +133,7 @@ INSERT INTO `commande` (`idCommande`, `idClient`, `adresse`, `prix`, `livree`, `
 (58, 111, 'gammarth', 3441.33, 0, '2022-04-09'),
 (65, 111, 'testtest', 80, 0, '2022-04-17'),
 (66, 111, 'ourourou', 190, 0, '2022-04-17'),
-(68, 111, 'ya mimti', 7312.56, 0, '2022-04-17');
+(69, 111, 'Darna', 1975, 0, '2022-04-17');
 
 -- --------------------------------------------------------
 
@@ -151,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `commentaire` (
   PRIMARY KEY (`idCommentaire`,`idPublication`),
   KEY `fk_commentaire` (`idPublication`),
   KEY `fk_commentaire_client` (`idClient`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `commentaire`
@@ -168,7 +168,8 @@ INSERT INTO `commentaire` (`idCommentaire`, `idPublication`, `description`, `idC
 (25, 14, '<p><img alt=\"\" src=\"/uploads/118309174_1257393187936426_5731899168835387014_n.png\" style=\"height:225px; width:226px\" /></p>', 1, '2022-04-17'),
 (26, 1, '<p><img alt=\"\" src=\"/uploads/download.jpg\" style=\"height:225px; width:225px\" /></p>', 1, '2022-04-17'),
 (29, 1, '<p><img alt=\"\" src=\"/uploads/472c74563067eac5468dc5936f07a549dd99c2e6a65a7a9f308d72dd6d1d61f7.jpg\" style=\"height:223px; width:228px\" /></p>', 1, '2022-04-17'),
-(30, 15, '<p style=\"text-align:center\"><span style=\"color:#9b59b6\"><span style=\"font-family:Comic Sans MS,cursive\"><strong>LONG LIVE THE DAPROUM FAMILY !!! &lt;3</strong></span></span></p>', 1, '2022-04-17');
+(30, 15, '<p style=\"text-align:center\"><span style=\"color:#9b59b6\"><span style=\"font-family:Comic Sans MS,cursive\"><strong>LONG LIVE THE DAPROUM FAMILY !!! &lt;3</strong></span></span></p>', 1, '2022-04-17'),
+(31, 7, 'wouah', 2, '2022-04-23');
 
 -- --------------------------------------------------------
 
@@ -220,7 +221,7 @@ CREATE TABLE IF NOT EXISTS `lignecommande` (
   PRIMARY KEY (`idLigne`,`idCommande`) USING BTREE,
   KEY `fk_ligne_produit` (`idProduit`),
   KEY `fk_ligne_commande` (`idCommande`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `lignecommande`
@@ -238,7 +239,8 @@ INSERT INTO `lignecommande` (`idLigne`, `idCommande`, `idProduit`, `quantite`, `
 (20, 63, 6663, 1, 170.5),
 (21, 65, 123, 1, 80),
 (22, 66, 9595, 1, 190),
-(23, 68, 66666, 1, 7312.56);
+(23, 68, 66666, 1, 7312.56),
+(24, 69, 745, 1, 1975);
 
 -- --------------------------------------------------------
 
@@ -297,7 +299,15 @@ DROP TABLE IF EXISTS `moderateur`;
 CREATE TABLE IF NOT EXISTS `moderateur` (
   `id_moderateur` int(11) NOT NULL,
   PRIMARY KEY (`id_moderateur`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `moderateur`
+--
+
+INSERT INTO `moderateur` (`id_moderateur`) VALUES
+(5),
+(6);
 
 -- --------------------------------------------------------
 
@@ -338,6 +348,7 @@ CREATE TABLE IF NOT EXISTS `personne` (
   `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `telephone` int(11) NOT NULL,
   `password` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `roles` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id_personne`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -345,16 +356,16 @@ CREATE TABLE IF NOT EXISTS `personne` (
 -- Dumping data for table `personne`
 --
 
-INSERT INTO `personne` (`id_personne`, `nom`, `prenom`, `dateNaissance`, `email`, `telephone`, `password`) VALUES
-(1, 'zied', 'dridi', '2022-02-11', 'dridi.zied@esprit.tn', 52848054, 'admin'),
-(2, 'marwa', 'ayari', '2001-02-02', 'maroua.ayari@esprit.tn', 54342461, 'pwd'),
-(3, 'Ahmed', 'Mezni', '2022-02-09', 'ahmed.mezni@esprit.tn', 84562357, 'pwd'),
-(4, 'Azer', 'Lahmer', '2022-02-01', 'azer.lahmer@esprit.tn', 78945612, 'pwd'),
-(5, 'Amir', 'Ben Salah', '2022-02-11', 'amir.bensalah@esprit.tn', 52845654, 'pwd'),
-(6, 'Maher', 'Gasmi', '2022-02-11', 'maher.gasmi@esprit.tn', 54123321, 'pwd'),
-(111, 'marwa', 'ayari', '2001-02-02', 'maroua.ayari@esprit.tn', 54342461, 'pwd'),
-(222, 'cft', 'yugy', '2022-02-09', 'maroua.ayari@esprit.tn', 84562357, 'pwd'),
-(6253, 'zied', 'dridi', '2022-02-01', 'dridi.zied@esprit.tn', 78945612, 'pwd');
+INSERT INTO `personne` (`id_personne`, `nom`, `prenom`, `dateNaissance`, `email`, `telephone`, `password`, `roles`) VALUES
+(1, 'zied', 'dridi', '2022-02-11', 'dridi.zied@esprit.tn', 52848054, 'pwd', 'admin'),
+(2, 'marwa', 'ayari', '2001-02-02', 'maroua.ayari@esprit.tn', 54342461, 'pwd', 'user'),
+(3, 'Ahmed', 'Mezni', '2022-02-09', 'ahmed.mezni@esprit.tn', 84562357, 'pwd', 'user'),
+(4, 'Azer', 'Lahmer', '2022-02-01', 'azer.lahmer@esprit.tn', 78945612, 'pwd', 'moderateur'),
+(5, 'Amir', 'Ben Salah', '2022-02-11', 'amir.bensalah@esprit.tn', 52845654, 'pwd', 'user'),
+(6, 'Maher', 'Gasmi', '2022-02-11', 'maher.gasmi@esprit.tn', 54123321, 'pwd', 'moderateur'),
+(111, 'marwa', 'ayari', '2001-02-02', 'maroua.ayari@esprit.tn', 54342461, 'pwd', 'user'),
+(222, 'cft', 'yugy', '2022-02-09', 'maroua.ayari@esprit.tn', 84562357, 'pwd', 'user'),
+(6253, 'zied', 'dridi', '2022-02-01', 'dridi.zied@esprit.tn', 78945612, 'pwd', 'user');
 
 -- --------------------------------------------------------
 
@@ -524,7 +535,7 @@ ALTER TABLE `livreur`
 -- Constraints for table `moderateur`
 --
 ALTER TABLE `moderateur`
-  ADD CONSTRAINT `fk_moderateur-client` FOREIGN KEY (`id_moderateur`) REFERENCES `personne` (`id_personne`);
+  ADD CONSTRAINT `fk_moderateur-personne` FOREIGN KEY (`id_moderateur`) REFERENCES `personne` (`id_personne`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `publication`
