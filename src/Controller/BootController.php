@@ -28,11 +28,14 @@ class BootController extends AbstractController
         $botman = BotManFactory::create($config);
 
         // Give the bot some things to listen for.
-        $botman->hears('(hello|hi|hey)', function (BotMan $bot) {
+        $botman->hears('(hello|hi|hey|wa)', function (BotMan $bot) {
             $bot->reply('Hello!');
         });
-        $botman->hears('(cant order food |wanna contact the admin |issue)', function (BotMan $bot) {
-            $bot->reply('Contact Us On "amir@gmail.com" To Solve The Issue');
+        $botman->hears('(wa bro)', function (BotMan $bot) {
+            $bot->reply('Wa houma');
+        });
+        $botman->hears('(help|wanna contact the admin |issue|email)', function (BotMan $bot) {
+            $bot->reply('Contact Us On "gamergeekscommunity@gmail.com" To Solve The Issue');
         });
         $botman->hears('(thank you|tnx|nice)', function (BotMan $bot) {
             $bot->reply('Happy to help <3  ');
@@ -40,6 +43,7 @@ class BootController extends AbstractController
         $botman->hears('(bye|see you|byebye)', function (BotMan $bot) {
             $bot->reply('Dont Forget to Come Back, bye and Have Nice Day ');
         });
+
 
         // Set a fallback
         $botman->fallback(function (BotMan $bot) {

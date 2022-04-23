@@ -19,29 +19,24 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 
-/**
- * @Route("/admin")
- */
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/", name="app_admin")
+     * @Route("/admin", name="app_admin")
      */
-    public function index(SessionInterface $session,PersonneRepository $personneRepository): Response
+
+    public function index(SessionInterface $session, PersonneRepository $personneRepository): Response
     {
-        if($personneRepository->findOneBy(array('idPersonne'=>$session->get("user_id")))->getRoles()=="admin"){
-
-
-        return $this->render('admin/index.html.twig', [
-            'controller_name' => 'AdminController',
-        ]);
-    }else{
-        //page not found
+        if ($personneRepository->findOneBy(array('idPersonne' => $session->get("user_id")))->getRoles() == "admin") {
+            return $this->render('admin/index.html.twig', [
+                'controller_name' => 'AdminController',
+            ]);
+        }
         return $this->redirectToRoute('app_home_page', [], Response::HTTP_SEE_OTHER);
 
     }
-    }
-     /**
+
+    /**
      * @Route("/loginnnn", name="loginnnn")
      */
     public function indexLogin(): Response
@@ -54,34 +49,32 @@ class AdminController extends AbstractController
     /**
      * @Route("/loginm" , name="app_loginm" , methods={"POST","GET"})
      */
-    public function login(SessionInterface $session,Request $request,PersonneRepository $personneRepository){
-        $email=$request->get("email","");
-        $password=$request->get("password","");
-        if($email!="" && $password!=""){
-        
-        $personne=$personneRepository->findOneBy(array('email'=>$email));
-        if($personne->getRoles()=="user"){
-            $session->set("user_id", $personne->getIdPersonne());
-            return $this->redirectToRoute('app_home_page', [], Response::HTTP_SEE_OTHER);
+    public function login(SessionInterface $session, Request $request, PersonneRepository $personneRepository)
+    {
+        $email = $request->get("email", "");
+        $password = $request->get("password", "");
+        if ($email != "" && $password != "") {
+            $personne = $personneRepository->findOneBy(array('email' => $email));
+            if ($personne->getRoles() == "user") {
+                $session->set("user_id", $personne->getIdPersonne());
+                return $this->redirectToRoute('app_home_page', [], Response::HTTP_SEE_OTHER);
+            }elseif ($personne->getRoles() == "admin") {
+                $session->set("user_id", $personne->getIdPersonne());
+                return $this->redirectToRoute('app_moderateur_index', [], Response::HTTP_SEE_OTHER);
+            }elseif ($personne->getRoles() == "moderateur") {
+                $session->set("user_id", $personne->getIdPersonne());
+                return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
-        if($personne->getRoles()=="admin"){
-            $session->set("user_id", $personne->getIdPersonne());
-            return $this->redirectToRoute('app_moderateur_index', [], Response::HTTP_SEE_OTHER);
-
-        }
-        if($personne->getRoles()=="moderateur"){
-            $session->set("user_id", $personne->getIdPersonne());
-            return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
-        }
-        
+        return $this->redirectToRoute('loginnnn', [], Response::HTTP_SEE_OTHER);
     }
 
     /**
      * @Route("/forum/archive", name="app_admin_pubarchive")
      */
-    public function forumArchive(Request $request,
+    public function forumArchive(Request               $request,
                                  PublicationRepository $publicationRepository,
-                                 PaginatorInterface $paginator): Response
+                                 PaginatorInterface    $paginator): Response
     {
         $pub = $publicationRepository->findByArchivage(1);
         $publication = $paginator->paginate(
@@ -98,9 +91,9 @@ class AdminController extends AbstractController
     /**
      * @Route("/forum/NonArchive", name="app_admin_pubnonarchive")
      */
-    public function forumNonArchive(Request $request,
+    public function forumNonArchive(Request               $request,
                                     PublicationRepository $publicationRepository,
-                                    PaginatorInterface $paginator): Response
+                                    PaginatorInterface    $paginator): Response
     {
         $pub = $publicationRepository->findByArchivage(0);
         $publication = $paginator->paginate(
@@ -123,13 +116,12 @@ class AdminController extends AbstractController
         $etat = $publication->getArchive();
         $publication->setArchive(!$etat);
         $publicationRepository->add($publication);
-        if($etat)
-            $this->mail("Archivé", $publication ,$mailer);
+        if ($etat)
+            $this->mail("Archivé", $publication, $mailer);
         else $this->mail("Désarchivé", $publication, $mailer);
 
 
-
-        return $this->redirectToRoute('app_admin_pubnonarchive',[],Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_admin_pubnonarchive', [], Response::HTTP_SEE_OTHER);
     }
 
     public function mail(string $etat, Publication $publication, MailerInterface $mailer)
@@ -152,7 +144,6 @@ class AdminController extends AbstractController
             var_dump($e->getMessage());
         }
     }
-
 
 
 }

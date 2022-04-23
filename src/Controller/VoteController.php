@@ -10,6 +10,7 @@ use App\Repository\VoteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -18,9 +19,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class VoteController extends AbstractController
 {
 
-    public function vote(string $type, int $idpublication, VoteRepository $voteRepository,ClientRepository $repC, PublicationRepository $vr)
+    public function vote(string $type,int $idpublication,SessionInterface $session,  VoteRepository $voteRepository,ClientRepository $repC, PublicationRepository $vr)
     {
-        $userid = 1;
+        $userid=$session->get("user_id");
 
         $vote=$voteRepository->findVoteByPublication($idpublication, $userid);
         if($vote == null) {

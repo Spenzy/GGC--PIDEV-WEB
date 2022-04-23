@@ -34,7 +34,7 @@ class AvisController extends AbstractController
      */
     public function new(SessionInterface $session,int $reference,Request $request, AvisRepository $avisRepository): Response
     {
-        $userid=6;//$userid=$session[''];
+        $userid=$session->get("user_id");
         $avi = new Avis();
         $client=$this->getDoctrine()->getRepository(Client::class)->find($userid);
         $avi->setIdclient($client);

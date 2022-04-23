@@ -14,6 +14,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -25,10 +26,10 @@ class PublicationController extends AbstractController
     /**
      * @Route("/", name="app_publication_index", methods={"GET", "POST"})
      */
-    public function index(Request $request, PublicationRepository $publicationRepository, PaginatorInterface $paginator,
+    public function index(Request $request,SessionInterface $session, PublicationRepository $publicationRepository, PaginatorInterface $paginator,
                           ClientRepository $clientr, CommentaireRepository $cr, VoteRepository $vr): Response
     {
-        $userid = 1;
+        $userid=$session->get("user_id");
         $rs = $publicationRepository->findAll();
         $publications = array();
         foreach ($rs as $p) {
@@ -69,10 +70,10 @@ class PublicationController extends AbstractController
      * @Route("/{idpublication}/activity", name="app_publication_show", methods={"GET", "POST"})
      */
     public function show(Request $request, Publication $publication, PaginatorInterface $paginator,
-                         ClientRepository $clientr, PublicationRepository $pr,
-                         CommentaireRepository $cr, VoteRepository $vr, VoteController $vc): Response
+                         SessionInterface $session, ClientRepository $clientr, PublicationRepository $pr,
+                         CommentaireRepository $cr, VoteRepository $vr): Response
     {
-        $userid = 1; //to be changed later
+        $userid=$session->get("user_id");
 
         $commentaire = new Commentaire();
         $form = $this->createForm(CommentaireType::class, $commentaire);
@@ -107,9 +108,9 @@ class PublicationController extends AbstractController
     /**
      * @Route("/{idpublication}/modification", name="app_publication_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Publication $publication, PublicationRepository $publicationRepository, CommentaireRepository $cr, VoteRepository $vr): Response
+    public function edit(Request $request,SessionInterface $session, Publication $publication, PublicationRepository $publicationRepository, CommentaireRepository $cr, VoteRepository $vr): Response
     {
-        $userid = 1; //to be changed later
+        $userid=$session->get("user_id");
         $form = $this->createForm(PublicationType::class, $publication);
         $form->handleRequest($request);
 

@@ -9,6 +9,7 @@ use App\Repository\VoteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/forum")
@@ -19,9 +20,9 @@ class CommentaireController extends AbstractController
     /**
      * @Route("/{idpublication}/{idcommentaire}/modif", name="app_commentaire_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Commentaire $commentaire, CommentaireRepository $commentaireRepository, VoteRepository $vr): Response
+    public function edit(Request $request,SessionInterface $session, Commentaire $commentaire, CommentaireRepository $commentaireRepository, VoteRepository $vr): Response
     {
-        $userid = 1;
+        $userid=$session->get("user_id");
 
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($request);

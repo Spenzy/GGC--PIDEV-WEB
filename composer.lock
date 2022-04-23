@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "839c0a6e6b0b8c3198f2ed262f433322",
+    "content-hash": "c30b9352d31ce19729760be2a206bdff",
     "packages": [
         {
             "name": "botman/botman",
@@ -865,23 +865,23 @@
         },
         {
             "name": "doctrine/doctrine-bundle",
-            "version": "2.6.2",
+            "version": "2.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineBundle.git",
-                "reference": "53cf797feda995299629bed081ffb51776f36e9f"
+                "reference": "527970d22b8ca6472ebd88d7c42e512550bd874e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/53cf797feda995299629bed081ffb51776f36e9f",
-                "reference": "53cf797feda995299629bed081ffb51776f36e9f",
+                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/527970d22b8ca6472ebd88d7c42e512550bd874e",
+                "reference": "527970d22b8ca6472ebd88d7c42e512550bd874e",
                 "shasum": ""
             },
             "require": {
                 "doctrine/annotations": "^1",
                 "doctrine/cache": "^1.11 || ^2.0",
                 "doctrine/dbal": "^2.13.1|^3.3.2",
-                "doctrine/persistence": "^2.2",
+                "doctrine/persistence": "^2.2|^3",
                 "doctrine/sql-formatter": "^1.0.1",
                 "php": "^7.1 || ^8.0",
                 "symfony/cache": "^4.3.3|^5.0|^6.0",
@@ -959,7 +959,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/DoctrineBundle/issues",
-                "source": "https://github.com/doctrine/DoctrineBundle/tree/2.6.2"
+                "source": "https://github.com/doctrine/DoctrineBundle/tree/2.6.3"
             },
             "funding": [
                 {
@@ -975,7 +975,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-07T09:18:26+00:00"
+            "time": "2022-04-22T09:59:53+00:00"
         },
         {
             "name": "doctrine/doctrine-migrations-bundle",
@@ -1501,16 +1501,16 @@
         },
         {
             "name": "doctrine/orm",
-            "version": "2.11.2",
+            "version": "2.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/orm.git",
-                "reference": "9c351e044478135aec1755e2c0c0493a4b6309db"
+                "reference": "2e4a8722721b934149ff53b191522a6829b6d73b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/orm/zipball/9c351e044478135aec1755e2c0c0493a4b6309db",
-                "reference": "9c351e044478135aec1755e2c0c0493a4b6309db",
+                "url": "https://api.github.com/repos/doctrine/orm/zipball/2e4a8722721b934149ff53b191522a6829b6d73b",
+                "reference": "2e4a8722721b934149ff53b191522a6829b6d73b",
                 "shasum": ""
             },
             "require": {
@@ -1523,14 +1523,14 @@
                 "doctrine/event-manager": "^1.1",
                 "doctrine/inflector": "^1.4 || ^2.0",
                 "doctrine/instantiator": "^1.3",
-                "doctrine/lexer": "^1.0",
-                "doctrine/persistence": "^2.2",
+                "doctrine/lexer": "^1.2.3",
+                "doctrine/persistence": "^2.4 || ^3",
                 "ext-ctype": "*",
                 "php": "^7.1 || ^8.0",
                 "psr/cache": "^1 || ^2 || ^3",
                 "symfony/console": "^3.0 || ^4.0 || ^5.0 || ^6.0",
                 "symfony/polyfill-php72": "^1.23",
-                "symfony/polyfill-php80": "^1.15"
+                "symfony/polyfill-php80": "^1.16"
             },
             "conflict": {
                 "doctrine/annotations": "<1.13 || >= 2.0"
@@ -1539,8 +1539,9 @@
                 "doctrine/annotations": "^1.13",
                 "doctrine/coding-standard": "^9.0",
                 "phpbench/phpbench": "^0.16.10 || ^1.0",
-                "phpstan/phpstan": "1.4.6",
+                "phpstan/phpstan": "~1.4.10 || 1.5.0",
                 "phpunit/phpunit": "^7.5 || ^8.5 || ^9.4",
+                "psr/log": "^1 || ^2 || ^3",
                 "squizlabs/php_codesniffer": "3.6.2",
                 "symfony/cache": "^4.4 || ^5.4 || ^6.0",
                 "symfony/yaml": "^3.4 || ^4.0 || ^5.0 || ^6.0",
@@ -1593,9 +1594,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/orm/issues",
-                "source": "https://github.com/doctrine/orm/tree/2.11.2"
+                "source": "https://github.com/doctrine/orm/tree/2.12.1"
             },
-            "time": "2022-03-09T15:23:58+00:00"
+            "time": "2022-04-22T17:46:03+00:00"
         },
         {
             "name": "doctrine/persistence",
@@ -1609,16 +1610,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/doctrine/persistence/zipball/4473480044c88f30e0e8288e7123b60c7eb9efa3",
                 "reference": "4473480044c88f30e0e8288e7123b60c7eb9efa3",
-            "version": "2.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doctrine/persistence.git",
-                "reference": "f8776dd9a0bdcd838812951a75f4ada72065a82a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/persistence/zipball/f8776dd9a0bdcd838812951a75f4ada72065a82a",
-                "reference": "f8776dd9a0bdcd838812951a75f4ada72065a82a",
                 "shasum": ""
             },
             "require": {
@@ -1694,9 +1685,6 @@
                 "source": "https://github.com/doctrine/persistence/tree/2.5.1"
             },
             "time": "2022-04-14T21:47:17+00:00"
-                "source": "https://github.com/doctrine/persistence/tree/2.5.0"
-            },
-            "time": "2022-04-06T14:59:40+00:00"
         },
         {
             "name": "doctrine/sql-formatter",
@@ -2069,6 +2057,33 @@
             "autoload": {
                 "psr-4": {
                     "FOS\\CKEditorBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Eric GELOEN",
+                    "email": "geloen.eric@gmail.com"
+                },
+                {
+                    "name": "FriendsOfSymfony Community",
+                    "homepage": "https://github.com/FriendsOfSymfony/FOSCKEditorBundle/graphs/contributors"
+                }
+            ],
+            "description": "Provides a CKEditor integration for your Symfony project.",
+            "keywords": [
+                "CKEditor"
+            ],
+            "support": {
+                "issues": "https://github.com/FriendsOfSymfony/FOSCKEditorBundle/issues",
+                "source": "https://github.com/FriendsOfSymfony/FOSCKEditorBundle/tree/2.4.0"
+            },
+            "time": "2022-01-07T12:34:18+00:00"
+        },
+        {
             "name": "gregwar/captcha",
             "version": "v1.1.9",
             "source": {
@@ -2103,36 +2118,6 @@
             ],
             "authors": [
                 {
-                    "name": "Eric GELOEN",
-                    "email": "geloen.eric@gmail.com"
-                },
-                {
-                    "name": "FriendsOfSymfony Community",
-                    "homepage": "https://github.com/FriendsOfSymfony/FOSCKEditorBundle/graphs/contributors"
-                }
-            ],
-            "description": "Provides a CKEditor integration for your Symfony project.",
-            "keywords": [
-                "CKEditor"
-            ],
-            "support": {
-                "issues": "https://github.com/FriendsOfSymfony/FOSCKEditorBundle/issues",
-                "source": "https://github.com/FriendsOfSymfony/FOSCKEditorBundle/tree/2.4.0"
-            },
-            "time": "2022-01-07T12:34:18+00:00"
-        },
-        {
-            "name": "guzzlehttp/guzzle",
-            "version": "7.4.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "ac1ec1cd9b5624694c3a40be801d94137afb12b4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/ac1ec1cd9b5624694c3a40be801d94137afb12b4",
-                "reference": "ac1ec1cd9b5624694c3a40be801d94137afb12b4",
                     "name": "Grégoire Passault",
                     "email": "g.passault@gmail.com",
                     "homepage": "http://www.gregwar.com/"
@@ -2236,25 +2221,6 @@
             },
             "require": {
                 "ext-json": "*",
-                "guzzlehttp/promises": "^1.5",
-                "guzzlehttp/psr7": "^1.8.3 || ^2.1",
-                "php": "^7.2.5 || ^8.0",
-                "psr/http-client": "^1.0",
-                "symfony/deprecation-contracts": "^2.2 || ^3.0"
-            },
-            "provide": {
-                "psr/http-client-implementation": "1.0"
-            },
-            "require-dev": {
-                "bamarni/composer-bin-plugin": "^1.4.1",
-                "ext-curl": "*",
-                "php-http/client-integration-tests": "^3.0",
-                "phpunit/phpunit": "^8.5.5 || ^9.3.5",
-                "psr/log": "^1.1 || ^2.0 || ^3.0"
-            },
-            "suggest": {
-                "ext-curl": "Required for CURL handler support",
-                "ext-intl": "Required for Internationalized Domain Name (IDN) support",
                 "guzzlehttp/promises": "^1.0",
                 "guzzlehttp/psr7": "^1.6.1",
                 "php": ">=5.5",
@@ -2271,7 +2237,6 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "7.4-dev"
                     "dev-master": "6.5-dev"
                 }
             },
@@ -2289,42 +2254,6 @@
             ],
             "authors": [
                 {
-                    "name": "Graham Campbell",
-                    "email": "hello@gjcampbell.co.uk",
-                    "homepage": "https://github.com/GrahamCampbell"
-                },
-                {
-                    "name": "Michael Dowling",
-                    "email": "mtdowling@gmail.com",
-                    "homepage": "https://github.com/mtdowling"
-                },
-                {
-                    "name": "Jeremy Lindblom",
-                    "email": "jeremeamia@gmail.com",
-                    "homepage": "https://github.com/jeremeamia"
-                },
-                {
-                    "name": "George Mponos",
-                    "email": "gmponos@gmail.com",
-                    "homepage": "https://github.com/gmponos"
-                },
-                {
-                    "name": "Tobias Nyholm",
-                    "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/Nyholm"
-                },
-                {
-                    "name": "Márk Sági-Kazár",
-                    "email": "mark.sagikazar@gmail.com",
-                    "homepage": "https://github.com/sagikazarmark"
-                },
-                {
-                    "name": "Tobias Schultze",
-                    "email": "webmaster@tubo-world.de",
-                    "homepage": "https://github.com/Tobion"
-                }
-            ],
-            "description": "Guzzle is a PHP HTTP client library",
                     "name": "Michael Dowling",
                     "email": "mtdowling@gmail.com",
                     "homepage": "https://github.com/mtdowling"
@@ -2338,30 +2267,11 @@
                 "framework",
                 "http",
                 "http client",
-                "psr-18",
-                "psr-7",
                 "rest",
                 "web service"
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.4.2"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/GrahamCampbell",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/Nyholm",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/guzzlehttp/guzzle",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2022-03-20T14:16:28+00:00"
                 "source": "https://github.com/guzzle/guzzle/tree/6.5"
             },
             "time": "2020-06-16T21:01:06+00:00"
@@ -2452,32 +2362,6 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/guzzle/psr7.git",
-                "reference": "c94a94f120803a18554c1805ef2e539f8285f9a2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/c94a94f120803a18554c1805ef2e539f8285f9a2",
-                "reference": "c94a94f120803a18554c1805ef2e539f8285f9a2",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2.5 || ^8.0",
-                "psr/http-factory": "^1.0",
-                "psr/http-message": "^1.0",
-                "ralouphie/getallheaders": "^3.0"
-            },
-            "provide": {
-                "psr/http-factory-implementation": "1.0",
-                "psr/http-message-implementation": "1.0"
-            },
-            "require-dev": {
-                "bamarni/composer-bin-plugin": "^1.4.1",
-                "http-interop/http-factory-tests": "^0.9",
-                "phpunit/phpunit": "^8.5.8 || ^9.3.10"
             "version": "1.8.5",
             "source": {
                 "type": "git",
@@ -2508,10 +2392,6 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2-dev"
-                }
-            },
-            "autoload": {
                     "dev-master": "1.7-dev"
                 }
             },
@@ -2557,11 +2437,6 @@
                     "name": "Tobias Schultze",
                     "email": "webmaster@tubo-world.de",
                     "homepage": "https://github.com/Tobion"
-                },
-                {
-                    "name": "Márk Sági-Kazár",
-                    "email": "mark.sagikazar@gmail.com",
-                    "homepage": "https://sagikazarmark.hu"
                 }
             ],
             "description": "PSR-7 message implementation that also provides common utility methods",
@@ -2577,7 +2452,6 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.2.1"
                 "source": "https://github.com/guzzle/psr7/tree/1.8.5"
             },
             "funding": [
@@ -2594,7 +2468,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-20T21:55:58+00:00"
+            "time": "2022-03-20T21:51:18+00:00"
         },
         {
             "name": "helios-ag/fm-elfinder-bundle",
@@ -2676,7 +2550,6 @@
                 }
             ],
             "time": "2022-04-17T02:22:49+00:00"
-            "time": "2022-03-20T21:51:18+00:00"
         },
         {
             "name": "knplabs/knp-components",
@@ -2924,30 +2797,11 @@
             "require-dev": {
                 "mockery/mockery": "0.9.*|1.4.4",
                 "phpunit/phpunit": "~5.7|^9.3.3"
-            "name": "minicodemonkey/amazon-alexa-php",
-            "version": "0.1.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/MiniCodeMonkey/amazon-alexa-php.git",
-                "reference": "006a1e1e775d8429574cde1a093a8b9a4da6a960"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/MiniCodeMonkey/amazon-alexa-php/zipball/006a1e1e775d8429574cde1a093a8b9a4da6a960",
-                "reference": "006a1e1e775d8429574cde1a093a8b9a4da6a960",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.6"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
                     "Mediumart\\Orange\\SMS\\": "src/"
-                    "Alexa\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2971,6 +2825,39 @@
                 "source": "https://github.com/mediumart/orange-sms/tree/2.0.0"
             },
             "time": "2021-12-23T11:31:55+00:00"
+        },
+        {
+            "name": "minicodemonkey/amazon-alexa-php",
+            "version": "0.1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MiniCodeMonkey/amazon-alexa-php.git",
+                "reference": "006a1e1e775d8429574cde1a093a8b9a4da6a960"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MiniCodeMonkey/amazon-alexa-php/zipball/006a1e1e775d8429574cde1a093a8b9a4da6a960",
+                "reference": "006a1e1e775d8429574cde1a093a8b9a4da6a960",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Alexa\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
                     "name": "Mathias Hansen",
                     "email": "me@codemonkey.io"
                 }
@@ -3069,24 +2956,6 @@
             "time": "2022-03-13T20:29:46+00:00"
         },
         {
-            "name": "phenx/php-font-lib",
-            "version": "0.5.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dompdf/php-font-lib.git",
-                "reference": "dd448ad1ce34c63d09baccd05415e361300c35b4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dompdf/php-font-lib/zipball/dd448ad1ce34c63d09baccd05415e361300c35b4",
-                "reference": "dd448ad1ce34c63d09baccd05415e361300c35b4",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*"
-            },
-            "require-dev": {
-                "symfony/phpunit-bridge": "^3 || ^4 || ^5"
             "name": "mpociot/phpws",
             "version": "2.1.0",
             "source": {
@@ -3148,49 +3017,11 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "FontLib\\": "src/FontLib"
                     "Mpociot\\Pipeline\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "LGPL-3.0"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Ménager",
-                    "email": "fabien.menager@gmail.com"
-                }
-            ],
-            "description": "A library to read, parse, export and make subsets of different types of font files.",
-            "homepage": "https://github.com/PhenX/php-font-lib",
-            "support": {
-                "issues": "https://github.com/dompdf/php-font-lib/issues",
-                "source": "https://github.com/dompdf/php-font-lib/tree/0.5.4"
-            },
-            "time": "2021-12-17T19:44:54+00:00"
-        },
-        {
-            "name": "phenx/php-svg-lib",
-            "version": "0.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dompdf/php-svg-lib.git",
-                "reference": "4498b5df7b08e8469f0f8279651ea5de9626ed02"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dompdf/php-svg-lib/zipball/4498b5df7b08e8469f0f8279651ea5de9626ed02",
-                "reference": "4498b5df7b08e8469f0f8279651ea5de9626ed02",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "php": "^7.1 || ^7.2 || ^7.3 || ^7.4 || ^8.0",
-                "sabberworm/php-css-parser": "^8.4"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5"
                 "MIT"
             ],
             "authors": [
@@ -3242,27 +3073,11 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Svg\\": "src/Svg"
                     "Slack\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "LGPL-3.0"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Ménager",
-                    "email": "fabien.menager@gmail.com"
-                }
-            ],
-            "description": "A library to read, parse and export to PDF SVG files.",
-            "homepage": "https://github.com/PhenX/php-svg-lib",
-            "support": {
-                "issues": "https://github.com/dompdf/php-svg-lib/issues",
-                "source": "https://github.com/dompdf/php-svg-lib/tree/0.4.1"
-            },
-            "time": "2022-03-07T12:52:04+00:00"
                 "MIT"
             ],
             "authors": [
@@ -3346,6 +3161,96 @@
                 "source": "https://github.com/opis/closure/tree/3.6.3"
             },
             "time": "2022-01-27T09:35:39+00:00"
+        },
+        {
+            "name": "phenx/php-font-lib",
+            "version": "0.5.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dompdf/php-font-lib.git",
+                "reference": "dd448ad1ce34c63d09baccd05415e361300c35b4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dompdf/php-font-lib/zipball/dd448ad1ce34c63d09baccd05415e361300c35b4",
+                "reference": "dd448ad1ce34c63d09baccd05415e361300c35b4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "^3 || ^4 || ^5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "FontLib\\": "src/FontLib"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Ménager",
+                    "email": "fabien.menager@gmail.com"
+                }
+            ],
+            "description": "A library to read, parse, export and make subsets of different types of font files.",
+            "homepage": "https://github.com/PhenX/php-font-lib",
+            "support": {
+                "issues": "https://github.com/dompdf/php-font-lib/issues",
+                "source": "https://github.com/dompdf/php-font-lib/tree/0.5.4"
+            },
+            "time": "2021-12-17T19:44:54+00:00"
+        },
+        {
+            "name": "phenx/php-svg-lib",
+            "version": "0.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dompdf/php-svg-lib.git",
+                "reference": "4498b5df7b08e8469f0f8279651ea5de9626ed02"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dompdf/php-svg-lib/zipball/4498b5df7b08e8469f0f8279651ea5de9626ed02",
+                "reference": "4498b5df7b08e8469f0f8279651ea5de9626ed02",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": "^7.1 || ^7.2 || ^7.3 || ^7.4 || ^8.0",
+                "sabberworm/php-css-parser": "^8.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Svg\\": "src/Svg"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Ménager",
+                    "email": "fabien.menager@gmail.com"
+                }
+            ],
+            "description": "A library to read, parse and export to PDF SVG files.",
+            "homepage": "https://github.com/PhenX/php-svg-lib",
+            "support": {
+                "issues": "https://github.com/dompdf/php-svg-lib/issues",
+                "source": "https://github.com/dompdf/php-svg-lib/tree/0.4.1"
+            },
+            "time": "2022-03-07T12:52:04+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -3605,113 +3510,6 @@
             "time": "2021-11-05T16:50:12+00:00"
         },
         {
-            "name": "psr/http-client",
-            "version": "1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-fig/http-client.git",
-                "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-client/zipball/2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
-                "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.0 || ^8.0",
-                "psr/http-message": "^1.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Psr\\Http\\Client\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
-                }
-            ],
-            "description": "Common interface for HTTP clients",
-            "homepage": "https://github.com/php-fig/http-client",
-            "keywords": [
-                "http",
-                "http-client",
-                "psr",
-                "psr-18"
-            ],
-            "support": {
-                "source": "https://github.com/php-fig/http-client/tree/master"
-            },
-            "time": "2020-06-29T06:28:15+00:00"
-        },
-        {
-            "name": "psr/http-factory",
-            "version": "1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-fig/http-factory.git",
-                "reference": "12ac7fcd07e5b077433f5f2bee95b3a771bf61be"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/12ac7fcd07e5b077433f5f2bee95b3a771bf61be",
-                "reference": "12ac7fcd07e5b077433f5f2bee95b3a771bf61be",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0.0",
-                "psr/http-message": "^1.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Psr\\Http\\Message\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
-                }
-            ],
-            "description": "Common interfaces for PSR-7 HTTP message factories",
-            "keywords": [
-                "factory",
-                "http",
-                "message",
-                "psr",
-                "psr-17",
-                "psr-7",
-                "request",
-                "response"
-            ],
-            "support": {
-                "source": "https://github.com/php-fig/http-factory/tree/master"
-            },
-            "time": "2019-04-30T12:38:16+00:00"
-        },
-        {
             "name": "psr/http-message",
             "version": "1.0.1",
             "source": {
@@ -3911,29 +3709,6 @@
             "time": "2019-03-08T08:55:37+00:00"
         },
         {
-            "name": "sabberworm/php-css-parser",
-            "version": "8.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sabberworm/PHP-CSS-Parser.git",
-                "reference": "e41d2140031d533348b2192a83f02d8dd8a71d30"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sabberworm/PHP-CSS-Parser/zipball/e41d2140031d533348b2192a83f02d8dd8a71d30",
-                "reference": "e41d2140031d533348b2192a83f02d8dd8a71d30",
-                "shasum": ""
-            },
-            "require": {
-                "ext-iconv": "*",
-                "php": ">=5.6.20"
-            },
-            "require-dev": {
-                "codacy/coverage": "^1.4",
-                "phpunit/phpunit": "^4.8.36"
-            },
-            "suggest": {
-                "ext-mbstring": "for parsing UTF-8 CSS"
             "name": "react/cache",
             "version": "v1.1.1",
             "source": {
@@ -3957,7 +3732,6 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Sabberworm\\CSS\\": "src/"
                     "React\\Cache\\": "src/"
                 }
             },
@@ -3967,21 +3741,6 @@
             ],
             "authors": [
                 {
-                    "name": "Raphael Schweikert"
-                }
-            ],
-            "description": "Parser for CSS Files written in PHP",
-            "homepage": "https://www.sabberworm.com/blog/2010/6/10/php-css-parser",
-            "keywords": [
-                "css",
-                "parser",
-                "stylesheet"
-            ],
-            "support": {
-                "issues": "https://github.com/sabberworm/PHP-CSS-Parser/issues",
-                "source": "https://github.com/sabberworm/PHP-CSS-Parser/tree/8.4.0"
-            },
-            "time": "2021-12-11T13:40:54+00:00"
                     "name": "Christian Lück",
                     "email": "christian@clue.engineering",
                     "homepage": "https://clue.engineering/"
@@ -4509,6 +4268,59 @@
             "time": "2021-07-11T12:37:55+00:00"
         },
         {
+            "name": "sabberworm/php-css-parser",
+            "version": "8.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sabberworm/PHP-CSS-Parser.git",
+                "reference": "e41d2140031d533348b2192a83f02d8dd8a71d30"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sabberworm/PHP-CSS-Parser/zipball/e41d2140031d533348b2192a83f02d8dd8a71d30",
+                "reference": "e41d2140031d533348b2192a83f02d8dd8a71d30",
+                "shasum": ""
+            },
+            "require": {
+                "ext-iconv": "*",
+                "php": ">=5.6.20"
+            },
+            "require-dev": {
+                "codacy/coverage": "^1.4",
+                "phpunit/phpunit": "^4.8.36"
+            },
+            "suggest": {
+                "ext-mbstring": "for parsing UTF-8 CSS"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Sabberworm\\CSS\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Raphael Schweikert"
+                }
+            ],
+            "description": "Parser for CSS Files written in PHP",
+            "homepage": "https://www.sabberworm.com/blog/2010/6/10/php-css-parser",
+            "keywords": [
+                "css",
+                "parser",
+                "stylesheet"
+            ],
+            "support": {
+                "issues": "https://github.com/sabberworm/PHP-CSS-Parser/issues",
+                "source": "https://github.com/sabberworm/PHP-CSS-Parser/tree/8.4.0"
+            },
+            "time": "2021-12-11T13:40:54+00:00"
+        },
+        {
             "name": "sensio/framework-extra-bundle",
             "version": "v5.6.1",
             "source": {
@@ -4589,6 +4401,56 @@
             "time": "2020-08-25T19:10:18+00:00"
         },
         {
+            "name": "spatie/macroable",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/macroable.git",
+                "reference": "7a99549fc001c925714b329220dea680c04bfa48"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/macroable/zipball/7a99549fc001c925714b329220dea680c04bfa48",
+                "reference": "7a99549fc001c925714b329220dea680c04bfa48",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2|^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0|^9.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Macroable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A trait to dynamically add methods to a class",
+            "homepage": "https://github.com/spatie/macroable",
+            "keywords": [
+                "macroable",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/macroable/issues",
+                "source": "https://github.com/spatie/macroable/tree/1.0.1"
+            },
+            "time": "2020-11-03T10:15:05+00:00"
+        },
+        {
             "name": "studio-42/elfinder",
             "version": "2.1.61",
             "source": {
@@ -4655,54 +4517,6 @@
                 }
             ],
             "time": "2022-03-14T15:07:52+00:00"
-            "name": "spatie/macroable",
-            "version": "1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/spatie/macroable.git",
-                "reference": "7a99549fc001c925714b329220dea680c04bfa48"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/spatie/macroable/zipball/7a99549fc001c925714b329220dea680c04bfa48",
-                "reference": "7a99549fc001c925714b329220dea680c04bfa48",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2|^8.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^8.0|^9.3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Spatie\\Macroable\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Freek Van der Herten",
-                    "email": "freek@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A trait to dynamically add methods to a class",
-            "homepage": "https://github.com/spatie/macroable",
-            "keywords": [
-                "macroable",
-                "spatie"
-            ],
-            "support": {
-                "issues": "https://github.com/spatie/macroable/issues",
-                "source": "https://github.com/spatie/macroable/tree/1.0.1"
-            },
-            "time": "2020-11-03T10:15:05+00:00"
         },
         {
             "name": "symfony/asset",
@@ -6372,15 +6186,6 @@
             "time": "2022-01-02T09:41:36+00:00"
         },
         {
-            "name": "symfony/http-client",
-            "version": "v4.4.40",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/http-client.git",
-                "reference": "c66fc3b60900359ea10a7b22921c797446783bb3"
-            },
-            "dist": {
-                "type": "zip",
             "name": "symfony/http-client",
             "version": "v4.4.40",
             "source": {
@@ -9813,37 +9618,6 @@
             "time": "2022-01-24T20:11:01+00:00"
         },
         {
-            "name": "tijsverkoyen/css-to-inline-styles",
-            "version": "2.2.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tijsverkoyen/CssToInlineStyles.git",
-                "reference": "da444caae6aca7a19c0c140f68c6182e337d5b1c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tijsverkoyen/CssToInlineStyles/zipball/da444caae6aca7a19c0c140f68c6182e337d5b1c",
-                "reference": "da444caae6aca7a19c0c140f68c6182e337d5b1c",
-                "shasum": ""
-            },
-            "require": {
-                "ext-dom": "*",
-                "ext-libxml": "*",
-                "php": "^5.5 || ^7.0 || ^8.0",
-                "symfony/css-selector": "^2.7 || ^3.0 || ^4.0 || ^5.0 || ^6.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.0 || ^7.5 || ^8.5.21 || ^9.5.10"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "TijsVerkoyen\\CssToInlineStyles\\": "src"
             "name": "symfonycasts/reset-password-bundle",
             "version": "v1.13.0",
             "source": {
@@ -9884,58 +9658,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Tijs Verkoyen",
-                    "email": "css_to_inline_styles@verkoyen.eu",
-                    "role": "Developer"
-                }
-            ],
-            "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
-            "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
-            "support": {
-                "issues": "https://github.com/tijsverkoyen/CssToInlineStyles/issues",
-                "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.4"
-            },
-            "time": "2021-12-08T09:12:39+00:00"
-        },
-        {
-            "name": "twig/cssinliner-extra",
-            "version": "v3.3.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/twigphp/cssinliner-extra.git",
-                "reference": "1fe012dcae6b04fc37715296c10a72f8d941bc65"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/cssinliner-extra/zipball/1fe012dcae6b04fc37715296c10a72f8d941bc65",
-                "reference": "1fe012dcae6b04fc37715296c10a72f8d941bc65",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1.3",
-                "tijsverkoyen/css-to-inline-styles": "^2.0",
-                "twig/twig": "^2.7|^3.0"
-            },
-            "require-dev": {
-                "symfony/phpunit-bridge": "^4.4.9|^5.0.9|^6.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.2-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Twig\\Extra\\CssInliner\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
                 "MIT"
             ],
             "description": "Symfony bundle that adds password reset functionality.",
@@ -9978,33 +9700,6 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                }
-            ],
-            "description": "A Twig extension to allow inlining CSS",
-            "homepage": "https://twig.symfony.com",
-            "keywords": [
-                "css",
-                "inlining",
-                "twig"
-            ],
-            "support": {
-                "source": "https://github.com/twigphp/cssinliner-extra/tree/v3.3.5"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/twig/twig",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2022-01-02T10:02:25+00:00"
                     "name": "Benjamin Ansbach",
                     "email": "ben@techworker.de"
                 }
@@ -10069,6 +9764,129 @@
                 "source": "https://github.com/tighten/collect/tree/v8.83.8"
             },
             "time": "2022-04-15T20:31:14+00:00"
+        },
+        {
+            "name": "tijsverkoyen/css-to-inline-styles",
+            "version": "2.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tijsverkoyen/CssToInlineStyles.git",
+                "reference": "da444caae6aca7a19c0c140f68c6182e337d5b1c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tijsverkoyen/CssToInlineStyles/zipball/da444caae6aca7a19c0c140f68c6182e337d5b1c",
+                "reference": "da444caae6aca7a19c0c140f68c6182e337d5b1c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-libxml": "*",
+                "php": "^5.5 || ^7.0 || ^8.0",
+                "symfony/css-selector": "^2.7 || ^3.0 || ^4.0 || ^5.0 || ^6.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.0 || ^7.5 || ^8.5.21 || ^9.5.10"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TijsVerkoyen\\CssToInlineStyles\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Tijs Verkoyen",
+                    "email": "css_to_inline_styles@verkoyen.eu",
+                    "role": "Developer"
+                }
+            ],
+            "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
+            "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
+            "support": {
+                "issues": "https://github.com/tijsverkoyen/CssToInlineStyles/issues",
+                "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.4"
+            },
+            "time": "2021-12-08T09:12:39+00:00"
+        },
+        {
+            "name": "twig/cssinliner-extra",
+            "version": "v3.3.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/cssinliner-extra.git",
+                "reference": "1fe012dcae6b04fc37715296c10a72f8d941bc65"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/cssinliner-extra/zipball/1fe012dcae6b04fc37715296c10a72f8d941bc65",
+                "reference": "1fe012dcae6b04fc37715296c10a72f8d941bc65",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.3",
+                "tijsverkoyen/css-to-inline-styles": "^2.0",
+                "twig/twig": "^2.7|^3.0"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "^4.4.9|^5.0.9|^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Twig\\Extra\\CssInliner\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "A Twig extension to allow inlining CSS",
+            "homepage": "https://twig.symfony.com",
+            "keywords": [
+                "css",
+                "inlining",
+                "twig"
+            ],
+            "support": {
+                "source": "https://github.com/twigphp/cssinliner-extra/tree/v3.3.5"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/twig/twig",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-01-02T10:02:25+00:00"
         },
         {
             "name": "twig/extra-bundle",
@@ -12713,16 +12531,16 @@
         },
         {
             "name": "symfony/maker-bundle",
-            "version": "v1.38.0",
+            "version": "v1.39.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/maker-bundle.git",
-                "reference": "143024ab0e426285d3d9b7f6a3ce51e12a9d8ec5"
+                "reference": "f2b99ba44e22a44fcf724affa53b5539b25fde90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/143024ab0e426285d3d9b7f6a3ce51e12a9d8ec5",
-                "reference": "143024ab0e426285d3d9b7f6a3ce51e12a9d8ec5",
+                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/f2b99ba44e22a44fcf724affa53b5539b25fde90",
+                "reference": "f2b99ba44e22a44fcf724affa53b5539b25fde90",
                 "shasum": ""
             },
             "require": {
@@ -12781,7 +12599,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/maker-bundle/issues",
-                "source": "https://github.com/symfony/maker-bundle/tree/v1.38.0"
+                "source": "https://github.com/symfony/maker-bundle/tree/v1.39.0"
             },
             "funding": [
                 {
@@ -12797,7 +12615,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-02-24T21:06:51+00:00"
+            "time": "2022-04-21T18:16:11+00:00"
         },
         {
             "name": "symfony/phpunit-bridge",

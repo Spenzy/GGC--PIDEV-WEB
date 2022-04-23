@@ -97,7 +97,7 @@ class ProduitController extends AbstractController
      */
     public function details(SessionInterface $session,int $reference,ProduitRepository $rep,AvisRepository $repAvis): Response
     {
-        $userid=6;//$serid=$session[''];
+        $userid=$session->get("user_id");
 
         $produit=$rep->find($reference);
         $avis=$repAvis->findAvis($reference);
