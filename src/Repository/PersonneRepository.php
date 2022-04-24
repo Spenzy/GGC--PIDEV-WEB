@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 <?php
 
 namespace App\Repository;
@@ -85,4 +83,3 @@ class PersonneRepository extends ServiceEntityRepository
     }
     */
 }
->>>>>>> master

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Plan
  *
- * @ORM\Table(name="plan", indexes={@ORM\Index(name="fk_plan_streamer", columns={"idStreamer"}), @ORM\Index(name="fk_plan_evenement", columns={"idEvenement"})})
+ * @ORM\Table(name="plan", indexes={@ORM\Index(name="fk_plan_streamer", columns={"idStreamer"})})
  * @ORM\Entity(repositoryClass="App\Repository\PlanRepository")
  */
 class Plan
@@ -20,8 +20,6 @@ class Plan
      * @ORM\GeneratedValue
      */
     private $idplan;
-
-
 
     /**
      * @var \DateTime
@@ -59,19 +57,19 @@ class Plan
     private $idevenement;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Streamer::class, inversedBy="plans")
+     * @var \Streamer
+     * 
+     * @ORM\ManyToOne(targetEntity="Streamer")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idStreamer", referencedColumnName="idStreamer")
      * })
      */
-    private $streamer;
+    private $idstreamer;
 
     public function getIdplan(): ?int
     {
         return $this->idplan;
     }
-
-
 
     public function getDate(): ?\DateTimeInterface
     {
@@ -133,14 +131,14 @@ class Plan
         return $this;
     }
 
-    public function getStreamer(): ?Streamer
+    public function getIdstreamer(): ?Streamer
     {
-        return $this->streamer;
+        return $this->idstreamer;
     }
 
-    public function setStreamer(?Streamer $streamer): self
+    public function setIdstreamer(?Streamer $streamer): self
     {
-        $this->streamer = $streamer;
+        $this->idstreamer = $streamer;
 
         return $this;
     }

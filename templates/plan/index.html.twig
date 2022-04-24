@@ -9,7 +9,6 @@
 
 {% block body %}
 
-
     {% for plan in plans %}
 
     <div class="card row-hover pos-relative py-3 px-3 mb-3 border-warning border-top-0 border-right-0 border-bottom-0 rounded-0">
@@ -18,7 +17,7 @@
                 <h5>
                     <a  class="text-primary">{{plan.description}}</a>
                 </h5>
-                <p class="text-sm"><span class="op-6">Durée</span> <a class="text-black" >{{plan.duree}} Hours</a> <span class="op-6">By</span> <a class="text-black" href="{{ path('app_streamer_show2', {'idstreamer': plan.idstreamer.idpersonne}) }}">{{plan.idstreamer.nom}}</a></p>
+                <p class="text-sm"><span class="op-6">Durée</span> <a class="text-black" >{{plan.duree}} Hours</a> <span class="op-6">By</span> <a class="text-black" href="{{ path('app_streamer_show', {'idstreamer': plan.idstreamer.idstreamer.idpersonne}) }}">{{plan.idstreamer.idstreamer.nom}}</a></p>
                 <div class="text-sm op-5"> <a class="text-black mr-2" >The {{plan.date|date}} </a> <a class="text-black mr-2" >At {{plan.heure|date('H:i')}}</a>  </div>
             </div>
             <div class="col-md-4 op-7">
@@ -29,16 +28,8 @@
                 </div>
             </div>
         </div>
-
     </div>
+    
     {% endfor %}
-
-
-
-
-
-
-
-
 
 {% endblock %}

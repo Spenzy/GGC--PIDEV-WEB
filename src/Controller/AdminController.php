@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Publication;
 use App\Repository\CommentaireRepository;
 use App\Repository\PublicationRepository;
+use App\Repository\StreamerRepository;
 use App\Repository\VoteRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
@@ -144,6 +145,27 @@ class AdminController extends AbstractController
             var_dump($e->getMessage());
         }
     }
+
+    /**
+     * @Route("/streamer/admin", name="app_streamers_admin", methods={"GET","POST"})
+     */
+    public function adminstreamer(StreamerRepository $streamerRepository): Response
+    {
+        return $this->render('streamer/adminstreamer.html.twig', [
+            'streamers' => $streamerRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/plan/admin", name="adminplan", methods={"GET"})
+     */
+    public function adminplan(PlanRepository $planRepository): Response
+    {
+        return $this->render('plan/adminplan.html.twig', [
+            'plans' => $planRepository->findAll(),
+        ]);
+    }
+
 
 
 }

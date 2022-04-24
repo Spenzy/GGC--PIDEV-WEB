@@ -21,9 +21,9 @@ class PlanType extends AbstractType
             ->add('duree')
             ->add('description')
             ->add('idevenement')
-            ->add('streamer',EntityType::class,[
+            ->add('idstreamer',EntityType::class,[
                 'class'=> Streamer::class,
-                'choice_label' => 'informations'
+                'choice_label' => 'idstreamer.nom'
             ])
         ;
     }

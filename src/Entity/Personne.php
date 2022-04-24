@@ -179,13 +179,6 @@ class Personne
         return $this;
     }
 
-<<<<<<< HEAD
-    public function __toString(): string
-    {
-        return 'Personne';
-    }
-
-=======
     public function __toString()
     {
         return (string) $this->nom;
@@ -194,7 +187,6 @@ class Personne
     public function setRoles(string $roles): self
     {
         $this->roles = $roles;
->>>>>>> master
 
         return $this;
     }

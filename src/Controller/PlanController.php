@@ -64,15 +64,8 @@ class PlanController extends AbstractController
             'plan' => $plan,
         ]);
     }
-    /**
-     * @Route("/{idstreamer}", name="app_plan_show2", methods={"GET"})
-     */
-    public function show2($idstreamer): Response
-    {$rep=$this->getDoctrine()->getRepository(plan::class);
-        return $this->render('plan/show.html.twig', [
-            'plan' => $rep->findPlanByStreamer($idstreamer),
-        ]);
-    }
+
+  
 
     /**
      * @Route("/{idplan}/edit", name="app_plan_edit", methods={"GET", "POST"})
@@ -101,13 +94,7 @@ class PlanController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$plan->getIdplan(), $request->request->get('_token'))) {
             $planRepository->remove($plan);
         }
-
         return $this->redirectToRoute('app_plan_index', [], Response::HTTP_SEE_OTHER);
     }
-
-
-
-
-
 
 }
