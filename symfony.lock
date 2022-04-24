@@ -730,12 +730,9 @@
     "theseer/tokenizer": {
         "version": "1.2.1"
     },
-<<<<<<< HEAD
-=======
     "tightenco/collect": {
         "version": "v8.83.8"
     },
->>>>>>> master
     "tijsverkoyen/css-to-inline-styles": {
         "version": "2.2.4"
     },
