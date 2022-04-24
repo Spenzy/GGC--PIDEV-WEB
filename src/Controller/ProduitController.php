@@ -3,40 +3,58 @@
 namespace App\Controller;
 
 use App\Entity\Produit;
+use App\Entity\Client;
 use App\Form\ProduitType;
 use App\Repository\AvisRepository;
+use App\Repository\ClientRepository;
 use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
+use Knp\Component\Pager\PaginatorInterface;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
+/**
+ * @Route("/produit")
+ */
 class ProduitController extends AbstractController
 {
     /**
-     * @Route("/produit", name="app_produit_index", methods={"GET"})
+     * @Route("/", name="app_produit_index", methods={"GET"})
      */
     public function index(ProduitRepository $produitRepository): Response
     {
         return $this->render('produit/index.html.twig', [
-            'produits' => $produitRepository->findAll(),
+            'produits' => $produitRepository->findAllProducts(),
         ]);
     }
 
     /**
-     * @Route("/produit/shop", name="app_produit_shop", methods={"GET"})
+     * @Route("/shop", name="app_produit_shop", methods={"GET"})
      */
-    public function shop(ProduitRepository $produitRepository): Response
+    public function shop(ProduitRepository $produitRepository, PaginatorInterface $paginator,Request $request): Response
     {
+        $Listproduits=$produitRepository->findAllProducts();
+        $produits = $paginator->paginate(
+            $Listproduits, // Requête contenant les données à paginer (ici nos produits)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            8 // Nombre de résultats par page
+        );
         return $this->render('produit/shop.html.twig', [
-            'produits' => $produitRepository->findAll(),
+            'produits' => $produits,
         ]);
     }
 
     /**
-     * @Route("/produit/new", name="app_produit_new", methods={"GET", "POST"})
+     * @Route("/new", name="app_produit_new", methods={"GET", "POST"})
      */
     public function new(Request $request, ProduitRepository $produitRepository): Response
     {
@@ -44,7 +62,8 @@ class ProduitController extends AbstractController
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() ) {
+
             //image settings
             $file=$form->get('img')->getData();
             $filename=md5(uniqid()) . '.' . $file->guessExtension();
@@ -65,7 +84,7 @@ class ProduitController extends AbstractController
 
 
     /**
-     * @Route("/produit/{reference}", name="app_produit_show", methods={"GET"})
+     * @Route("/{reference}", name="app_produit_show", methods={"GET"})
      */
     public function show(Produit $produit): Response
     {
@@ -74,11 +93,11 @@ class ProduitController extends AbstractController
         ]);
     }
     /**
-     * @Route("/produit/details/{reference}", name="app_produit_details", methods={"GET"})
+     * @Route("/details/{reference}", name="app_produit_details", methods={"GET"})
      */
     public function details(SessionInterface $session,int $reference,ProduitRepository $rep,AvisRepository $repAvis): Response
     {
-        $userid=6;//$serid=$session[''];
+        $userid=$session->get("user_id");
 
         $produit=$rep->find($reference);
         $avis=$repAvis->findAvis($reference);
@@ -89,12 +108,16 @@ class ProduitController extends AbstractController
         ]);
     }
     /**
-     * @Route("/produit/edit/{reference}", name="app_produit_edit", methods={"GET", "POST"})
+     * @Route("/edit/{reference}", name="app_produit_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Produit $produit, ProduitRepository $produitRepository): Response
     {
+
+
+
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             //image settings
@@ -122,7 +145,7 @@ class ProduitController extends AbstractController
     }
 
     /**
-     * @Route("/produit/delete/{reference}", name="app_produit_delete", methods={"POST"})
+     * @Route("/delete/{reference}", name="app_produit_delete", methods={"POST"})
      */
     public function delete(Request $request, Produit $produit, ProduitRepository $produitRepository): Response
     {
@@ -133,5 +156,131 @@ class ProduitController extends AbstractController
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
     }
 
+    /**
+     * @Route("/{reference}/note", name="app_produit_note", methods={"POST","GET"})
+     */
+    public function affecterNote(ProduitRepository $produitRepository,AvisRepository $avisRepository): Response
+    {
+        $produits=$produitRepository->findAll();
+        foreach ($produits as $produit) {
+            $nbExcellent=$avisRepository->countExcellentByProduit($produit->getReference());
+            $nbMoyen=$avisRepository->countMoyenByProduit($produit->getReference());
+            $nbMediocre=$avisRepository->countMediocreByProduit($produit->getReference());
+            echo $nbMediocre;
+            $note=2*$nbExcellent+$nbMoyen-$nbMediocre;
+            $produit->setNote($note);
+            $produitRepository->add($produit);
+        }
+
+
+        return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    public function sendMailRemise(MailerInterface $mailer,Client $client,$categorie,$montant)
+    {
+
+        $email = (new TemplatedEmail())
+            ->from('gamergeekscommunity@gmail.com')
+            ->to($client->getIdclient()->getEmail())
+            ->subject('Une remise à ne pas rater!')
+            ->text('venez au shop!')
+            ->embedFromPath('img/LogoGGC.png', 'logo')
+            ->htmlTemplate('emails/EmailRemise.html.twig')
+            ->context(compact('client','categorie','montant')
+            );
+
+        try {
+            $mailer->send($email);
+        } catch (TransportExceptionInterface $e) {
+            var_dump($e->getMessage());
+        }
+
+
+    }
+
+    /**
+     * @Route("/remise", name="app_produit_remise", methods={"POST","GET"})
+     */
+    public function RemiseAffecter(ProduitRepository $produitRepository,Request $request,ClientRepository $clientRepository,MailerInterface $mailer)
+    {
+        $categorie=$request->get("categorie","");
+        $montant=$request->get("montant",0);
+        if($categorie!="" && $montant!=0){
+        $produits=$produitRepository->findAll();
+        foreach($produits as $produit){
+            if($produit->getCategorie()==$categorie){
+                if($montant >= 0){
+                $produit->setPrix($produit->getPrix()*(1-($montant/100)));
+                $produitRepository->add($produit);
+                }
+            }
+        }
+        $clients=$clientRepository->findAll();
+        foreach ($clients as $client){
+            $this->sendMailRemise($mailer,$client,$categorie,$montant);
+        }
+        }
+        return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+
+    }
+
+    /**
+     * @Route("/search", name="app_produit_search", methods={"POST","GET"})
+     */
+    public function Recherche(ProduitRepository $produitRepository, PaginatorInterface $paginator,Request $request): Response{
+
+        $libelle=$request->get("search","");
+        if($libelle==""){
+            return $this->redirectToRoute('app_produit_shop', [], Response::HTTP_SEE_OTHER);
+        }else {
+            $Listproduits = $produitRepository->rechercheLibelle($libelle);
+            $produits = $paginator->paginate(
+                $Listproduits, // Requête contenant les données à paginer (ici nos produits)
+                $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+                12 // Nombre de résultats par page
+            );
+            return $this->render('produit/shop.html.twig', [
+                'produits' => $produits,
+            ]);
+        }
+    }
+
+    /**
+     * @Route("/{reference}//pdf", name="app_produit_pdf", methods={"POST","GET"})
+     */
+    public function PdfListeProduits(int $reference,ProduitRepository $produitRepository)
+    {
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->set('isHtml5ParserEnabled' , true);
+        $pdfOptions->setTempDir('css/style.css');
+        $pdfOptions->set( 'isRemoteEnabled' , true);
+
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+
+        $produits=$produitRepository->findAllProducts();
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('produit/ListProduitsPDF.html.twig', [
+            'produits' => $produits,
+
+        ]);
+
+
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (inline view)
+        $dompdf->stream("Produits.pdf", [
+            "Attachment" => true
+        ]);
+    }
 
 }

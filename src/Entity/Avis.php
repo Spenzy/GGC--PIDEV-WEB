@@ -28,6 +28,7 @@ class Avis
      *
      * @ORM\Column(name="description", type="string", length=100, nullable=false)
      * @Assert\NotBlank(message="Champ obligatoire")
+     * @Assert\Type("string",message="Veuillez saisir une chaine")
      */
     private $description;
 

@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Entity;
-
+use App\Entity\Personne;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Client
@@ -10,19 +11,19 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="client")
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
  */
-class Client
+class Client 
 {
     /**
      * @var int
      *
-     * @ORM\Column(name="nbrAvertissement", type="integer", nullable=false)
+     * @ORM\Column(name="nbrAvertissement", type="integer", nullable=true)
      */
     private $nbravertissement;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="ban", type="integer", nullable=false)
+     * @ORM\Column(name="ban", type="integer", nullable=true)
      */
     private $ban;
 
@@ -44,7 +45,6 @@ class Client
      * @var \Personne
      *
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\OneToOne(targetEntity="Personne")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idClient", referencedColumnName="id_personne")
@@ -116,5 +116,7 @@ class Client
         return (string) $this->getIdclient();
     }
 
+    
+ 
 
 }

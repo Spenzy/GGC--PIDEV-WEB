@@ -41,7 +41,8 @@ class CommandeController extends AbstractController
      */
     public function new(SessionInterface $session,Request $request,LignecommandeRepository $lignecommandeRepository, CommandeRepository $commandeRepository,ProduitRepository $produitRepository,PanierService $cartservice ): Response
     {
-        $userid=111;//$uiserid=$session['userid'];
+
+        $userid=$session->get("user_id");
 
         $commande = new Commande();
 
@@ -198,7 +199,7 @@ class CommandeController extends AbstractController
      */
     public function show(SessionInterface $session,LignecommandeRepository $lignecommandeRepository,Request $request,CommandeRepository $commandeRepository,ClientRepository $clientRepository, PaginatorInterface $paginator): Response
     {
-        $uid=111;//$uid=$session['userid'];
+        $uid=$session->get("user_id");
 
         $donnees=$commandeRepository->afficheCommandesClients($uid);
 
