@@ -26,6 +26,16 @@ class PlanController extends AbstractController
     }
 
     /**
+     * @Route("/adminplan", name="adminplan", methods={"GET"})
+     */
+    public function adminplan(PlanRepository $planRepository): Response
+    {
+        return $this->render('plan/adminplan.html.twig', [
+            'plans' => $planRepository->findAll(),
+        ]);
+    }
+
+    /**
      * @Route("/new", name="app_plan_new", methods={"GET", "POST"})
      */
     public function new(Request $request, PlanRepository $planRepository): Response
@@ -52,6 +62,15 @@ class PlanController extends AbstractController
     {
         return $this->render('plan/show.html.twig', [
             'plan' => $plan,
+        ]);
+    }
+    /**
+     * @Route("/{idstreamer}", name="app_plan_show2", methods={"GET"})
+     */
+    public function show2($idstreamer): Response
+    {$rep=$this->getDoctrine()->getRepository(plan::class);
+        return $this->render('plan/show.html.twig', [
+            'plan' => $rep->findPlanByStreamer($idstreamer),
         ]);
     }
 
@@ -85,4 +104,10 @@ class PlanController extends AbstractController
 
         return $this->redirectToRoute('app_plan_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
+
+
+
 }

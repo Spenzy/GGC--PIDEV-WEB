@@ -17,13 +17,20 @@
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 gutters-sm">
         <div class="col mb-3">
             {% for streamer in streamers %}
-          <div class="card">
+          <div class="card"   >
+              
             <img src="https://via.placeholder.com/340x120/FFB6C1/000000" alt="Cover" class="card-img-top">
             <div class="card-body text-center">
-              <img src="https://bootdey.com/img/Content/avatar/avatar7.png" style="width:100px;margin-top:-65px" alt="User" class="img-fluid img-thumbnail rounded-circle border-0 mb-3">
-              <h5 class="card-title">{{streamer.idstreamer.nom}}</h5>
+               <a
+                       href="#"> <img  src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="plan\index.html.twig" style="width:100px;margin-top:-65px" alt="User" class="img-fluid img-0thumbnail rounded-circle border-0 mb-3">
+                </a>
+                <h5 class="card-title">{{streamer.idstreamer.nom}}</h5>
               <p class="text-secondary mb-1">{{streamer.informations}}</p>
-              <p class="text-muted font-size-sm">{{streamer.lienstreaming}}</p>
+                <a
+                <p class="text-muted font-size-sm">{{streamer.lienstreaming}}</p>
+                </a>
+
+
             </div>
             <div class="card-footer">
               <button class="btn btn-light btn-sm bg-white has-icon btn-block" type="button"><i class="material-icons">add</i>Follow</button>
@@ -37,38 +44,7 @@
 
       </div>
     </div>
-  </div>
 
 
 
-
-    <h1>Streamer index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Informations</th>
-                <th>Lienstreaming</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for streamer in streamers %}
-            <tr>
-                <td>{{ streamer.informations }}</td>
-                <td>{{ streamer.lienstreaming }}</td>
-                <td>
-                    <a href="{{ path('app_streamer_show', {'idstreamer': streamer.idstreamer.idpersonne}) }}">show</a>
-                    <a href="{{ path('app_streamer_edit', {'idstreamer': streamer.idstreamer.idpersonne}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_streamer_new') }}">Create new</a>
 {% endblock %}

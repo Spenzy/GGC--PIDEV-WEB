@@ -20,6 +20,14 @@ class PlanRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Plan::class);
     }
+    public function findPlanByStreamer($idstreamer)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('idstreamer=:p.idstreamer')
+            ->setParameter('idstreamer', $idstreamer)
+            ->getQuery()
+            ->getResult();
+    }
 
     /**
      * @throws ORMException

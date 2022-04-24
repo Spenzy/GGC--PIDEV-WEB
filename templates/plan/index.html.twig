@@ -1,45 +1,44 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href=" {{ asset("css/ListeStreamer.css") }} " red="stylesheet ">
+{% endblock %}
+
 
 {% block title %}Plan index{% endblock %}
 
 {% block body %}
-    <h1>Plan index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Idplan</th>
-                <th>Streamer</th>
-                <th>Date</th>
-                <th>Heure</th>
-                <th>Duree</th>
-                <th>Description</th>
 
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for plan in plans %}
-            <tr>
-                <td>{{ plan.idplan }}</td>
-                <td>{{ plan.idstreamer.nom }}</td>
-                <td>{{ plan.date ? plan.date|date('Y-m-d') : '' }}</td>
-                <td>{{ plan.heure ? plan.heure|date('H:i:s') : '' }}</td>
-                <td>{{ plan.duree }}</td>
-                <td>{{ plan.description }}</td>
+    {% for plan in plans %}
 
-                <td>
-                    <a href="{{ path('app_plan_show', {'idplan': plan.idplan}) }}">show</a>
-                    <a href="{{ path('app_plan_edit', {'idplan': plan.idplan}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="card row-hover pos-relative py-3 px-3 mb-3 border-warning border-top-0 border-right-0 border-bottom-0 rounded-0">
+        <div class="row align-items-center">
+            <div class="col-md-8 mb-3 mb-sm-0">
+                <h5>
+                    <a  class="text-primary">{{plan.description}}</a>
+                </h5>
+                <p class="text-sm"><span class="op-6">Durée</span> <a class="text-black" >{{plan.duree}} Hours</a> <span class="op-6">By</span> <a class="text-black" href="{{ path('app_streamer_show2', {'idstreamer': plan.idstreamer.idpersonne}) }}">{{plan.idstreamer.nom}}</a></p>
+                <div class="text-sm op-5"> <a class="text-black mr-2" >The {{plan.date|date}} </a> <a class="text-black mr-2" >At {{plan.heure|date('H:i')}}</a>  </div>
+            </div>
+            <div class="col-md-4 op-7">
+                <div class="row text-center op-7">
+                    <div class="col px-1"> <i class="ion-connection-bars icon-1x"></i> <span class="d-block text-sm">141 Votes</span> </div>
+                    <div class="col px-1"> <i class="ion-ios-chatboxes-outline icon-1x"></i> <span class="d-block text-sm">122 Replys</span> </div>
+                    <div class="col px-1"> <i class="ion-ios-eye-outline icon-1x"></i> <span class="d-block text-sm">290 Views</span> </div>
+                </div>
+            </div>
+        </div>
 
-    <a href="{{ path('app_plan_new') }}">Create new</a>
+    </div>
+    {% endfor %}
+
+
+
+
+
+
+
+
+
 {% endblock %}

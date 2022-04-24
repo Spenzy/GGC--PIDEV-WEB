@@ -25,6 +25,18 @@ class StreamerController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/adminstreamer", name="adminstreamer", methods={"GET"})
+     */
+    public function adminstreamer(StreamerRepository $streamerRepository): Response
+    {
+        return $this->render('streamer/adminstreamer.html.twig', [
+            'streamers' => $streamerRepository->findAll(),
+        ]);
+    }
+
+
     /**
      * @Route("/new", name="app_streamer_new", methods={"GET", "POST"})
      */
@@ -54,6 +66,20 @@ class StreamerController extends AbstractController
             'streamer' => $streamer,
         ]);
     }
+
+
+
+    /**
+     * @Route("/{idstreamer}", name="app_streamer_show2", methods={"GET"})
+     */
+    public function show2(Streamer $streamer): Response
+    {
+        return $this->render('streamer/show2.html.twig', [
+            'streamer' => $streamer,
+        ]);
+    }
+
+
 
     /**
      * @Route("/{idstreamer}/edit", name="app_streamer_edit", methods={"GET", "POST"})

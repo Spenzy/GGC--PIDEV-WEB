@@ -21,15 +21,7 @@ class Plan
      */
     private $idplan;
 
-    /**
-     * @var \Personne
-     *
-     * @ORM\OneToOne(targetEntity="Personne")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idStreamer", referencedColumnName="id_personne")
-     * })
-     */
-    private $idstreamer;
+
 
     /**
      * @var \DateTime
@@ -66,21 +58,20 @@ class Plan
      */
     private $idevenement;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Streamer::class, inversedBy="plans")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idStreamer", referencedColumnName="idStreamer")
+     * })
+     */
+    private $streamer;
+
     public function getIdplan(): ?int
     {
         return $this->idplan;
     }
 
-    public function getIdstreamer(): ?Personne
-    {
-        return $this->idstreamer;
-    }
 
-    public function setIdstreamer(Personne $s): self
-    {
-        $this->idstreamer = $s;
-        return $this;
-    }
 
     public function getDate(): ?\DateTimeInterface
     {
@@ -138,6 +129,18 @@ class Plan
     public function setIdevenement(int $idevenement): self
     {
         $this->idevenement = $idevenement;
+
+        return $this;
+    }
+
+    public function getStreamer(): ?Streamer
+    {
+        return $this->streamer;
+    }
+
+    public function setStreamer(?Streamer $streamer): self
+    {
+        $this->streamer = $streamer;
 
         return $this;
     }
