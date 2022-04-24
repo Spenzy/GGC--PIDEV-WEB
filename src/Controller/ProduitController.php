@@ -159,7 +159,7 @@ class ProduitController extends AbstractController
     /**
      * @Route("/{reference}/note", name="app_produit_note", methods={"POST","GET"})
      */
-    public function excuse(ProduitRepository $produitRepository,AvisRepository $avisRepository): Response
+    public function affecterNote(ProduitRepository $produitRepository,AvisRepository $avisRepository): Response
     {
         $produits=$produitRepository->findAll();
         foreach ($produits as $produit) {
