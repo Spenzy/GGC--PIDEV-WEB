@@ -1,0 +1,19 @@
+{{ form_start(form,{'attr': {'class': 'panel-activity__status','novalidate': 'novalidate'}}) }}
+
+    <!-- Comment FORM -->
+    {{ form_label(form.description, 'Répondre:') }}
+    {{ form_widget(form.description,{'attr': {'class': 'form-control'}}) }}
+    <div class="actions">
+        <div class="btn-group">
+            <button type="button" class="btn-link" title="" data-toggle="tooltip" data-original-title="Post an Image">
+                <i class="fa fa-image"></i>
+            </button>
+        </div>
+        <button type="submit" class="btn btn-sm btn-rounded btn-info">
+            {{ button_label|default('Commenter') }}
+        </button>
+    </div>
+    {{ form_errors(form.description) }}
+    <!-- /Comment FORM -->
+
+{{ form_end(form) }}

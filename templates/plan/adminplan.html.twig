@@ -1,0 +1,50 @@
+
+
+
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href=" {{ asset("css/ListeStreamer.css") }} " red="stylesheet ">
+{% endblock %}
+
+{% block body %}
+    <h1>Plan index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Idplan</th>
+            <th>Streamer</th>
+            <th>Date</th>
+            <th>Heure</th>
+            <th>Duree</th>
+            <th>Description</th>
+
+            <th>actions</th>
+        </tr>
+        </thead>
+<tbody>
+{% for plan in plans %}
+    <tr>
+        <td>{{ plan.idplan }}</td>
+        <td>{{ plan.idstreamer.nom }}</td>
+        <td>{{ plan.date ? plan.date|date('Y-m-d') : '' }}</td>
+        <td>{{ plan.heure ? plan.heure|date('H:i:s') : '' }}</td>
+        <td>{{ plan.duree }}</td>
+        <td>{{ plan.description }}</td>
+
+        <td>
+            <a href="{{ path('app_plan_show', {'idplan': plan.idplan}) }}">show</a>
+            <a href="{{ path('app_plan_edit', {'idplan': plan.idplan}) }}">edit</a>
+        </td>
+    </tr>
+{% else %}
+    <tr>
+        <td colspan="7">no records found</td>
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+
+<a href="{{ path('app_plan_new') }}">Create new</a>
+{% endblock %}

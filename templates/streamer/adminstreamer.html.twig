@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href=" {{ asset("css/ListeStreamer.css") }} " red="stylesheet ">
+{% endblock %}
+{% block title %}Streamer index{% endblock %}
+
+{% block body %}
+    <h1>Streamer index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Informations</th>
+            <th>Lienstreaming</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for streamer in streamers %}
+            <tr>
+                <td>{{ streamer.informations }}</td>
+                <td>{{ streamer.lienstreaming }}</td>
+                <td>
+                    <a href="{{ path('app_streamer_show', {'idstreamer': streamer.idstreamer.idpersonne}) }}">show</a>
+                    <a href="{{ path('app_streamer_edit', {'idstreamer': streamer.idstreamer.idpersonne}) }}">edit</a>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_streamer_new') }}">Create new</a>
+{% endblock %}

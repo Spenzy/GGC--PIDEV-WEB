@@ -45,6 +45,25 @@ class LignecommandeRepository extends ServiceEntityRepository
         }
     }
 
+    public function findCommande(int $idcommande){
+
+        return $this->createQueryBuilder('lc')
+                    ->where('lc.idcommande = :id')
+                    ->setParameter('id',$idcommande)
+                    ->getQuery()
+                    ->getResult();
+    }
+
+    public function findPanier(int $idcommande){
+
+        return $this->createQueryBuilder('lc')
+            ->where('lc.idcommande = :id')
+            ->setParameter('id',$idcommande)
+            ->select(['lc.idproduit', 'lc.quantite'])
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Lignecommande[] Returns an array of Lignecommande objects
     //  */

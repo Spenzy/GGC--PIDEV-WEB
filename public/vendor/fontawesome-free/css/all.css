@@ -2953,7 +2953,7 @@ readers do not read off random characters that represent icons */
   content: "\f304"; }
 
 .fa-pen-alt:before {
-  content: "\f305"; }
+  content: "\f2ed"; }
 
 .fa-pen-fancy:before {
   content: "\f5ac"; }

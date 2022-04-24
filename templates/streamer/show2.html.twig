@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Streamer{% endblock %}
+
+{% block body %}
+    <h1>Streamer</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Informations</th>
+            <td>{{ streamer.informations }}</td>
+        </tr>
+        <tr>
+            <th>Lienstreaming</th>
+            <td>{{ streamer.lienstreaming }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+{% endblock %}
