@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Commentaire;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
@@ -43,6 +44,33 @@ class CommentaireRepository extends ServiceEntityRepository
         if ($flush) {
             $this->_em->flush();
         }
+    }
+
+    public function findCommentCountByPost($idPublication): ?int
+    {
+        try {
+            return $this->createQueryBuilder('c')
+                ->Where(':idPub = c.idpublication')
+                ->setParameter('idPub', $idPublication)
+                ->select('count(c.idcommentaire)')
+                ->getQuery()
+                ->getSingleScalarResult();
+        } catch (NonUniqueResultException $e) {
+        }
+        return -1;
+    }
+
+    /**
+    * @return Commentaire[] Returns an array of Commentaire objects
+    */
+    public function findByPost($idPublication)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.idpublication = :idPub')
+            ->setParameter('idPub', $idPublication)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
     // /**

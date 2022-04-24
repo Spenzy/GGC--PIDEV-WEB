@@ -3,12 +3,17 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator\Constraints\ComplexPassword;
 
 /**
  * Personne
  *
  * @ORM\Table(name="personne")
  * @ORM\Entity(repositoryClass="App\Repository\PersonneRepository")
+ * @UniqueEntity("email",message="Cette email est déja attribuée ")
  */
 class Personne
 {
@@ -23,21 +28,33 @@ class Personne
 
     /**
      * @var string
-     *
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 50,
+     *      minMessage = "least {{ limit }} characters long",
+     *      maxMessage = "cannot be longer than {{ limit }} characters"
+     * )
      * @ORM\Column(name="nom", type="string", length=30, nullable=false)
+     * @Assert\NotBlank(message="please enter your nom")
      */
     private $nom;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="prenom", type="string", length=30, nullable=false)
+     * * @Assert\Length(
+     *      min = 4,
+     *      max = 50,
+     *      minMessage = "least {{ limit }} characters long",
+     *      maxMessage = "cannot be longer than {{ limit }} characters"
+     * )
+     * @Assert\NotBlank(message="please enter your prenom")
+
      */
     private $prenom;
 
     /**
      * @var \DateTime
-     *
      * @ORM\Column(name="dateNaissance", type="date", nullable=false)
      */
     private $datenaissance;
@@ -45,7 +62,11 @@ class Personne
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=50, nullable=false)
+     *  @ORM\Column(name="email", type="string", length=50, nullable=false)
+     * @Assert\NotBlank(message="please enter your email")
+     * @Assert\Email()
+     * 
+     * 
      */
     private $email;
 
@@ -53,15 +74,32 @@ class Personne
      * @var int
      *
      * @ORM\Column(name="telephone", type="integer", nullable=false)
+     * @Assert\NotNull(message="entrer votre numero")
+     * @Assert\Length(
+     *      min = 8,
+     *      max = 8,
+     *      minMessage = "least {{ limit }} characters long",
+     *      maxMessage = "cannot be longer than {{ limit }} characters"
+     * )
      */
     private $telephone;
 
     /**
-     * @var string
      *
      * @ORM\Column(name="password", type="string", length=50, nullable=false)
+     * @Assert\NotBlank(message="entrer votre password")
+     * @Assert\Length(min="6")
+     * @var string The hashed password
+     * 
      */
     private $password;
+     /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $roles;
+
+
 
     public function getIdPersonne(): ?int
     {
@@ -127,6 +165,7 @@ class Personne
 
         return $this;
     }
+  
 
     public function getPassword(): ?string
     {
@@ -139,9 +178,21 @@ class Personne
 
         return $this;
     }
+
     public function __toString()
     {
         return (string) $this->nom;
     }
+    
+    public function setRoles(string $roles): self
+    {
+        $this->roles = $roles;
 
+        return $this;
+    }
+
+    public function getRoles(): ?string
+    {
+        return $this->roles;
+    }
 }

@@ -1,5 +1,12 @@
 {% extends 'admin/index.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
 
+    <!-- Template Stylesheet -->
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link href={{asset("css/shop.css")}} rel="">
+
+{% endblock %}
 {% block title %}Livraison{% endblock %}
 
 {% block body %}

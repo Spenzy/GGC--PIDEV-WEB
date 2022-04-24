@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -94,13 +95,16 @@ class ProduitController extends AbstractController
     /**
      * @Route("/details/{reference}", name="app_produit_details", methods={"GET"})
      */
-    public function details(int $reference,ProduitRepository $rep,AvisRepository $repAvis): Response
+    public function details(SessionInterface $session,int $reference,ProduitRepository $rep,AvisRepository $repAvis): Response
     {
+        $userid=$session->get("user_id");
+
         $produit=$rep->find($reference);
         $avis=$repAvis->findAvis($reference);
         return $this->render('produit/details.html.twig', [
             'produit' => $produit,
             'avis' => $avis,
+            'uid' => $userid,
         ]);
     }
     /**
@@ -155,7 +159,11 @@ class ProduitController extends AbstractController
     /**
      * @Route("/{reference}/note", name="app_produit_note", methods={"POST","GET"})
      */
+<<<<<<< HEAD
     public function excuse(ProduitRepository $produitRepository,AvisRepository $avisRepository): Response
+=======
+    public function affecterNote(ProduitRepository $produitRepository,AvisRepository $avisRepository): Response
+>>>>>>> master
     {
         $produits=$produitRepository->findAll();
         foreach ($produits as $produit) {

@@ -1,0 +1,10 @@
+{% extends 'mail.html.twig' %}
+
+{% block content %}
+    <h1>Bonjour Mr/Mme {{ client.idclient.nom }}</h1>
+    <h4>Nous nous excusons pour le retard de la livraison de votre commande, pour y remédier nous vous offrons 50% de remise</4>
+    <h4>Le nouveau prix de votre commande :{{ commande.prix }}</h4>
+    <h4>Veuillez contactez votre livreur Mr {{ livreur.idlivreur.prenom }} {{ livreur.idlivreur.nom }} en cas de besoin sur :</h4>
+    <h4>Numéros de téléphone : {{ livreur.idlivreur.telephone }}</h4>
+    <h4>Adresse Mail : {{ livreur.idlivreur.email }}</h4>
+{% endblock %}

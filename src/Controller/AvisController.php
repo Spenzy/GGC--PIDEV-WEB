@@ -11,6 +11,7 @@ use App\Repository\AvisRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -31,10 +32,11 @@ class AvisController extends AbstractController
     /**
      * @Route("/{reference}/new", name="app_avis_new", methods={"GET", "POST"})
      */
-    public function new(int $reference,Request $request, AvisRepository $avisRepository): Response
+    public function new(SessionInterface $session,int $reference,Request $request, AvisRepository $avisRepository): Response
     {
+        $userid=$session->get("user_id");
         $avi = new Avis();
-        $client=$this->getDoctrine()->getRepository(Client::class)->find(6);
+        $client=$this->getDoctrine()->getRepository(Client::class)->find($userid);
         $avi->setIdclient($client);
         $produit=$this->getDoctrine()->getRepository(Produit::class)->find($reference);
         $avi->setReferenceproduit($produit);

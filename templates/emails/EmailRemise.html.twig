@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 
@@ -337,3 +338,15 @@
     </body>
     </html>
 {% endapply %}
+=======
+{% extends 'emails/mail.html.twig' %}
+
+{% block content %}
+
+    <h1><span>Une remise à ne pas rater!</span></h1>
+
+    <h1>Bonjour Mr/Mme {{ client.idclient.nom }}</h1>
+    <h4>Nous offrons une remise de {{ montant }}% sur tous les produits de la catégorie {{ categorie }} </h4>
+    <h4>n'hésitez pas à consulter notre shop </h4>
+{% endblock %}
+>>>>>>> master

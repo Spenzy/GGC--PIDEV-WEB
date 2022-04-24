@@ -52,6 +52,14 @@ class LivraisonRepository extends ServiceEntityRepository
 
         
     }
+
+    public function findCommandes(){
+        return $this->createQueryBuilder('l')
+                ->join('l.idcommande','c')
+                ->addSelect('c')
+                ->where('c.livree = 0')
+                ->getQuery()->getResult();
+    }
     // /**
     //  * @return Livraison[] Returns an array of Livraison objects
     //  */

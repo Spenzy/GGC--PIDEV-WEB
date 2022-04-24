@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Publication
@@ -25,6 +28,8 @@ class Publication
      * @var string
      *
      * @ORM\Column(name="object", type="string", length=100, nullable=false)
+     * @Assert\NotBlank(message="Veuillez entrer un objet!")
+     * @Assert\Type("string", message="Le contenu {{ description }} n'est pas une chaine valide.")
      */
     private $object;
 
@@ -32,6 +37,7 @@ class Publication
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=250, nullable=false)
+     * @Assert\Type("string", message="Le contenu {{ description }} n'est pas une chaine valide.")
      */
     private $description;
 
@@ -43,14 +49,17 @@ class Publication
     private $archive;
 
     /**
-     * @var int
+     * @var \Client
      *
-     * @ORM\Column(name="idClient", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Client")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idClient", referencedColumnName="idClient")
+     * })
      */
     private $idclient;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="date", type="date", nullable=false)
      */
@@ -97,29 +106,32 @@ class Publication
         return $this;
     }
 
-    public function getIdclient(): ?int
+    public function getIdclient(): ?Client
     {
         return $this->idclient;
     }
 
-    public function setIdclient(int $idclient): self
+    public function setIdclient(?Client $idclient): self
     {
         $this->idclient = $idclient;
 
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate(): ?DateTimeInterface
     {
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(DateTimeInterface $date): self
     {
         $this->date = $date;
 
         return $this;
     }
 
-
+    public function __toString(): string
+    {
+        return "Publication";
+    }
 }
