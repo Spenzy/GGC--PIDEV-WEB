@@ -54,6 +54,10 @@ class PlanRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllPlans(){
+        return $this->getEntityManager()->createQuery('select p from App\Entity\Plan p order by p.date desc')->getResult();
+    }
+
     // /**
     //  * @return Plan[] Returns an array of Plan objects
     //  */

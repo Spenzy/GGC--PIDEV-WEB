@@ -6,6 +6,7 @@ use App\Entity\Publication;
 use App\Repository\CommentaireRepository;
 use App\Repository\PublicationRepository;
 use App\Repository\StreamerRepository;
+use App\Repository\PlanRepository;
 use App\Repository\VoteRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
@@ -157,7 +158,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/plan/admin", name="adminplan", methods={"GET"})
+     * @Route("/plan/admin", name="app_plan_admin", methods={"GET"})
      */
     public function adminplan(PlanRepository $planRepository): Response
     {

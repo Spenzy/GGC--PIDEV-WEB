@@ -21,20 +21,11 @@ class PlanController extends AbstractController
     public function index(PlanRepository $planRepository): Response
     {
         return $this->render('plan/index.html.twig', [
-            'plans' => $planRepository->findAll(),
+            'plans' => $planRepository->findAllPlans(),
         ]);
     }
 
-    /**
-     * @Route("/adminplan", name="adminplan", methods={"GET"})
-     */
-    public function adminplan(PlanRepository $planRepository): Response
-    {
-        return $this->render('plan/adminplan.html.twig', [
-            'plans' => $planRepository->findAll(),
-        ]);
-    }
-
+    
     /**
      * @Route("/new", name="app_plan_new", methods={"GET", "POST"})
      */

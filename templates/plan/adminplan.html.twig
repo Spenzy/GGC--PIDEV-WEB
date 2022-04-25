@@ -24,7 +24,7 @@
 {% for plan in plans %}
     <tr>
         <td>{{ plan.idplan }}</td>
-        <td>{{ plan.idstreamer.nom }}</td>
+        <td>{{ plan.idstreamer.idstreamer.nom }}</td>
         <td>{{ plan.date ? plan.date|date('Y-m-d') : '' }}</td>
         <td>{{ plan.heure ? plan.heure|date('H:i:s') : '' }}</td>
         <td>{{ plan.duree }}</td>

@@ -45,6 +45,10 @@ class StreamerRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllStreamers(){
+        return $this->getEntityManager()->createQuery('select s from App\Entity\Streamer s order by s.nom desc')->getResult();
+    }
+
     // /**
     //  * @return Streamer[] Returns an array of Streamer objects
     //  */
