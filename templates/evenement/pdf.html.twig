@@ -1,9 +1,6 @@
-{% extends 'admin/index.html.twig' %}
-
-{% block title %}Evenement index{% endblock %}
 
 {% block body %}
-    <h1>Evenements</h1>
+    <h1>liste Evenements</h1>
 
     <table class="table">
         <thead>
@@ -18,7 +15,7 @@
                 <th>actions</th>
             </tr>
         </thead>
-        <tbody  id="myTable">
+        <tbody>
         {% for evenement in evenements %}
             <tr>
                 <td>{{ evenement.reference }}</td>
@@ -30,25 +27,13 @@
                 <td>{{ evenement.titre }}</td>
                                 <td>
 
-                  
+                    <a href="{{ path('show',{'reference': evenement.reference}) }}">
                         <img src="{{ asset('images/'~evenement.photo) }}" alt="  {{ evenement.photo }}" width="80" height="80"></a></td>
                 <td>
-                  
-                    {{ include('evenement/_delete_form.html.twig') }}
-                        
-                    <form method="post" action="{{ path('edit', {'reference': evenement.reference}) }}" >
-                    <button >modifier</button>
-                    </form>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
+      
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('newevent') }}">Create new</a>
-
+   
 {% endblock %}

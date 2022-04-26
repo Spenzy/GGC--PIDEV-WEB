@@ -28,9 +28,8 @@ class ParticipationController extends AbstractController
     /**
      * @Route("/addParticipation{id}", name="addParticipation")
      */
-    public function ajouterParticipation(Request $request, $id)
+    public function ajouterParticipation(Request $request, $id, \Swift_Mailer $mailer)
     {
-
 
         $Participation = new Participation();
         $evenement = $this->getDoctrine()->getRepository(Evenement::class)->findOneBy(['reference' => $id]);
@@ -41,14 +40,48 @@ class ParticipationController extends AbstractController
 
 
         $form->handleRequest($request);
+        $participation = $this->getDoctrine()->getRepository(Participation::class)->findOneBy(['idParticipation' => $id]);
+        $idu = $participation->getIdClient();
+        $idt = $participation->getIdEvent();
+
+        $utilisateur = $this->getDoctrine()->getRepository(Client::class)->findOneBy(['idClient' => $idu]);
+    
+        $reference =  $evenement->getReference();
+
+        $eventl = $this->getDoctrine()->getRepository(Evenement::class)->findOneBy(['reference' => $reference]);
+        $titre = $eventl->getTitre();
+        $message = (new \Swift_Message('Confirmation Email'))
+        ->setFrom('gamergeekscommunity@gmail.com')
+        #->setTo($Participation->getIdclient()->getIdclient()->getEmail())
+        ->setTo('azer.lahmar@esprit.tn')
+        ->setBody(
+            $this->renderView(
+                'emails/contact.html.twig',
+                [
+                    'titre' => $titre,
+                    'idt' => $idt,
+                   
+                    ]
+            ),
+            'text/html'
+
+        );
+
+    $mailer->send($message);
 
         if ($form->isSubmitted() and $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($Participation);
             $em->flush();
-            return $this->redirectToRoute('MesPar');
+            #return $this->redirectToRoute('MesPar');
+
+
+
+
+
         }
+
         return $this->render('participation/ajouterP.html.twig', array('participations' => $form->createView()));
 
     }
