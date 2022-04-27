@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\HttpFoundation\HttpFoundationRequestHandler
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Form\ParticipationType;
 use Doctrine\ORM\EntityManagerInterface;
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\BarChart;
 
 class ParticipationController extends AbstractController
 {
@@ -74,7 +75,7 @@ class ParticipationController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($Participation);
             $em->flush();
-            #return $this->redirectToRoute('MesPar');
+            return $this->redirectToRoute('MesPar');
 
 
 
@@ -134,5 +135,38 @@ class ParticipationController extends AbstractController
         return $this->redirectToRoute('MesPar');
 
     }
+
+    /**
+     * @Route("/stats", name="stats")
+     */
+    public function statistiques(ParticipationRepository $partRepo){
+        // On va chercher toutes les commandes
+
+        $participations = $partRepo->countById();
+        $titreEvents = [];
+        $idParticipations = [];
+        $participationsCount = [];
+
+
+        // On va chercher le nombre de participation par date
+        //nombre de participation par titre evenement 
+        foreach($participations as $Participation){
+            $idParticipations[] = $Participation ['id'];
+            $participationsCount[] = $Participation['count'];
+            $titreEvents[] = $Participation ['ide'];
+
+
+        }
+
+        //dump($commandesCount);
+
+        return $this->render('participation/statistique.html.twig', [
+            'idParticipations' => json_encode($idParticipations),
+            'participationsCount' => json_encode($participationsCount),
+            'titreEvents' => json_encode($titreEvents),
+        ]);
+    }
+
+
 
 }

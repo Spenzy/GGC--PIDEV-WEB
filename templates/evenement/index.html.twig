@@ -18,6 +18,7 @@
                 <th>actions</th>
             </tr>
         </thead>
+          <a href="{{ path('stats') }}">Statistiques</a>
         <tbody  id="myTable">
         {% for evenement in evenements %}
             <tr>
@@ -50,5 +51,5 @@
     </table>
 
     <a href="{{ path('newevent') }}">Create new</a>
-
+    
 {% endblock %}

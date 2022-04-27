@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Evenement;
 use App\Entity\Client;
 use App\Form\EvenementType;
@@ -124,8 +124,11 @@ class EvenementController extends AbstractController
      */
     public function show(Evenement $evenement): Response
     {
+        $evenement->setNbrparticipant($evenement->getNbrparticipant() - 1);
+        $nouveaNombreParticipants = $evenement->getNbrparticipant();
         return $this->render('evenement/show.html.twig', [
             'evenement' => $evenement,
+            "nouveaNombreParticipants" => $nouveaNombreParticipants
         ]);
     }
     
@@ -194,5 +197,28 @@ class EvenementController extends AbstractController
     }
     
  
-    
+       /**
+     * @Route("/applyajax", name="participer_event")
+     */
+    public function applyToEvent(Request $request,EntityManagerInterface $entityManager)
+    {
+        // $eventl= $rep->find($idevent);
+        $reference = $request->get('reference');
+        $eventl = $this->getDoctrine()->getRepository(Evenement::class)->findOneById($reference);
+        // $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneById(1);
+        //$eventl->addUser($utilisateur);
+        // $utilisateur->addEvent($eventl);
+
+        $eventl->setNbrparticipant()($eventl->getNbrparticipant() - 1);
+
+        $nouveaNombreParticipants = $eventl->getNbrparticipant();
+
+        $entityManager->flush();
+
+        return $this->render('evenement/show.html.twig', [
+            "nouveaNombreParticipants" => $nouveaNombreParticipants
+        ]);
+
+    }
+
 }
