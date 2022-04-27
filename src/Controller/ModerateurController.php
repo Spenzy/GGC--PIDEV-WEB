@@ -7,12 +7,15 @@ use App\Repository\PersonneRepository;
 use App\Entity\Moderateur;
 use App\Form\Moderateur1Type;
 use App\Repository\ModerateurRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\PercentType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
+
 
 /**
  * @Route("/moderateur")
@@ -22,14 +25,22 @@ class ModerateurController extends AbstractController
     /**
      * @Route("/", name="app_moderateur_index", methods={"GET"})
      */
-    public function index(SessionInterface $session,ModerateurRepository $moderateurRepository,PersonneRepository $personneRepository): Response
+    public function index(Request $request,SessionInterface $session,ModerateurRepository $moderateurRepository,PersonneRepository $personneRepository,PaginatorInterface $paginator): Response
     {
         if($personneRepository->findOneBy(array('idPersonne'=>$session->get("user_id")))->getRoles()=="admin"){
-
+            $moderateurs = $moderateurRepository->findAll();
+            $moderateurs = $paginator->paginate(
+                $moderateurs, /* query NOT result */
+                $request->query->getInt('page', 1), /*page number*/
+                3 /*limit per page*/
+            
+        );
         return $this->render('moderateur/index.html.twig', [
-            'moderateurs' => $moderateurRepository->findAll(),
-        ]);
+           
+        'moderateurs' => $moderateurs,
+            ]);
     }
+    
     else {
         // page not found
         return $this->redirectToRoute('app_home_page', [], Response::HTTP_SEE_OTHER);

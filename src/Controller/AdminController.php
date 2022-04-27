@@ -36,8 +36,20 @@ class AdminController extends AbstractController
 
     }
 
+     /**
+     * @Route("/hazem", name="login")
+     */
+    public function indexLogin1(): Response
+    {
+        return $this->render('Login/base.html.twig', [
+            'controller_name' => 'AdminController',
+        ]);
+    }
+
+
+
     /**
-     * @Route("/loginnnn", name="loginnnn")
+     * @Route("/login", name="app_login_page")
      */
     public function indexLogin(): Response
     {
@@ -54,8 +66,12 @@ class AdminController extends AbstractController
         $email = $request->get("email", "");
         $password = $request->get("password", "");
         if ($email != "" && $password != "") {
-            $personne = $personneRepository->findOneBy(array('email' => $email));
-            if ($personne->getRoles() == "user") {
+            $personne = $personneRepository->findOneBy(array('email' => $email, 'password'=> $password));
+            
+            if(is_null($personne)){
+                return $this->redirectToRoute('app_login_page', [], Response::HTTP_SEE_OTHER);
+            }
+            elseif ($personne->getRoles() == "user") {
                 $session->set("user_id", $personne->getIdPersonne());
                 return $this->redirectToRoute('app_home_page', [], Response::HTTP_SEE_OTHER);
             }elseif ($personne->getRoles() == "admin") {
@@ -65,8 +81,9 @@ class AdminController extends AbstractController
                 $session->set("user_id", $personne->getIdPersonne());
                 return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
             }
+            
         }
-        return $this->redirectToRoute('loginnnn', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_login_page', [], Response::HTTP_SEE_OTHER);
     }
 
     /**
