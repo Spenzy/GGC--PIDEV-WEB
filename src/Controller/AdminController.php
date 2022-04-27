@@ -36,18 +36,6 @@ class AdminController extends AbstractController
 
     }
 
-     /**
-     * @Route("/hazem", name="login")
-     */
-    public function indexLogin1(): Response
-    {
-        return $this->render('Login/base.html.twig', [
-            'controller_name' => 'AdminController',
-        ]);
-    }
-
-
-
     /**
      * @Route("/login", name="app_login_page")
      */

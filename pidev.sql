@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 23, 2022 at 05:44 PM
+-- Generation Time: Apr 27, 2022 at 12:34 PM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -307,7 +307,9 @@ CREATE TABLE IF NOT EXISTS `moderateur` (
 
 INSERT INTO `moderateur` (`id_moderateur`) VALUES
 (5),
-(6);
+(6),
+(6254),
+(6255);
 
 -- --------------------------------------------------------
 
@@ -341,16 +343,16 @@ INSERT INTO `participation` (`idParticipation`, `idClient`, `idEvent`, `nbrEtoil
 
 DROP TABLE IF EXISTS `personne`;
 CREATE TABLE IF NOT EXISTS `personne` (
-  `id_personne` int(11) NOT NULL,
-  `nom` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `prenom` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `id_personne` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `prenom` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `dateNaissance` date NOT NULL,
-  `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `telephone` int(11) NOT NULL,
-  `password` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `roles` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `password` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `roles` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id_personne`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6256 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `personne`
@@ -358,14 +360,16 @@ CREATE TABLE IF NOT EXISTS `personne` (
 
 INSERT INTO `personne` (`id_personne`, `nom`, `prenom`, `dateNaissance`, `email`, `telephone`, `password`, `roles`) VALUES
 (1, 'zied', 'dridi', '2022-02-11', 'dridi.zied@esprit.tn', 52848054, 'pwd', 'admin'),
-(2, 'marwa', 'ayari', '2001-02-02', 'maroua.ayari@esprit.tn', 54342461, 'pwd', 'user'),
+(2, 'marwa', 'ayari', '2001-02-02', 'maroua@esprit.tn', 54342461, 'pwd', 'user'),
 (3, 'Ahmed', 'Mezni', '2022-02-09', 'ahmed.mezni@esprit.tn', 84562357, 'pwd', 'user'),
 (4, 'Azer', 'Lahmer', '2022-02-01', 'azer.lahmer@esprit.tn', 78945612, 'pwd', 'moderateur'),
 (5, 'Amir', 'Ben Salah', '2022-02-11', 'amir.bensalah@esprit.tn', 52845654, 'pwd', 'user'),
 (6, 'Maher', 'Gasmi', '2022-02-11', 'maher.gasmi@esprit.tn', 54123321, 'pwd', 'moderateur'),
 (111, 'marwa', 'ayari', '2001-02-02', 'maroua.ayari@esprit.tn', 54342461, 'pwd', 'user'),
 (222, 'cft', 'yugy', '2022-02-09', 'maroua.ayari@esprit.tn', 84562357, 'pwd', 'user'),
-(6253, 'zied', 'dridi', '2022-02-01', 'dridi.zied@esprit.tn', 78945612, 'pwd', 'user');
+(6253, 'zied', 'dridi', '2022-02-01', 'dridi.zied@esprit.tn', 78945612, 'pwd', 'user'),
+(6254, 'bouden', 'samir', '2024-01-01', 'samirbouden@wiou.tn', 12345678, '123456', 'moderateur'),
+(6255, 'Satour', 'Hmed', '2025-05-06', 'hmed.satour@WIOU.tn', 12345678, '123456', 'moderateur');
 
 -- --------------------------------------------------------
 

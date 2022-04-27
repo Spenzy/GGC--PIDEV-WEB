@@ -58,8 +58,7 @@ class PersonneController extends AbstractController
     }
 
     /**
-     * @Route("/{idPersonne}/edit", name="app_personne_edit", methods={"GET", "POST"})
-     * @ParamConverter("idPersonne", class="Personne", options={"idPersonne": "0"})
+     * @Route("/edit", name="app_personne_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request,SessionInterface $session, Personne $personne, PersonneRepository $personneRepository): Response
     {
