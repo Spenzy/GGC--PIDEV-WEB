@@ -32,6 +32,15 @@
                 <td>{{ client.datedebutblock ? client.datedebutblock|date('Y-m-d') : '' }}</td>
                 <td>{{ client.datefinblock ? client.datefinblock|date('Y-m-d') : '' }}</td>
                 <td>
+
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+                <script>
+                    $(document).ready(function(){
+                    $("p").click(function(){
+                                                  ;
+                                                 });
+                                                            });
+                </script>
                   <a class="btn btn-danger" href="{{ path('app_client_show', {'idclient': client.idclient.idpersonne}) }}">Avertir</a>
                  <a class="btn btn-primary" href="{{ path('app_client_edit', {'idclient': client.idclient.idpersonne}) }}">edit</a>    
                 </td>

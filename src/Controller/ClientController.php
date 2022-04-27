@@ -46,7 +46,7 @@ class ClientController extends AbstractController
 
 
     /**
-     * @Route("/new2", name="app_client_new2", methods={"GET", "POST"})
+     * @Route("/register", name="app_client_new2", methods={"GET", "POST"})
      */
     public function new2(SessionInterface $session, Request $request, ClientRepository $clientRepository, PersonneRepository $personneRepository): Response
     {
@@ -68,12 +68,12 @@ class ClientController extends AbstractController
             //$em->persist($client);
             //$em->flush();
             $clientRepository->add($client);
-            return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_login_page', [], Response::HTTP_SEE_OTHER);
         }
 
         $em = $this->getDoctrine()->getManager();
 
-        return $this->render('client/new.html.twig', [
+        return $this->render('login/register.html.twig', [
             'client' => $client,
             'form' => $form->createView(),
         ]);
@@ -85,8 +85,15 @@ class ClientController extends AbstractController
     /**
      * @Route("/{idclient}", name="app_client_show", methods={"GET"})
      */
-    public function show(SessionInterface $session, PersonneRepository $personneRepository, Client $client): Response
+    public function show(SessionInterface $session,$idclient, ClientRepository $clientRepository,PersonneRepository $personneRepository, Client $client): Response
     {
+        $client = $clientRepository->find($idclient);
+        $client->setNbravertissement($client->getNbravertissement()+1);
+        $em = $this->getDoctrine()->getManager();
+            $em->persist($client);          
+            $em->flush();
+        
+
         if ($personneRepository->findOneBy(array('idPersonne' => $session->get("user_id")))->getRoles() == "admin") {
 
             return $this->render('client/show.html.twig', [

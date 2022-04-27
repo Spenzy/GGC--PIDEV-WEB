@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+
 
 /**
  * @Route("/personne")
@@ -57,8 +59,9 @@ class PersonneController extends AbstractController
 
     /**
      * @Route("/{idPersonne}/edit", name="app_personne_edit", methods={"GET", "POST"})
+     * @ParamConverter("idPersonne", class="Personne", options={"idPersonne": "0"})
      */
-    public function edit(Request $request, Personne $personne, PersonneRepository $personneRepository): Response
+    public function edit(Request $request,SessionInterface $session, Personne $personne, PersonneRepository $personneRepository): Response
     {
         $form = $this->createForm(PersonneType::class, $personne);
         $form->handleRequest($request);
@@ -67,7 +70,7 @@ class PersonneController extends AbstractController
             $personneRepository->add($personne);
             return $this->redirectToRoute('app_personne_index', [], Response::HTTP_SEE_OTHER);
         }
-
+        $personne->$personneRepository->findOne($session->get("user_id"));
         return $this->render('personne/edit.html.twig', [
             'personne' => $personne,
             'form' => $form->createView(),

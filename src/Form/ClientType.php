@@ -20,10 +20,7 @@ class ClientType extends AbstractType
             ->add('ban')
             ->add('datedebutblock')
             ->add('datefinblock')
-            ->add('idclient', EntityType::class, [
-                'class'=> Personne::class,
-                'choice_label' =>'email'
-            ])
+            
         ;
     }
 
