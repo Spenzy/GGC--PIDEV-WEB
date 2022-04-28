@@ -23,7 +23,7 @@ class Plan
 
     /**
      * @var \DateTime
-     *
+     * @Assert\GreaterThanOrEqual("today")
      * @ORM\Column(name="date", type="date", nullable=false)
      */
     private $date;
@@ -37,7 +37,7 @@ class Plan
 
     /**
      * @var float
-     *
+     * @Assert\Positive
      * @ORM\Column(name="duree", type="float", precision=10, scale=0, nullable=false)
      */
     private $duree;
@@ -45,6 +45,14 @@ class Plan
     /**
      * @var string
      *
+     * @Assert\Length(
+     *      min = 7,
+     *      max = 90,
+     *      minMessage = "The information must be at least {{ limit }} characters long",
+     *      maxMessage = "The information cannot be longer than {{ limit }} characters"
+     * )
+     * 
+     * 
      * @ORM\Column(name="description", type="string", length=100, nullable=false)
      */
     private $description;
