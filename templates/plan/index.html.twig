@@ -18,13 +18,13 @@
                     <a  class="text-primary">{{plan.description}}</a>
                 </h5>
                 <p class="text-sm"><span class="op-6">Durée</span> <a class="text-black" >{{plan.duree}} Hours</a> <span class="op-6">By</span> <a class="text-black" href="{{ path('app_streamer_show', {'idstreamer': plan.idstreamer.idstreamer.idpersonne}) }}">{{plan.idstreamer.idstreamer.nom}}</a></p>
-                <div class="text-sm op-5"> <a class="text-black mr-2" >The {{plan.date|date}} </a> <a class="text-black mr-2" >At {{plan.heure|date('H:i')}}</a>  </div>
+                <div class="text-sm op-5"> <a class="text-black mr-2" >The {{plan.date|date('d/M/Y')}} </a> <a class="text-black mr-2" >At {{plan.heure|date('H:i')}}</a>  </div>
             </div>
             <div class="col-md-4 op-7">
                 <div class="row text-center op-7">
-                    <div class="col px-1"> <i class="ion-connection-bars icon-1x"></i> <span class="d-block text-sm">141 Votes</span> </div>
-                    <div class="col px-1"> <i class="ion-ios-chatboxes-outline icon-1x"></i> <span class="d-block text-sm">122 Replys</span> </div>
-                    <div class="col px-1"> <i class="ion-ios-eye-outline icon-1x"></i> <span class="d-block text-sm">290 Views</span> </div>
+                    
+                    <div class="col px-1"> <i class="ion-ios-chatboxes-outline icon-1x"></i> <span class="d-block text-sm">{{plan.idstreamer.lienstreaming}}</span> </div>
+                    
                 </div>
             </div>
         </div>

@@ -24,7 +24,7 @@ class StreamerController extends AbstractController
         $Liststreamers=$streamerRepository->findAll();
         $streamers = $paginator->paginate(
             $Liststreamers, 
-            $request->query->getInt('page', 1), 8
+            $request->query->getInt('page', 1), 4
         );
         return $this->render('streamer/index.html.twig', [
             'streamers' => $streamers,
