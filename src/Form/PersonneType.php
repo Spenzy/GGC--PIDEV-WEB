@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Validator\Type\SubmitTypeValidatorExtension;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -31,10 +31,20 @@ class PersonneType extends AbstractType
                         'min' => 4,
                         'minMessage' => 'Votre nom d\'utilisateur doit contenir au moins {{ limit }} caractères.',
                     ]),
+                   
                 ],
             ])
-            ->add('prenom')
-            ->add('datenaissance')
+            ->add('prenom', TextType::class, [
+                'constraints' => [
+                    new Length([
+                        'min' => 4,
+                        'minMessage' => 'Votre nom d\'utilisateur doit contenir au moins {{ limit }} caractères.',
+                    ]),
+                ],
+            ])
+            ->add('datenaissance',DateType::class,[
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',])
             ->add('email',EmailType::class)
             ->add('telephone',TelType::class)
             ->add('password',PasswordType::class)

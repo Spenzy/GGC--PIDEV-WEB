@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
+
 /**
  * @Route("/personne")
  */
@@ -26,6 +27,16 @@ class PersonneController extends AbstractController
             'personnes' => $personneRepository->findAll(),
         ]);
     }
+    /**
+     * @Route("/{idPersonne}", name="app_personne_show", methods={"GET"})
+     */
+    public function show(Personne $personne): Response
+    {
+        return $this->render('personne/show.html.twig', [
+            'personne' => $personne,
+        ]);
+    }
+
 
     /**
      * @Route("/new", name="app_personne_new", methods={"GET", "POST"})
@@ -47,34 +58,27 @@ class PersonneController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{idPersonne}", name="app_personne_show", methods={"GET"})
+   /**
+     * @Route("/{idPersonne}/edit", name="app_personne_edit", methods={"GET", "POST"})
      */
-    public function show(Personne $personne): Response
+    public function edit(Request $request, Personne $personne,SessionInterface $session, PersonneRepository $personneRepository): Response
     {
-        return $this->render('personne/show.html.twig', [
-            'personne' => $personne,
-        ]);
-    }
-
-    /**
-     * @Route("/edit", name="app_personne_edit", methods={"GET", "POST"})
-     */
-    public function edit(Request $request,SessionInterface $session, Personne $personne, PersonneRepository $personneRepository): Response
-    {
+        $uid = $session->get("user_id");
+        $personne = $personneRepository->find($uid);
+        
         $form = $this->createForm(PersonneType::class, $personne);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $personneRepository->add($personne);
-            return $this->redirectToRoute('app_personne_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_home_page', [], Response::HTTP_SEE_OTHER);
         }
-        $personne->$personneRepository->findOne($session->get("user_id"));
+
         return $this->render('personne/edit.html.twig', [
             'personne' => $personne,
             'form' => $form->createView(),
         ]);
     }
+
 
     /**
      * @Route("/{idPersonne}", name="app_personne_delete", methods={"POST"})
