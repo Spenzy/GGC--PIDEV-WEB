@@ -10,14 +10,27 @@
 
 
 
+      <h1 class="section-title position-relative text-center mb-5 pb-2 wow fadeInUp mt-2">Voici la liste des Streamers</h1>
+<form action="{{ path('app_streamer_search') }}" method="POST">
+    <div class="d-flex justify-content-center">
+    <div class="input-group" style="max-width: 500px;" >
+        <input type="text" id="myInput" name="searchS" class="form-control bg-gradient-primary border-primary p-3" placeholder="Saisir un streamer" >
+        <button type="submit" class="btn btn-primary px-4" ><i class="fa fa-search"></i></button>
+    </div>
+    </div>
+</form>             
+
   <div class="container">
+
+
+  
     <div class="main-body">
 
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 gutters-sm">
       {% for streamer in streamers %}
         <div class="col mb-3">
-          <div class="card">
+          <div class="card" id="myTable">
             <img src="https://via.placeholder.com/340x120/FFB6C1/000000" alt="Cover" class="card-img-top">
             <div class="card-body text-center">
                <a
@@ -37,7 +50,28 @@
         </div>
       {% endfor %}
       </div>
+      <div class="row mt-n2 wow fadeInUp " data-wow-delay="0.1s" style="visibility: visible;animation-delay: 0.1s;animation-name: fadeInUp;" >
+        <div class="col-12 text-center">
+               <div class="btn px-3 pr-4 active mt-4">
+                   {{ knp_pagination_render(streamers, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig') }}
+               </div>
+        </div>
     </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+            <script type="text/javascript">
+      $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      //console.log(value);
+      $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 
 
 

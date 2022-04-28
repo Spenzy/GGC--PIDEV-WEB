@@ -4,10 +4,16 @@ namespace App\Controller;
 
 use App\Entity\Plan;
 use App\Form\PlanType;
+use App\Entity\Personne;
 use App\Repository\PlanRepository;
+use App\Repository\PersonneRepository;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -29,17 +35,21 @@ class PlanController extends AbstractController
     /**
      * @Route("/new", name="app_plan_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, PlanRepository $planRepository): Response
+    public function new(Request $request, PlanRepository $planRepository, MailerInterface $mailer, PersonneRepository $pr): Response
     {
         $plan = new Plan();
+        $p = new Personne();
         $form = $this->createForm(PlanType::class, $plan);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            
             $planRepository->add($plan);
+            $p = $pr->find($plan->getIdstreamer());
+            $this->sendMailPlan($mailer, $plan, $p->getEmail());
             return $this->redirectToRoute('app_plan_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->render('plan/new.html.twig', [
             'plan' => $plan,
             'form' => $form->createView(),
@@ -86,6 +96,31 @@ class PlanController extends AbstractController
             $planRepository->remove($plan);
         }
         return $this->redirectToRoute('app_plan_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+    public function sendMailPlan(MailerInterface $mailer,Plan $plan, $email)
+    /*$client,$categorie,$montant)*/
+    {
+
+        $email = (new TemplatedEmail())
+            ->from('gamergeekscommunity@gmail.com')
+            ->to($email)
+            ->subject('C est le temps !')
+            ->text('Votre plan de streaming arrive, les gens vous attends !!')
+            ->embedFromPath('img/LogoGGC.png', 'logo')
+            ->htmlTemplate('emails/EmailPlan.html.twig')
+            ->context([
+                'plan'=>$plan,
+            ]);
+
+        try {
+            $mailer->send($email);
+        } catch (TransportExceptionInterface $e) {
+            var_dump($e->getMessage());
+        }
+
+
     }
 
 }
