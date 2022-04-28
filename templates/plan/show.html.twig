@@ -1,0 +1,43 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block title %}Plan{% endblock %}
+
+{% block body %}
+    <h1>Plan</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idplan</th>
+                <td>{{ plan.idplan }}</td>
+            </tr>
+            <tr>
+                <th>Streamer</th>
+                <td>{{ plan.idstreamer.nom }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ plan.date ? plan.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Heure</th>
+                <td>{{ plan.heure ? plan.heure|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Duree</th>
+                <td>{{ plan.duree }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ plan.description }}</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_plan_index') }}">back to list</a>
+
+    <a href="{{ path('app_plan_edit', {'idplan': plan.idplan}) }}">edit</a>
+
+    {{ include('plan/_delete_form.html.twig') }}
+{% endblock %}

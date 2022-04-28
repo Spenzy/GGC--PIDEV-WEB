@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Plan
  *
- * @ORM\Table(name="plan", indexes={@ORM\Index(name="fk_plan_streamer", columns={"idStreamer"}), @ORM\Index(name="fk_plan_evenement", columns={"idEvenement"})})
+ * @ORM\Table(name="plan", indexes={@ORM\Index(name="fk_plan_streamer", columns={"idStreamer"})})
  * @ORM\Entity(repositoryClass="App\Repository\PlanRepository")
  */
 class Plan
@@ -17,18 +17,9 @@ class Plan
      *
      * @ORM\Column(name="idPlan", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue
      */
     private $idplan;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idStreamer", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     */
-    private $idstreamer;
 
     /**
      * @var \DateTime
@@ -65,14 +56,19 @@ class Plan
      */
     private $idevenement;
 
+    /**
+     * @var \Streamer
+     * 
+     * @ORM\ManyToOne(targetEntity="Streamer")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idStreamer", referencedColumnName="idStreamer")
+     * })
+     */
+    private $idstreamer;
+
     public function getIdplan(): ?int
     {
         return $this->idplan;
-    }
-
-    public function getIdstreamer(): ?int
-    {
-        return $this->idstreamer;
     }
 
     public function getDate(): ?\DateTimeInterface
@@ -131,6 +127,18 @@ class Plan
     public function setIdevenement(int $idevenement): self
     {
         $this->idevenement = $idevenement;
+
+        return $this;
+    }
+
+    public function getIdstreamer(): ?Streamer
+    {
+        return $this->idstreamer;
+    }
+
+    public function setIdstreamer(?Streamer $streamer): self
+    {
+        $this->idstreamer = $streamer;
 
         return $this;
     }
