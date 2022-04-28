@@ -21,9 +21,7 @@ class Evenement
      * @var int
      *
      * @ORM\Column(name="reference", type="integer", nullable=false)
-     * @ORM\Id
-    
-     
+     * @ORM\Id     
      */
     private $reference;
 
@@ -80,8 +78,7 @@ class Evenement
      * @var int
      *
      * @ORM\Column(name="nbrParticipant", type="integer", nullable=false)
-     * @Assert\Positive(
-     message="le nbr Participants doit etre positive")
+     * @Assert\Positive(message="le nbr Participants doit etre positive")
      */
     private $nbrparticipant;
 

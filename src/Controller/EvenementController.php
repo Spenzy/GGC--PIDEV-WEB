@@ -29,18 +29,13 @@ class EvenementController extends AbstractController
     /**
      * @Route("/evenement", name="event", methods={"GET"})
      */
-    public function index(EvenementRepository $evenementRepository,PaginatorInterface $paginator): Response
+    public function index(Request $request,EvenementRepository $evenementRepository,PaginatorInterface $paginator): Response
     {
         return $this->render('evenement/index.html.twig', [
             'evenements' => $evenementRepository->findAll(),
         ]);
         
-        
-        $eventl = $paginator->paginate(
-            $eventl, // Requête contenant les données à paginer (ici nos articles)
-            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-            4 // Nombre de résultats par page
-        );
+          
     }
     /**
      * @Route("/affichEvent", name="affichEvent", methods={"GET"})
