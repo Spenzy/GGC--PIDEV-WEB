@@ -22,6 +22,30 @@ class ParticipationRepository extends ServiceEntityRepository
 
     }
 
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function add(Participation $entity, bool $flush = true): void
+    {
+        $this->_em->persist($entity);
+        if ($flush) {
+            $this->_em->flush();
+        }
+    }
+
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function remove(Participation $entity, bool $flush = true): void
+    {
+        $this->_em->remove($entity);
+        if ($flush) {
+            $this->_em->flush();
+        }
+    }
+
     
     // /**
     //  * @return Participation[] Returns an array of Participation objects
@@ -66,4 +90,20 @@ class ParticipationRepository extends ServiceEntityRepository
        ");
        return $query->getResult();
    }
+
+   public function findParticipationByUser($idClient, $idEvent)
+   {
+       try {
+           return $this->createQueryBuilder('p')
+               ->where('p.idEvent = :idE')
+               ->andWhere('p.idClient = :idcl')
+               ->setParameter('idE', $idEvent)
+               ->setParameter('idcl', $idClient)
+               ->getQuery()
+               ->getOneOrNullResult();
+       } catch (NoResultException|NonUniqueResultException $e) {
+       }
+       return null;
+   }
+
 }

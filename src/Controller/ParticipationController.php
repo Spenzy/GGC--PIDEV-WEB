@@ -4,11 +4,14 @@ namespace App\Controller;
 use App\Entity\Evenement;
 use App\Entity\Client;
 use App\Entity\Participation;
+use App\Entity\Personne;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\ParticipationRepository;
+use App\Repository\EvenementRepository;
+use App\Repository\ClientRepository;
 use Symfony\Component\Form\Extension\HttpFoundation\HttpFoundationRequestHandler;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Form\ParticipationType;
@@ -27,64 +30,53 @@ class ParticipationController extends AbstractController
         ]);
     }
     /**
-     * @Route("/addParticipation{id}", name="addParticipation")
+     * @Route("/addParticipation{ref}", name="addParticipation")
      */
-    public function ajouterParticipation(Request $request, $id, \Swift_Mailer $mailer)
-    {
+    public function ajouterParticipation(Request $request, $ref, \Swift_Mailer $mailer,
+                             ParticipationRepository $pr, EvenementRepository $er,
+                             ClientRepository $clientRepo)
+    {   
+        $userid = 2;
 
         $Participation = new Participation();
-        $evenement = $this->getDoctrine()->getRepository(Evenement::class)->findOneBy(['reference' => $id]);
+        $event = new Evenement();
+        $user = new Client();
+        $participation = $pr->findParticipationByUser($userid, $ref);
+        $user=$clientRepo->find($userid);
+        $event = $er->find($ref);
 
-        $Participation->setIdEvent($evenement);
-    
-        $form = $this->createForm(ParticipationType::class, $Participation);
+        if($participation == NULL){
+            $particip = new Participation();
+            $particip->setIdClient($user);
+            $particip->setIdEvent($event);
+            $pr->add($particip);
+            $this->sendMailParticipation($mailer, $user->getIdClient()->getEmail(),$event);
+        }else{
+            $pr->remove($participation);
+            $this->sendMailParticipation($mailer, $user->getIdClient()->getEmail(),$event);
+        }
+        return $this->redirectToRoute('MesPar');
 
+       
 
-        $form->handleRequest($request);
-        $participation = $this->getDoctrine()->getRepository(Participation::class)->findOneBy(['idParticipation' => $id]);
-        $idu = $participation->getIdClient();
-        $idt = $participation->getIdEvent();
+    }
 
-        $utilisateur = $this->getDoctrine()->getRepository(Client::class)->findOneBy(['idClient' => $idu]);
-    
-        $reference =  $evenement->getReference();
-
-        $eventl = $this->getDoctrine()->getRepository(Evenement::class)->findOneBy(['reference' => $reference]);
+    public function sendMailParticipation(\Swift_Mailer $mailer, $mail, $eventl ){
         $titre = $eventl->getTitre();
         $message = (new \Swift_Message('Confirmation Email'))
         ->setFrom('gamergeekscommunity@gmail.com')
         #->setTo($Participation->getIdclient()->getIdclient()->getEmail())
-        ->setTo('azer.lahmar@esprit.tn')
+        ->setTo($mail)
         ->setBody(
             $this->renderView(
                 'emails/contact.html.twig',
                 [
-                    'titre' => $titre,
-                    'idt' => $idt,
-                   
+                    'titre' => $titre,        
                     ]
             ),
             'text/html'
-
         );
-
-    $mailer->send($message);
-
-        if ($form->isSubmitted() and $form->isValid()) {
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($Participation);
-            $em->flush();
-            return $this->redirectToRoute('MesPar');
-
-
-
-
-
-        }
-
-        return $this->render('participation/ajouterP.html.twig', array('participations' => $form->createView()));
-
+        $mailer->send($message);
     }
 
       /**

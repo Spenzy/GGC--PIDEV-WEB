@@ -39,7 +39,7 @@ class Evenement
      *
      * @ORM\Column(name="dateFin", type="date", nullable=false)
      * @Assert\GreaterThanOrEqual(propertyPath="dateDebut",
-       message="La date du fin doit être supérieure à la date début")
+    * message="La date du fin doit être supérieure à la date début")
      */
     private $datefin;
 

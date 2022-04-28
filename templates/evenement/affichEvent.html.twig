@@ -4,6 +4,7 @@
 {% block stylesheets %}
     {{ parent() }}
     <link href="{{ asset("css/event.css") }}" rel="stylesheet">
+   
 {% endblock %}
 
 {% block body %}
@@ -12,7 +13,7 @@
 <div class="container">
     <h1>Events</h1>
     <div class="row">
-    {% for evenement in evenement %}
+    {% for evenement in evenements %}
         <article class="card fl-left">
             <section class="date">
                 <time datetime="23th feb">
@@ -44,8 +45,9 @@
                         <img src="{{ asset('images/'~evenement.photo) }}" 
                             alt="  {{ evenement.photo }}" 
                             width="150" height="150">
-                        <a href="{{ path('addParticipation',{'id': evenement.reference }) }}">Participer</a>
-                                           
+                        <div >   
+                        <a  href="{{ path('addParticipation',{'ref': evenement.reference }) }}">Participer</a>
+                        </div>                   
 
                     </div>
                                          
@@ -55,20 +57,21 @@
             </section>
             <div>
             
-            <a href="{{ path('evenementshow',{'reference': evenement.reference }) }}">details</a> 
+            <a  href="{{ path('evenementshow',{'reference': evenement.reference }) }}">details</a> 
             </div>
         </article>
         
 
         
     {% endfor %}
-                <a href="{{ path('affichEventPDF') }}">imprimer</a>      
+    <div class="d-flex justify-content-start">
+                <a href="{{ path('affichEventPDF') }}" class=" btn btn-outline-primary"><i class="fa fa-download"></i> imprimer</a>      
                 
-
+    </div>
      <div class="row mt-n2 wow fadeInUp " data-wow-delay="0.1s" style="visibility: visible;animation-delay: 0.1s;animation-name: fadeInUp;" >
         <div class="col-12 text-center">
                <div class="btn px-3 pr-4 active mt-4">
-                   {{ knp_pagination_render(evenement, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig') }}
+                   {{ knp_pagination_render(evenements, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig') }}
                </div>
         </div>
     </div>

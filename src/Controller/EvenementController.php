@@ -55,7 +55,7 @@ class EvenementController extends AbstractController
             2 // Nombre de résultats par page
         );
         return $this->render('evenement/affichEvent.html.twig', [
-            'evenement' => $eventl,
+            'evenements' => $eventl,
         ]);
     }
     /**
@@ -122,10 +122,18 @@ class EvenementController extends AbstractController
     /**
      * @Route("evenementshow{reference}", name="evenementshow", methods={"GET"})
      */
-    public function show(Evenement $evenement): Response
+    public function show(Evenement $evenement,int $reference,Request $request,EvenementRepository $rep,EntityManagerInterface $entityManager): Response
     {
+        $reference = $request->get('reference');
+
+        $evenement = $rep->find($reference);
+
+        if (($evenement->getNbrparticipant() > 0)){
         $evenement->setNbrparticipant($evenement->getNbrparticipant() - 1);
-        $nouveaNombreParticipants = $evenement->getNbrparticipant();
+      
+    }
+    $nouveaNombreParticipants = $evenement->getNbrparticipant();
+        $entityManager->flush();
         return $this->render('evenement/show.html.twig', [
             'evenement' => $evenement,
             "nouveaNombreParticipants" => $nouveaNombreParticipants
@@ -183,7 +191,7 @@ class EvenementController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$evenement->getReference(), $request->request->get('_token'))) {
             $evenementRepository->remove($evenement);
-            $this->mailAnnulation($evenement->getReference()->getIdParticipation()->getIdclient(), $mailer);
+            
         }
 
         return $this->redirectToRoute('event', [], Response::HTTP_SEE_OTHER);
@@ -209,7 +217,7 @@ class EvenementController extends AbstractController
         //$eventl->addUser($utilisateur);
         // $utilisateur->addEvent($eventl);
 
-        $eventl->setNbrparticipant()($eventl->getNbrparticipant() - 1);
+        $eventl->setNbrparticipant($eventl->getNbrparticipant() - 1);
 
         $nouveaNombreParticipants = $eventl->getNbrparticipant();
 
