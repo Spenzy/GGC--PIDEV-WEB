@@ -19,6 +19,7 @@ class ParticipationRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Participation::class);
+
     }
 
     /**
@@ -45,6 +46,7 @@ class ParticipationRepository extends ServiceEntityRepository
         }
     }
 
+    
     // /**
     //  * @return Participation[] Returns an array of Participation objects
     //  */
@@ -73,4 +75,35 @@ class ParticipationRepository extends ServiceEntityRepository
         ;
     }
     */
+        /**
+     * Returns number of "Commande" per day
+     * @return void
+     */
+    public function countById(){
+        //$query = $this->createQueryBuilder('c')
+            //->select('SUBSTRING(d.date, 1, 10) as date, COUNT(c) as count')
+            //->groupBy('date')
+        //;
+        //return $query->getQuery()->getResult();
+       $query = $this->getEntityManager()->createQuery("
+       SELECT b.reference as id ,COUNT(a) as count , b.titre as ide FROM App\Entity\Participation a,App\Entity\Evenement b WHERE (a.idEvent = b.reference) GROUP BY ide
+       ");
+       return $query->getResult();
+   }
+
+   public function findParticipationByUser($idClient, $idEvent)
+   {
+       try {
+           return $this->createQueryBuilder('p')
+               ->where('p.idEvent = :idE')
+               ->andWhere('p.idClient = :idcl')
+               ->setParameter('idE', $idEvent)
+               ->setParameter('idcl', $idClient)
+               ->getQuery()
+               ->getOneOrNullResult();
+       } catch (NoResultException|NonUniqueResultException $e) {
+       }
+       return null;
+   }
+
 }

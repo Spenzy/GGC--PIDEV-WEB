@@ -1,0 +1,60 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block title %}Evenement index{% endblock %}
+
+{% block body %}
+    <h1 class="d-flex justify-content-center">Evenements</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Reference</th>
+                <th>Datedebut</th>
+                <th>Datefin</th>
+                <th>Localisation</th>
+                <th>Description</th>
+                <th>Nbrparticipant</th>
+                <th>Titre</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <div class="d-flex justify-content-left">
+          <a  class="btn btn-info" href="{{ path('stats') }}"><i class="fa fa-bar-chart" ></i>Statistiques</a>
+          </div>
+        <tbody  id="myTable">
+        {% for evenement in evenements %}
+            <tr>
+                <td>{{ evenement.reference }}</td>
+                <td>{{ evenement.datedebut ? evenement.datedebut|date('Y-m-d') : '' }}</td>
+                <td>{{ evenement.datefin ? evenement.datefin|date('Y-m-d') : '' }}</td>
+                <td>{{ evenement.localisation }}</td>
+                <td>{{ evenement.description }}</td>
+                <td>{{ evenement.nbrparticipant }}</td>
+                <td>{{ evenement.titre }}</td>
+                                <td>
+
+                  
+                        <img src="{{ asset('images/'~evenement.photo) }}" alt="  {{ evenement.photo }}" width="80" height="80"></a></td>
+                <td>
+                  
+                    {{ include('evenement/_delete_form.html.twig') }}
+                        
+                    <form method="post" action="{{ path('edit', {'reference': evenement.reference}) }}" >
+                    <button class="btn btn-outline-info mt-2"   >modifier</button>
+                    </form>
+                    
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-center">
+    <a class="btn btn-info" href="{{ path('newevent') }}">Ajouter</a>
+    </div>
+
+{% endblock %}

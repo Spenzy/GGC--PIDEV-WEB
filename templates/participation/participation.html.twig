@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+         {% block body %}
+
+
+        <center>   <h1>la liste des  mes participations</h1></center>
+
+             <table   border="1" class="table table-hover">
+                 <thead>
+                 <tr>
+
+                     
+                     <th>titre event</th>
+
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for i in participations %}
+                     <tr>
+
+                        
+
+                         <td>
+                             {{ i.idEvent.getTitre()}}
+                         </td>
+
+
+                         <td><a href="{{ path('modp',{'idParticipation': i.idParticipation }) }}">
+                                 <button type="button" class="btn "><font size="3pt">{% trans %}Update{% endtrans %}</font></button></a></td>
+                         <    <td><a href="{{ path('suppart',{'idParticipation': i.idParticipation}) }}">
+                                 <button type="button" class="btn "><font size="3pt">{% trans %}delete{% endtrans %}</font></button></a></td>
+                         
+                     </tr>
+
+                 {%endfor%}
+                 </tbody>
+             </table>
+
+            
+         {% endblock %}
