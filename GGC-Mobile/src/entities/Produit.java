@@ -17,19 +17,22 @@ public class Produit {
     private String description;
     private float prix;
     private int note;
+    private String image;
 
     public Produit() {
 
     }
 
-    public Produit(int reference, String libelle, String categorie, String description, float prix) {
+    public Produit(int reference, String libelle, String categorie, String description, float prix, String image) {
         this.reference = reference;
         this.libelle = libelle;
         this.categorie = categorie;
         this.description = description;
         this.prix = prix;
-        this.note=0;
+        this.image = image;
     }
+
+    
 
     public int getReference() {
         return reference;
@@ -79,9 +82,18 @@ public class Produit {
         this.prix = prix;
     }
 
-    @Override
-    public String toString() {
-        return "Produit{" + "reference=" + reference + ", libelle=" + libelle + ", categorie=" + categorie + ", description=" + description + ", prix=" + prix + ", note=" + note + '}';
+    public void setImage(String image) {
+        this.image = image;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    @Override
+    public String toString() {
+        return "Produit{" + "reference=" + reference + ", libelle=" + libelle + ", categorie=" + categorie + ", description=" + description + ", prix=" + prix + ", note=" + note + ", image=" + image + '}';
+    }
+
+  
 }

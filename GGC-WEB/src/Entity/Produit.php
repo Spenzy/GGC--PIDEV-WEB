@@ -3,6 +3,7 @@
 namespace App\Entity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -20,6 +21,7 @@ class Produit
      * @ORM\Column(name="reference", type="integer", nullable=false)
      * @ORM\Id
      * @Assert\NotBlank(message="Vous devez remplir ce champ")
+     * @Groups("post:read")
      */
     private $reference;
 
@@ -28,6 +30,7 @@ class Produit
      *
      * @ORM\Column(name="libelle", type="string", length=30, nullable=false)
      * @Assert\NotBlank(message="Vous devez remplir ce champ")
+     * @Groups("post:read")
      */
     private $libelle;
 
@@ -36,6 +39,7 @@ class Produit
      *
      * @ORM\Column(name="categorie", type="string", length=30, nullable=false)
      * @Assert\NotBlank(message="Vous devez remplir ce champ")
+     * @Groups("post:read")
      */
     private $categorie;
 
@@ -45,6 +49,7 @@ class Produit
      * @ORM\Column(name="description", type="string", length=100, nullable=false)
      * @Assert\NotBlank(message="Vous devez remplir ce champ")
      * @Assert\Type("string",message="Veuillez saisir une chaine")
+     * @Groups("post:read")
      */
     private $description;
 
@@ -55,6 +60,7 @@ class Produit
      * @Assert\NotBlank(message="Vous devez remplir ce champ")
      * @Assert\Type("float", message="Veuillez saisir un entier")
      * @Assert\PositiveOrZero(message="Le prix doit etre positif")
+     * @Groups("post:read")
      */
     private $prix;
 
@@ -64,6 +70,7 @@ class Produit
      * @var int
      *
      * @ORM\Column(name="note", type="integer", nullable=false)
+     * @Groups("post:read")
      */
     private $note;
 
@@ -71,6 +78,7 @@ class Produit
      * @var string
      *
      * @ORM\Column(name="img", type="string" , length=255 , nullable=true)
+     * @Groups("post:read")
      *
 
      */

@@ -61,8 +61,7 @@ class PubService extends AbstractController
      */
     public function getPub(Request $request, $id, PublicationRepository $publicationRepository, NormalizerInterface $normalizer)
     {
-        $em = $this->getDoctrine()->getManager();
-        $pub = $em->getRepository(Publication::class)->find($id);
+        $pub = $publicationRepository->find($id);
         $publication = (array)$pub;
         foreach ($publication as $k => $v) {
             $newkey = substr($k, 24);
@@ -76,7 +75,7 @@ class PubService extends AbstractController
     }
 
     /**
-     * @Route("/new" name="addStudentJSON")
+     * @Route("/new", name="addStudentJSON")
      */
     public function new(Request $request, NormalizerInterface $Normalizer,PublicationRepository $publiRepo, ClientRepository $clientRepo): Response
     {
@@ -99,7 +98,7 @@ class PubService extends AbstractController
         return new Response (json_encode($pub));
     }
     /**
-     *  @Route("/updateStudentJSON/{id}" name="updateStudentJSON")
+     *  @Route("/updateStudentJSON/{id}", name="updateStudentJSON")
      */
         public function edit (Request $request, NormalizerInterface $Normalizer, $id, PublicationRepository $publiRepo, ClientRepository $clientRepo)
     {
@@ -112,16 +111,8 @@ class PubService extends AbstractController
         $publication->setIdclient($clientRepo->find($request->get('idclient')));
         $publiRepo->add($publication);
 
-        $jsonContent = $Normalizer->normalize($student, 'json', ['groups' => 'post: read']);
+        $jsonContent = $Normalizer->normalize($publication, 'json', ['groups' => 'post: read']);
         return new Response ("Information updated successfully".json_encode($jsonContent));
     }
 
-    public function objectToArray($item, $arr){
-        $pub = (array)$publication;
-        foreach ($pub as $k => $v) {
-            $newkey = substr($k, 24);
-            $pub[$newkey] = $pub[$k];
-            unset($pub[$k]);
-        }
-    }
 }
