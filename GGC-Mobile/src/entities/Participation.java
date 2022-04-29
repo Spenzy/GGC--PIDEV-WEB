@@ -5,8 +5,6 @@
  */
 package entities;
 
-import javafx.scene.control.Button;
-
 /**
  *
  * @author Azer Lahmer

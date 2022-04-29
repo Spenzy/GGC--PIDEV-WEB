@@ -5,9 +5,7 @@
  */
 package entities;
 
-import java.sql.Date;
-import java.time.LocalDate;
-import javafx.scene.control.Button;
+import java.util.Date;
 
 /**
  *
@@ -24,8 +22,7 @@ public class Evenement {
     private String description;
     private int nbrParticipant;
     private String Titre; 
-    private Button participer;
-
+    
     public Evenement() {
     }
 
