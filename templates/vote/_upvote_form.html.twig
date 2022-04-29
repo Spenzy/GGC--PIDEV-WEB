@@ -1,4 +1,0 @@
-<form method="post" action="{{ path('app_vote_up', {'idpublication': p.idpublication}) }}">
-    <input type="hidden" name="_token" value="{{ csrf_token('upvote' ~ p) }}">
-    <button class="btn"><i class="fa fa-thumbs-up"></i></button>
-</form>

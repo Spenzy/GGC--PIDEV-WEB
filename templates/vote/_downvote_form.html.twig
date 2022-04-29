@@ -1,4 +1,0 @@
-<form method="post" action="{{ path('app_vote_down', {'idpublication': p.idpublication}) }}">
-    <input type="hidden" name="_token" value="{{ csrf_token('downvote' ~ p) }}">
-
-</form>
