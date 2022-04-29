@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href=" {{ asset("css/ListeStreamer.css") }} " red="stylesheet ">
+{% endblock %}
+
+{% block title %}Streamer index{% endblock %}
+
+{% block body %}
+
+
+
+      <h1 class="section-title position-relative text-center mb-5 pb-2 wow fadeInUp mt-2">Voici la liste des Streamers</h1>
+<form action="{{ path('app_streamer_search') }}" method="POST">
+    <div class="d-flex justify-content-center">
+    <div class="input-group" style="max-width: 500px;" >
+        <input type="text" id="myInput" name="searchS" class="form-control bg-gradient-primary border-primary p-3" placeholder="Saisir un streamer" >
+        <button type="submit" class="btn btn-primary px-4" ><i class="fa fa-search"></i></button>
+    </div>
+    </div>
+</form>             
+
+  <div class="container">
+
+
+  
+    <div class="main-body">
+
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 gutters-sm">
+      {% for streamer in streamers %}
+        <div class="col mb-3">
+          <div class="card" id="myTable">
+            <img src="https://img.lovepik.com/background/20211021/large/lovepik-simple-structural-background-of-molecular-image_400138346.jpg" alt="Cover" class="card-img-top">
+            <div class="card-body text-center">
+               <a
+                       href="{{streamer.lienstreaming}}"> <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPyGNr2qL63Sfugk2Z1-KBEwMGOfycBribew&usqp=CAU" alt="plan\index.html.twig" style="width:100px;margin-top:-65px" alt="User" class="img-fluid img-0thumbnail rounded-circle border-0 mb-3">
+                </a>
+                <h5 class="card-title">{{streamer.idstreamer.nom}}</h5>
+              <p class="text-secondary mb-1">{{streamer.informations}}</p>
+                <a
+                <p class="text-muted font-size-sm">{{streamer.lienstreaming}}</p>
+                </a>
+            </div>
+            <div class="card-footer">
+            
+              <button class="btn btn-light btn-sm bg-white has-icon btn-block" type="button"><i class="material-icons">add</i>Follow</button>
+              <button class="btn btn-light btn-sm bg-white has-icon ml-2" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></button>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      </div>
+      <div class="row mt-n2 wow fadeInUp " data-wow-delay="0.1s" style="visibility: visible;animation-delay: 0.1s;animation-name: fadeInUp;" >
+        <div class="col-12 text-center">
+               <div class="btn px-3 pr-4 active mt-4">
+                   {{ knp_pagination_render(streamers, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig') }}
+               </div>
+        </div>
+    </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+            <script type="text/javascript">
+      $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      //console.log(value);
+      $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+
+
+{% endblock %}

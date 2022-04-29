@@ -1,0 +1,52 @@
+{% extends 'admin/index.html.twig' %}
+{% use "bootstrap_4_layout.html.twig" %}
+
+{% block title %}Client{% endblock %}
+
+{% block body %}
+    <h1>Client</h1>
+
+    <table class="table">
+        <tbody>
+       
+            <tr>
+                <th> nom</th>
+                <td>{{ client.idclient.nom }}</td>
+             </tr>
+             <tr>
+                <th> prenom</th>
+                <td>{{ client.idclient.prenom }}</td>
+             </tr>
+             <tr>
+                <th> email</th>
+                <td>{{ client.idclient.email }}</td>
+             </tr>
+             <tr>
+                <th> telephone</th>
+                <td>{{ client.idclient.telephone }}</td>
+             </tr>
+             <tr>
+                <th>Nbravertissement</th>
+                <td>{{ client.nbravertissement }}</td>
+            </tr>
+            <tr>
+                <th>Ban</th>
+                <td>{{ client.ban }}</td>
+            </tr>
+            <tr>
+                <th>Datedebutblock</th>
+                <td>{{ client.datedebutblock ? client.datedebutblock|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Datefinblock</th>
+                <td>{{ client.datefinblock ? client.datefinblock|date('Y-m-d') : '' }}</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    <center>
+
+    <a class="btn btn-primary" href="{{ path('app_client_index') }}">back to list</a>
+    </center>
+
+{% endblock %}

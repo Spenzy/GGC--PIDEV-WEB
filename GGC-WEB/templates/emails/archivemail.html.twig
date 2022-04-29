@@ -1,0 +1,6 @@
+{% extends 'emails/mail.html.twig' %}
+
+{% block content %}
+    <h1>Votre publication a été {{ archive }}</h1>
+    <h3>Votre publication : {{ p.object }} a été {{ archive }} le {{ date | date('Y-m-d') }}</h3>
+{% endblock %}

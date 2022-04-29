@@ -1,0 +1,39 @@
+
+{% block body %}
+    <h1>liste Evenements</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Reference</th>
+                <th>Datedebut</th>
+                <th>Datefin</th>
+                <th>Localisation</th>
+                <th>Description</th>
+                <th>Nbrparticipant</th>
+                <th>Titre</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for evenement in evenements %}
+            <tr>
+                <td>{{ evenement.reference }}</td>
+                <td>{{ evenement.datedebut ? evenement.datedebut|date('Y-m-d') : '' }}</td>
+                <td>{{ evenement.datefin ? evenement.datefin|date('Y-m-d') : '' }}</td>
+                <td>{{ evenement.localisation }}</td>
+                <td>{{ evenement.description }}</td>
+                <td>{{ evenement.nbrparticipant }}</td>
+                <td>{{ evenement.titre }}</td>
+                                <td>
+
+                    <a href="{{ path('evenementshow',{'reference': evenement.reference}) }}">
+                        <img src="{{ asset('images/'~evenement.photo) }}" alt="  {{ evenement.photo }}" width="80" height="80"></a></td>
+                <td>
+      
+        {% endfor %}
+        </tbody>
+    </table>
+
+   
+{% endblock %}
