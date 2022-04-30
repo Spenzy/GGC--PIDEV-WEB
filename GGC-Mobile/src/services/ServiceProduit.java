@@ -41,6 +41,7 @@ public class ServiceProduit {
     }
 
     public boolean addProduct(Produit p) {
+       
         String url = Statics.BASE_URL + "/produit/new/" + "?reference="+ p.getReference()+ "&libelle=" + p.getLibelle() + "&categorie=" + p.getCategorie()+ "&description=" + p.getDescription()  + "&prix=" + p.getPrix(); //création de l'URL
         req.setUrl(url);// Insertion de l'URL de notre demande de connexion
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -135,7 +136,7 @@ public class ServiceProduit {
     }
 
     public boolean modifierProduit(Produit p) {
-        String url = Statics.BASE_URL + "/produit/edit/" +"?reference="+ p.getReference()+ "&libelle=" + p.getLibelle()+ "&description=" + p.getDescription()  + "&prix=" + p.getPrix();
+        String url = Statics.BASE_URL + "/produit/edit/" +"?reference="+ p.getReference()+ "&libelle=" + p.getLibelle()+ "&categorie=" + p.getCategorie()+ "&description=" + p.getDescription()  + "&prix=" + p.getPrix();
         req.setUrl(url);
 
         req.addResponseListener(new ActionListener<NetworkEvent>() {

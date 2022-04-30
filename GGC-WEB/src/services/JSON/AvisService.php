@@ -55,32 +55,13 @@ class AvisService extends AbstractController
         $jsonContent = $normalizer->normalize($Listavis, 'json', ['groups' => 'post: read']);
         return new Response (json_encode($jsonContent));
     }
-
-    /**
-     * @Route("/get/{reference}", name="getProduit")
-     * @throws ExceptionInterface
-     */
-    public function getProduit(Request $request, $reference, ProduitRepository $produitRepository, NormalizerInterface $normalizer)
-    {
-        $produit = $produitRepository->find($reference);
-        $product = (array)$produit;
-        foreach ($product as $k => $v) {
-            $newkey = substr($k, 20);
-            $product[$newkey] = $product[$k];
-            unset($product[$k]);
-        }
-
-        $jsonContent = $normalizer->normalize($product, 'json', ['groups' => 'post: read']);
-
-        return new Response (json_encode($jsonContent));
-    }
     /**
      * @Route("/new", name="addAvis")
      */
     public function new(Request $request, NormalizerInterface $Normalizer,AvisRepository $avisRepository,ProduitRepository $produitRepository,ClientRepository $clientRepository): Response
     {
         $avi = new Avis();
-        $avi->setReferenceproduit($produitRepository->find($request->get('reference')));
+        $avi->setReferenceproduit($produitRepository->find($request->get('referenceproduit')));
         $avi->setIdclient($clientRepository->find($request->get('idclient')));
         $avi->setType($request->get('type'));
         $avi->setDescription($request->get('description'));
@@ -89,23 +70,25 @@ class AvisService extends AbstractController
 
         $av = (array)$avi;
         foreach ($av as $k => $v) {
-            $newkey = substr($k, 24);
+            $newkey = substr($k, 17);
             $av[$newkey] = $av[$k];
             unset($av[$k]);
         }
+        $av["idclient"] = $avi->getIdClient()->getIdClient()->getIdPersonne();
+        $av["referenceproduit"] =$avi->getReferenceproduit()->getReference();
 
         $jsonContent = $Normalizer->normalize($av, 'json', ['groups' => 'post: read']);
         return new Response (json_encode($av));
     }
     /**
-     *  @Route("/edit/{idAvis}", name="editAvis")
+     *  @Route("/edit", name="editAvis")
      */
-    public function editAvis (Request $request, NormalizerInterface $Normalizer, $idAvis,AvisRepository $avisRepository,ProduitRepository $produitRepository)
+    public function editAvis (Request $request, NormalizerInterface $Normalizer,AvisRepository $avisRepository)
     {
-        $avis = $avisRepository->find($idAvis);
+        $avis = $avisRepository->find($request->get('idavis'));
 
         $avis->setType($request->get('type'));
-        $avis->setDescritption($request->get('description'));
+        $avis->setDescription($request->get('description'));
         $avisRepository->add($avis);
 
         $jsonContent = $Normalizer->normalize($avis, 'json', ['groups' => 'post: read']);

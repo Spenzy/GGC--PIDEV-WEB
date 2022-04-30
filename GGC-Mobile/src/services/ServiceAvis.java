@@ -135,21 +135,21 @@ public class ServiceAvis {
         return avis;
     }
 
-//    public boolean modifierProduit(Produit p) {
-//        String url = Statics.BASE_URL + "/produit/edit/" +"?reference="+ p.getReference()+ "&libelle=" + p.getLibelle()+ "&description=" + p.getDescription()  + "&prix=" + p.getPrix();
-//        req.setUrl(url);
-//
-//        req.addResponseListener(new ActionListener<NetworkEvent>() {
-//            @Override
-//            public void actionPerformed(NetworkEvent evt) {
-//                resultOK = req.getResponseCode() == 200;  // Code response Http 200 ok
-//                req.removeResponseListener(this);
-//            }
-//        });
-//
-//        NetworkManager.getInstance().addToQueueAndWait(req);//execution ta3 request sinon yet3ada chy dima nal9awha
-//        return resultOK;
-//    }
+    public boolean modifierAvis(Avis p) {
+        String url = Statics.BASE_URL + "/avis/edit/" +"?idavis="+p.getIdAvis()+"&type="+ p.getType()+ "&description=" + p.getDescription();
+        req.setUrl(url);
+
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200;  // Code response Http 200 ok
+                req.removeResponseListener(this);
+            }
+        });
+
+        NetworkManager.getInstance().addToQueueAndWait(req);//execution ta3 request sinon yet3ada chy dima nal9awha
+        return resultOK;
+    }
 
     public boolean SupprimerAvis(Avis p) {
         String url = Statics.BASE_URL + "/avis/delete/" +p.getIdAvis();

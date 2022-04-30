@@ -79,14 +79,14 @@ class ProduitService extends AbstractController
         $produit->setReference($request->get('reference'));
         $produit->setLibelle($request->get('libelle'));
         $produit->setCategorie($request->get('categorie'));
-        $produit->setDescritption($request->get('description'));
+        $produit->setDescription($request->get('description'));
         $produit->setPrix($request->get('prix'));
         $produit->setNote(0);
         $produitRepository->add($produit);
 
         $prod = (array)$produit;
         foreach ($prod as $k => $v) {
-            $newkey = substr($k, 24);
+            $newkey = substr($k, 20);
             $prod[$newkey] = $prod[$k];
             unset($prod[$k]);
         }
@@ -95,16 +95,16 @@ class ProduitService extends AbstractController
         return new Response (json_encode($prod));
     }
     /**
-     *  @Route("/edit/{reference}", name="editProduit")
+     *  @Route("/edit", name="editProduit")
      */
-    public function editProduit (Request $request, NormalizerInterface $Normalizer, $reference,ProduitRepository $produitRepository)
+    public function editProduit (Request $request, NormalizerInterface $Normalizer, ProduitRepository $produitRepository)
     {
-        $produit = $produitRepository->find($reference);
+        $produit = $produitRepository->find($request->get('reference'));
 
         $produit->setReference($request->get('reference'));
         $produit->setLibelle($request->get('libelle'));
         $produit->setCategorie($request->get('categorie'));
-        $produit->setDescritption($request->get('description'));
+        $produit->setDescription($request->get('description'));
         $produit->setPrix($request->get('prix'));
         $produitRepository->add($produit);
 

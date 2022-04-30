@@ -49,10 +49,10 @@ public class DetailProduitAvis extends Form {
             if (uid == av.getIdClient()) {
                 Button update = new Button("Modifier");
 
-                //    update.addActionListener(e -> new ModifierAvis(av, previous).show());
+                    update.addActionListener(e -> new ModifierAvis(p,av,uid).show());
                 Button delete = new Button("Supprimer");
 
-                // delete.addActionListener(e -> new SupprimerProduit(p, previous).show());
+                 delete.addActionListener(e -> new SupprimerAvis(p,av,uid).show());
                 Container c2 = new Container(BoxLayout.xCenter());
                 c2.add(delete);
                 c2.add(update);

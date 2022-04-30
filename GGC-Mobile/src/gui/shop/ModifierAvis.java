@@ -25,34 +25,36 @@ import services.ServiceProduit;
  *
  * @author dell
  */
-public class AjoutAvis extends Form {
-
-    public AjoutAvis(Produit p, int uid) {
-        setTitle("Donner votre avis");
+public class ModifierAvis extends Form{
+    public ModifierAvis(Produit p ,Avis a, int uid) {
+        setTitle("Modifier votre Avis");
         setLayout(BoxLayout.yCenter());
-
+        
         Label label_type = new Label("Type");
         ComboBox<String> cb_type = new ComboBox<>();
         cb_type.addItem("excellent");
         cb_type.addItem("moyen");
         cb_type.addItem("mediocre");
+        cb_type.setSelectedItem(a.getType());
 
         Label label_description = new Label("Description");
-        TextField tf_description = new TextField("", "", 60, TextArea.ANY);
+        TextField tf_description = new TextField(a.getDescription());
 
-        Button btnAjout = new Button("ajouter");
+        Button btnValider = new Button("Modifier avis");
+        Button btnRet = new Button("Retour");
+        btnRet.addActionListener(e-> new DetailProduitAvis(p,uid).showBack() );
 
-        btnAjout.addActionListener(
-                new ActionListener() {
+        btnValider.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent evt
-            ) {
-                if ((cb_type.getSelectedItem() == null) || (tf_description.getText().length() == 0)) {
-                    Dialog.show("Alerte", "Champs vides", new Command("OK"));
+            public void actionPerformed(ActionEvent evt) {
+                if ((cb_type.getSelectedItem() == null) || (tf_description.getText().length() == 0) ) {
+                    Dialog.show("Alert", "Please fill all the fields", new Command("OK"));
                 } else {
                     try {
-                        Avis a = new Avis(p.getReference(), uid, tf_description.getText(), cb_type.getSelectedItem());
-                        if (ServiceAvis.getInstance().addAvis(a)) {
+                        a.setDescription(tf_description.getText());
+                        a.setType(cb_type.getSelectedItem());
+                        
+                        if (ServiceAvis.getInstance().modifierAvis(a)) {
                             Dialog.show("Success", "Connection accepted", new Command("OK"));
                         } else {
                             Dialog.show("ERROR", "Server error", new Command("OK"));
@@ -64,15 +66,14 @@ public class AjoutAvis extends Form {
                 }
 
             }
-        }
-        );
+            
+        });
+        
 
-        addAll(label_type, cb_type, label_description, tf_description, btnAjout);
-
+        addAll(label_type,cb_type,label_description,tf_description, btnValider,btnRet);
         getToolbar()
                 .addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK,
                         e -> new DetailProduitAvis(p, uid).showBack()); // Revenir vers l'interface précédente
-
     }
-
+    
 }
