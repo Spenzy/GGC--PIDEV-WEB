@@ -91,6 +91,7 @@ class ProduitService extends AbstractController
             unset($prod[$k]);
         }
 
+        
         $jsonContent = $Normalizer->normalize($prod, 'json', ['groups' => 'post: read']);
         return new Response (json_encode($prod));
     }

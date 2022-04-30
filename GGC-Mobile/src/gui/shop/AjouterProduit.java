@@ -100,6 +100,7 @@ public class AjouterProduit extends Form {
                                     Produit p = new Produit(Integer.parseInt(tf_reference.getText()), tf_libelle.getText(), tf_categorie.getText(), tf_description.getText(), Float.parseFloat(tf_prix.getText()), "");
                                     if (ServiceProduit.getInstance().addProduct(p)) {
                                         Dialog.show("Success", "Connection accepted", new Command("OK"));
+                                        //previous.showBack();
                                     } else {
                                         Dialog.show("ERROR", "Server error", new Command("OK"));
                                     }

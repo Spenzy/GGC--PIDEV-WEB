@@ -7,6 +7,7 @@ package gui.shop;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.events.ActionEvent;
@@ -32,7 +33,7 @@ public class SupprimerAvis extends Form {
         Button btnSubmit = new Button("Supprimer");
         Button btnret = new Button("retour");
 
-        btnret.addActionListener(e -> new DetailProduitAvis(p,uid).showBack());
+        btnret.addActionListener(e -> new DetailProduitAvis(p, uid).showBack());
 
         btnSubmit.addActionListener(new ActionListener() {
             @Override
@@ -41,6 +42,7 @@ public class SupprimerAvis extends Form {
 
                 if (ServiceAvis.getInstance().SupprimerAvis(av)) {
                     Dialog.show("Success", "suppression avec succes", new Command("OK"));
+                    new DetailProduitAvis(p, uid).showBack(); // Revenir vers l'interface précédente
                 } else {
                     Dialog.show("ERROR", "Erreur de suppression", new Command("OK"));
                 }
@@ -49,7 +51,7 @@ public class SupprimerAvis extends Form {
 
         });
 
-        addAll(client,type,descriptionAvis, btnSubmit, btnret);
+        addAll(client, type, descriptionAvis, btnSubmit, btnret);
         //  this.getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.showBack());
     }
 

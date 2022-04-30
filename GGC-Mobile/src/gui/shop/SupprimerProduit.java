@@ -42,6 +42,7 @@ public class SupprimerProduit extends Form{
                     
                     if (ServiceProduit.getInstance().SupprimerProduit(p)) {
                         Dialog.show("Success", "suppression avec succes", new Command("OK"));
+                        previous.showBack();
                     } else {
                         Dialog.show("ERROR", "Erreur de suppression", new Command("OK"));
                     }

@@ -54,6 +54,7 @@ public class AjoutAvis extends Form {
                         Avis a = new Avis(p.getReference(), uid, tf_description.getText(), cb_type.getSelectedItem());
                         if (ServiceAvis.getInstance().addAvis(a)) {
                             Dialog.show("Success", "Connection accepted", new Command("OK"));
+                            new DetailProduitAvis(p, uid).showBack(); // Revenir vers l'interface précédente
                         } else {
                             Dialog.show("ERROR", "Server error", new Command("OK"));
                         }
