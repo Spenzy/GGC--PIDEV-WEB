@@ -19,6 +19,7 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
+import gui.produit.HomeProduit;
 import gui.produit.ListProduitForm;
 
 /**
@@ -78,7 +79,7 @@ public class HomeForm extends Form {
 
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Gestion des produits", null, (gp) -> {
-                    new ListProduitForm(this).show();
+                    new HomeProduit().show();
                     
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Gestion des livraisons", null, (gl) -> {

@@ -40,25 +40,26 @@ public class ServiceProduit {
         return instance;
     }
 
-//    public boolean addProduct(Produit t) {
-//        String url = Statics.BASE_URL + "/produits/" + t.getName() + "/" + t.getStatus(); //création de l'URL
-//        req.setUrl(url);// Insertion de l'URL de notre demande de connexion
-//        req.addResponseListener(new ActionListener<NetworkEvent>() {
-//            @Override
-//            public void actionPerformed(NetworkEvent evt) {
-//                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
-//                req.removeResponseListener(this); //Supprimer cet actionListener
-//                /* une fois que nous avons terminé de l'utiliser.
-//                La ConnectionRequest req est unique pour tous les appels de 
-//                n'importe quelle méthode du Service task, donc si on ne supprime
-//                pas l'ActionListener il sera enregistré et donc éxécuté même si 
-//                la réponse reçue correspond à une autre URL(get par exemple)*/
-//                
-//            }
-//        });
-//        NetworkManager.getInstance().addToQueueAndWait(req);
-//        return resultOK;
-//    }
+    public boolean addProduct(Produit p) {
+        String url = Statics.BASE_URL + "/produit/new/" + "?reference="+ p.getReference()+ "&libelle=" + p.getLibelle() + "&categorie=" + p.getCategorie()+ "&description=" + p.getDescription()  + "&prix=" + p.getPrix(); //création de l'URL
+        req.setUrl(url);// Insertion de l'URL de notre demande de connexion
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this); //Supprimer cet actionListener
+                /* une fois que nous avons terminé de l'utiliser.
+                La ConnectionRequest req est unique pour tous les appels de 
+                n'importe quelle méthode du Service task, donc si on ne supprime
+                pas l'ActionListener il sera enregistré et donc éxécuté même si 
+                la réponse reçue correspond à une autre URL(get par exemple)*/
+                
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
+    
     public ArrayList<Produit> parseProducts(String jsonText) {
         try {
             produits = new ArrayList<>();
@@ -134,7 +135,7 @@ public class ServiceProduit {
     }
 
     public boolean modifierProduit(Produit p) {
-        String url = Statics.BASE_URL + "/edit/" + p.getReference()+ "?libelle=" + p.getLibelle()+ "&description=" + p.getDescription() + "&image=" + p.getImage() + "&prix=" + p.getPrix();
+        String url = Statics.BASE_URL + "/produit/edit/" +"?reference="+ p.getReference()+ "&libelle=" + p.getLibelle()+ "&description=" + p.getDescription()  + "&prix=" + p.getPrix();
         req.setUrl(url);
 
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -200,5 +201,23 @@ public class ServiceProduit {
 //        return resultOK;
 //
 //    }
+
+    public boolean SupprimerProduit(Produit p) {
+        String url = Statics.BASE_URL + "/produit/delete/" +p.getReference();
+  
+        req.setUrl(url);
+        req.setPost(false);
+        req.setFailSilently(true);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                 resultOK = req.getResponseCode() == 200;
+                req.removeResponseListener(this);
+            }
+    
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
 
 }

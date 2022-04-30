@@ -23,23 +23,28 @@ import services.ServiceProduit;
 public class ListProduitForm extends Form {
 
     public ListProduitForm(Form previous) {
-        setTitle("List Product");
-
-        Container List = new Container(BoxLayout.y());
+        setTitle("Liste des Produit");
+        setLayout(BoxLayout.yCenter());
 
         for (Produit p : ServiceProduit.getInstance().getAllProducts()) {
-            MultiButton mb = new MultiButton(p.toString());
+            Container c = new Container(BoxLayout.yCenter());
+            
+            MultiButton mb = new MultiButton("Libelle : " + p.getLibelle() +" Prix : "+p.getPrix());
+            mb.addActionListener(a -> new DetailProduit(p, previous).show());
             //System.out.println(user.getId());
-            Button update = new Button("update");
-            update.setUIID("update");
-            update.addActionListener(e -> new ModifierProduit(p,previous).show());
-            Button delete = new Button("delete");
-            delete.setUIID("delete");
-            // delete.addActionListener(e -> new DeleteProduct(p,previous).show());
+            Button update = new Button("Modifier");
 
-            add(mb);
-            add(delete);
-            add(update);
+            update.addActionListener(e -> new ModifierProduit(p, previous).show());
+            Button delete = new Button("Supprimer");
+
+            delete.addActionListener(e -> new SupprimerProduit(p, previous).show());
+
+            
+            Container c2 = new Container(BoxLayout.xCenter());
+            c2.add(delete);
+            c2.add(update);
+            c.addAll(mb,c2);
+            add(c);
 
         }
         /* *** *SEARCHBAR* *** */

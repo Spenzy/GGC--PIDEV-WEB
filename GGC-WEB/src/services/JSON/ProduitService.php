@@ -2,6 +2,7 @@
 
 namespace App\services\JSON;
 
+use App\Entity\Produit;
 use App\Entity\Publication;
 use App\Form\CommentaireType;
 use App\Form\PublicationType;
@@ -69,9 +70,32 @@ class ProduitService extends AbstractController
 
         return new Response (json_encode($jsonContent));
     }
-
     /**
-     *  @Route("/edit/{id}", name="editProduit")
+     * @Route("/new", name="addProduit")
+     */
+    public function new(Request $request, NormalizerInterface $Normalizer,ProduitRepository $produitRepository): Response
+    {
+        $produit = new Produit();
+        $produit->setReference($request->get('reference'));
+        $produit->setLibelle($request->get('libelle'));
+        $produit->setCategorie($request->get('categorie'));
+        $produit->setDescritption($request->get('description'));
+        $produit->setPrix($request->get('prix'));
+        $produit->setNote(0);
+        $produitRepository->add($produit);
+
+        $prod = (array)$produit;
+        foreach ($prod as $k => $v) {
+            $newkey = substr($k, 24);
+            $pub[$newkey] = $prod[$k];
+            unset($prod[$k]);
+        }
+
+        $jsonContent = $Normalizer->normalize($prod, 'json', ['groups' => 'post: read']);
+        return new Response (json_encode($prod));
+    }
+    /**
+     *  @Route("/edit/{reference}", name="editProduit")
      */
     public function editProduit (Request $request, NormalizerInterface $Normalizer, $reference,ProduitRepository $produitRepository)
     {
@@ -85,7 +109,21 @@ class ProduitService extends AbstractController
         $produitRepository->add($produit);
 
         $jsonContent = $Normalizer->normalize($produit, 'json', ['groups' => 'post: read']);
-        return new Response ("Information updated successfully".json_encode($jsonContent));
+        return new Response ("Produit modifier avec succes".json_encode($jsonContent));
+    }
+
+    /**
+     *  @Route("/delete/{reference}", name="deleteProduit")
+     */
+    public function deleteProduit (Request $request, NormalizerInterface $Normalizer, $reference,ProduitRepository $produitRepository)
+    {
+        $produit = $produitRepository->find($reference);
+
+
+        $produitRepository->remove($produit);
+
+        $jsonContent = $Normalizer->normalize($produit, 'json', ['groups' => 'post: read']);
+        return new Response ("Produit supprime avec succes".json_encode($jsonContent));
     }
 
 }
