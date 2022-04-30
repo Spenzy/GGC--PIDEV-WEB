@@ -13,8 +13,8 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.util.Resources;
-import gui.produit.HomeProduit;
-import gui.produit.HomeShop;
+import gui.shop.HomeProduit;
+import gui.shop.HomeShop;
 
 /**
  *
@@ -82,6 +82,10 @@ public class HomeForm extends Form {
                 menuForm.show();
 
             } else if (address.getText().equals("client") && password.getText().equals("client")) {
+                
+                //Session
+                int uid=6;
+                
                 Form menuForm = new Form("Bienvenue", BoxLayout.y());
                 menuForm.getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, (e) -> {
                     showBack();
@@ -112,7 +116,7 @@ public class HomeForm extends Form {
 
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Shop", null, (gp) -> {
-                    new HomeShop().show();
+                    new HomeShop(uid).show();
 
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Commande", null, (gl) -> {

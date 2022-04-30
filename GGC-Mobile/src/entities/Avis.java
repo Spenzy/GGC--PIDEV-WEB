@@ -16,6 +16,7 @@ public class Avis {
     private int idClient;
     private String description;
     private String type;
+    public String nomclient;
 
     public Avis() {
 

@@ -87,7 +87,7 @@ class ProduitService extends AbstractController
         $prod = (array)$produit;
         foreach ($prod as $k => $v) {
             $newkey = substr($k, 24);
-            $pub[$newkey] = $prod[$k];
+            $prod[$newkey] = $prod[$k];
             unset($prod[$k]);
         }
 

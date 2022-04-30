@@ -10,6 +10,7 @@ import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
+import entities.Avis;
 import entities.Produit;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,27 +22,27 @@ import utils.Statics;
  *
  * @author dell
  */
-public class ServiceProduit {
+public class ServiceAvis {
+    
+    public ArrayList<Avis> avis;
 
-    public ArrayList<Produit> produits;
-
-    public static ServiceProduit instance = null;
+    public static ServiceAvis instance = null;
     public boolean resultOK;
     private ConnectionRequest req;
 
-    private ServiceProduit() {
+    private ServiceAvis() {
         req = new ConnectionRequest();
     }
 
-    public static ServiceProduit getInstance() {
+    public static ServiceAvis getInstance() {
         if (instance == null) {
-            instance = new ServiceProduit();
+            instance = new ServiceAvis();
         }
         return instance;
     }
 
-    public boolean addProduct(Produit p) {
-        String url = Statics.BASE_URL + "/produit/new/" + "?reference="+ p.getReference()+ "&libelle=" + p.getLibelle() + "&categorie=" + p.getCategorie()+ "&description=" + p.getDescription()  + "&prix=" + p.getPrix(); //création de l'URL
+    public boolean addAvis(Avis a) {
+        String url = Statics.BASE_URL + "/avis/new/" + "?referenceproduit="+ a.getReferenceProduit()+ "&idclient=" + a.getIdClient() + "&type=" + a.getType()+ "&description=" + a.getDescription()  ; //création de l'URL
         req.setUrl(url);// Insertion de l'URL de notre demande de connexion
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
@@ -60,9 +61,9 @@ public class ServiceProduit {
         return resultOK;
     }
     
-    public ArrayList<Produit> parseProducts(String jsonText) {
+    public ArrayList<Avis> parseAvis(String jsonText) {
         try {
-            produits = new ArrayList<>();
+            avis = new ArrayList<>();
             JSONParser j = new JSONParser();// Instanciation d'un objet JSONParser permettant le parsing du résultat json
 
             /*
@@ -96,16 +97,16 @@ public class ServiceProduit {
             //Parcourir la liste des tâches Json
             for (Map<String, Object> obj : list) {
                 //Création des tâches et récupération de leurs données
-                Produit t = new Produit();
-                float reference = Float.parseFloat(obj.get("reference").toString());
-                t.setReference((int) reference);
-                t.setLibelle(obj.get("libelle").toString());
-                t.setCategorie(obj.get("categorie").toString());
+                Avis t = new Avis();
+                float id = Float.parseFloat(obj.get("idavis").toString());
+                t.setIdAvis((int) id);
+                t.setIdClient((int) Float.parseFloat(obj.get("idclient").toString()));
+                t.setReferenceProduit((int) Float.parseFloat(obj.get("referenceproduit").toString()));
                 t.setDescription(obj.get("description").toString());
-                t.setPrix((float) Float.parseFloat(obj.get("prix").toString()));
-                t.setNote((int) Float.parseFloat(obj.get("note").toString()));
+                t.setType(obj.get("type").toString());
+                t.nomclient=obj.get("nomclient").toString();
                 //Ajouter la tâche extraite de la réponse Json à la liste
-                produits.add(t);
+                avis.add(t);
             }
 
         } catch (IOException ex) {
@@ -116,42 +117,42 @@ public class ServiceProduit {
         de la base de données à travers un service web
         
          */
-        return produits;
+        return avis;
     }
 
-    public ArrayList<Produit> getAllProducts() {
-        String url = Statics.BASE_URL + "/produit/getAll";
+    public ArrayList<Avis> getAllAvis(Produit p) {
+        String url = Statics.BASE_URL + "/avis/getAll/"+p.getReference();
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
-                produits = parseProducts(new String(req.getResponseData()));
+                avis = parseAvis(new String(req.getResponseData()));
                 req.removeResponseListener(this);
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
-        return produits;
+        return avis;
     }
 
-    public boolean modifierProduit(Produit p) {
-        String url = Statics.BASE_URL + "/produit/edit/" +"?reference="+ p.getReference()+ "&libelle=" + p.getLibelle()+ "&description=" + p.getDescription()  + "&prix=" + p.getPrix();
-        req.setUrl(url);
+//    public boolean modifierProduit(Produit p) {
+//        String url = Statics.BASE_URL + "/produit/edit/" +"?reference="+ p.getReference()+ "&libelle=" + p.getLibelle()+ "&description=" + p.getDescription()  + "&prix=" + p.getPrix();
+//        req.setUrl(url);
+//
+//        req.addResponseListener(new ActionListener<NetworkEvent>() {
+//            @Override
+//            public void actionPerformed(NetworkEvent evt) {
+//                resultOK = req.getResponseCode() == 200;  // Code response Http 200 ok
+//                req.removeResponseListener(this);
+//            }
+//        });
+//
+//        NetworkManager.getInstance().addToQueueAndWait(req);//execution ta3 request sinon yet3ada chy dima nal9awha
+//        return resultOK;
+//    }
 
-        req.addResponseListener(new ActionListener<NetworkEvent>() {
-            @Override
-            public void actionPerformed(NetworkEvent evt) {
-                resultOK = req.getResponseCode() == 200;  // Code response Http 200 ok
-                req.removeResponseListener(this);
-            }
-        });
-
-        NetworkManager.getInstance().addToQueueAndWait(req);//execution ta3 request sinon yet3ada chy dima nal9awha
-        return resultOK;
-    }
-
-    public boolean SupprimerProduit(Produit p) {
-        String url = Statics.BASE_URL + "/produit/delete/" +p.getReference();
+    public boolean SupprimerAvis(Avis p) {
+        String url = Statics.BASE_URL + "/avis/delete/" +p.getIdAvis();
   
         req.setUrl(url);
         req.setPost(false);
@@ -167,5 +168,4 @@ public class ServiceProduit {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return resultOK;
     }
-
 }
