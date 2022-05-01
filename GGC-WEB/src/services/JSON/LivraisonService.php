@@ -77,10 +77,11 @@ class LivraisonService extends AbstractController
     public function new(Request $request, NormalizerInterface $Normalizer,LivraisonRepository $livraisonRepository,CommandeRepository $commandeRepository,LivreurRepository $livreurRepository): Response
     {
         $liv = new Livraison();
-        $liv->setIdcommande($commandeRepository->find($request->get('idcommande')));
-        $liv->setIdlivreur($livreurRepository->find($request->get('idlivreur')));
+        $parameters = json_decode($request->getContent(), true);
 
-        $liv->setDateheure(\DateTime($request->get('dateheure')));
+        $liv->setIdcommande($commandeRepository->find($parameters['idcommande']));
+        $liv->setIdlivreur($livreurRepository->find($parameters['idlivreur']));
+        $liv->setDateheure(new \DateTime($parameters['dateheure']));
         $livraisonRepository->add($liv);
 
         $livraison = (array)$liv;
@@ -100,10 +101,11 @@ class LivraisonService extends AbstractController
      */
     public function editLivraison (Request $request, NormalizerInterface $Normalizer,LivraisonRepository $livraisonRepository,LivreurRepository $livreurRepository)
     {
-        $livraison = $livraisonRepository->find($request->get('idcommande'));
+        $parameters = json_decode($request->getContent(), true);
+        $livraison = $livraisonRepository->find($parameters['idcommande']);
 
-        $livraison->setIdlivreur($livreurRepository->find($request->get('idlivreur')));
-        $livraison->setDateheure(\DateTime($request->get('dateheure')));
+        $livraison->setIdlivreur($livreurRepository->find($parameters['idlivreur']));
+        $livraison->setDateheure(new \DateTime($parameters['dateheure']));
         $livraisonRepository->add($livraison);
 
         $jsonContent = $Normalizer->normalize($livraison, 'json', ['groups' => 'post: read']);
@@ -120,5 +122,16 @@ class LivraisonService extends AbstractController
 
         $jsonContent = $Normalizer->normalize($liv, 'json', ['groups' => 'post: read']);
         return new Response ("Livraison supprime avec succes".json_encode($jsonContent));
+    }
+
+    public function objectToArray($publication): array
+    {
+        $pub = (array)$publication;
+        foreach ($pub as $k => $v) {
+            $newkey = substr($k, 21);
+            $pub[$newkey] = $pub[$k];
+            unset($pub[$k]);
+        }
+        return $pub;
     }
 }

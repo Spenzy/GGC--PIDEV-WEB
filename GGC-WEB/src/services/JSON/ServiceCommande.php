@@ -60,25 +60,41 @@ class ServiceCommande extends AbstractController
     /**
      * @Route("/new", name="addLivraison")
      */
-    public function new(Request $request, NormalizerInterface $Normalizer,LivraisonRepository $livraisonRepository,CommandeRepository $commandeRepository,LivreurRepository $livreurRepository): Response
+    public function new(Request $request, NormalizerInterface $Normalizer,ProduitRepository $produitRepository,LignecommandeRepository $lignecommandeRepository,ClientRepository $clientRepository,CommandeRepository $commandeRepository): Response
     {
-        $liv = new Livraison();
-        $liv->setIdcommande($commandeRepository->find($request->get('idcommande')));
-        $liv->setIdlivreur($livreurRepository->find($request->get('idlivreur')));
-        $liv->setDateheure($request->get('date'));
-        $livraisonRepository->add($liv);
+        $commande = new Commande();
+        $parameters = json_decode($request->getContent(), true);
 
-        $livraison = (array)$liv;
-        foreach ($livraison as $k => $v) {
-            $newkey = substr($k, 22);
-            $livraison[$newkey] = $livraison[$k];
-            unset($livraison[$k]);
+        $commande->setAdresse($parameters['adresse']);
+        $commande->setLivree(false);
+        $commande->setDatecommande(new \DateTime('today'));
+        $commande->setPrix($parameters['prix']);
+        $commande->setIdclient($clientRepository->find($parameters['idclient']));
+
+        $commandeRepository->add($commande);
+
+        $lignes = (array) $parameters['lignescommande'];
+        foreach ( $lignes as $lc) {
+            $idproduit = $lc['idproduit'];
+            $quantite = $lc['quantite'];
+            $prix = $lc['prix'];
+
+            $ligne = new Lignecommande();
+            $ligne->setIdcommande($commande);
+
+            $product = $produitRepository->find($idproduit);
+            $ligne->setIdproduit($product);
+            $ligne->setQuantite($quantite);
+            $ligne->setPrix($prix);
+
+            $lignecommandeRepository->add($ligne);
+
         }
-        $livraison["idcommande"] = $liv->getIdcommande()->getIdcommande();
-        $livraison["idlivreur"] =$liv->getIdlivreur()->getIdlivreur()->getIdPersonne();
 
-        $jsonContent = $Normalizer->normalize($livraison, 'json', ['groups' => 'post: read']);
-        return new Response (json_encode($livraison));
+        $commande= $this->objectToArray($commande);
+
+        $jsonContent = $Normalizer->normalize($commande, 'json', ['groups' => 'post: read']);
+        return new Response (json_encode($jsonContent));
     }
 
     /**
@@ -92,5 +108,14 @@ class ServiceCommande extends AbstractController
         $jsonContent = $Normalizer->normalize($liv, 'json', ['groups' => 'post: read']);
         return new Response ("Livraison supprime avec succes".json_encode($jsonContent));
     }
-
+    public function objectToArray($publication): array
+    {
+        $pub = (array)$publication;
+        foreach ($pub as $k => $v) {
+            $newkey = substr($k, 21);
+            $pub[$newkey] = $pub[$k];
+            unset($pub[$k]);
+        }
+        return $pub;
+    }
 }

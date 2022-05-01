@@ -7,16 +7,15 @@ package gui.shop;
 import com.codename1.components.MultiButton;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.layouts.BoxLayout;
-import entities.Commande;
 import entities.LigneCommande;
 import entities.Produit;
 import gui.commande.AfficherPanier;
 import gui.commande.AjouterCommande;
 import services.ServicePanier;
 import services.ServiceProduit;
-import utils.Statics;
 
 /**
  *
@@ -24,7 +23,7 @@ import utils.Statics;
  */
 public class HomeShop extends Form {
 
-    public HomeShop(int uid) {
+    public HomeShop(int uid,Form previous) {
         setTitle("Nos Produits");
         setLayout(BoxLayout.yCenter());
 
@@ -37,17 +36,30 @@ public class HomeShop extends Form {
             Button btn_consulter = new Button("Consulter");
             Button btn_acheter = new Button("Acheter");
 
-            btn_consulter.addActionListener(e -> new DetailProduitAvis(p, uid).show());
+            btn_consulter.addActionListener(e -> new DetailProduitAvis(p, uid,previous).show());
             btn_acheter.addActionListener(l -> {
                 //redirection vers ajoucommandeForm
                 if (ServicePanier.commande == null) {
-                    new AjouterCommande(p).show();
+                    new AjouterCommande(p,previous).show();
                 } else {
-                    ServicePanier.ajouterLigne(new LigneCommande(0, p.getReference(), 1, p.getPrix()));
-                    new AfficherPanier().show();
-                }
+                    boolean here = false;
+                    for (LigneCommande lc : ServicePanier.lignes) {
+                        if (lc.getIdProduit() == p.getReference()) {
+                            lc.setQuantite(lc.getQuantite() + 1);
+                            here = true;
+                            break;
+                        }
+                    }
+                        if (!here) {
+                            ServicePanier.ajouterLigne(new LigneCommande(0, p.getReference(), 1, p.getPrix()));
+                        }
 
-            });
+                        new AfficherPanier(previous).show();
+                    
+
+                }
+            }
+            );
 
             Container c2 = new Container(BoxLayout.xCenter());
             c2.add(btn_consulter);
@@ -56,8 +68,7 @@ public class HomeShop extends Form {
             add(c);
 
         }
-
-        //getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> new HomeF.showBack());
+        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.showBack());
     }
 
 }

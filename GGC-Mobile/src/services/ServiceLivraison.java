@@ -12,7 +12,6 @@ import com.codename1.io.NetworkManager;
 import com.codename1.l10n.ParseException;
 import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.events.ActionListener;
-import com.codename1.ui.spinner.Picker;
 import entities.Livraison;
 import entities.Livreur;
 import java.io.IOException;
@@ -20,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import org.json.simple.JSONObject;
 import utils.Statics;
 
 /**
@@ -46,19 +46,22 @@ public class ServiceLivraison {
         return instance;
     }
 
-    public boolean addLivraison(Livraison l, Picker date) {
-        String url = Statics.BASE_URL + "/livraison/new" + "?idcommande=" + l.getIdCommande() + "&idlivreur=" + l.getIdLivreur() + "&dateheure=" + date.getText().toString();
-        req.setUrl(url);// Insertion de l'URL de notre demande de connexion
+    public boolean addLivraison(Livraison l) {
+        String url = Statics.BASE_URL + "/livraison/new"; //création de l'URL
+        req.setUrl(url);
+        req.setPost(true);
+        req.setContentType("application/json");
+        JSONObject data=new JSONObject();    
+        data.put("idcommande",l.getIdCommande());
+        data.put("idlivreur",l.getIdLivreur());
+        data.put("dateheure",l.getDateHeure().toString());
+                 
+        req.setRequestBody(data.toJSONString());
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
                 resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
                 req.removeResponseListener(this); //Supprimer cet actionListener
-                /* une fois que nous avons terminé de l'utiliser.
-                    La ConnectionRequest req est unique pour tous les appels de
-                    n'importe quelle méthode du Service task, donc si on ne supprime
-                    pas l'ActionListener il sera enregistré et donc éxécuté même si
-                    la réponse reçue correspond à une autre URL(get par exemple)*/
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
@@ -215,12 +218,18 @@ public class ServiceLivraison {
         return livraisons;
     }
 
-    public boolean modifierLivraison(Livraison l, Picker d) {
+    public boolean modifierLivraison(Livraison l) {
 
-        String url = Statics.BASE_URL + "/livraison/edit" + "?idcommande=" + l.getIdCommande() + "&idlivreur=" + l.getIdLivreur() + "&dateheure="
-                + d.getText().toString();
+        String url = Statics.BASE_URL + "/livraison/edit"; //création de l'URL
         req.setUrl(url);
-
+        req.setPost(true);
+        req.setContentType("application/json");
+        JSONObject data=new JSONObject();    
+        data.put("idcommande",l.getIdCommande());
+        data.put("idlivreur",l.getIdLivreur());
+        data.put("dateheure",l.getDateHeure().toString());
+         
+        req.setRequestBody(data.toJSONString());
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {

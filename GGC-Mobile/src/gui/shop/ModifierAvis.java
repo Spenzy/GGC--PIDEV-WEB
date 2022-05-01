@@ -25,7 +25,7 @@ import services.ServiceAvis;
  */
 public class ModifierAvis extends Form {
 
-    public ModifierAvis(Produit p, Avis a, int uid) {
+    public ModifierAvis(Produit p, Avis a, int uid,Form previous) {
         setTitle("Modifier votre Avis");
         setLayout(BoxLayout.yCenter());
 
@@ -41,14 +41,14 @@ public class ModifierAvis extends Form {
 
         Button btnValider = new Button("Modifier avis");
         Button btnRet = new Button("Retour");
-        btnRet.addActionListener(e -> new DetailProduitAvis(p, uid).showBack());
+        btnRet.addActionListener(e -> new DetailProduitAvis(p, uid,previous).showBack());
 
         btnValider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if ((cb_type.getSelectedItem() == null) || (tf_description.getText().length() == 0)) {
                     Dialog.show("Alert", "Please fill all the fields", new Command("OK"));
-                    new DetailProduitAvis(p, uid).showBack(); // Revenir vers l'interface précédente
+                    new DetailProduitAvis(p, uid,previous).showBack(); // Revenir vers l'interface précédente
                     
                 } else {
                     try {
@@ -57,7 +57,7 @@ public class ModifierAvis extends Form {
 
                         if (ServiceAvis.getInstance().modifierAvis(a)) {
                             Dialog.show("Success", "Connection accepted", new Command("OK"));
-                            new DetailProduitAvis(p, uid).showBack(); // Revenir vers l'interface précédente
+                            new DetailProduitAvis(p,uid,previous).showBack(); // Revenir vers l'interface précédente
                         } else {
                             Dialog.show("ERROR", "Server error", new Command("OK"));
                         }
@@ -74,7 +74,7 @@ public class ModifierAvis extends Form {
         addAll(label_type, cb_type, label_description, tf_description, btnValider, btnRet);
         getToolbar()
                 .addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK,
-                        e -> new DetailProduitAvis(p, uid).showBack()); // Revenir vers l'interface précédente
+                        e -> new DetailProduitAvis(p, uid,previous).showBack()); // Revenir vers l'interface précédente
     }
 
 }

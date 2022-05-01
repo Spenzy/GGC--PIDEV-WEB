@@ -12,7 +12,6 @@ import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BoxLayout;
 import entities.Commande;
 import gui.HomeForm;
-import gui.shop.SupprimerProduit;
 import java.util.ArrayList;
 import services.ServiceCommande;
 import utils.Statics;
@@ -23,31 +22,26 @@ import utils.Statics;
  */
 public class ListeCommande extends Form {
 
-    public ListeCommande() {
+    public ListeCommande(Form previous) {
         setTitle("Vos Commandes");
         setLayout(BoxLayout.yCenter());
         ArrayList<Commande> commandes = ServiceCommande.getInstance().getAllCommandes();
-        for (Commande c: commandes) {
+        for (Commande c : commandes) {
             if (c.getIdClient() == Statics.userid) {
-                System.out.println(c);
-                Container c1 = new Container(BoxLayout.yCenter());
+                Container c1 = new Container(BoxLayout.xCenter());
                 Label idcommande = new Label("Commande N° " + c.getIdCommande());
-                Button btn_Detail = new Button("Details");
-                Button btn_Supprimer = new Button("Supprimer");
-                btn_Detail.addActionListener((cnx) -> {
-
-                });
-                btn_Supprimer.addActionListener((cnx) -> new SupprimerCommande(c).show() );
+                Button btn_Supprimer = new Button("Detail");
+                btn_Supprimer.addActionListener((cnx) -> new SupprimerCommande(c,previous).show());
                 Container c2 = new Container(BoxLayout.xCenter());
-                c2.addAll(btn_Detail, btn_Supprimer);
+                c2.addAll(btn_Supprimer);
                 c1.addAll(idcommande, c2);
                 add(c1);
 
             }
         }
-        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> new HomeForm().showBack());
+        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.showBack());
         getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_ADD_SHOPPING_CART, (evt4) -> {
-            new AfficherPanier().showBack();
+            new AfficherPanier(previous).showBack();
 
         });
     }

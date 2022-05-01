@@ -74,11 +74,11 @@ public class HomeForm extends Form {
 
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Gestion des produits", null, (gp) -> {
-                    new HomeProduit().show();
+                    new HomeProduit(menuForm).show();
 
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Gestion des livraisons", null, (gl) -> {
-                    new HomeLivraison().show();
+                    new HomeLivraison(menuForm).show();
                 });
 
                 menuForm.show();
@@ -87,6 +87,7 @@ public class HomeForm extends Form {
                 
                 //Session
                 int uid=6;
+                Statics.userid=6;
                 
                 Form menuForm = new Form("Bienvenue", BoxLayout.y());
                 menuForm.getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, (e) -> {
@@ -100,7 +101,7 @@ public class HomeForm extends Form {
                 //topBar.add(BorderLayout.SOUTH, new Label("Cool App Tagline...", "SidemenuTagline"));
                 //  topBar.setUIID("SideCommand");
                 //   tb.addComponentToSideMenu(topBar);
-                menuForm.getToolbar().addMaterialCommandToRightBar("Déconnexion", FontImage.MATERIAL_LOGOUT, (evt4) -> {
+                menuForm.getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_LOGOUT, (evt4) -> {
                     address.setText("");
                     password.setText("");
                     showBack();
@@ -118,13 +119,12 @@ public class HomeForm extends Form {
 
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Shop", null, (gp) -> {
-                    new HomeShop(uid).show();
+                    new HomeShop(uid,menuForm).show();
                     
 
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Commande", null, (gl) -> {
-                    Statics.userid=111;
-                    new ListeCommande().show();
+                    new ListeCommande(menuForm).show();
                     
                 });
 

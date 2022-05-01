@@ -21,8 +21,8 @@ import services.ServiceCommande;
  */
 public class SupprimerCommande extends Form {
 
-    public SupprimerCommande(Commande c) {
-        setTitle("Suppression Commande");
+    public SupprimerCommande(Commande c,Form previous) {
+        setTitle("Details Commande");
         setLayout(BoxLayout.yCenter());
         Label idcommande = new Label("Commande : " + c.getIdCommande());
         Label date = new Label("Date : " + c.getDateCommande());
@@ -38,7 +38,7 @@ public class SupprimerCommande extends Form {
         Button btnSubmit = new Button("Supprimer");
         Button btnret = new Button("retour");
 
-        btnret.addActionListener(e -> new ListeCommande().showBack());
+        btnret.addActionListener(e -> new ListeCommande(previous).showBack());
 
         btnSubmit.addActionListener(new ActionListener() {
             @Override
@@ -47,7 +47,7 @@ public class SupprimerCommande extends Form {
 
                 if (ServiceCommande.getInstance().supprimerCommande(c)) {
                     Dialog.show("Success", "suppression avec succes", new Command("OK"));
-                    new ListeCommande().showBack(); // Revenir vers l'interface précédente
+                    new ListeCommande(previous).showBack(); // Revenir vers l'interface précédente
                 } else {
                     Dialog.show("ERROR", "Erreur de suppression", new Command("OK"));
                 }

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import org.json.simple.JSONObject;
 import utils.Statics;
 
 /**
@@ -142,6 +143,31 @@ public class ServiceCommande {
                 req.removeResponseListener(this);
             }
 
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
+    public boolean addCommande() {
+
+        String url = Statics.BASE_URL + "/commande/new"; //création de l'URL
+        req.setUrl(url);
+        req.setPost(true);
+        req.setContentType("application/json");
+        JSONObject data=new JSONObject();    
+        data.put("idclient",Statics.userid);
+        data.put("adresse",ServicePanier.commande.getAdresse());
+        data.put("prix",ServicePanier.commande.getPrix());
+        data.put("lignescommande",ServicePanier.lignes);
+         
+        System.out.println(data.toJSONString());
+        
+        req.setRequestBody(data.toJSONString());
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this); //Supprimer cet actionListener
+            }
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
         return resultOK;

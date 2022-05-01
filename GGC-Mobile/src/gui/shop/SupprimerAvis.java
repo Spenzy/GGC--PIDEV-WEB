@@ -7,7 +7,6 @@ package gui.shop;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.Dialog;
-import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.events.ActionEvent;
@@ -16,7 +15,6 @@ import com.codename1.ui.layouts.BoxLayout;
 import entities.Avis;
 import entities.Produit;
 import services.ServiceAvis;
-import services.ServiceProduit;
 
 /**
  *
@@ -24,7 +22,7 @@ import services.ServiceProduit;
  */
 public class SupprimerAvis extends Form {
 
-    public SupprimerAvis(Produit p, Avis av, int uid) {
+    public SupprimerAvis(Produit p, Avis av, int uid,Form previous) {
         setTitle("Suppression Avis");
         setLayout(BoxLayout.yCenter());
         Label client = new Label("Client : " + av.nomclient);
@@ -33,7 +31,7 @@ public class SupprimerAvis extends Form {
         Button btnSubmit = new Button("Supprimer");
         Button btnret = new Button("retour");
 
-        btnret.addActionListener(e -> new DetailProduitAvis(p, uid).showBack());
+        btnret.addActionListener(e -> new DetailProduitAvis(p, uid,previous).showBack());
 
         btnSubmit.addActionListener(new ActionListener() {
             @Override
@@ -42,7 +40,7 @@ public class SupprimerAvis extends Form {
 
                 if (ServiceAvis.getInstance().SupprimerAvis(av)) {
                     Dialog.show("Success", "suppression avec succes", new Command("OK"));
-                    new DetailProduitAvis(p, uid).showBack(); // Revenir vers l'interface précédente
+                    new DetailProduitAvis(p, uid,previous).showBack(); // Revenir vers l'interface précédente
                 } else {
                     Dialog.show("ERROR", "Erreur de suppression", new Command("OK"));
                 }

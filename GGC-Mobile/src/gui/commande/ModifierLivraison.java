@@ -28,7 +28,7 @@ import services.ServiceLivraison;
  */
 public class ModifierLivraison extends Form {
 
-    public ModifierLivraison(Livraison l) {
+    public ModifierLivraison(Livraison l,Form previous) {
         setTitle("Modifier Livraison");
         setLayout(BoxLayout.yCenter());
 
@@ -54,14 +54,14 @@ public class ModifierLivraison extends Form {
 
         Button btnValider = new Button("Modifier");
         Button btnRet = new Button("Retour");
-        btnRet.addActionListener(e -> new ListeLivraisons().showBack());
+        btnRet.addActionListener(e -> new ListeLivraisons(previous).showBack());
 
         btnValider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if ((cb_commande.getSelectedItem() == null) || (cb_commande.getSelectedItem() == null) || (date.getDate() == null)) {
                     Dialog.show("Alert", "Please fill all the fields", new Command("OK"));
-                    new ListeLivraisons().showBack(); // Revenir vers l'interface précédente
+                    new ListeLivraisons(previous).showBack(); // Revenir vers l'interface précédente
 
                 } else {
                     try {
@@ -69,14 +69,14 @@ public class ModifierLivraison extends Form {
                         l.setIdLivreur(cb_livreur.getSelectedItem());
                         l.setDateHeure(date.getDate());
 
-                        if (ServiceLivraison.getInstance().modifierLivraison(l,date)) {
-                            Dialog.show("Success", "Connection accepted", new Command("OK"));
-                            new ListeLivraisons().showBack();
+                        if (ServiceLivraison.getInstance().modifierLivraison(l)) {
+                            Dialog.show("Succes", "modification avec succes", new Command("OK"));
+                            new ListeLivraisons(previous).showBack();
                         } else {
-                            Dialog.show("ERROR", "Server error", new Command("OK"));
+                            Dialog.show("ERREUR", "Erreur", new Command("OK"));
                         }
                     } catch (NumberFormatException e) {
-                        Dialog.show("ERROR", "Status must be a number", new Command("OK"));
+                        Dialog.show("ERREUR", "erreur nombre", new Command("OK"));
                     }
 
                 }
@@ -88,7 +88,7 @@ public class ModifierLivraison extends Form {
         addAll(label_commande, cb_commande, label_livreur, cb_livreur, label_date, date,btnValider, btnRet);
         getToolbar()
                 .addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK,
-                        e -> new ListeLivraisons().showBack()); // Revenir vers l'interface précédente
+                        e -> new ListeLivraisons(previous).showBack()); // Revenir vers l'interface précédente
     }
 
 }

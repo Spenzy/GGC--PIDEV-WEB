@@ -19,7 +19,6 @@ import entities.Commande;
 import entities.Livraison;
 import entities.Livreur;
 import java.util.ArrayList;
-import java.util.Date;
 import services.ServiceCommande;
 import services.ServiceLivraison;
 
@@ -29,7 +28,7 @@ import services.ServiceLivraison;
  */
 public class AjouterLivraison extends Form {
 
-    public AjouterLivraison() {
+    public AjouterLivraison(Form previous) {
         setTitle("Ajout Livraison");
         setLayout(BoxLayout.yCenter());
 
@@ -64,15 +63,15 @@ public class AjouterLivraison extends Form {
                     try {
 
                         Livraison l = new Livraison(cb_commande.getSelectedItem(), cb_livreur.getSelectedItem(), date.getDate());
-                        if (ServiceLivraison.getInstance().addLivraison(l,date)) {
-                            Dialog.show("Success", "Connection accepted", new Command("OK"));
-                            new HomeLivraison().showBack(); // Revenir vers l'interface précédente
+                        if (ServiceLivraison.getInstance().addLivraison(l)) {
+                            Dialog.show("Succes", "ajout avec succes", new Command("OK"));
+                            new HomeLivraison(previous).showBack(); // Revenir vers l'interface précédente
                         } else {
-                            Dialog.show("ERROR", "Server error", new Command("OK"));
+                            Dialog.show("ERREUR", "Erreur d'ajout", new Command("OK"));
                         }
 
                     } catch (NumberFormatException e) {
-                        Dialog.show("ERROR", "Status must be a number", new Command("OK"));
+                        Dialog.show("ERREUR", "vous devez saisir un nombre", new Command("OK"));
                     }
 
                 }
@@ -85,7 +84,7 @@ public class AjouterLivraison extends Form {
 
         getToolbar()
                 .addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK,
-                        e -> new HomeLivraison().showBack()); // Revenir vers l'interface précédente
+                        e -> new HomeLivraison(previous).showBack()); // Revenir vers l'interface précédente
 
     }
 }

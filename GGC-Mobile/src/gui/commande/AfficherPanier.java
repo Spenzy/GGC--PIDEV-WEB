@@ -12,6 +12,7 @@ import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BoxLayout;
 import entities.LigneCommande;
 import gui.shop.HomeShop;
+import services.ServiceCommande;
 import services.ServicePanier;
 import utils.Statics;
 
@@ -21,7 +22,7 @@ import utils.Statics;
  */
 public class AfficherPanier extends Form {
 
-    public AfficherPanier() {
+    public AfficherPanier(Form previous) {
         setTitle("Voici votre Panier");
         setLayout(BoxLayout.yCenter());
 
@@ -40,7 +41,7 @@ public class AfficherPanier extends Form {
                     float prixU = lc.getPrix() / lc.getQuantite();
                     lc.setQuantite(lc.getQuantite() + 1);
                     lc.setPrix(prixU * lc.getQuantite());
-                    new AfficherPanier().show();
+                    new AfficherPanier(previous).show();
                 });
                 Label quantite = new Label(lc.getQuantite() + "");
                 Button btnminus = new Button("-");
@@ -51,7 +52,7 @@ public class AfficherPanier extends Form {
                     if (lc.getQuantite() == 0) {
                         ServicePanier.supprimerLigne(lc);
                     }
-                    new AfficherPanier().show();
+                    new AfficherPanier(previous).show();
                 });
                 Label prix = new Label(lc.getPrix() + " dt");
                 total += lc.getPrix();
@@ -67,21 +68,21 @@ public class AfficherPanier extends Form {
             Button btn_valider = new Button("Valier");
             ServicePanier.commande.setPrix(total);
             btn_valider.addActionListener(v -> {
-                //ajouter commande
-                //ServicePanier.ajouterPanier();
-                //ajouter lignes
+                ServiceCommande.getInstance().addCommande();
+                ServicePanier.viderPanier();
+                new ListeCommande(previous).show();
             });
             Button btn_annuler = new Button("Annuler");
             btn_annuler.addActionListener(v -> {
                 ServicePanier.viderPanier();
-                new AfficherPanier().show();
+                new AfficherPanier(previous).show();
             });
             c2.addAll(btn_valider, btn_annuler);
             add(c2);
         }
 
-        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> new HomeShop(Statics.userid).showBack());
-        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_LIST, e -> new ListeCommande().show());
+        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> new HomeShop(Statics.userid,previous).showBack());
+        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_LIST, e -> new ListeCommande(previous).show());
     }
 
 }

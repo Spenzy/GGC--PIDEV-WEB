@@ -5,26 +5,26 @@
 package gui.commande;
 
 import com.codename1.ui.Button;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
-import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BoxLayout;
-import gui.BaseForm;
-
 /**
  *
  * @author Mr
  */
-public class HomeLivraison extends BaseForm{
-    public HomeLivraison() {
+public class HomeLivraison extends Form {
+
+    public HomeLivraison(Form previous) {
         setTitle("Livraisons");
         setLayout(BoxLayout.yCenter());
 
-        Button btnAdd= new Button("Ajouter Livraison");
+        Button btnAdd = new Button("Ajouter Livraison");
         Button btnList = new Button("Liste des Livraisons");
 
-        btnAdd.addActionListener(e -> new AjouterLivraison().show());
-        btnList.addActionListener(e -> new ListeLivraisons().show());
+        btnAdd.addActionListener(e -> new AjouterLivraison(previous).show());
+        btnList.addActionListener(e -> new ListeLivraisons(previous).show());
         addAll(btnAdd, btnList);
+        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.showBack());
 
     }
 }

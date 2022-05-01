@@ -20,7 +20,7 @@ import services.ServiceLivraison;
  * @author Mr
  */
 public class SupprimerLivraison extends Form{
-    public SupprimerLivraison(Livraison l){
+    public SupprimerLivraison(Livraison l,Form previous){
         setTitle("Suppression Livraison");
         setLayout(BoxLayout.yCenter());
         Label idcommande = new Label("Commande : " + l.getIdCommande());
@@ -29,7 +29,7 @@ public class SupprimerLivraison extends Form{
         Button btnSubmit = new Button("Supprimer");
         Button btnret = new Button("retour");
 
-        btnret.addActionListener(e -> new ListeLivraisons().showBack());
+        btnret.addActionListener(e -> new ListeLivraisons(previous).showBack());
 
         btnSubmit.addActionListener(new ActionListener() {
             @Override
@@ -38,7 +38,7 @@ public class SupprimerLivraison extends Form{
 
                 if (ServiceLivraison.getInstance().SupprimerLivraison(l)) {
                     Dialog.show("Success", "suppression avec succes", new Command("OK"));
-                    new ListeLivraisons().showBack(); // Revenir vers l'interface précédente
+                    new ListeLivraisons(previous).showBack(); // Revenir vers l'interface précédente
                 } else {
                     Dialog.show("ERROR", "Erreur de suppression", new Command("OK"));
                 }

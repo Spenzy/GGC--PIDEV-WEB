@@ -78,5 +78,13 @@ public class ServicePanier {
     public static void supprimerLigne(LigneCommande lc) {
         lignes.remove(lc);
     }
+    
+    public static ArrayList<String> validerPanier(){
+        ArrayList<String> lignesJson = new ArrayList<>();
+        for(LigneCommande lc : lignes){
+            lignesJson.add(lc.toString());
+        }
+        return lignesJson;
+    }
 
 }

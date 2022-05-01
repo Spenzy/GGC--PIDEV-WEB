@@ -18,7 +18,7 @@ import services.ServiceLivraison;
  * @author Mr
  */
 public class ListeLivraisons extends Form{
-      public ListeLivraisons() {
+      public ListeLivraisons(Form previous) {
         setTitle("Liste des Livraisons");
         setLayout(BoxLayout.yCenter());
 
@@ -32,10 +32,10 @@ public class ListeLivraisons extends Form{
             //System.out.println(user.getId());
             Button update = new Button("Modifier");
 
-            update.addActionListener(e -> new ModifierLivraison(p).show());
+            update.addActionListener(e -> new ModifierLivraison(p,previous).show());
             Button delete = new Button("Supprimer");
 
-            delete.addActionListener(e -> new SupprimerLivraison(p).show());
+            delete.addActionListener(e -> new SupprimerLivraison(p,previous).show());
 
             
             Container c2 = new Container(BoxLayout.xCenter());
@@ -46,7 +46,7 @@ public class ListeLivraisons extends Form{
 
         }
         
-        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> new HomeLivraison().showBack());
+        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> new HomeLivraison(previous).showBack());
     }
 
 }
