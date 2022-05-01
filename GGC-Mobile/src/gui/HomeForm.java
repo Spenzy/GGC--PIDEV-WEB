@@ -13,15 +13,17 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.util.Resources;
+import gui.commande.HomeLivraison;
+import gui.commande.ListeCommande;
 import gui.shop.HomeProduit;
 import gui.shop.HomeShop;
+import utils.Statics;
 
 /**
  *
  * @author Mr
  */
 public class HomeForm extends Form {
-
     public Resources theme;
     Form current;
 
@@ -54,7 +56,7 @@ public class HomeForm extends Form {
                 //topBar.add(BorderLayout.SOUTH, new Label("Cool App Tagline...", "SidemenuTagline"));
                 //  topBar.setUIID("SideCommand");
                 //   tb.addComponentToSideMenu(topBar);
-                menuForm.getToolbar().addMaterialCommandToRightBar("Déconnexion", FontImage.MATERIAL_LOGOUT, (evt4) -> {
+                menuForm.getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_LOGOUT, (evt4) -> {
                     address.setText("");
                     password.setText("");
                     showBack();
@@ -76,7 +78,7 @@ public class HomeForm extends Form {
 
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Gestion des livraisons", null, (gl) -> {
-                    //new ListLivraisons().show();
+                    new HomeLivraison().show();
                 });
 
                 menuForm.show();
@@ -117,9 +119,12 @@ public class HomeForm extends Form {
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Shop", null, (gp) -> {
                     new HomeShop(uid).show();
+                    
 
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Commande", null, (gl) -> {
+                    Statics.userid=111;
+                    new ListeCommande().show();
                     
                 });
 

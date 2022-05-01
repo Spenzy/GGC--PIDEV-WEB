@@ -13,7 +13,6 @@ import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.layouts.BoxLayout;
 import entities.Produit;
-import java.util.ArrayList;
 import services.ServiceProduit;
 
 /**

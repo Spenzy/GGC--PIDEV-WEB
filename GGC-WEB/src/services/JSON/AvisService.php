@@ -45,6 +45,7 @@ class AvisService extends AbstractController
                 $avi[$newkey] = $avi[$k];
                 unset($avi[$k]);
             }
+
             $avi["idclient"] = $p->getIdClient()->getIdClient()->getIdPersonne();
             $avi["nomclient"] =$p->getIdClient()->getIdClient()->getNom();
             $avi["referenceproduit"] =$p->getReferenceproduit()->getReference();
