@@ -7,10 +7,6 @@
 # Email spool folder
 /app/spool/*
 
-GamerGeeksCommunity-Mobile/nbproject/
-GamerGeeksCommunity-Mobile/build/
-GamerGeeksCommunity-Mobile/lib/
-
 # Cache, session files and logs (Symfony3)
 /var/*
 /var/cache/*

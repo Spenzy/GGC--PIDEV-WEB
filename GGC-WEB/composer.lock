@@ -65,26 +65,26 @@
         },
         {
             "name": "botman/botman",
-            "version": "2.6.1",
+            "version": "v2.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/botman/botman.git",
-                "reference": "127f7dc0aef5bc0561f8a2a8a3b246fe951b63e7"
+                "reference": "27820b45f674f269195f6b18998762b1f0283393"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/botman/botman/zipball/127f7dc0aef5bc0561f8a2a8a3b246fe951b63e7",
-                "reference": "127f7dc0aef5bc0561f8a2a8a3b246fe951b63e7",
+                "url": "https://api.github.com/repos/botman/botman/zipball/27820b45f674f269195f6b18998762b1f0283393",
+                "reference": "27820b45f674f269195f6b18998762b1f0283393",
                 "shasum": ""
             },
             "require": {
                 "mpociot/pipeline": "^1.0.2",
                 "opis/closure": "^2.3 || ^3.0",
                 "php": ">=7.1",
-                "psr/container": "^1.0",
+                "psr/container": "^1.0 || ^2.0",
                 "react/socket": "~1.0",
                 "spatie/macroable": "^1.0",
-                "symfony/http-foundation": "^2.8 || ^3.0 || ^4.0 || ^5.0",
+                "symfony/http-foundation": "^2.8 || ^3.0 || ^4.0 || ^5.0 || ^6.0",
                 "tightenco/collect": "^5.0 || ^6.0 || ^7.0 || ^8.0"
             },
             "require-dev": {
@@ -138,9 +138,9 @@
             ],
             "support": {
                 "issues": "https://github.com/botman/botman/issues",
-                "source": "https://github.com/botman/botman/tree/2.6.1"
+                "source": "https://github.com/botman/botman/tree/v2.6.2"
             },
-            "time": "2020-09-10T04:44:03+00:00"
+            "time": "2022-04-29T16:11:31+00:00"
         },
         {
             "name": "botman/driver-amazon-alexa",

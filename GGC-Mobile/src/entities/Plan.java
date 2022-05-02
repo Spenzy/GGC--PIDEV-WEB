@@ -5,8 +5,7 @@
  */
 package entities;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.util.Date;
 
 /**
  *
@@ -15,14 +14,14 @@ import java.sql.Time;
 public class Plan {
     int idPlan,idStreamer,idEvennement;
     Date date;
-    Time heure;
+    Date heure;
     float duree;
     String Description;
 
     public Plan() {
     }
 
-    public Plan(int idPlan, int idStreamer, Date date, Time heure, float duree, String Description, int idEvennement) {
+    public Plan(int idPlan, int idStreamer, Date date, Date heure, float duree, String Description, int idEvennement) {
         this.idPlan = idPlan;
         this.idStreamer = idStreamer;
         this.idEvennement = idEvennement;
@@ -64,11 +63,11 @@ public class Plan {
         this.date = date;
     }
 
-    public Time getHeure() {
+    public Date getHeure() {
         return heure;
     }
 
-    public void setHeure(Time heure) {
+    public void setHeure(Date heure) {
         this.heure = heure;
     }
 

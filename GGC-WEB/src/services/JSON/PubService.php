@@ -27,28 +27,23 @@ class PubService extends AbstractController
 {
 
     /**
-     * @Route("/getAll", name="AllPosts")
+     * @Route("/getAll", name="AllPublication")
      * @throws ExceptionInterface
      */
-    public function AllPosts(NormalizerInterface $normalizer, PublicationRepository $publicationRepository,
-                             ClientRepository $clientr, CommentaireRepository $cr, VoteRepository $vr): Response
+    public function allPublication(NormalizerInterface $normalizer, PublicationRepository $publicationRepository,
+                             CommentaireRepository $cr, VoteRepository $vr): Response
     {
         $rs = $publicationRepository->findAll();
         $publications = array();
         foreach ($rs as $p) {
 
-            $pub = (array)$p;
-            foreach ($pub as $k => $v) {
-                $newkey = substr($k, 24);
-                $pub[$newkey] = $pub[$k];
-                unset($pub[$k]);
-            }
+            $pub = $this->objectToArray($p);
+            $pub["idclient"] = $p->getIdClient()->getIdClient()->getIdPersonne();
+            $pub["nomclient"] = $p->getIdClient()->getIdClient()->getNom();
+            $pub["nbrVote"] = $vr->findVoteCountByPost($p->getIdpublication());
+            $pub["nbrCommentaire"] = $cr->findCommentCountByPost($p->getIdpublication());
 
-            $publications[] = array(
-                $pub,
-                $cr->findCommentCountByPost($p->getIdpublication()),
-                $vr->findVoteCountByPost($p->getIdpublication())
-            );
+            $publications[] = $pub;
         }
 
         $jsonContent = $normalizer->normalize($publications, 'json', ['groups' => 'post: read']);
@@ -56,72 +51,65 @@ class PubService extends AbstractController
     }
 
     /**
-     * @Route("/get/{id}", name="getPub")
-     * @throws ExceptionInterface
-     */
-    public function getPub(Request $request, $id, PublicationRepository $publicationRepository, NormalizerInterface $normalizer)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $pub = $em->getRepository(Publication::class)->find($id);
-        $publication = (array)$pub;
-        foreach ($publication as $k => $v) {
-            $newkey = substr($k, 24);
-            $publication[$newkey] = $publication[$k];
-            unset($publication[$k]);
-        }
-
-        $jsonContent = $normalizer->normalize($publication, 'json', ['groups' => 'post: read']);
-
-        return new Response (json_encode($jsonContent));
-    }
-
-    /**
-     * @Route("/new" name="addStudentJSON")
+     * @Route("/new", name="AddPost")
      */
     public function new(Request $request, NormalizerInterface $Normalizer,PublicationRepository $publiRepo, ClientRepository $clientRepo): Response
     {
         $publication = new Publication();
-        $publication->setDescription($request->get('description'));
+        $parameters = json_decode($request->getContent(), true);
+
+        $publication->setDescription($parameters['description']);
         $publication->setArchive(false);
-        $publication->setDate($request->get('date'));
-        $publication->setObject($request->get('object'));
-        $publication->setIdclient($clientRepo->find($request->get('idclient')));
+        $publication->setDate(new \DateTime('today'));
+        $publication->setObject($parameters['object']);
+        $publication->setIdclient($clientRepo->find($parameters['idclient']));
+
         $publiRepo->add($publication);
 
-        $pub = (array)$publication;
-        foreach ($pub as $k => $v) {
-            $newkey = substr($k, 24);
-            $pub[$newkey] = $pub[$k];
-            unset($pub[$k]);
-        }
+        $publication = $this->objectToArray($publication);
 
-        $jsonContent = $Normalizer->normalize($pub, 'json', ['groups' => 'post: read']);
-        return new Response (json_encode($pub));
+        $jsonContent = $Normalizer->normalize($publication, 'json', ['groups' => 'post: read']);
+        return new Response (json_encode($jsonContent));
     }
+
     /**
-     *  @Route("/updateStudentJSON/{id}" name="updateStudentJSON")
+     *  @Route("/edit/{id}", name="EditPost")
      */
-        public function edit (Request $request, NormalizerInterface $Normalizer, $id, PublicationRepository $publiRepo, ClientRepository $clientRepo)
+    public function edit (Request $request, NormalizerInterface $Normalizer, $id, PublicationRepository $publiRepo)
     {
         $publication = $publiRepo->find($id);
 
-        $publication->setDescription($request->get('description'));
-        $publication->setArchive(false);
-        $publication->setDate($request->get('date'));
-        $publication->setObject($request->get('object'));
-        $publication->setIdclient($clientRepo->find($request->get('idclient')));
+        $parameters = json_decode($request->getContent(), true);
+
+        $publication->setDescription($parameters['description']);
+        $publication->setObject($parameters['object']);
+
         $publiRepo->add($publication);
 
-        $jsonContent = $Normalizer->normalize($student, 'json', ['groups' => 'post: read']);
-        return new Response ("Information updated successfully".json_encode($jsonContent));
+        $jsonContent = $Normalizer->normalize($publication, 'json', ['groups' => 'post: read']);
+        return new Response (json_encode($jsonContent));
     }
 
-    public function objectToArray($item, $arr){
+    /**
+     *  @Route("/delete/{id}", name="DeletePublication")
+     */
+    public function deletePublication ($id,PublicationRepository $commentaireRepo)
+    {
+        $commentaire = $commentaireRepo->find($id);
+        $commentaireRepo->remove($commentaire);
+
+        return new Response ("Livraison supprime avec succes");
+    }
+
+    public function objectToArray($publication): array
+    {
         $pub = (array)$publication;
         foreach ($pub as $k => $v) {
             $newkey = substr($k, 24);
             $pub[$newkey] = $pub[$k];
             unset($pub[$k]);
         }
+        return $pub;
     }
+
 }
