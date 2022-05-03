@@ -5,10 +5,15 @@
 package gui.shop;
 
 import com.codename1.ui.Button;
+import com.codename1.ui.Command;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
+import com.codename1.ui.events.ActionEvent;
+import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
+import services.ServiceProduit;
 
 /**
  *
@@ -30,12 +35,25 @@ public class HomeProduit extends Form {
         add(new Label("Choisissez une option"));
         Button btnAdd = new Button("Ajouter Produit");
         Button btnList = new Button("Liste des Produits");
+        Button btnRemise = new Button("Affecter Remise");
+        Button btnNote = new Button("Affecter Note");
 
         btnAdd.addActionListener(e -> new AjouterProduit(current).show());
         btnList.addActionListener(e -> new ListProduitForm(current).show());
-        addAll(btnAdd, btnList);
+        btnRemise.addActionListener(e -> new RemiseProduitForm(current).show());
+        btnNote.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (ServiceProduit.getInstance().affecterNote()) {
+                    Dialog.show("Success", "note affectee", new Command("OK"));
+                    //previous.showBack();
+                } else {
+                    Dialog.show("ERROR", "erreur", new Command("OK"));
+                }
+            }
+        });
+        addAll(btnAdd, btnList, btnRemise, btnNote);
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.showBack());
-
     }
 
 }

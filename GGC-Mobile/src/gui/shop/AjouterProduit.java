@@ -4,12 +4,9 @@
  */
 package gui.shop;
 
-import com.codename1.capture.Capture;
-import com.codename1.components.ImageViewer;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.Dialog;
-import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
@@ -20,7 +17,6 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import entities.Produit;
-import java.io.IOException;
 import services.ServiceProduit;
 
 /**

@@ -5,9 +5,7 @@
 package gui.shop;
 
 import com.codename1.components.MultiButton;
-import com.codename1.components.SpanLabel;
 import com.codename1.ui.Button;
-import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
