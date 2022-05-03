@@ -5,6 +5,8 @@
  */
 package entities;
 
+import org.json.simple.JSONObject;
+
 /**
  *
  * @author Mr
@@ -66,7 +68,11 @@ public class LigneCommande {
 
     @Override
     public String toString() {
-        return "LigneCommande{" + "idCommande=" + idCommande + ", idLigne=" + idLigne + ", idProduit=" + idProduit + ", quantite=" + quantite + ", prix=" + prix + '}';
+        JSONObject lc = new JSONObject();
+        lc.put("idproduit", idProduit);
+        lc.put("quantite", quantite);
+        lc.put("prix", prix);
+        return lc.toJSONString();
     }
     
     

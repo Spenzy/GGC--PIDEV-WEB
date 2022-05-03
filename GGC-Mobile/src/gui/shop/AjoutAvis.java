@@ -19,7 +19,6 @@ import com.codename1.ui.layouts.BoxLayout;
 import entities.Avis;
 import entities.Produit;
 import services.ServiceAvis;
-import services.ServiceProduit;
 
 /**
  *
@@ -27,7 +26,7 @@ import services.ServiceProduit;
  */
 public class AjoutAvis extends Form {
 
-    public AjoutAvis(Produit p, int uid) {
+    public AjoutAvis(Produit p, int uid,Form previous) {
         setTitle("Donner votre avis");
         setLayout(BoxLayout.yCenter());
 
@@ -54,7 +53,7 @@ public class AjoutAvis extends Form {
                         Avis a = new Avis(p.getReference(), uid, tf_description.getText(), cb_type.getSelectedItem());
                         if (ServiceAvis.getInstance().addAvis(a)) {
                             Dialog.show("Success", "Connection accepted", new Command("OK"));
-                            new DetailProduitAvis(p, uid).showBack(); // Revenir vers l'interface précédente
+                            new DetailProduitAvis(p, uid,previous).showBack(); // Revenir vers l'interface précédente
                         } else {
                             Dialog.show("ERROR", "Server error", new Command("OK"));
                         }
@@ -72,7 +71,7 @@ public class AjoutAvis extends Form {
 
         getToolbar()
                 .addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK,
-                        e -> new DetailProduitAvis(p, uid).showBack()); // Revenir vers l'interface précédente
+                        e -> new DetailProduitAvis(p, uid,previous).showBack()); // Revenir vers l'interface précédente
 
     }
 

@@ -21,6 +21,7 @@ public class Commande {
     private boolean livree;
     private Date DateCommande;
     private List<LigneCommande> Lignes = new ArrayList<>();
+    public String nomclient;
 
     public Commande() {
     }

@@ -7,6 +7,7 @@ package gui.shop;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.events.ActionEvent;
@@ -26,7 +27,7 @@ public class HomeProduit extends Form {
     aux interfaces suivantes pour pouvoir y revenir plus tard en utilisant
     la méthode showBack*/
 
-    public HomeProduit() {
+    public HomeProduit(Form previous) {
         current = this; //Récupération de l'interface(Form) en cours
         setTitle("Shop");
         setLayout(BoxLayout.yCenter());
@@ -52,7 +53,7 @@ public class HomeProduit extends Form {
             }
         });
         addAll(btnAdd, btnList, btnRemise, btnNote);
-
+        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.showBack());
     }
 
 }

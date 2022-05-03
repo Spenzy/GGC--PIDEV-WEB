@@ -4,7 +4,6 @@
  */
 package gui.shop;
 
-import com.codename1.components.MultiButton;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
@@ -14,7 +13,6 @@ import com.codename1.ui.layouts.BoxLayout;
 import entities.Avis;
 import entities.Produit;
 import services.ServiceAvis;
-import services.ServiceProduit;
 
 /**
  *
@@ -22,7 +20,7 @@ import services.ServiceProduit;
  */
 public class DetailProduitAvis extends Form {
 
-    public DetailProduitAvis(Produit p, int uid) {
+    public DetailProduitAvis(Produit p, int uid,Form previous) {
         setTitle("Details produit");
         setLayout(BoxLayout.y());
 
@@ -49,10 +47,10 @@ public class DetailProduitAvis extends Form {
             if (uid == av.getIdClient()) {
                 Button update = new Button("Modifier");
 
-                    update.addActionListener(e -> new ModifierAvis(p,av,uid).show());
+                    update.addActionListener(e -> new ModifierAvis(p,av,uid,previous).show());
                 Button delete = new Button("Supprimer");
 
-                 delete.addActionListener(e -> new SupprimerAvis(p,av,uid).show());
+                 delete.addActionListener(e -> new SupprimerAvis(p,av,uid,previous).show());
                 Container c2 = new Container(BoxLayout.xCenter());
                 c2.add(delete);
                 c2.add(update);
@@ -65,10 +63,10 @@ public class DetailProduitAvis extends Form {
         }
 
         Button ajouter = new Button("Donner Avis");
-        ajouter.addActionListener(e-> new AjoutAvis(p,uid).show());
+        ajouter.addActionListener(e-> new AjoutAvis(p,uid,previous).show());
         add(ajouter);
 
-        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> new HomeShop(uid).showBack());
+        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> new HomeShop(uid,previous).showBack());
     }
 
 }
