@@ -2,10 +2,12 @@
 
 namespace App\services\JSON;
 
+use App\Entity\Client;
 use App\Entity\Produit;
 use App\Entity\Publication;
 use App\Form\CommentaireType;
 use App\Form\PublicationType;
+use App\Repository\AvisRepository;
 use App\Repository\ClientRepository;
 use App\Repository\CommentaireRepository;
 use App\Repository\ProduitRepository;
@@ -14,7 +16,10 @@ use App\Repository\VoteRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -126,5 +131,70 @@ class ProduitService extends AbstractController
         $jsonContent = $Normalizer->normalize($produit, 'json', ['groups' => 'post: read']);
         return new Response ("Produit supprime avec succes".json_encode($jsonContent));
     }
+
+    public function sendMailRemise(MailerInterface $mailer,Client $client,$categorie,$montant)
+    {
+
+        $email = (new TemplatedEmail())
+            ->from('gamergeekscommunity@gmail.com')
+            ->to($client->getIdclient()->getEmail())
+            ->subject('Une remise à ne pas rater!')
+            ->text('venez au shop!')
+            ->embedFromPath('img/LogoGGC.png', 'logo')
+            ->htmlTemplate('emails/EmailRemise.html.twig')
+            ->context(compact('client','categorie','montant')
+            );
+
+        try {
+            $mailer->send($email);
+        } catch (TransportExceptionInterface $e) {
+            var_dump($e->getMessage());
+        }
+
+
+    }
+
+
+
+    /**
+     * @Route("/remise", name="Produitremise")
+     */
+    public function RemiseAffecter(ProduitRepository $produitRepository,NormalizerInterface $Normalizer,Request $request,ClientRepository $clientRepository,MailerInterface $mailer)
+    {
+        $categorie=$request->get("categorie");
+        $montant=$request->get("montant");
+        if($categorie!="" && $montant!=0){
+            $produits=$produitRepository->findAll();
+            foreach($produits as $produit){
+                if($produit->getCategorie()==$categorie){
+                    if($montant >= 0){
+                        $produit->setPrix($produit->getPrix()*(1-($montant/100)));
+                        $produitRepository->add($produit);
+                    }
+                }
+            }
+            $clients=$clientRepository->findAll();
+            foreach ($clients as $client){
+                $this->sendMailRemise($mailer,$client,$categorie,$montant);
+            }
+        }
+        return new Response ("Remise effectuee avec succes");
+    }
+
+    /**
+     * @Route("/note", name="Produitnote")
+     */
+    public function affecterNote(ProduitRepository $produitRepository,AvisRepository $avisRepository): Response
+    {
+        $produits=$produitRepository->findAll();
+        foreach ($produits as $produit) {
+            $nbExcellent=$avisRepository->countExcellentByProduit($produit->getReference());
+            $nbMoyen=$avisRepository->countMoyenByProduit($produit->getReference());
+            $nbMediocre=$avisRepository->countMediocreByProduit($produit->getReference());
+            $note=2*$nbExcellent+$nbMoyen-$nbMediocre;
+            $produit->setNote($note);
+            $produitRepository->add($produit);
+        }
+        return new Response ("Notes affectee avec succes");    }
 
 }

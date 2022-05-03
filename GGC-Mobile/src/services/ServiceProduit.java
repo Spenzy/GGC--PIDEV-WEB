@@ -169,4 +169,41 @@ public class ServiceProduit {
         return resultOK;
     }
 
+    public boolean affecterRemise(String categorie, float montant) {
+        String url = Statics.BASE_URL + "/produit/remise/" +"?categorie="+ categorie+ "&montant=" + montant;
+  
+        req.setUrl(url);
+        req.setPost(false);
+        req.setFailSilently(true);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                 resultOK = req.getResponseCode() == 200;
+                req.removeResponseListener(this);
+            }
+    
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
+    
+    public boolean affecterNote() {
+        String url = Statics.BASE_URL + "/produit/note";
+  
+        req.setUrl(url);
+        req.setPost(false);
+        req.setFailSilently(true);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                 resultOK = req.getResponseCode() == 200;
+                req.removeResponseListener(this);
+            }
+    
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
+
+
 }
