@@ -8,6 +8,7 @@ import com.codename1.ui.Button;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.layouts.BoxLayout;
+import services.ServiceLivraison;
 /**
  *
  * @author Mr
@@ -20,10 +21,12 @@ public class HomeLivraison extends Form {
 
         Button btnAdd = new Button("Ajouter Livraison");
         Button btnList = new Button("Liste des Livraisons");
+        Button btnExcuse = new Button("Livraisons en retard");
 
         btnAdd.addActionListener(e -> new AjouterLivraison(previous).show());
         btnList.addActionListener(e -> new ListeLivraisons(previous).show());
-        addAll(btnAdd, btnList);
+        btnExcuse.addActionListener(p -> ServiceLivraison.getInstance().retardLivraison());
+        addAll(btnAdd, btnList,btnExcuse);
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.showBack());
 
     }
