@@ -258,4 +258,21 @@ public class ServiceLivraison {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return resultOK;
     }
+
+    public void retardLivraison() {
+        String url = Statics.BASE_URL + "/livraison/retard";
+
+        req.setUrl(url);
+        req.setPost(false);
+        req.setFailSilently(true);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200;
+                req.removeResponseListener(this);
+            }
+
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+    }
 }
