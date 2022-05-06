@@ -18,6 +18,8 @@ import entities.Publication;
 import java.util.ArrayList;
 import services.ServiceCommentaire;
 import services.ServicePublication;
+import utils.MailAPI;
+import utils.PdfAPI;
 
 /**
  *
@@ -42,16 +44,24 @@ public class PublicationContainer extends Container{
         Container publicationBody = new Container(BoxLayout.y());
         Container publicationInfo = new Container(BoxLayout.x());
         
+        
         Button showBtn = new Button("Show");
         showBtn.addActionListener((connexion)->{
             ShowPublicationContainer showPub = new ShowPublicationContainer(previous, publication);
-            
+            Button btnMail = new Button("Email Pub");
+            ArrayList<Commentaire> commentaires = ServiceCommentaire.getInstance().getAllCommentaire(publication.getId_publication());
             Form showPubForm = new Form();
+            
             showPubForm.add(showPub);
             showPubForm.getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> previous.showBack());
             
+            //add mail btn
+            btnMail.addActionListener((cnx)->{
+//                PdfAPI.createAndSendForumPost("dridi.zied@esprit.tn", publication, commentaires);
+            });
+            showPubForm.add(btnMail);
+            
             //init commentaires
-            ArrayList<Commentaire> commentaires = ServiceCommentaire.getInstance().getAllCommentaire(publication.getId_publication());
             for(Commentaire c : commentaires){
                 CommentaireContainer cc = new CommentaireContainer(previous, c);
                 showPubForm.add(cc);

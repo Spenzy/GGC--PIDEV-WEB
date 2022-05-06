@@ -15,6 +15,7 @@ import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import entities.Publication;
 import services.ServicePublication;
+import utils.BadWordFilter;
 
 /**
  *
@@ -41,7 +42,12 @@ public class EditPublicationForm extends Form{
         btnValider.addActionListener((ActionListener) (ActionEvent evt) -> {
             if (tfTitre.getText().trim().length()==0) {
                 Dialog.show("Alert", "Votre champ de question est vide!", new Command("OK"));
-            } else {
+                
+            }else if (BadWordFilter.filterText(tfTitre.getText()))
+                Dialog.show("Alert", "Veuillez réviser votre titre(mot vulgère détectée)!", new Command("OK"));
+            else if (BadWordFilter.filterText(tfDesc.getText()))
+                Dialog.show("Alert", "Veuillez réviser votre description(mot vulgère détectée)!", new Command("OK"));
+            else {
                 publication.setTitre(tfTitre.getText());
                 publication.setDesc(tfDesc.getText());
                 if (ServicePublication.getInstance().modifPublication(publication)) {

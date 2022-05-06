@@ -34,7 +34,7 @@ public class ShowPublicationContainer extends Container{
         desc.setEditable(false);
         
         Label date = new Label(publication.getDatePub().toString());
-
+        
         Label nbrVotes = new Label(Integer.toString(publication.getNbrVote()));
         Label nbrCommentaire = new Label(Integer.toString(publication.getNbrCommentaire()));
 
@@ -44,6 +44,8 @@ public class ShowPublicationContainer extends Container{
         publicationInfo.addAll(nbrVotes, nbrCommentaire);
         publicationBody.addAll(date,titre,desc, publicationInfo);
         
+        
+        
         Button btnCommenter = new Button("Commenter");
         btnCommenter.addActionListener((connexion)->{
             AddCommentaireForm addCommentaire = new AddCommentaireForm(previous, publication.getId_publication());
@@ -51,7 +53,6 @@ public class ShowPublicationContainer extends Container{
             addCommentaire.showBack();
         });
         this.addAll(publicationBody, btnCommenter);
-        
-        
     }
+
 }
