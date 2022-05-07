@@ -26,7 +26,7 @@ public class ModifierProduit extends Form {
     Form current;
 
     public ModifierProduit(Produit p, Form previous) {
-        setTitle("edit product");
+        setTitle("Modification Produit");
         setLayout(BoxLayout.y());
         TextField reference = new TextField(String.valueOf(p.getReference()), "reference produit");
         TextField tfLibelle = new TextField(p.getLibelle(), "libelle produit");
