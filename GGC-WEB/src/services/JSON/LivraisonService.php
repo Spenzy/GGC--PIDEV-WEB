@@ -2,12 +2,18 @@
 
 
 namespace App\services\JSON;
+use App\Entity\Client;
+use App\Entity\Commande;
+use App\Entity\Livreur;
 use \Datetime;
 use App\Entity\Livraison;
 use App\Repository\ClientRepository;
 use App\Repository\CommandeRepository;
 use App\Repository\LivraisonRepository;
 use App\Repository\LivreurRepository;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -134,4 +140,66 @@ class LivraisonService extends AbstractController
         }
         return $pub;
     }
+
+    public function MailsendExcuse(MailerInterface $mailer,Client $client,Livreur $livreur,Commande $commande)
+    {
+        $email = (new TemplatedEmail())
+            ->from('gamergeekscommunity@gmail.com')
+            ->to($client->getIdclient()->getEmail())
+            ->subject('Email Excuse')
+            ->text('Sending emails is fun again!')
+            ->embedFromPath('img/LogoGGC.png', 'logo')
+            ->htmlTemplate('emails/excuse.html.twig')
+            ->context(compact('client','livreur','commande'));
+
+        try {
+            $mailer->send($email);
+        } catch (TransportExceptionInterface $e) {
+            var_dump($e->getMessage());
+        }
+
+
+    }
+
+    /**
+     * @Route("/excuse", name="ExcuseLivr")
+     */
+    public function excuse(LivraisonRepository $livraisonRepository,CommandeRepository $commandeRepository,MailerInterface $mailer): Response
+    {
+        $commandes = $commandeRepository->findAll();
+        foreach ($commandes as $commande) {
+            $livraison = $livraisonRepository->find($commande->getIdcommande());
+            $sysdate = new \DateTime('today');
+            if ($livraison!=null && $livraison->getDateheure() < $sysdate && $commande->getLivree()==false) {
+
+
+                //remise commande
+                $commande->setPrix($commande->getPrix() / 2);
+                $commandeRepository->add($commande);
+
+                //mail excuse
+                $livreur=$livraison->getIdlivreur();
+                $client=$commande->getIdclient();
+                $this->MailsendExcuse($mailer,$client,$livreur,$commande);
+            }
+
+        }
+        return new Response ("Livraison en retard");
+    }
+
+    /**
+     * @Route("/livree/{idcommande}", name="livree")
+     */
+    public function Livree(int $idcommande,CommandeRepository $commandeRepository,Request $request, NormalizerInterface $Normalizer): Response
+    {
+        $commande=$commandeRepository->find($idcommande);
+
+        if($commande->getLivree()==true)
+            $commande->setLivree(false);
+        else $commande->setLivree(true);
+
+        $commandeRepository->add($commande);
+        return new Response ("commande modifiée avec succes");
+    }
+
 }
