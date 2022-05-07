@@ -105,6 +105,7 @@ public class ServiceProduit {
                 t.setDescription(obj.get("description").toString());
                 t.setPrix((float) Float.parseFloat(obj.get("prix").toString()));
                 t.setNote((int) Float.parseFloat(obj.get("note").toString()));
+                t.setImage(obj.get("img").toString());
                 //Ajouter la tâche extraite de la réponse Json à la liste
                 produits.add(t);
             }

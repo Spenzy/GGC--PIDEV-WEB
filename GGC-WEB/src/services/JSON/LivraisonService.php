@@ -184,9 +184,22 @@ class LivraisonService extends AbstractController
             }
 
         }
-
-
         return new Response ("Livraison en retard");
+    }
+
+    /**
+     * @Route("/livree/{idcommande}", name="livree")
+     */
+    public function Livree(int $idcommande,CommandeRepository $commandeRepository,Request $request, NormalizerInterface $Normalizer): Response
+    {
+        $commande=$commandeRepository->find($idcommande);
+
+        if($commande->getLivree()==true)
+            $commande->setLivree(false);
+        else $commande->setLivree(true);
+
+        $commandeRepository->add($commande);
+        return new Response ("commande modifiée avec succes");
     }
 
 }

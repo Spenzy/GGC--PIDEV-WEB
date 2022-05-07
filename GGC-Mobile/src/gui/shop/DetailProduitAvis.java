@@ -4,14 +4,19 @@
  */
 package gui.shop;
 
+import com.codename1.components.ImageViewer;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
+import com.codename1.ui.EncodedImage;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.Image;
 import com.codename1.ui.Label;
+import com.codename1.ui.URLImage;
 import com.codename1.ui.layouts.BoxLayout;
 import entities.Avis;
 import entities.Produit;
+import java.io.IOException;
 import services.ServiceAvis;
 
 /**
@@ -20,11 +25,24 @@ import services.ServiceAvis;
  */
 public class DetailProduitAvis extends Form {
 
-    public DetailProduitAvis(Produit p, int uid,Form previous) {
+    EncodedImage enc;
+    Image imgs;
+    ImageViewer imgv;
+    String url = "http://localhost/GGC/";
+
+    public DetailProduitAvis(Produit p, int uid, Form previous) {
         setTitle("Details produit");
         setLayout(BoxLayout.y());
 
-        //ajout image
+        //image
+        try {
+            enc = EncodedImage.create("/load.png");
+        } catch (IOException ex) {
+        }
+        imgs = URLImage.createToStorage(enc, url + p.getImage(), url + p.getImage(), URLImage.RESIZE_SCALE);
+        imgv = new ImageViewer(imgs);
+
+        
         //ajout informations
         Label libelle = new Label("Libelle : " + p.getLibelle());
         Label categorie = new Label("Categorie : " + p.getCategorie());
@@ -32,7 +50,7 @@ public class DetailProduitAvis extends Form {
         Label prix = new Label("Prix : " + p.getPrix());
         Label note = new Label("Note : " + p.getNote());
         Container pr = new Container(BoxLayout.yCenter());
-        pr.addAll(libelle, categorie, description, prix, note);
+        pr.addAll(imgv,libelle, categorie, description, prix, note);
         add(pr);
 
         //ajout des avis
@@ -47,10 +65,10 @@ public class DetailProduitAvis extends Form {
             if (uid == av.getIdClient()) {
                 Button update = new Button("Modifier");
 
-                    update.addActionListener(e -> new ModifierAvis(p,av,uid,previous).show());
+                update.addActionListener(e -> new ModifierAvis(p, av, uid, previous).show());
                 Button delete = new Button("Supprimer");
 
-                 delete.addActionListener(e -> new SupprimerAvis(p,av,uid,previous).show());
+                delete.addActionListener(e -> new SupprimerAvis(p, av, uid, previous).show());
                 Container c2 = new Container(BoxLayout.xCenter());
                 c2.add(delete);
                 c2.add(update);
@@ -63,10 +81,10 @@ public class DetailProduitAvis extends Form {
         }
 
         Button ajouter = new Button("Donner Avis");
-        ajouter.addActionListener(e-> new AjoutAvis(p,uid,previous).show());
+        ajouter.addActionListener(e -> new AjoutAvis(p, uid, previous).show());
         add(ajouter);
 
-        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> new HomeShop(uid,previous).showBack());
+        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> new HomeShop(uid, previous).showBack());
     }
 
 }
