@@ -15,11 +15,10 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BoxLayout;
 import entities.Commentaire;
 import entities.Publication;
+import gui.HomeForm;
 import java.util.ArrayList;
 import services.ServiceCommentaire;
 import services.ServicePublication;
-import utils.MailAPI;
-import utils.PdfAPI;
 
 /**
  *
@@ -88,7 +87,10 @@ public class PublicationContainer extends Container{
         
         
         Container cntEditSuppShow = new Container(BoxLayout.x());
-        cntEditSuppShow.addAll(btnModifier, btnSupp, showBtn);
+        if(publication.getId_client()==HomeForm.userid)
+            cntEditSuppShow.addAll(btnModifier, btnSupp, showBtn);
+        else
+            cntEditSuppShow.addAll(showBtn);
         
         publicationInfo.addAll(nbrVotes, nbrCommentaire);
         publicationBody.addAll(date, titre, publicationInfo, cntEditSuppShow);

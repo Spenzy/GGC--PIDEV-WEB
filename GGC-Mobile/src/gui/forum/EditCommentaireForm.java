@@ -16,7 +16,6 @@ import com.codename1.ui.layouts.BoxLayout;
 import entities.Commentaire;
 import gui.HomeForm;
 import services.ServiceCommentaire;
-import utils.BadWordFilter;
 
 /**
  *
@@ -40,8 +39,8 @@ public class EditCommentaireForm extends Form{
         btnValider.addActionListener((ActionListener) (ActionEvent evt) -> {
             if ((tfDesc.getText().length()==0))
                 Dialog.show("Alert", "Votre commentaire est vide!", new Command("OK"));
-            else if (BadWordFilter.filterText(tfDesc.getText()))
-                Dialog.show("Alert", "Veuillez réviser votre commentaire(mot vulgère détectée)!", new Command("OK"));
+//            else if (BadWordFilter.filterText(tfDesc.getText()))
+//                Dialog.show("Alert", "Veuillez réviser votre commentaire(mot vulgère détectée)!", new Command("OK"));
             else
             {
                 c.setDescription(tfDesc.getText());

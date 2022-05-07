@@ -16,6 +16,7 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import entities.Commentaire;
+import gui.HomeForm;
 import services.ServiceCommentaire;
 
 /**
@@ -59,7 +60,8 @@ public class CommentaireContainer extends Container{
         
         
         Container cntEditSupp = new Container(BoxLayout.x());
-        cntEditSupp.addAll(btnModifier, btnSupp);
+        if(commentaire.getIdClient()==HomeForm.userid)
+            cntEditSupp.addAll(btnModifier, btnSupp);
 
         this.addAll(publicationBody, cntEditSupp);
     }
