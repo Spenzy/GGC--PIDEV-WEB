@@ -206,5 +206,23 @@ public class ServiceProduit {
         return resultOK;
     }
 
+    public boolean telechargerPDF() {
+        String url = Statics.BASE_URL + "/produit/pdf/";
+  
+        req.setUrl(url);
+        req.setPost(false);
+        req.setFailSilently(true);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                 resultOK = req.getResponseCode() == 200;
+                req.removeResponseListener(this);
+            }
+    
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
+
 
 }

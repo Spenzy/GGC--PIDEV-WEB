@@ -15,6 +15,8 @@ use App\Repository\PublicationRepository;
 use App\Repository\VoteRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -195,6 +197,47 @@ class ProduitService extends AbstractController
             $produit->setNote($note);
             $produitRepository->add($produit);
         }
-        return new Response ("Notes affectee avec succes");    }
+        return new Response ("Notes affectee avec succes");
+    }
+
+    /**
+     * @Route("/pdf", name="produitpdf")
+     */
+    public function PdfProduits(ProduitRepository $produitRepository)
+    {
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->set('isHtml5ParserEnabled' , true);
+        $pdfOptions->setTempDir('css/style.css');
+        $pdfOptions->set( 'isRemoteEnabled' , true);
+
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+
+        $produits=$produitRepository->findAllProducts();
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('produit/ListProduitsPDF.html.twig', [
+            'produits' => $produits,
+
+        ]);
+
+
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (inline view)
+        $dompdf->stream("Produits.pdf", [
+            "Attachment" => true
+        ]);
+        return new Response ("pdf");
+
+    }
 
 }
