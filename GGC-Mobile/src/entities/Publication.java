@@ -4,12 +4,15 @@ import java.util.Date;
 
 public class Publication {
 
-    int id_publication, id_client;
-    String titre, desc;
+    int id_publication, id_client, nbrVote, nbrCommentaire;
+
+    
+    String titre, desc, nom_client;
     boolean archive;
     Date datePub;
 
     public Publication() {
+        
     }
 
     public Publication(int id_client, String titre, String desc, boolean archive) {
@@ -68,6 +71,30 @@ public class Publication {
     public void setDatePub(Date datePub) {
         this.datePub = datePub;
     }
+    
+    public int getNbrVote() {
+        return nbrVote;
+    }
+
+    public void setNbrVote(int nbrVote) {
+        this.nbrVote = nbrVote;
+    }
+
+    public int getNbrCommentaire() {
+        return nbrCommentaire;
+    }
+
+    public void setNbrCommentaire(int nbrCommentaire) {
+        this.nbrCommentaire = nbrCommentaire;
+    }
+
+    public String getNom_client() {
+        return nom_client;
+    }
+
+    public void setNom_client(String nom_client) {
+        this.nom_client = nom_client;
+    }    
 
     @Override
     public String toString() {

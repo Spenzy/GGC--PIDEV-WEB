@@ -5,8 +5,10 @@ import java.util.Date;
 public class Commentaire {
 
     int id_commentaire, id_publication, idClient;
-    String description;
+    String description, nomclient;
     Date datePost;
+
+    
 
     public Commentaire() {
     }
@@ -17,6 +19,14 @@ public class Commentaire {
         this.description = description;
         Date sysdate = new Date(System.currentTimeMillis());
         this.datePost = sysdate;
+    }
+    
+    public String getNomclient() {
+        return nomclient;
+    }
+
+    public void setNomclient(String nomclient) {
+        this.nomclient = nomclient;
     }
 
     public int getIdClient() {

@@ -18,12 +18,16 @@ import gui.commande.ListeCommande;
 import gui.shop.HomeProduit;
 import gui.shop.HomeShop;
 import utils.Statics;
+import gui.forum.ListPublicationForm;
 
 /**
  *
- * @author Mr
+ * @author Spenz
  */
 public class HomeForm extends Form {
+    
+    public static int userid = 1;
+    
     public Resources theme;
     Form current;
 
@@ -50,13 +54,8 @@ public class HomeForm extends Form {
                 });
 
                 Toolbar tb = menuForm.getToolbar();
-                //Image logo = theme.getImage("LogoGGC.png");
-                //logo.scaledSmallerRatio(10 , 10);
-                //   Container topBar = BorderLayout.east(new Label(logo));
-                //topBar.add(BorderLayout.SOUTH, new Label("Cool App Tagline...", "SidemenuTagline"));
-                //  topBar.setUIID("SideCommand");
-                //   tb.addComponentToSideMenu(topBar);
-                menuForm.getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_LOGOUT, (evt4) -> {
+
+                menuForm.getToolbar().addMaterialCommandToRightBar("Déconnexion", FontImage.MATERIAL_LOGOUT, (evt4) -> {
                     address.setText("");
                     password.setText("");
                     showBack();
@@ -95,17 +94,12 @@ public class HomeForm extends Form {
                 });
 
                 Toolbar tb = menuForm.getToolbar();
-                //Image logo = theme.getImage("LogoGGC.png");
-                //logo.scaledSmallerRatio(10 , 10);
-                //   Container topBar = BorderLayout.east(new Label(logo));
-                //topBar.add(BorderLayout.SOUTH, new Label("Cool App Tagline...", "SidemenuTagline"));
-                //  topBar.setUIID("SideCommand");
-                //   tb.addComponentToSideMenu(topBar);
-                menuForm.getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_LOGOUT, (evt4) -> {
+
+                
+                menuForm.getToolbar().addMaterialCommandToRightBar("Déconnexion", FontImage.MATERIAL_LOGOUT, (evt4) -> {
                     address.setText("");
                     password.setText("");
                     showBack();
-
                 });
 
                 //remplir les modules            
@@ -116,12 +110,10 @@ public class HomeForm extends Form {
 
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Forum", null, (gf) -> {
-
+                    new ListPublicationForm(menuForm).show();
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Shop", null, (gp) -> {
                     new HomeShop(uid,menuForm).show();
-                    
-
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Commande", null, (gl) -> {
                     new ListeCommande(menuForm).show();

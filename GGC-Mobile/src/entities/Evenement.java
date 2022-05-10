@@ -6,7 +6,6 @@
 package entities;
 
 import java.util.Date;
-
 /**
  *
  * @author Azer Lahmer

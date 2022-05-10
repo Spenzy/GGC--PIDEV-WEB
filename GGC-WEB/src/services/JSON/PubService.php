@@ -27,28 +27,23 @@ class PubService extends AbstractController
 {
 
     /**
-     * @Route("/getAll", name="AllPosts")
+     * @Route("/getAll", name="AllPublication")
      * @throws ExceptionInterface
      */
-    public function AllPosts(NormalizerInterface $normalizer, PublicationRepository $publicationRepository,
-                             ClientRepository $clientr, CommentaireRepository $cr, VoteRepository $vr): Response
+    public function allPublication(NormalizerInterface $normalizer, PublicationRepository $publicationRepository,
+                             CommentaireRepository $cr, VoteRepository $vr): Response
     {
         $rs = $publicationRepository->findAll();
         $publications = array();
         foreach ($rs as $p) {
 
-            $pub = (array)$p;
-            foreach ($pub as $k => $v) {
-                $newkey = substr($k, 24);
-                $pub[$newkey] = $pub[$k];
-                unset($pub[$k]);
-            }
+            $pub = $this->objectToArray($p);
+            $pub["idclient"] = $p->getIdClient()->getIdClient()->getIdPersonne();
+            $pub["nomclient"] = $p->getIdClient()->getIdClient()->getNom();
+            $pub["nbrVote"] = $vr->findVoteCountByPost($p->getIdpublication());
+            $pub["nbrCommentaire"] = $cr->findCommentCountByPost($p->getIdpublication());
 
-            $publications[] = array(
-                $pub,
-                $cr->findCommentCountByPost($p->getIdpublication()),
-                $vr->findVoteCountByPost($p->getIdpublication())
-            );
+            $publications[] = $pub;
         }
 
         $jsonContent = $normalizer->normalize($publications, 'json', ['groups' => 'post: read']);
@@ -56,6 +51,7 @@ class PubService extends AbstractController
     }
 
     /**
+<<<<<<< HEAD
      * @Route("/get/{id}", name="getPub")
      * @throws ExceptionInterface
      */
@@ -76,43 +72,78 @@ class PubService extends AbstractController
 
     /**
      * @Route("/new", name="addStudentJSON")
+=======
+     * @Route("/new", name="AddPost")
+>>>>>>> zied-mobile
      */
     public function new(Request $request, NormalizerInterface $Normalizer,PublicationRepository $publiRepo, ClientRepository $clientRepo): Response
     {
         $publication = new Publication();
-        $publication->setDescription($request->get('description'));
+        $parameters = json_decode($request->getContent(), true);
+
+        $publication->setDescription($parameters['description']);
         $publication->setArchive(false);
-        $publication->setDate($request->get('date'));
-        $publication->setObject($request->get('object'));
-        $publication->setIdclient($clientRepo->find($request->get('idclient')));
+        $publication->setDate(new \DateTime('today'));
+        $publication->setObject($parameters['object']);
+        $publication->setIdclient($clientRepo->find($parameters['idclient']));
+
         $publiRepo->add($publication);
 
+        $publication = $this->objectToArray($publication);
+
+        $jsonContent = $Normalizer->normalize($publication, 'json', ['groups' => 'post: read']);
+        return new Response (json_encode($jsonContent));
+    }
+
+    /**
+<<<<<<< HEAD
+     *  @Route("/updateStudentJSON/{id}", name="updateStudentJSON")
+=======
+     *  @Route("/edit/{id}", name="EditPost")
+>>>>>>> zied-mobile
+     */
+    public function edit (Request $request, NormalizerInterface $Normalizer, $id, PublicationRepository $publiRepo)
+    {
+        $publication = $publiRepo->find($id);
+
+        $parameters = json_decode($request->getContent(), true);
+
+        $publication->setDescription($parameters['description']);
+        $publication->setObject($parameters['object']);
+
+        $publiRepo->add($publication);
+
+        $jsonContent = $Normalizer->normalize($publication, 'json', ['groups' => 'post: read']);
+<<<<<<< HEAD
+        return new Response ("Information updated successfully".json_encode($jsonContent));
+    }
+
+}
+=======
+        return new Response (json_encode($jsonContent));
+    }
+
+    /**
+     *  @Route("/delete/{id}", name="DeletePublication")
+     */
+    public function deletePublication ($id,PublicationRepository $commentaireRepo)
+    {
+        $commentaire = $commentaireRepo->find($id);
+        $commentaireRepo->remove($commentaire);
+
+        return new Response ("Livraison supprime avec succes");
+    }
+
+    public function objectToArray($publication): array
+    {
         $pub = (array)$publication;
         foreach ($pub as $k => $v) {
             $newkey = substr($k, 24);
             $pub[$newkey] = $pub[$k];
             unset($pub[$k]);
         }
-
-        $jsonContent = $Normalizer->normalize($pub, 'json', ['groups' => 'post: read']);
-        return new Response (json_encode($pub));
-    }
-    /**
-     *  @Route("/updateStudentJSON/{id}", name="updateStudentJSON")
-     */
-        public function edit (Request $request, NormalizerInterface $Normalizer, $id, PublicationRepository $publiRepo, ClientRepository $clientRepo)
-    {
-        $publication = $publiRepo->find($id);
-
-        $publication->setDescription($request->get('description'));
-        $publication->setArchive(false);
-        $publication->setDate($request->get('date'));
-        $publication->setObject($request->get('object'));
-        $publication->setIdclient($clientRepo->find($request->get('idclient')));
-        $publiRepo->add($publication);
-
-        $jsonContent = $Normalizer->normalize($publication, 'json', ['groups' => 'post: read']);
-        return new Response ("Information updated successfully".json_encode($jsonContent));
+        return $pub;
     }
 
 }
+>>>>>>> zied-mobile

@@ -6,6 +6,10 @@
 package entities;
 
 import java.util.Date;
+<<<<<<< HEAD
+=======
+
+>>>>>>> zied-mobile
 /**
  *
  * @author msi
