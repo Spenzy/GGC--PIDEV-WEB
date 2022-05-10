@@ -40,25 +40,27 @@ public class ServiceProduit {
         return instance;
     }
 
-//    public boolean addProduct(Produit t) {
-//        String url = Statics.BASE_URL + "/produits/" + t.getName() + "/" + t.getStatus(); //création de l'URL
-//        req.setUrl(url);// Insertion de l'URL de notre demande de connexion
-//        req.addResponseListener(new ActionListener<NetworkEvent>() {
-//            @Override
-//            public void actionPerformed(NetworkEvent evt) {
-//                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
-//                req.removeResponseListener(this); //Supprimer cet actionListener
-//                /* une fois que nous avons terminé de l'utiliser.
-//                La ConnectionRequest req est unique pour tous les appels de 
-//                n'importe quelle méthode du Service task, donc si on ne supprime
-//                pas l'ActionListener il sera enregistré et donc éxécuté même si 
-//                la réponse reçue correspond à une autre URL(get par exemple)*/
-//                
-//            }
-//        });
-//        NetworkManager.getInstance().addToQueueAndWait(req);
-//        return resultOK;
-//    }
+    public boolean addProduct(Produit p) {
+       
+        String url = Statics.BASE_URL + "/produit/new" + "?reference="+ p.getReference()+ "&libelle=" + p.getLibelle() + "&categorie=" + p.getCategorie()+ "&description=" + p.getDescription()  + "&prix=" + p.getPrix(); //création de l'URL
+        req.setUrl(url);// Insertion de l'URL de notre demande de connexion
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this); //Supprimer cet actionListener
+                /* une fois que nous avons terminé de l'utiliser.
+                La ConnectionRequest req est unique pour tous les appels de 
+                n'importe quelle méthode du Service task, donc si on ne supprime
+                pas l'ActionListener il sera enregistré et donc éxécuté même si 
+                la réponse reçue correspond à une autre URL(get par exemple)*/
+                
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
+    
     public ArrayList<Produit> parseProducts(String jsonText) {
         try {
             produits = new ArrayList<>();
@@ -103,6 +105,7 @@ public class ServiceProduit {
                 t.setDescription(obj.get("description").toString());
                 t.setPrix((float) Float.parseFloat(obj.get("prix").toString()));
                 t.setNote((int) Float.parseFloat(obj.get("note").toString()));
+                t.setImage(obj.get("img").toString());
                 //Ajouter la tâche extraite de la réponse Json à la liste
                 produits.add(t);
             }
@@ -134,7 +137,7 @@ public class ServiceProduit {
     }
 
     public boolean modifierProduit(Produit p) {
-        String url = Statics.BASE_URL + "/edit/" + p.getReference()+ "?libelle=" + p.getLibelle()+ "&description=" + p.getDescription() + "&image=" + p.getImage() + "&prix=" + p.getPrix();
+        String url = Statics.BASE_URL + "/produit/edit/" +"?reference="+ p.getReference()+ "&libelle=" + p.getLibelle()+ "&categorie=" + p.getCategorie()+ "&description=" + p.getDescription()  + "&prix=" + p.getPrix();
         req.setUrl(url);
 
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -149,56 +152,77 @@ public class ServiceProduit {
         return resultOK;
     }
 
-//    public Product Detailprod(int idProduit, Product p) {
-//
-//        String url = Statics.BASE_URL + "/product/list=?" + idProduit;
-//        req.setUrl(url);
-//
-//        String str = new String(req.getResponseData());
-//        req.addResponseListener(((evt) -> {
-//
-//            JSONParser jsonp = new JSONParser();
-//            try {
-//
-//                Map<String, Object> obj = jsonp.parseJSON(new CharArrayReader(new String(str).toCharArray()));
-//
-//                p.setNomprod(obj.get("nomprod").toString());
-//                p.setDescription(obj.get("description").toString());
-//                p.setImage(obj.get("image").toString());
-//                p.setPrix(Integer.parseInt(obj.get("prix").toString()));
-//                p.setQuantity(Integer.parseInt(obj.get("quantity").toString()));
-//
-//            } catch (IOException ex) {
-//                System.out.println("error related to sql :( " + ex.getMessage());
-//            }
-//
-//            System.out.println("data === " + str);
-//
-//        }));
-//
-//        NetworkManager.getInstance().addToQueueAndWait(req);//execution ta3 request sinon yet3ada chy dima nal9awha
-//
-//        return p;
-//
-//    }
-//
-//    public boolean Delete(Product p) {
-//        String url = Statics.BASE_URL + "product/Delete/" + p.getIdProduit();
-//
-//        req.setUrl(url);
-//        req.setPost(false);
-//        req.setFailSilently(true);
-//        req.addResponseListener(new ActionListener<NetworkEvent>() {
-//            @Override
-//            public void actionPerformed(NetworkEvent evt) {
-//                resultOK = req.getResponseCode() == 200;
-//                req.removeResponseListener(this);
-//            }
-//
-//        });
-//        NetworkManager.getInstance().addToQueueAndWait(req);
-//        return resultOK;
-//
-//    }
+    public boolean SupprimerProduit(Produit p) {
+        String url = Statics.BASE_URL + "/produit/delete/" +p.getReference();
+  
+        req.setUrl(url);
+        req.setPost(false);
+        req.setFailSilently(true);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                 resultOK = req.getResponseCode() == 200;
+                req.removeResponseListener(this);
+            }
+    
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
+
+    public boolean affecterRemise(String categorie, float montant) {
+        String url = Statics.BASE_URL + "/produit/remise/" +"?categorie="+ categorie+ "&montant=" + montant;
+  
+        req.setUrl(url);
+        req.setPost(false);
+        req.setFailSilently(true);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                 resultOK = req.getResponseCode() == 200;
+                req.removeResponseListener(this);
+            }
+    
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
+    
+    public boolean affecterNote() {
+        String url = Statics.BASE_URL + "/produit/note";
+  
+        req.setUrl(url);
+        req.setPost(false);
+        req.setFailSilently(true);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                 resultOK = req.getResponseCode() == 200;
+                req.removeResponseListener(this);
+            }
+    
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
+
+    public boolean telechargerPDF() {
+        String url = Statics.BASE_URL + "/produit/pdf/";
+  
+        req.setUrl(url);
+        req.setPost(false);
+        req.setFailSilently(true);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                 resultOK = req.getResponseCode() == 200;
+                req.removeResponseListener(this);
+            }
+    
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
+
 
 }
