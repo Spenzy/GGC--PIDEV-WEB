@@ -7,9 +7,6 @@ package utils;
 
 import java.io.File;
 import java.util.Properties;
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
@@ -20,6 +17,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeBodyPart;
+import javax.sql.DataSource;
 
 /**
  *
@@ -63,8 +61,8 @@ public class MailAPI {
         Multipart multipart = new MimeMultipart();
         MimeBodyPart messageBodyPart = new MimeBodyPart();
         String filename = file.getName();
-        DataSource source = new FileDataSource(file);
-        messageBodyPart.setDataHandler(new DataHandler(source));
+//        DataSource source = new FileDataSource(file);
+//        messageBodyPart.setDataHandler(new DataHandler(source));
         messageBodyPart.setFileName(filename);
         multipart.addBodyPart(messageBodyPart);
 

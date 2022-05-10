@@ -51,30 +51,7 @@ class PubService extends AbstractController
     }
 
     /**
-<<<<<<< HEAD
-     * @Route("/get/{id}", name="getPub")
-     * @throws ExceptionInterface
-     */
-    public function getPub(Request $request, $id, PublicationRepository $publicationRepository, NormalizerInterface $normalizer)
-    {
-        $pub = $publicationRepository->find($id);
-        $publication = (array)$pub;
-        foreach ($publication as $k => $v) {
-            $newkey = substr($k, 24);
-            $publication[$newkey] = $publication[$k];
-            unset($publication[$k]);
-        }
-
-        $jsonContent = $normalizer->normalize($publication, 'json', ['groups' => 'post: read']);
-
-        return new Response (json_encode($jsonContent));
-    }
-
-    /**
-     * @Route("/new", name="addStudentJSON")
-=======
      * @Route("/new", name="AddPost")
->>>>>>> zied-mobile
      */
     public function new(Request $request, NormalizerInterface $Normalizer,PublicationRepository $publiRepo, ClientRepository $clientRepo): Response
     {
@@ -96,11 +73,7 @@ class PubService extends AbstractController
     }
 
     /**
-<<<<<<< HEAD
-     *  @Route("/updateStudentJSON/{id}", name="updateStudentJSON")
-=======
      *  @Route("/edit/{id}", name="EditPost")
->>>>>>> zied-mobile
      */
     public function edit (Request $request, NormalizerInterface $Normalizer, $id, PublicationRepository $publiRepo)
     {
@@ -114,12 +87,6 @@ class PubService extends AbstractController
         $publiRepo->add($publication);
 
         $jsonContent = $Normalizer->normalize($publication, 'json', ['groups' => 'post: read']);
-<<<<<<< HEAD
-        return new Response ("Information updated successfully".json_encode($jsonContent));
-    }
-
-}
-=======
         return new Response (json_encode($jsonContent));
     }
 
@@ -146,4 +113,3 @@ class PubService extends AbstractController
     }
 
 }
->>>>>>> zied-mobile

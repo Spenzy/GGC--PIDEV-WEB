@@ -236,7 +236,7 @@ class ProduitService extends AbstractController
         $dompdf->stream("Produits.pdf", [
             "Attachment" => true
         ]);
-        return new Response ("pdf");
+        return new Response("pdf");
 
     }
 
