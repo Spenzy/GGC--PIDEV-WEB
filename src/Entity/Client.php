@@ -4,6 +4,7 @@ namespace App\Entity;
 use App\Entity\Personne;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Client
@@ -17,6 +18,8 @@ class Client
      * @var int
      *
      * @ORM\Column(name="nbrAvertissement", type="integer", nullable=true)
+     *  @Groups({"cl"})
+
      */
     private $nbravertissement;
 
@@ -24,6 +27,8 @@ class Client
      * @var int
      *
      * @ORM\Column(name="ban", type="integer", nullable=true)
+     * @Groups({"cl"})
+
      */
     private $ban;
 
@@ -31,6 +36,8 @@ class Client
      * @var \DateTime|null
      *
      * @ORM\Column(name="dateDebutBlock", type="date", nullable=true)
+     * @Groups({"cl"})
+
      */
     private $datedebutblock;
 
@@ -47,10 +54,11 @@ class Client
      * @ORM\Id
      * @ORM\OneToOne(targetEntity="Personne")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idClient", referencedColumnName="id_personne")
+     * @ORM\JoinColumn(name="idClient", referencedColumnName="id_personne")
      * })
+     * @Groups({"cl"})
      */
-    private $idClient;
+    private $idclient;
 
     public function getNbravertissement(): ?int
     {
@@ -100,14 +108,14 @@ class Client
         return $this;
     }
 
-    public function getIdClient(): ?Personne
+    public function getIdclient()
     {
-        return $this->idClient;
+        return $this->idclient;
     }
 
-    public function setIdClient(?Personne $idClient): self
+    public function setIdclient(?Personne $idclient): self
     {
-        $this->idClient = $idClient;
+        $this->idclient = $idclient;
 
         return $this;
     }
