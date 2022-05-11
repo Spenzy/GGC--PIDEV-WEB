@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 27, 2022 at 12:34 PM
+-- Generation Time: May 11, 2022 at 11:03 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -82,28 +82,30 @@ INSERT INTO `avis` (`idAvis`, `referenceProduit`, `idClient`, `description`, `ty
 
 DROP TABLE IF EXISTS `client`;
 CREATE TABLE IF NOT EXISTS `client` (
-  `idClient` int(11) NOT NULL AUTO_INCREMENT,
-  `nbrAvertissement` int(11) NOT NULL,
-  `ban` int(1) NOT NULL,
-  `dateDebutBlock` date NOT NULL,
-  `dateFinBlock` date NOT NULL,
+  `idClient` int(11) NOT NULL,
+  `nbrAvertissement` int(11) DEFAULT NULL,
+  `ban` int(1) DEFAULT NULL,
+  `dateDebutBlock` date DEFAULT NULL,
+  `dateFinBlock` date DEFAULT NULL,
   PRIMARY KEY (`idClient`)
-) ENGINE=InnoDB AUTO_INCREMENT=6254 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `client`
 --
 
 INSERT INTO `client` (`idClient`, `nbrAvertissement`, `ban`, `dateDebutBlock`, `dateFinBlock`) VALUES
-(1, 0, 0, '2022-02-11', '2022-02-11'),
-(2, 0, 0, '2022-02-02', '2022-02-02'),
+(2, 1, 0, '2022-02-02', '2022-02-02'),
 (3, 0, 0, '2022-02-09', '2022-02-01'),
 (4, 0, 0, '2022-02-11', '2022-02-11'),
 (5, 0, 0, '2022-02-02', '2022-02-02'),
 (6, 0, 0, '2022-02-11', '2022-02-11'),
 (111, 0, 0, '2022-02-08', '2022-02-15'),
 (222, 0, 0, '2022-02-13', '2022-02-15'),
-(6253, 0, 0, '2022-02-17', '2022-02-22');
+(6253, 0, 0, '2022-02-17', '2022-02-22'),
+(6257, NULL, NULL, NULL, NULL),
+(6258, NULL, NULL, NULL, NULL),
+(6261, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -121,19 +123,19 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `DateCommande` date NOT NULL,
   PRIMARY KEY (`idCommande`,`idClient`) USING BTREE,
   KEY `fk_client_commande` (`idClient`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `commande`
 --
 
 INSERT INTO `commande` (`idCommande`, `idClient`, `adresse`, `prix`, `livree`, `DateCommande`) VALUES
-(56, 1, 'manzel bourgiba', 4120.5, 1, '2022-04-09'),
-(57, 111, 'carthage byrsa', 400, 0, '2022-04-09'),
+(57, 111, 'carthage byrsa', 125, 0, '2022-04-09'),
 (58, 111, 'gammarth', 3441.33, 0, '2022-04-09'),
 (65, 111, 'testtest', 80, 0, '2022-04-17'),
 (66, 111, 'ourourou', 190, 0, '2022-04-17'),
-(69, 111, 'Darna', 1975, 0, '2022-04-17');
+(69, 111, 'Darna', 1975, 0, '2022-04-17'),
+(70, 6, 'test', 14.543, 0, '2022-05-10');
 
 -- --------------------------------------------------------
 
@@ -151,25 +153,15 @@ CREATE TABLE IF NOT EXISTS `commentaire` (
   PRIMARY KEY (`idCommentaire`,`idPublication`),
   KEY `fk_commentaire` (`idPublication`),
   KEY `fk_commentaire_client` (`idClient`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `commentaire`
 --
 
 INSERT INTO `commentaire` (`idCommentaire`, `idPublication`, `description`, `idClient`, `date`) VALUES
-(1, 1, 'Oééééééééééééééééé ça serait superbe ahla', 3, '2022-02-26'),
-(2, 1, 'c\'est quoi ce truc là?', 2, '2022-02-26'),
-(3, 1, 'une erreur qui n\'aurait pas due etre faite!!!!!!!! modif test', 1, '2022-02-26'),
 (4, 2, 'Commentaire de test', 5, '2022-02-26'),
-(8, 1, 'BEST. GAME. EVER.', 1, '2022-04-09'),
-(11, 1, 'BEST. GAME. EVER. 2.0', 1, '2022-04-10'),
-(17, 14, 'e', 1, '2022-04-16'),
-(25, 14, '<p><img alt=\"\" src=\"/uploads/118309174_1257393187936426_5731899168835387014_n.png\" style=\"height:225px; width:226px\" /></p>', 1, '2022-04-17'),
-(26, 1, '<p><img alt=\"\" src=\"/uploads/download.jpg\" style=\"height:225px; width:225px\" /></p>', 1, '2022-04-17'),
-(29, 1, '<p><img alt=\"\" src=\"/uploads/472c74563067eac5468dc5936f07a549dd99c2e6a65a7a9f308d72dd6d1d61f7.jpg\" style=\"height:223px; width:228px\" /></p>', 1, '2022-04-17'),
-(30, 15, '<p style=\"text-align:center\"><span style=\"color:#9b59b6\"><span style=\"font-family:Comic Sans MS,cursive\"><strong>LONG LIVE THE DAPROUM FAMILY !!! &lt;3</strong></span></span></p>', 1, '2022-04-17'),
-(31, 7, 'wouah', 2, '2022-04-23');
+(32, 2, '<p><img alt=\"\" src=\"/uploads/download.jpg\" style=\"height:225px; width:225px\" />&nbsp;sdsa<s><em><strong>dada<span style=\"font-size:20px\"><u>AERRR</u></span></strong></em></s></p>', 2, '2022-04-28');
 
 -- --------------------------------------------------------
 
@@ -182,28 +174,22 @@ CREATE TABLE IF NOT EXISTS `evenement` (
   `reference` int(11) NOT NULL,
   `dateDebut` date NOT NULL,
   `dateFin` date NOT NULL,
-  `localisation` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `description` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `localisation` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `photo` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nbrParticipant` int(11) NOT NULL,
+  `Titre` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`reference`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `evenement`
 --
 
-INSERT INTO `evenement` (`reference`, `dateDebut`, `dateFin`, `localisation`, `description`, `nbrParticipant`) VALUES
-(1, '2022-02-10', '2022-02-04', 'aaa', 'aaaaaaaaaa', 452),
-(2, '2022-02-16', '2022-02-03', 'aa', 'aaaaaaaaa', 20),
-(3, '2022-02-01', '2022-02-16', 'manzah4', 'entrer Une description !', 20),
-(4, '2022-02-01', '2022-02-02', 'manzah3', 'entrer Une description !', 20),
-(5, '2022-02-18', '2022-02-10', 'mednine', 'entrer Une description !', 5),
-(6, '2022-03-02', '2022-03-04', ' selyenna', 'asasa', 20),
-(7, '2022-03-01', '2022-03-02', 'aindrahem', 'asasasa', 25),
-(9, '2022-03-01', '2022-03-03', ' selyenna', 'sasas', 25),
-(11, '2022-03-01', '2022-03-10', 'aindrahem', 'asa', 25),
-(12, '2022-03-05', '2022-03-08', 'monastir', 'azer wa7ch', 10),
-(13, '2022-04-01', '2022-02-28', 'monastir', 'azer', 12);
+INSERT INTO `evenement` (`reference`, `dateDebut`, `dateFin`, `localisation`, `description`, `photo`, `nbrParticipant`, `Titre`) VALUES
+(1, '2023-01-01', '2024-01-01', 'mahdia', 'azizos is here', 'd1ad391fc9b58cecbc5b954a23d7791e.jpeg', 0, 'fifa'),
+(2, '2024-01-01', '2025-01-01', 'mounastir', 'toirnoire free fire room 4vs4 b', 'b4afa90785cbdf5b9a50b583f8688f81.png', 49, 'free fire'),
+(3, '2024-01-01', '2025-01-01', 'mahdiaa', 'match amical', '247002a276ec9ceff6181685512463c8.png', 5, 'fifa');
 
 -- --------------------------------------------------------
 
@@ -221,7 +207,7 @@ CREATE TABLE IF NOT EXISTS `lignecommande` (
   PRIMARY KEY (`idLigne`,`idCommande`) USING BTREE,
   KEY `fk_ligne_produit` (`idProduit`),
   KEY `fk_ligne_commande` (`idCommande`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `lignecommande`
@@ -240,7 +226,9 @@ INSERT INTO `lignecommande` (`idLigne`, `idCommande`, `idProduit`, `quantite`, `
 (21, 65, 123, 1, 80),
 (22, 66, 9595, 1, 190),
 (23, 68, 66666, 1, 7312.56),
-(24, 69, 745, 1, 1975);
+(24, 69, 745, 1, 1975),
+(25, 70, 66666, 1, 7312.56),
+(26, 70, 963325, 1, 14.543);
 
 -- --------------------------------------------------------
 
@@ -263,8 +251,8 @@ CREATE TABLE IF NOT EXISTS `livraison` (
 --
 
 INSERT INTO `livraison` (`idCommande`, `idLivreur`, `DateHeure`) VALUES
-(57, 3, '2026-01-01'),
-(68, 3, '2026-01-01');
+(57, 3, '2022-01-01'),
+(69, 6253, '2025-10-18');
 
 -- --------------------------------------------------------
 
@@ -306,10 +294,7 @@ CREATE TABLE IF NOT EXISTS `moderateur` (
 --
 
 INSERT INTO `moderateur` (`id_moderateur`) VALUES
-(5),
-(6),
-(6254),
-(6255);
+(6259);
 
 -- --------------------------------------------------------
 
@@ -319,21 +304,22 @@ INSERT INTO `moderateur` (`id_moderateur`) VALUES
 
 DROP TABLE IF EXISTS `participation`;
 CREATE TABLE IF NOT EXISTS `participation` (
-  `idParticipation` int(11) NOT NULL AUTO_INCREMENT,
+  `id_participation` int(11) NOT NULL AUTO_INCREMENT,
   `idClient` int(11) NOT NULL,
   `idEvent` int(11) NOT NULL,
-  `nbrEtoile` int(11) NOT NULL,
-  PRIMARY KEY (`idParticipation`),
-  KEY `fk_participation_client` (`idClient`),
-  KEY `fk_participation_event` (`idEvent`)
-) ENGINE=InnoDB AUTO_INCREMENT=141 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  PRIMARY KEY (`id_participation`),
+  KEY `IDX_AB55E24FA455ACCF` (`idClient`),
+  KEY `IDX_AB55E24F2C6A49BA` (`idEvent`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `participation`
 --
 
-INSERT INTO `participation` (`idParticipation`, `idClient`, `idEvent`, `nbrEtoile`) VALUES
-(140, 4, 1, 4);
+INSERT INTO `participation` (`id_participation`, `idClient`, `idEvent`) VALUES
+(29, 3, 2),
+(30, 3, 1),
+(31, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -352,24 +338,27 @@ CREATE TABLE IF NOT EXISTS `personne` (
   `password` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `roles` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id_personne`)
-) ENGINE=InnoDB AUTO_INCREMENT=6256 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6262 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `personne`
 --
 
 INSERT INTO `personne` (`id_personne`, `nom`, `prenom`, `dateNaissance`, `email`, `telephone`, `password`, `roles`) VALUES
-(1, 'zied', 'dridi', '2022-02-11', 'dridi.zied@esprit.tn', 52848054, 'pwd', 'admin'),
-(2, 'marwa', 'ayari', '2001-02-02', 'maroua@esprit.tn', 54342461, 'pwd', 'user'),
-(3, 'Ahmed', 'Mezni', '2022-02-09', 'ahmed.mezni@esprit.tn', 84562357, 'pwd', 'user'),
-(4, 'Azer', 'Lahmer', '2022-02-01', 'azer.lahmer@esprit.tn', 78945612, 'pwd', 'moderateur'),
-(5, 'Amir', 'Ben Salah', '2022-02-11', 'amir.bensalah@esprit.tn', 52845654, 'pwd', 'user'),
-(6, 'Maher', 'Gasmi', '2022-02-11', 'maher.gasmi@esprit.tn', 54123321, 'pwd', 'moderateur'),
-(111, 'marwa', 'ayari', '2001-02-02', 'maroua.ayari@esprit.tn', 54342461, 'pwd', 'user'),
-(222, 'cft', 'yugy', '2022-02-09', 'maroua.ayari@esprit.tn', 84562357, 'pwd', 'user'),
-(6253, 'zied', 'dridi', '2022-02-01', 'dridi.zied@esprit.tn', 78945612, 'pwd', 'user'),
-(6254, 'bouden', 'samir', '2024-01-01', 'samirbouden@wiou.tn', 12345678, '123456', 'moderateur'),
-(6255, 'Satour', 'Hmed', '2025-05-06', 'hmed.satour@WIOU.tn', 12345678, '123456', 'moderateur');
+(1, 'admin', 'admin', '2022-02-11', 'admin@gmail.com', 52848054, 'pwd', 'admin'),
+(2, 'azer', 'azer', '2001-02-02', 'lahmerazer1998@gmail.com', 54342461, 'pwd', 'user'),
+(3, 'Ahmed', 'ben salah', '2022-02-09', 'ahmed.mezni@esprit.tn', 84562357, 'pwd', 'user'),
+(4, 'Azer', 'Lahmer', '2022-02-01', 'azer.lahmer@esprit.tn', 78945612, 'pwd', 'user'),
+(5, 'Amir', 'lahmer', '2022-02-11', 'amir.bensalah@esprit.tn', 52845654, 'pwd', 'user'),
+(6, 'Maher', 'Gasmi', '2022-02-11', 'maher.gasmi@esprit.tn', 54123321, 'pwd', 'user'),
+(111, 'Marwa', 'Ayari', '2001-02-02', 'maroua.ayari@esprit.tn', 54342461, 'pwd', 'user'),
+(222, 'cft', 'yugy', '2022-02-09', 'amir2145@gmail.com', 84562357, 'pwd', 'user'),
+(6253, 'zied', 'dridi', '2022-02-01', 'dridi.zied@esprit.tn', 87654321, 'azerty', 'user'),
+(6257, 'user', 'user', '2017-01-01', 'user@gmail.com', 54405584, '123456', 'user'),
+(6258, 'bouha', 'bouha', '2017-01-01', 'bouha@gmail.com', 54405584, 'azerty', 'user'),
+(6259, 'samir', 'satour', '2022-04-21', 'zied.zied@esprit.tn', 12345678, '123456789', 'moderateur'),
+(6260, 'zrtuieazeaze', 'aeazeaze', '2022-05-19', 'zaeazeaze@gmail.com', 54405584, 'azerty', 'moderateur'),
+(6261, 'azerty', 'azerty', '2022-05-18', 'azerty@azerty.com', 12345678, 'azerty', 'user');
 
 -- --------------------------------------------------------
 
@@ -383,13 +372,20 @@ CREATE TABLE IF NOT EXISTS `plan` (
   `idStreamer` int(11) NOT NULL,
   `date` date NOT NULL,
   `heure` time NOT NULL,
-  `duree` time NOT NULL,
+  `duree` int(11) NOT NULL,
   `description` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `idEvenement` int(11) NOT NULL,
   PRIMARY KEY (`idPlan`,`idStreamer`),
   KEY `fk_plan_streamer` (`idStreamer`),
   KEY `fk_plan_evenement` (`idEvenement`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `plan`
+--
+
+INSERT INTO `plan` (`idPlan`, `idStreamer`, `date`, `heure`, `duree`, `description`, `idEvenement`) VALUES
+(1, 222, '2023-01-01', '12:00:00', 12, 'azezarezr', 1);
 
 -- --------------------------------------------------------
 
@@ -418,11 +414,11 @@ INSERT INTO `produit` (`reference`, `libelle`, `categorie`, `description`, `prix
 (123, 'RedDragonKumara', 'clavier', 'bon', 80, 2, '111796b1b907d625fa130fa928a11854.png'),
 (745, 'GAMING PC : Ryzen 5 3600', 'GamingPc', 'GTX 1650 OC GDDR6 - RAM 16GO', 1975, 2, '6789d0845fb360d04541e998bdab7c40.png'),
 (6663, 'AsusMouse6', 'souris', 'Souris qui accompagne AsusGaming5', 170.5, -2, '8724117e0821057473da9a59193bed17.png'),
-(8524, 'Souris MSI', 'Souris', 'dzsq', 58.1718, 0, '942c4a4916c792e7cbbdee5aa3e55b2f.png'),
+(8524, 'Souris MSI', 'Souris', 'dzsq', 57.5901, 0, '942c4a4916c792e7cbbdee5aa3e55b2f.png'),
 (8541, 'EcranSamsung', 'ecran', 'ecran cinéma 2D', 200, 1, '6bb18149a5ed85fb832a277254250934.png'),
 (9595, 'DragonBleuRGB', 'Clavier', 'souris avec lumière ...', 190, 0, '34c467f1fbda3ace79af54f29fc6f3b4.png'),
 (66666, 'AsusGaming 5', 'PC', 'Tout ce qu\'il vous faut pour jouer à vos jeux préférés', 7312.56, 2, '3b1682c090313717013cebcb3b2b1fd9.png'),
-(963325, 'PRO-M3', 'Souris', 'Souris gaming', 14.543, 1, '5f512bf737d7d45e404323da83dacc13.png'),
+(963325, 'PRO-M3', 'Souris', 'Souris gaming', 14.3976, 1, '5f512bf737d7d45e404323da83dacc13.png'),
 (121212111, 'AsusVivoBook8', 'PC', 'pc pour étudiants avec options...', 3233.83, 1, '6a987640b7db855cb49eb0210705d857.png');
 
 -- --------------------------------------------------------
@@ -441,24 +437,19 @@ CREATE TABLE IF NOT EXISTS `publication` (
   `date` date NOT NULL,
   PRIMARY KEY (`idPublication`),
   KEY `fk_publication_client` (`idClient`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `publication`
 --
 
 INSERT INTO `publication` (`idPublication`, `object`, `description`, `archive`, `idClient`, `date`) VALUES
-(1, 'Bonjour, avez vous joué Elden Ring ?', 'J\'arrive pas a le télécharger mois-meme :(', 0, 1, '2022-02-25'),
 (2, 'Publication de test', 'test modification', 0, 2, '2022-02-26'),
-(6, 'Pub archivé', '', 1, 1, '2022-02-26'),
-(7, 'Hello', '', 1, 1, '2022-02-26'),
-(8, 'esprit validation', 'it is what it is', 0, 1, '2022-02-28'),
 (9, 'azyzos', 'fait beaucoup de beuses ', 1, 4, '2022-02-28'),
 (10, 'serveur gtrp', 'quelle est le meilleur serveur gta rp', 1, 5, '2022-02-28'),
-(11, 'QuestioN?', 'body', 0, 1, '2022-04-09'),
-(13, 'Pub Test', 'test', 1, 1, '2022-04-14'),
-(14, 'QuestioN?', 'test', 1, 1, '2022-04-14'),
-(15, 'Une publication d\'integration', '<p>how to merge !!<br />\r\nCAN YOU MERGE A DAPROUM ?????????????????</p>\r\n\r\n<p>yes&nbsp;<img alt=\"\" src=\"/uploads/118309174_1257393187936426_5731899168835387014_n.png\" style=\"height:225px; width:226px\" />if you merge daproum with daprouma</p>', 0, 1, '2022-04-17');
+(16, 'jkeznrze', '<p style=\"text-align:center\"><span style=\"color:#27ae60\">dsfjdsf</span></p>', 0, 2, '2022-04-28'),
+(17, 'Test', '<p>test</p>', 1, 3, '2022-04-28'),
+(18, 'Publication de validation', '<p style=\"text-align:center\"><span style=\"font-size:20px\"><span style=\"font-family:Comic Sans MS,cursive\"><span style=\"color:#ffffff\"><span style=\"background-color:#1abc9c\">Testing ckeditor</span></span></span></span></p>', 0, 2, '2022-04-28');
 
 -- --------------------------------------------------------
 
@@ -472,7 +463,15 @@ CREATE TABLE IF NOT EXISTS `streamer` (
   `informations` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `lienStreaming` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`idStreamer`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6259 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `streamer`
+--
+
+INSERT INTO `streamer` (`idStreamer`, `informations`, `lienStreaming`) VALUES
+(222, 'kjsdkjhg', 'www.nimo.tv/wassimos'),
+(6258, 'number one', 'www.nimo.tv/azizos');
 
 -- --------------------------------------------------------
 
@@ -495,16 +494,7 @@ CREATE TABLE IF NOT EXISTS `vote` (
 --
 
 INSERT INTO `vote` (`idClient`, `idPublication`, `type`) VALUES
-(2, 1, 'UP'),
-(3, 1, 'UP'),
-(4, 1, 'UP'),
-(5, 1, 'UP'),
-(6, 1, 'UP'),
-(1, 8, 'DOWN'),
-(4, 8, 'UP'),
-(1, 11, 'UP'),
-(3, 11, 'UP'),
-(1, 14, 'DOWN');
+(2, 18, 'DOWN');
 
 --
 -- Constraints for dumped tables
@@ -540,6 +530,13 @@ ALTER TABLE `livreur`
 --
 ALTER TABLE `moderateur`
   ADD CONSTRAINT `fk_moderateur-personne` FOREIGN KEY (`id_moderateur`) REFERENCES `personne` (`id_personne`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `participation`
+--
+ALTER TABLE `participation`
+  ADD CONSTRAINT `FK_AB55E24F2C6A49BA` FOREIGN KEY (`idEvent`) REFERENCES `evenement` (`reference`),
+  ADD CONSTRAINT `FK_AB55E24FA455ACCF` FOREIGN KEY (`idClient`) REFERENCES `client` (`idClient`);
 
 --
 -- Constraints for table `publication`
