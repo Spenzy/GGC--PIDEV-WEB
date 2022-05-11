@@ -44,10 +44,10 @@ class VoteController extends AbstractController
     /**
      * @Route("/{idpublication}/upvote", name="app_vote_up", methods={"GET","POST"})
      */
-    public function upvote(int $idpublication, VoteRepository $voteRepository,ClientRepository $repC, PublicationRepository $vr): Response
+    public function upvote(int $idpublication, SessionInterface $session,VoteRepository $voteRepository,ClientRepository $repC, PublicationRepository $vr): Response
     {
         $type = "UP";
-        $this->vote($type, $idpublication,$voteRepository,$repC, $vr);
+        $this->vote($type, $idpublication,$session,$voteRepository,$repC, $vr);
 
         return $this->redirectToRoute('app_publication_show', [
             'idpublication' => $idpublication
@@ -57,10 +57,10 @@ class VoteController extends AbstractController
     /**
      * @Route("/{idpublication}/downvote", name="app_vote_down", methods={"GET","POST"})
      */
-    public function downvote(int $idpublication, VoteRepository $voteRepository,ClientRepository $repC, PublicationRepository $vr): Response
+    public function downvote(int $idpublication,SessionInterface $session, VoteRepository $voteRepository,ClientRepository $repC, PublicationRepository $vr): Response
     {
         $type = "DOWN";
-        $this->vote($type, $idpublication,$voteRepository,$repC, $vr);
+        $this->vote($type, $idpublication,$session,$voteRepository,$repC, $vr);
 
         return $this->redirectToRoute('app_publication_show', [
             'idpublication' => $idpublication
