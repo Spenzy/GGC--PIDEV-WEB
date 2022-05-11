@@ -14,7 +14,6 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import services.ServiceProduit;
-import utils.PdfAPI;
 
 /**
  *
@@ -57,11 +56,12 @@ public class HomeProduit extends Form {
         btnPdf.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PdfAPI.createAndSendListProduit("gamergeekscommunity@gmail.com");
+                //PdfAPI.createAndSendListProduit("gamergeekscommunity@gmail.com");
                     Dialog.show("Success", "fichier pdf envoyé par mail", new Command("OK"));
             }
         });
-        addAll(btnAdd, btnList, btnRemise, btnNote ,btnPdf);
+        addAll(btnAdd, btnList, btnRemise, btnNote);
+        //add(btnPdf);
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.showBack());
     }
 
