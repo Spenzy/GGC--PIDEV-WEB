@@ -96,7 +96,7 @@ public class ServicePublication {
     
     public boolean addPublication(Publication p) {
 
-        String url = Statics.BASE_URL + "/forum/new"; //création de l'URL
+        String url = Statics.BASE_URL + "/forum/new/"; //création de l'URL
         req.setUrl(url);
         req.setPost(true);
         req.setContentType("application/json");
@@ -104,7 +104,7 @@ public class ServicePublication {
         data.put("object", p.getTitre());
         data.put("description", p.getDesc());
         data.put("idclient", p.getId_client());
-        
+        System.out.println(data);
         req.setRequestBody(data.toJSONString());
         req.addResponseListener(new ActionListener<NetworkEvent>() {
         @Override
@@ -113,7 +113,7 @@ public class ServicePublication {
                 req.removeResponseListener(this); //Supprimer cet actionListener
             }
         });
-        NetworkManager.getInstance().addToQueueAndWait(req);
+        NetworkManager.getInstance().addToQueueAndWait(req);System.out.println("jawek behi ajout");
         return resultOK;
     }
     

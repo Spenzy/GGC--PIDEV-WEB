@@ -26,7 +26,7 @@ import gui.forum.ListPublicationForm;
  */
 public class HomeForm extends Form {
     
-    public static int userid = 1;
+    public static int userid = 2;
     
     public Resources theme;
     Form current;
