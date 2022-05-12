@@ -35,8 +35,8 @@ class Streamer
      *      minMessage = "The link must be at least {{ limit }} characters long",
      *      maxMessage = "The link cannot be longer than {{ limit }} characters"
      * )
-     * 
-     * 
+     *
+     *
      * @ORM\Column(name="lienStreaming", type="string", length=50, nullable=false)
      */
     private $lienstreaming;
@@ -86,6 +86,11 @@ class Streamer
         $this->idstreamer = $idstreamer;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getIdstreamer()->getNom();
     }
 
 }

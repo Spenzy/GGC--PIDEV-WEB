@@ -64,6 +64,7 @@
                                 <a href="#" class="nav-item nav-link active">Home</a>
                                 <a href="{{ path('app_publication_index') }}" class="nav-item nav-link">Forum</a>
                                 <a href="{{ path('app_streamer_index') }}" class="nav-item nav-link">Streamers</a>
+                                <a href="{{ path('app_plan_index') }}" class="nav-item nav-link">Plan</a>
                                 <a href="{{ path('affichEvent') }}" class="nav-item nav-link">Evennements</a>
                                 <div class="nav-item dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
@@ -108,7 +109,7 @@
         var botmanWidget = {
             frameEndpoint: '{{ path("chatframe") }}',
             chatServer: '{{ path("message") }}',
-            introMessage: 'Hello, I am a Foody ,You Can Ask Me Any Thing ',
+            introMessage: 'Hello, I am a bot ,You Can Ask Me Any Thing ',
             title: 'Easy to Eat Chatbot',
             mainColor: '#456765',
             bubbleBackground: '#ff76f4',

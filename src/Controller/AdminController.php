@@ -163,7 +163,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/plan/admin", name="app_plan_admin", methods={"GET"})
+     * @Route("/plan/admin", name="app_plan_admin", methods={"GET","POST"})
      */
     public function adminplan(PlanRepository $planRepository): Response
     {

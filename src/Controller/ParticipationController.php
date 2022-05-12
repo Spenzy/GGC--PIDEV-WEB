@@ -7,6 +7,7 @@ use App\Entity\Participation;
 use App\Entity\Personne;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\ParticipationRepository;
@@ -32,11 +33,11 @@ class ParticipationController extends AbstractController
     /**
      * @Route("/addParticipation{ref}", name="addParticipation")
      */
-    public function ajouterParticipation(Request $request, $ref, \Swift_Mailer $mailer,
+    public function ajouterParticipation(Request $request, $ref,SessionInterface $session, \Swift_Mailer $mailer,
                              ParticipationRepository $pr, EvenementRepository $er,
                              ClientRepository $clientRepo)
     {   
-        $userid = 2;
+        $userid = $session->get("user_id");
 
         $Participation = new Participation();
         $event = new Evenement();

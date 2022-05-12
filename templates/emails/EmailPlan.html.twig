@@ -1,0 +1,9 @@
+{% extends 'emails/mail.html.twig' %}
+
+{% block content %}
+
+    <h1><span>Une remise à ne pas rater!</span></h1>
+
+    <h1>Bonjour Mr/Mme </h1>
+    <h4> Le plan d'id {{ plan.idplan }} est de date {{ plan.date | date('Y-m-d')}} </h4>
+{% endblock %}

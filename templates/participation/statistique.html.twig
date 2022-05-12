@@ -1,0 +1,42 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block title %}Statistiques{% endblock %}
+
+{% block body %}
+    <script src="../../back/assets/js/plugins/chartjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
+
+    <div class="container">
+        <h1>Statistiques participation</h1>
+        <br><br><br><br>
+        <canvas id="participations" width="400" height="100"></canvas>
+    </div>
+
+
+
+    <script>
+        let participations = document.querySelector("#participations")
+        let partGraph = new Chart(participations, {
+            type: "line",
+            data: {
+                labels: {{ titreEvents|raw }},
+                datasets: [{
+                    label: "Nombre de participation",
+                    data: {{ participationsCount|raw }}
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        })
+    </script>
+
+{% endblock %}
