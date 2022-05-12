@@ -16,6 +16,7 @@ import com.codename1.ui.layouts.BoxLayout;
 import entities.Publication;
 import gui.HomeForm;
 import services.ServicePublication;
+import utils.Statics;
 
 /**
  *
@@ -49,7 +50,7 @@ public class AddPublicationForm extends Form{
                 Publication p = new Publication();
                 p.setDesc(tfDesc.getText());
                 p.setTitre(tfTitre.getText());
-                p.setId_client(HomeForm.userid);
+                p.setId_client(Statics.userid);
                 
                 if( ServicePublication.getInstance().addPublication(p) ){
                     Dialog.show("Success","Publication ajouté",new Command("OK"));

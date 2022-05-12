@@ -12,7 +12,10 @@ use App\Repository\VoteRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -110,6 +113,51 @@ class PubService extends AbstractController
             unset($pub[$k]);
         }
         return $pub;
+    }
+
+
+    /**
+     *  @Route("/archiver/{id}", name="ArchiverPost")
+     */
+    public function archiver (Request $request,MailerInterface $mailer, NormalizerInterface $Normalizer, $id, PublicationRepository $publiRepo)
+    {
+        $publication = $publiRepo->find($id);
+
+        $parameters = json_decode($request->getContent(), true);
+
+        if($publication->getArchive()==true){
+            $publication->setArchive(false);
+            mail("Désarchivé", $publication, $mailer);
+        }else{
+            mail("Archivé", $publication, $mailer);
+            $publication->setArchive(true);
+        }
+
+        $publiRepo->add($publication);
+
+        $jsonContent = $Normalizer->normalize($publication, 'json', ['groups' => 'post: read']);
+        return new Response (json_encode($jsonContent));
+    }
+
+    public function mail(string $etat, Publication $publication, MailerInterface $mailer)
+    {
+        $email = (new TemplatedEmail())
+            ->from('gamergeekscommunity@gmail.com')
+            ->to($publication->getIdclient()->getIdclient()->getEmail())
+            ->subject('Archivage publication!')
+            ->embedFromPath('img/LogoGGC.png', 'logo')
+            ->htmlTemplate('emails/archivemail.html.twig')
+            ->context([
+                'p' => $publication,
+                'date' => new \DateTime('today'),
+                'archive' => $etat
+            ]);
+
+        try {
+            $mailer->send($email);
+        } catch (TransportExceptionInterface $e) {
+            var_dump($e->getMessage());
+        }
     }
 
 }

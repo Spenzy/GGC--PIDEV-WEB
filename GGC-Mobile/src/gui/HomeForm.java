@@ -15,6 +15,7 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.util.Resources;
 import gui.commande.HomeLivraison;
 import gui.commande.ListeCommande;
+import gui.forum.ListArchivageForm;
 import gui.shop.HomeProduit;
 import gui.shop.HomeShop;
 import utils.Statics;
@@ -25,9 +26,7 @@ import gui.forum.ListPublicationForm;
  * @author Spenz
  */
 public class HomeForm extends Form {
-    
-    public static int userid = 2;
-    
+        
     public Resources theme;
     Form current;
 
@@ -70,6 +69,7 @@ public class HomeForm extends Form {
 
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Gestion du forum", null, (gf) -> {
+                    new ListArchivageForm(current).show();
 
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Gestion des produits", null, (gp) -> {
@@ -84,9 +84,7 @@ public class HomeForm extends Form {
 
             } else if (address.getText().equals("client") && password.getText().equals("client")) {
                 
-                //Session
-                int uid=6;
-                Statics.userid=6;
+                Statics.userid=2;
                 
                 Form menuForm = new Form("Bienvenue", BoxLayout.y());
                 menuForm.getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, (e) -> {
@@ -113,6 +111,7 @@ public class HomeForm extends Form {
                     new ListPublicationForm(menuForm).show();
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Shop", null, (gp) -> {
+                    int uid=Statics.userid;
                     new HomeShop(uid,menuForm).show();
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Commande", null, (gl) -> {

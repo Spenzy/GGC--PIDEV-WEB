@@ -13,11 +13,11 @@ import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextArea;
 import com.codename1.ui.events.ActionEvent;
-import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import entities.Commentaire;
 import gui.HomeForm;
 import services.ServiceCommentaire;
+import utils.Statics;
 
 /**
  *
@@ -60,7 +60,7 @@ public class CommentaireContainer extends Container{
         
         
         Container cntEditSupp = new Container(BoxLayout.x());
-        if(commentaire.getIdClient()==HomeForm.userid)
+        if(commentaire.getIdClient()==Statics.userid)
             cntEditSupp.addAll(btnModifier, btnSupp);
 
         this.addAll(publicationBody, cntEditSupp);

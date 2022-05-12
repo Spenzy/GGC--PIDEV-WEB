@@ -62,6 +62,8 @@ public class ServicePublication {
                 String jsonDate = obj.get("date").toString();
                 Date date = new SimpleDateFormat("yyyy-mm-dd").parse(jsonDate); 
                 String jsonArchive = obj.get("archive").toString();
+                float nbrComm = Float.parseFloat(obj.get("nbrCommentaire").toString());
+                float nbrVote = Float.parseFloat(obj.get("nbrVote").toString());
                 
                 p.setId_publication((int)idpub);
                 p.setTitre(obj.get("object").toString());
@@ -69,6 +71,8 @@ public class ServicePublication {
                 p.setDatePub(date);
                 p.setArchive(jsonArchive.equals("true"));
                 p.setId_client(0);
+                p.setNbrCommentaire((int)nbrComm);
+                p.setNbrVote((int)nbrVote);
                 
                 publications.add(p);
             }
@@ -96,7 +100,7 @@ public class ServicePublication {
     
     public boolean addPublication(Publication p) {
 
-        String url = Statics.BASE_URL + "/forum/new/"; //création de l'URL
+        String url = Statics.BASE_URL + "/forum/new"; //création de l'URL
         req.setUrl(url);
         req.setPost(true);
         req.setContentType("application/json");
@@ -140,8 +144,8 @@ public class ServicePublication {
         return resultOK;
     }
     
-    public boolean supprimerPublication(int idpublication){
-        String url = Statics.BASE_URL + "/forum/delete/" + idpublication;
+    public boolean archiverPublication(int idpublication){
+        String url = Statics.BASE_URL + "/forum/archiver/" + idpublication;
 
         req.setUrl(url);
         req.setPost(false);

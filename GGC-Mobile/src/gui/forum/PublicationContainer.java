@@ -19,6 +19,7 @@ import gui.HomeForm;
 import java.util.ArrayList;
 import services.ServiceCommentaire;
 import services.ServicePublication;
+import utils.Statics;
 
 /**
  *
@@ -72,23 +73,10 @@ public class PublicationContainer extends Container{
         btnModifier.addActionListener((cnx)->{
             new EditPublicationForm(previous, publication).show();
         });
-        Button btnSupp = new Button("Supprimer");
-        btnSupp.addActionListener((ActionEvent evt) -> {
-            Dialog.show("Alerte", "Etes-vous sur de cette suppression !!", new Command("OK"));
-
-            if (ServicePublication.getInstance().supprimerPublication(publication.getId_publication())) {
-                Dialog.show("Success", "suppression avec succes", new Command("OK"));
-                previous.showBack();// Revenir vers l'interface précédente
-            } else {
-                Dialog.show("ERROR", "Erreur de suppression", new Command("OK"));
-            }
-            
-        });
-        
         
         Container cntEditSuppShow = new Container(BoxLayout.x());
-        if(publication.getId_client()==HomeForm.userid)
-            cntEditSuppShow.addAll(btnModifier, btnSupp, showBtn);
+        if(publication.getId_client()==Statics.userid)
+            cntEditSuppShow.addAll(btnModifier, showBtn);
         else
             cntEditSuppShow.addAll(showBtn);
         

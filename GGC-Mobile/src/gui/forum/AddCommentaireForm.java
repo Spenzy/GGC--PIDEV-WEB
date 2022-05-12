@@ -14,8 +14,8 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import entities.Commentaire;
-import gui.HomeForm;
 import services.ServiceCommentaire;
+import utils.Statics;
 
 /**
  *
@@ -44,7 +44,7 @@ public class AddCommentaireForm extends Form{
             {
                 
                 Commentaire c = new Commentaire();
-                c.setIdClient(HomeForm.userid);
+                c.setIdClient(Statics.userid);
                 c.setId_publication(idpublication);
                 c.setDescription(tfDesc.getText());
                 

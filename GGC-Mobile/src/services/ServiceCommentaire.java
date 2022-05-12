@@ -13,7 +13,6 @@ import com.codename1.l10n.ParseException;
 import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.events.ActionListener;
 import entities.Commentaire;
-import entities.Publication;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -100,7 +99,7 @@ public class ServiceCommentaire {
     
     public boolean addCommentaire(Commentaire c) {
 
-        String url = Statics.BASE_URL + "/commentaire/new/"; //création de l'URL
+        String url = Statics.BASE_URL + "/commentaire/new"; //création de l'URL
         req.setUrl(url);
         req.setPost(true);
         req.setContentType("application/json");
