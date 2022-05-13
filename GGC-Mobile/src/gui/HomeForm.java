@@ -15,6 +15,8 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.util.Resources;
 import gui.commande.HomeLivraison;
 import gui.commande.ListeCommande;
+import gui.evenement.AffichEventClient;
+import gui.evenement.HomeEvenement;
 import gui.shop.HomeProduit;
 import gui.shop.HomeShop;
 import utils.Statics;
@@ -30,7 +32,7 @@ public class HomeForm extends Form {
     /*Garder traçe de la Form en cours pour la passer en paramètres 
     aux interfaces suivantes pour pouvoir y revenir plus tard en utilisant
     la méthode showBack*/
-    public HomeForm() {
+    public HomeForm(Resources res) {
         current = this; //Récupération de l'interface(Form) en cours
         setTitle("Sign in");
         setLayout(BoxLayout.y());
@@ -42,7 +44,43 @@ public class HomeForm extends Form {
 
         //Tester asresse et password
         connect.addActionListener((connexion) -> {
-            if (address.getText().equals("admin") && password.getText().equals("admin")) {
+            
+            if (address.getText().equals("moderateur") && password.getText().equals("moderateur")) {
+                 //adresse et mot de passe valide welcome menu
+                Form menuForm = new Form("Espace Moderateur", BoxLayout.y());
+                menuForm.getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, (e) -> {
+                    showBack();
+                });
+
+                Toolbar tb = menuForm.getToolbar();
+                //Image logo = theme.getImage("LogoGGC.png");
+                //logo.scaledSmallerRatio(10 , 10);
+                //   Container topBar = BorderLayout.east(new Label(logo));
+                //topBar.add(BorderLayout.SOUTH, new Label("Cool App Tagline...", "SidemenuTagline"));
+                //  topBar.setUIID("SideCommand");
+                //   tb.addComponentToSideMenu(topBar);
+                menuForm.getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_LOGOUT, (evt4) -> {
+                    address.setText("");
+                    password.setText("");
+                    showBack();
+
+                });
+
+                //remplir les modules            
+                menuForm.getToolbar().addCommandToSideMenu("Gestion des Evenements", null, (ge) -> {
+                     new HomeEvenement(menuForm,res).show();
+
+                });
+                menuForm.getToolbar().addCommandToSideMenu("Gestion des streamers", null, (gs) -> {
+
+                });
+               
+
+                menuForm.show();
+                
+            }
+            
+           else if (address.getText().equals("admin") && password.getText().equals("admin")) {
                 //adresse et mot de passe valide welcome menu
                 Form menuForm = new Form("Espace Administrateur", BoxLayout.y());
                 menuForm.getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, (e) -> {
@@ -113,6 +151,7 @@ public class HomeForm extends Form {
 
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Evenements", null, (gm) -> {
+                     new AffichEventClient(menuForm).show();
 
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Forum", null, (gf) -> {
@@ -129,6 +168,8 @@ public class HomeForm extends Form {
                 });
 
                 menuForm.show();
+           
+                
             } else {
                 Dialog.show("Warning", "Invalid login or password!", "OK", null);
 

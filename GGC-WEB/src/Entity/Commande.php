@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Entity;
-use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -18,7 +17,7 @@ class Commande
      *
      * @ORM\Column(name="idCommande", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $idcommande;
 
@@ -26,8 +25,6 @@ class Commande
      * @var string
      *
      * @ORM\Column(name="adresse", type="string", length=100, nullable=false)
-     * @Assert\NotNull(message="Champ obligatoire")
-     * @Assert\NotBlank(message="Veuillez saisir l'adresse de livraison")
      */
     private $adresse;
 
@@ -35,7 +32,6 @@ class Commande
      * @var float
      *
      * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
-     * @Assert\NotNull(message="Champ obligatoire")
      */
     private $prix;
 
@@ -43,7 +39,6 @@ class Commande
      * @var bool
      *
      * @ORM\Column(name="livree", type="boolean", nullable=false)
-     * @Assert\NotNull(message="Champ obligatoire")
      */
     private $livree;
 
@@ -51,19 +46,18 @@ class Commande
      * @var \DateTime
      *
      * @ORM\Column(name="DateCommande", type="date", nullable=false)
-     * @Assert\NotNull(message="Champ obligatoire")
      */
     private $datecommande;
 
     /**
      * @var \Client
      *
-     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\OneToOne(targetEntity="Client")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idClient", referencedColumnName="idClient")
      * })
-     * @Assert\NotNull(message="Champ obligatoire")
      */
     private $idclient;
 
@@ -132,9 +126,5 @@ class Commande
         return $this;
     }
 
-    public function __toString()
-    {
-        return (string) $this->getIdcommande();
-    }
 
 }

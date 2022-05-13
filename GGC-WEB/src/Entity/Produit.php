@@ -1,17 +1,14 @@
 <?php
 
 namespace App\Entity;
-use Symfony\Component\Validator\Constraints as Assert;
+
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Produit
  *
  * @ORM\Table(name="produit")
  * @ORM\Entity(repositoryClass="App\Repository\ProduitRepository")
- * @UniqueEntity("reference",message="Cette référence est déja attribuée à un produit")
  */
 class Produit
 {
@@ -20,8 +17,7 @@ class Produit
      *
      * @ORM\Column(name="reference", type="integer", nullable=false)
      * @ORM\Id
-     * @Assert\NotBlank(message="Vous devez remplir ce champ")
-     * @Groups("post:read")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $reference;
 
@@ -29,8 +25,6 @@ class Produit
      * @var string
      *
      * @ORM\Column(name="libelle", type="string", length=30, nullable=false)
-     * @Assert\NotBlank(message="Vous devez remplir ce champ")
-     * @Groups("post:read")
      */
     private $libelle;
 
@@ -38,8 +32,6 @@ class Produit
      * @var string
      *
      * @ORM\Column(name="categorie", type="string", length=30, nullable=false)
-     * @Assert\NotBlank(message="Vous devez remplir ce champ")
-     * @Groups("post:read")
      */
     private $categorie;
 
@@ -47,9 +39,6 @@ class Produit
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=100, nullable=false)
-     * @Assert\NotBlank(message="Vous devez remplir ce champ")
-     * @Assert\Type("string",message="Veuillez saisir une chaine")
-     * @Groups("post:read")
      */
     private $description;
 
@@ -57,41 +46,19 @@ class Produit
      * @var float
      *
      * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
-     * @Assert\NotBlank(message="Vous devez remplir ce champ")
-     * @Assert\Type("float", message="Veuillez saisir un entier")
-     * @Assert\PositiveOrZero(message="Le prix doit etre positif")
-     * @Groups("post:read")
      */
     private $prix;
-
-
 
     /**
      * @var int
      *
      * @ORM\Column(name="note", type="integer", nullable=false)
-     * @Groups("post:read")
      */
     private $note;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="img", type="string" , length=255 , nullable=true)
-     * @Groups("post:read")
-     *
-
-     */
-    private $img;
 
     public function getReference(): ?int
     {
         return $this->reference;
-    }
-    public function setReference(int $reference): self
-    {
-        $this->reference=$reference;
-        return $this;
     }
 
     public function getLibelle(): ?string
@@ -153,24 +120,6 @@ class Produit
 
         return $this;
     }
-
-    public function getImg(): ?string
-    {
-        return $this->img;
-    }
-
-    public function setImg(?string $img): self
-    {
-        $this->img = $img;
-
-        return $this;
-    }
-
-    public function __toString()
-    {
-        return (string) $this->reference;
-    }
-
 
 
 }

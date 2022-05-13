@@ -21,15 +21,6 @@ class PlanRepository extends ServiceEntityRepository
         parent::__construct($registry, Plan::class);
     }
 
-    public function findPlanByStreamer($idstreamer)
-    {
-        return $this->createQueryBuilder('p')
-            ->where(':idS=p.idstreamer')
-            ->setParameter('idS', $idstreamer)
-            ->getQuery()
-            ->getResult();
-    }
-
     /**
      * @throws ORMException
      * @throws OptimisticLockException
@@ -53,17 +44,6 @@ class PlanRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
-
-    public function findAllPlans(){
-        return $this->getEntityManager()->createQuery('select p from App\Entity\Plan p order by p.date desc')->getResult();
-    }
-
-
-
-
-
-
-    
 
     // /**
     //  * @return Plan[] Returns an array of Plan objects

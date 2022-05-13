@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\Entity\Client;
 use App\Entity\Commande;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
@@ -46,17 +45,6 @@ class CommandeRepository extends ServiceEntityRepository
         }
     }
 
-    public function afficheCommandesClients(int $idclient)
-    {
-        return $this->createQueryBuilder('c')
-                    ->where('c.idclient = ?1')
-                    ->setParameter('1',$idclient)
-                    ->getQuery()->getResult();
-    }
-
-    public function CommandeNonLivree(){
-        return $this->createQueryBuilder('c')->where('c.livree=0');
-    }
     // /**
     //  * @return Commande[] Returns an array of Commande objects
     //  */

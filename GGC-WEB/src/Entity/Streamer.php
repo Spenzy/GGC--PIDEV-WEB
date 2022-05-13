@@ -2,9 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,26 +14,14 @@ class Streamer
 {
     /**
      * @var string
-     * @Assert\Length(
-     *      min = 2,
-     *      max = 90,
-     *      minMessage = "The information must be at least {{ limit }} characters long",
-     *      maxMessage = "The information cannot be longer than {{ limit }} characters"
-     * )
+     *
      * @ORM\Column(name="informations", type="string", length=100, nullable=false)
      */
     private $informations;
 
     /**
      * @var string
-     * @Assert\Length(
-     *      min = 12,
-     *      max = 90,
-     *      minMessage = "The link must be at least {{ limit }} characters long",
-     *      maxMessage = "The link cannot be longer than {{ limit }} characters"
-     * )
-     * 
-     * 
+     *
      * @ORM\Column(name="lienStreaming", type="string", length=50, nullable=false)
      */
     private $lienstreaming;
@@ -45,6 +30,7 @@ class Streamer
      * @var \Personne
      *
      * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\OneToOne(targetEntity="Personne")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idStreamer", referencedColumnName="id_personne")
@@ -87,5 +73,6 @@ class Streamer
 
         return $this;
     }
+
 
 }

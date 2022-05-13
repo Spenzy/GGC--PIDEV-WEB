@@ -2,11 +2,7 @@
 
 namespace App\Entity;
 
-use DateTime;
-use DateTimeInterface;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Publication
@@ -22,7 +18,6 @@ class Publication
      * @ORM\Column(name="idPublication", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Groups("post:read")
      */
     private $idpublication;
 
@@ -30,9 +25,6 @@ class Publication
      * @var string
      *
      * @ORM\Column(name="object", type="string", length=100, nullable=false)
-     * @Assert\NotBlank(message="Veuillez entrer un objet!")
-     * @Assert\Type("string", message="Le contenu {{ description }} n'est pas une chaine valide.")
-     * @Groups("post:read")
      */
     private $object;
 
@@ -40,8 +32,6 @@ class Publication
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=250, nullable=false)
-     * @Assert\Type("string", message="Le contenu {{ description }} n'est pas une chaine valide.")
-     * @Groups("post:read")
      */
     private $description;
 
@@ -49,25 +39,20 @@ class Publication
      * @var bool
      *
      * @ORM\Column(name="archive", type="boolean", nullable=false)
-     * @Groups("post:read")
      */
     private $archive;
 
     /**
-     * @var \Client
+     * @var int
      *
-     * @ORM\ManyToOne(targetEntity="Client")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idClient", referencedColumnName="idClient")
-     * })
+     * @ORM\Column(name="idClient", type="integer", nullable=false)
      */
     private $idclient;
 
     /**
-     * @var DateTime
+     * @var \DateTime
      *
      * @ORM\Column(name="date", type="date", nullable=false)
-     * @Groups("post:read")
      */
     private $date;
 
@@ -112,32 +97,29 @@ class Publication
         return $this;
     }
 
-    public function getIdclient(): ?Client
+    public function getIdclient(): ?int
     {
         return $this->idclient;
     }
 
-    public function setIdclient(?Client $idclient): self
+    public function setIdclient(int $idclient): self
     {
         $this->idclient = $idclient;
 
         return $this;
     }
 
-    public function getDate(): ?DateTimeInterface
+    public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
     }
 
-    public function setDate(DateTimeInterface $date): self
+    public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
 
         return $this;
     }
 
-    public function __toString(): string
-    {
-        return "Publication";
-    }
+
 }

@@ -44,36 +44,7 @@ class AvisRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
-    public function findAvis(int $reference)
-    {
-    return $this->createQueryBuilder('a')
-                                    ->where('a.referenceproduit=?1 ')
-                                    ->setParameter('1',$reference)
-                                    ->getQuery()
-                                    ->getResult();
-    }
 
-    public function countExcellentByProduit(int $idproduit){
-        return $this->getEntityManager()
-                ->createQuery('select count(a) from App\Entity\Avis a where a.referenceproduit = :idprod and a.type like :type')
-            ->setParameter('type','excellent')
-                ->setParameter('idprod',$idproduit)
-                ->getSingleScalarResult();
-    }
-    public function countMoyenByProduit(int $idproduit){
-        return $this->getEntityManager()
-            ->createQuery('select count(a) from App\Entity\Avis a where a.referenceproduit = :idprod and a.type like :type')
-            ->setParameter('type','moyen')
-            ->setParameter('idprod',$idproduit)
-            ->getSingleScalarResult();
-    }
-    public function countMediocreByProduit(int $idproduit){
-        return $this->getEntityManager()
-            ->createQuery('select count(a) from App\Entity\Avis a where a.referenceproduit = :idprod and a.type like :type')
-            ->setParameter('type','mediocre')
-            ->setParameter('idprod',$idproduit)
-            ->getSingleScalarResult();
-    }
     // /**
     //  * @return Avis[] Returns an array of Avis objects
     //  */

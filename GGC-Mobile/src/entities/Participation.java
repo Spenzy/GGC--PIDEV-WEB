@@ -14,18 +14,17 @@ public class Participation {
     private int idParticipation;
     private int idClient;
     private int idEvent;
-    private int nbrEtoile;
-    
+  
 
     public Participation() {
 
     }
 
-    public Participation(int idClient, int idEvent, int nbrEtoile) {
+    public Participation(int idClient, int idEvent) {
         
         this.idClient = idClient;
         this.idEvent = idEvent;
-        this.nbrEtoile = nbrEtoile;
+       
         
     }
 
@@ -53,19 +52,13 @@ public class Participation {
         this.idEvent = idEvent;
     }
 
-    public void setNbrEtoile(int nbrEtoile) {
-        this.nbrEtoile = nbrEtoile;
-    }
-
-    public int getNbrEtoile() {
-        return nbrEtoile;
-    }
-
     @Override
     public String toString() {
-        return "Participation{" + "idParticipation=" + idParticipation + ", idClient=" + idClient + ", idEvent=" + idEvent + ", nbrEtoile=" + nbrEtoile + '}';
+        return "Participation{" + "idParticipation=" + idParticipation + ", idClient=" + idClient + ", idEvent=" + idEvent + '}';
     }
 
+    
+   
     
 
 }

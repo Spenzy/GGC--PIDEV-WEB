@@ -4,33 +4,29 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * Vote
  *
- * @ORM\Table(name="vote", indexes={@ORM\Index(name="fk_vote_publication", columns={"idPublication"}), @ORM\Index(name="fk_vote_client", columns={"idClient"})})
+ * @ORM\Table(name="vote", indexes={@ORM\Index(name="fk_vote_publication", columns={"idPublication"})})
  * @ORM\Entity(repositoryClass="App\Repository\VoteRepository")
  */
 class Vote
 {
     /**
-     * @var \Client
+     * @var int
      *
-     * @ORM\Id()
-     * @ORM\ManyToOne(targetEntity="Client")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idClient", referencedColumnName="idClient")
-     * })
+     * @ORM\Column(name="idClient", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $idclient;
 
     /**
-     * @var \Publication
+     * @var int
      *
-     * @ORM\ManyToOne(targetEntity="Publication")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idPublication", referencedColumnName="idPublication")
-     * })
+     * @ORM\Column(name="idPublication", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $idpublication;
 
@@ -41,27 +37,14 @@ class Vote
      */
     private $type;
 
-    public function getIdclient(): ?Client
+    public function getIdclient(): ?int
     {
         return $this->idclient;
     }
 
-    public function setIdclient(?Client $idclient): self
-    {
-        $this->idclient = $idclient;
-
-        return $this;
-    }
-
-    public function getIdpublication(): ?Publication
+    public function getIdpublication(): ?int
     {
         return $this->idpublication;
-    }
-
-    public function setIdpublication(?Publication $pub): self
-    {
-        $this->idpublication = $pub;
-        return $this;
     }
 
     public function getType(): ?string

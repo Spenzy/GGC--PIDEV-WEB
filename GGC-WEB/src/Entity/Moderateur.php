@@ -1,10 +1,8 @@
 <?php
 
 namespace App\Entity;
-use App\Entity\Personne;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Moderateur
@@ -15,26 +13,17 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Moderateur
 {
     /**
-     * @var \Personne
+     * @var int
      *
+     * @ORM\Column(name="id_moderateur", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\OneToOne(targetEntity="Personne")
-     * @ORM\JoinColumns({
-     * @ORM\JoinColumn(name="id_moderateur", referencedColumnName="id_personne")
-     * })
-     * 
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idModerateur;
 
-    public function getIdModerateur(): ?Personne
+    public function getIdModerateur(): ?int
     {
         return $this->idModerateur;
-    }
-    public function setIdModerateur(?Personne $idModerateur): self
-    {
-        $this->idModerateur = $idModerateur;
-
-        return $this;
     }
 
 

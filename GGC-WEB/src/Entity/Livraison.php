@@ -1,42 +1,30 @@
 <?php
 
 namespace App\Entity;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Livraison
  *
  * @ORM\Table(name="livraison", indexes={@ORM\Index(name="fk_livraison_livreur", columns={"idLivreur"}), @ORM\Index(name="fk_livraison_commande", columns={"idCommande"})})
  * @ORM\Entity(repositoryClass="App\Repository\LivraisonRepository")
- * @UniqueEntity("idcommande",message="cette commande est déja affectée à une livraison")
  */
 class Livraison
 {
     /**
-     * @var \Commande
+     * @var int
      *
+     * @ORM\Column(name="idCommande", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Commande")
-     *  @ORM\JoinColumns({
-     * @ORM\JoinColumn(name="idCommande", referencedColumnName="idCommande")
-     * })
-     * @Assert\NotBlank(message="Champ obligatoire")
-     * @Assert\NotNull(message="Champ obligatoire")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idcommande;
 
     /**
-     * @var \Livreur
+     * @var int
      *
-     * @ORM\ManyToOne(targetEntity="Livreur")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idLivreur", referencedColumnName="idLivreur")
-     * })
-     * @Assert\NotBlank(message="Champ obligatoire")
-     * @Assert\NotNull(message="Champ obligatoire")
+     * @ORM\Column(name="idLivreur", type="integer", nullable=false)
      */
     private $idlivreur;
 
@@ -44,29 +32,20 @@ class Livraison
      * @var \DateTime
      *
      * @ORM\Column(name="DateHeure", type="date", nullable=false)
-     * @Assert\NotBlank(message="Champ obligatoire")
-     * @Assert\NotNull(message="Champ obligatoire")
-     * @Assert\GreaterThan(value="today" ,message="Veuillez saisir une date supérieure à celle d'aujourd'hui")
-     *
      */
     private $dateheure;
 
-    public function getIdcommande(): ?Commande
+    public function getIdcommande(): ?int
     {
         return $this->idcommande;
     }
-    public function setIdcommande(Commande $idcommande): self
-    {
-        $this->idcommande = $idcommande;
 
-        return $this;
-    }
-    public function getIdlivreur(): ?Livreur
+    public function getIdlivreur(): ?int
     {
         return $this->idlivreur;
     }
 
-    public function setIdlivreur(Livreur $idlivreur): self
+    public function setIdlivreur(int $idlivreur): self
     {
         $this->idlivreur = $idlivreur;
 

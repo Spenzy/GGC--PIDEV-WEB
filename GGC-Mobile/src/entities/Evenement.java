@@ -21,14 +21,23 @@ public class Evenement {
     private String localisation;
     private String description;
     private int nbrParticipant;
-    private String Titre; 
-    
+    private String Titre;
+
     public Evenement() {
     }
 
     public Evenement(int reference) {
         this.reference = reference;
     }
+
+    public Evenement(int reference, String localisation, String description, int nbrParticipant, String Titre) {
+        this.reference = reference;
+        this.localisation = localisation;
+        this.description = description;
+        this.nbrParticipant = nbrParticipant;
+        this.Titre = Titre;
+    }
+    
 
     public Evenement(int reference, Date dateDebut, Date dateFin, String localisation, String description, int nbrParticipant, String Titre) {
         this.reference = reference;
@@ -40,6 +49,9 @@ public class Evenement {
         this.Titre = Titre;
     }
 
+   
+
+ 
     public String getTitre() {
         return Titre;
     }
@@ -47,8 +59,6 @@ public class Evenement {
     public void setTitre(String Titre) {
         this.Titre = Titre;
     }
-
-
 
     public int getReference() {
         return reference;
@@ -65,7 +75,6 @@ public class Evenement {
     public String getHeureFin() {
         return heureFin;
     }*/
-
     public String getLocalisation() {
         return localisation;
     }
@@ -81,12 +90,9 @@ public class Evenement {
 //    public String getImage() {
 //        return image;
 //    }
-
 //    public void setImage(String image) {
 //        this.image = image;
 //    }
-    
-
     public void setReference(int reference) {
         this.reference = reference;
     }
@@ -103,14 +109,13 @@ public class Evenement {
         return dateFin;
     }
 
-   /* public void setHeureDebut(String heureDebut) {
+    /* public void setHeureDebut(String heureDebut) {
         this.heureDebut = heureDebut;
     }
 
     public void setHeureFin(String heureFin) {
         this.heureFin = heureFin;
     }*/
-
     public void setLocalisation(String localisation) {
         this.localisation = localisation;
     }
@@ -125,7 +130,9 @@ public class Evenement {
 
     @Override
     public String toString() {
-        return "Evenement{" + "reference=" + reference + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin  + ", localisation=" + localisation + ", description=" + description + ", nbrParticipant=" + nbrParticipant + '}';
+        return "Evenement{" + "reference=" + reference + ", localisation=" + localisation + ", description=" + description + ", nbrParticipant=" + nbrParticipant + ", Titre=" + Titre + '}';
     }
+
+   
 
 }

@@ -9,7 +9,7 @@ package utils;
  * @author Spenz
  */
 public class Statics {
-    public static final String BASE_URL="http://127.0.0.1:8000/JSON";
+    public static final String BASE_URL="http://127.0.0.1:8000";
     public static int userid;
     
 }

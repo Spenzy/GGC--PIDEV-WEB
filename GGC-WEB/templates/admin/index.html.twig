@@ -12,13 +12,13 @@
     <title>{% block title %} Admin Dashboard {% endblock %}</title>
 
     <!-- Custom fonts for this template-->
-    <link href="{{asset("vendor/fontawesome-free/css/all.min.css")}}" rel="stylesheet" type="text/css">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="{{asset("css/sb-admin-2.min.css")}}" rel="stylesheet">
+    <link href={{asset("css/sb-admin-2.min.css")}} rel="stylesheet">
 
 </head>
 
@@ -55,20 +55,10 @@
                 Espace de gestion
             </div>
 
-            <!-- Nav Item - Gestion d'utilisateur -->
-            <li class="nav-item">
-                <a class="nav-link" href={{path('app_client_index')}} >
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Gestion d'utilisateur</span></a>
-            </li>
+            
 
             <!-- Nav Item - Gestion des evenements -->
             <li class="nav-item">
-                <a class="nav-link" href={{path('app_moderateur_index')}} >
-                                    <span>Gestion  Moderateur</span></a>
-
-            </li>
-            <li>
                 <a class="nav-link" href="{{ path('event') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Gestion  Evenements</span></a>
@@ -77,32 +67,9 @@
            
            <!-- Nav Item - Forum -->
             <li class="nav-item">
-                <a class="nav-link" href={{path('app_produit_index')}}>
+                <a class="nav-link" href="{{ path('MesPar') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Gestion Produits</span></a>
-            </li>
-
-            <!-- Nav Item - Gestions Commandes -->
-            <li class="nav-item">
-                <a class="nav-link" >
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Gestion Commandes</span></a>
-            </li>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForum"
-                   aria-expanded="true" aria-controls="collapseForum">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Gestion Forum</span>
-                </a>
-                <div id="collapseForum" class="collapse" aria-labelledby="headingForum" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Archivage:</h6>
-                        <a class="collapse-item" href="{{ path('app_admin_pubarchive', {'button_label': "Désarchiver"}) }}">Archivée</a>
-                        <a class="collapse-item" href="{{ path('app_admin_pubnonarchive') }}">Non Archivée</a>
-                    </div>
-                </div>
+                    <span>Gestion Streamers</span></a>
             </li>
 
         </ul>
@@ -126,7 +93,7 @@
                     <form
                             class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" id="myInput" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            <input type="text"  id="myInput" class="form-control bg-light border-0 small" placeholder="Search for..."
                                    aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button">
@@ -162,7 +129,7 @@
                                 </form>
                             </div>
                         </li>
- 
+
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
@@ -318,12 +285,10 @@
                 </nav>
                 {% endblock %}
                 <!-- End of Topbar -->
+                 {% block body %}
 
-                {% block body %}
-
-                {% endblock %}
-            </div>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                 {% endblock %}
+                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
             <script type="text/javascript">
       $(document).ready(function(){
@@ -336,31 +301,16 @@
   });
 });
 </script>
+            </div>
+           
         </div>
 
         <!-- Page Content -->
         
-    </div>
-    
+            
+      
 
-    {% block javascripts %}
-        <!-- Bootstrap core JavaScript-->
-        <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-        <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-        <!-- Core plugin JavaScript-->
-        <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-
-        <!-- Custom scripts for all pages-->
-        <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
-
-        <!-- Page level plugins -->
-        <script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>
-
-        <!-- Page level custom scripts -->
-        <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
-        <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
-    {% endblock %}
     </div>
     
 

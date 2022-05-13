@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use App\Validator as CustomValidator;
 
 /**
  * Commentaire
@@ -19,17 +17,16 @@ class Commentaire
      *
      * @ORM\Column(name="idCommentaire", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $idcommentaire;
 
     /**
-     * @var \Publication
+     * @var int
      *
-     * @ORM\ManyToOne(targetEntity="Publication")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idPublication", referencedColumnName="idPublication")
-     * })
+     * @ORM\Column(name="idPublication", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $idpublication;
 
@@ -37,18 +34,13 @@ class Commentaire
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=250, nullable=false)
-     * @Assert\NotBlank(message="Veuillez taper un commentaire!")
-     * @Assert\Type("string", message="Le contenu {{ description }} n'est pas une chaine valide.")
      */
     private $description;
 
     /**
-     * @var \Client
+     * @var int
      *
-     * @ORM\ManyToOne(targetEntity="Client")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idClient", referencedColumnName="idClient")
-     * })
+     * @ORM\Column(name="idClient", type="integer", nullable=false)
      */
     private $idclient;
 
@@ -56,8 +48,6 @@ class Commentaire
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="date", nullable=false)
-     * @Assert\NotBlank
-     * @Assert\Type("Date")
      */
     private $date;
 
@@ -66,15 +56,9 @@ class Commentaire
         return $this->idcommentaire;
     }
 
-    public function getIdpublication(): ?Publication
+    public function getIdpublication(): ?int
     {
         return $this->idpublication;
-    }
-
-    public function setIdpublication(Publication $pub): self
-    {
-        $this->idpublication = $pub;
-        return $this;
     }
 
     public function getDescription(): ?string
@@ -89,12 +73,12 @@ class Commentaire
         return $this;
     }
 
-    public function getIdclient(): ?Client
+    public function getIdclient(): ?int
     {
         return $this->idclient;
     }
 
-    public function setIdclient(?Client $idclient): self
+    public function setIdclient(int $idclient): self
     {
         $this->idclient = $idclient;
 

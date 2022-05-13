@@ -36,7 +36,7 @@ class ParticipationController extends AbstractController
                              ParticipationRepository $pr, EvenementRepository $er,
                              ClientRepository $clientRepo)
     {   
-        $userid = 2;
+        $userid = 1;
 
         $Participation = new Participation();
         $event = new Evenement();
@@ -158,7 +158,6 @@ class ParticipationController extends AbstractController
             'titreEvents' => json_encode($titreEvents),
         ]);
     }
-
 
 
 }
