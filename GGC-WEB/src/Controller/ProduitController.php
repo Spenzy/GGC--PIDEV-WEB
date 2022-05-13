@@ -21,6 +21,7 @@ use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/produit")

@@ -16,7 +16,15 @@ public class Plan {
     Date date;
     Date heure;
     float duree;
-    String Description;
+    String Description, nomstreamer;
+
+    public String getNomstreamer() {
+        return nomstreamer;
+    }
+
+    public void setNomstreamer(String nomstreamer) {
+        this.nomstreamer = nomstreamer;
+    }
 
     public Plan() {
     }

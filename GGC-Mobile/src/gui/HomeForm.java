@@ -13,6 +13,7 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.util.Resources;
+import gui.Plan.ListPlanForm;
 import gui.commande.HomeLivraison;
 import gui.commande.ListeCommande;
 import gui.forum.ListArchivageForm;
@@ -20,6 +21,7 @@ import gui.shop.HomeProduit;
 import gui.shop.HomeShop;
 import utils.Statics;
 import gui.forum.ListPublicationForm;
+import gui.streamer.ListStreamerForm;
 
 /**
  *
@@ -102,7 +104,10 @@ public class HomeForm extends Form {
 
                 //remplir les modules            
                 menuForm.getToolbar().addCommandToSideMenu("Streamers", null, (gu) -> {
-
+                    new ListStreamerForm(menuForm).show();
+                });
+                menuForm.getToolbar().addCommandToSideMenu("Plan", null, (gu) -> {
+                    //new ListPlanForm(menuForm).show();
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Evenements", null, (gm) -> {
 
