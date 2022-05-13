@@ -38,20 +38,19 @@ class PlanService extends AbstractController
      */
     public function AllPlan(NormalizerInterface $normalizer,PlanRepository $planRepository): Response
     {
-        $plans = $planRepository->findAllPlans();
+        $plans = $planRepository->findAll();
         $listeplan = array();
+        $plan = array();
         foreach ($plans as $p) {
 
-            $plan = (array)$p;
-            foreach ($plans as $k => $v) {
-                $newkey = substr($k, 17);
-                $plan[$newkey] = $plan[$k];
-                unset($plan[$k]);
-            }
-
-            $plan["idclient"] = $p->getIdClient()->getIdClient()->getIdPersonne();
-            $plan["nomclient"] =$p->getIdClient()->getIdClient()->getNom();
-            $plan["referenceproduit"] =$p->getReferenceproduit()->getReference();
+            $plan["idPlan"] = $p->getIdplan();
+            $plan["idStreamer"] = $p->getIdstreamer()->getIdstreamer()->getIdPersonne();
+            $plan["nomstreamer"] =$p->getIdstreamer()->getIdstreamer()->getNom();
+            $plan["description"] = $p->getDescription();
+            $plan["duree"] = $p->getDuree();
+            $plan["heure"] = $p->getHeure();
+            $plan["date"] = $p->getDate();
+            $plan["idEvennement"] = $p->getIdevenement();
             $listeplan[] = $plan;
 
         }
@@ -59,42 +58,37 @@ class PlanService extends AbstractController
         $jsonContent = $normalizer->normalize($listeplan, 'json', ['groups' => 'post: read']);
         return new Response (json_encode($jsonContent));
     }
+
     /**
      * @Route("/new", name="addPlan")
      */
     public function new(Request $request, NormalizerInterface $Normalizer,PlanRepository $planRepository,StreamerRepository $streamerRepository): Response
     {
         $plan = new Plan();
-        $plan->setIdstreamer($produitRepository->find($request->get('idStreamer')));
-        $plan->setDescription($clientRepository->find($request->get('description')));
+        $plan->setIdstreamer($streamerRepository->find($request->get('idStreamer')));
+        $plan->setDescription($request->get('description'));
         $plan->setDate($request->get('date'));
         $plan->setDuree($request->get('duree'));
         $plan->setHeure($request->get('heure'));
-        $plan->setIdevenement($request->get('idEvenement'));
+        $plan->setIdevenement($request->get('idEvennement'));
         $planRepository->add($plan);
 
-        $pln = (array)$plan;
-        foreach ($pln as $k => $v) {
-            $newkey = substr($k, 17);
-            $pln[$newkey] = $pln[$k];
-            unset($pln[$k]);
-        }
         $pln["idStreamer"] = $plan->getIdstreamer()->getIdstreamer()->getIdPersonne();
 
 
         $jsonContent = $Normalizer->normalize($pln, 'json', ['groups' => 'post: read']);
-        return new Response (json_encode($pln));
+        return new Response (json_encode($jsonContent));
     }
     /**
      *  @Route("/edit", name="editPlan")
      */
-    public function editPlan (Request $request, NormalizerInterface $Normalizer,PlanRepository $planRepository)
+    public function editPlan (Request $request, NormalizerInterface $Normalizer,PlanRepository $planRepository,StreamerRepository $streamerRepository)
     {
         $plans = $planRepository->find($request->get('idavis'));
 
         $plan = new Plan();
-        $plan->setIdstreamer($produitRepository->find($request->get('idStreamer')));
-        $plan->setDescription($clientRepository->find($request->get('description')));
+        $plan->setIdstreamer($streamerRepository->find($request->get('idStreamer')));
+        $plan->setDescription($request->get('description'));
         $plan->setDate($request->get('date'));
         $plan->setDuree($request->get('duree'));
         $plan->setHeure($request->get('heure'));
@@ -108,7 +102,7 @@ class PlanService extends AbstractController
     /**
      *  @Route("/delete/{idplan}", name="deletePlan")
      */
-    public function deleteAvis (Request $request, NormalizerInterface $Normalizer, $idplan, PlanRepository $planRepository, ProduitRepository $produitRepository)
+    public function deletePlan (Request $request, NormalizerInterface $Normalizer, $idplan, PlanRepository $planRepository, ProduitRepository $produitRepository)
     {
         $plan = $planRepository->find($idplan);
         $planRepository->remove($plan);
@@ -116,4 +110,5 @@ class PlanService extends AbstractController
         $jsonContent = $Normalizer->normalize($plan, 'json', ['groups' => 'post: read']);
         return new Response ("Avis supprime avec succes".json_encode($jsonContent));
     }
+
 }

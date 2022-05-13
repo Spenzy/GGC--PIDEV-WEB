@@ -20,9 +20,7 @@ import entities.Streamer;
 public class DetailStreamer extends Form {
 
     Form current;
-    Image imgg = null;
-    ImageViewer iv = null;
-    EncodedImage ec;
+    
 
     public DetailStreamer(Streamer p, Form previous) {
         setTitle("Detail Streamer");

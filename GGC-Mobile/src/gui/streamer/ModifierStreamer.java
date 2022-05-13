@@ -60,7 +60,7 @@ public class ModifierStreamer extends Form {
 
         });
 
-        addAll(idStreamer, tfInfo, tfLS);
+        addAll(idStreamer, tfInfo, tfLS,btnValider,btnRet);
         // getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> this.previous.showBack());
 
     }

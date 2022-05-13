@@ -19,9 +19,10 @@ import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.spinner.Picker;
 import entities.Livreur;
+import entities.Plan;
 import entities.Streamer;
 import java.util.ArrayList;
-import services.ServiceLivraison;
+import services.ServicePlan;
 import services.ServiceStreamer;
 
 /**
@@ -54,23 +55,16 @@ public class AjouterPlan extends Form {
         Picker heure = new Picker();
         heure.setType(Display.PICKER_TYPE_TIME);
         
-         /*
-                
-                + "?idPlan="+ p.getIdPlan()+ "&idStreamer=" + p.getIdStreamer() + "&date=" + p.getDate()
-                + "&heure=" + p.getHeure()  + "&duree=" + p.getDuree()
-                + "&description=" + p.getDescription()+ "&idEvennement=" + p.getIdEvennement();
-                */
+         Label label_duree = new Label("duree");
+         TextField tf_duree = new TextField("", "", 20, TextArea.ANY);
+         
+         Label label_description = new Label("description");
+         TextField tf_description = new TextField("", "", 20, TextArea.ANY);
+         
+         Label label_idEvennement = new Label("idEvennement");
+         TextField tf_idEvennement = new TextField("", "", 20, TextArea.ANY);
         
         
-            Label label_informations = new Label("informations");
-            TextField tf_informations = new TextField("", "", 20, TextArea.ANY);
-            Label label_lienStreaming = new Label("lienStreaming");
-            TextField tf_lienStreaming = new TextField("", "", 20, TextArea.ANY);
-    
-    
-    
-
-    
             Button btnAjout = new Button("ajouter");
 
             btnAjout.addActionListener(
@@ -78,12 +72,32 @@ public class AjouterPlan extends Form {
                         @Override
                         public void actionPerformed(ActionEvent evt
                         ) {
-                            if ((cb_streamer.getName().length() == 0) || (tf_informations.getText().length() == 0) || (tf_lienStreaming.getText().length() == 0) ) {
+                            if ((cb_streamer.getName().length() == 0) || (tf_description.getText().length() == 0) ) {
                                 Dialog.show("Alert", "Please fill all the fields", new Command("OK"));
                             } else {
                                 try {
-                                    Streamer p = new Streamer(Integer.parseInt(cb_streamer.getName()), tf_informations.getText(), tf_lienStreaming.getText());
-                                    if (ServiceStreamer.getInstance().addStreamer(p)) {
+                                    
+                                    /*
+                
+                + "?idPlan="+ p.getIdPlan()+ "&idStreamer=" + p.getIdStreamer() + "&date=" + p.getDate()
+                + "&heure=" + p.getHeure()  + "&duree=" + p.getDuree()
+                + "&description=" + p.getDescription()+ "&idEvennement=" + p.getIdEvennement();
+                                    
+                                    //public Plan(int idPlan, int idStreamer, Date date, Date heure, float duree, String Description, int idEvennement)
+                */
+                                    
+                                    Plan c = new Plan();
+                                    c.setIdStreamer(cb_streamer.getSelectedItem());
+                                    c.setDate(date.getDate());
+                                    c.setHeure(heure.getDate());
+                                    c.setDuree(Integer.parseInt(tf_duree.getText()));
+                                    
+                                    c.setDescription(tf_description.getText());
+                                    c.setIdEvennement(Integer.parseInt(tf_idEvennement.getText()));
+                                    
+                                    
+                                    
+                                    if (ServicePlan.getInstance().addPlan(c)) {
                                         Dialog.show("Success", "Connection accepted", new Command("OK"));
                                         //previous.showBack();
                                     } else {
@@ -99,7 +113,7 @@ public class AjouterPlan extends Form {
                     }
             );
 
-            addAll(label_Streamer, cb_streamer, label_informations, tf_informations, label_lienStreaming, tf_lienStreaming, btnAjout);
+            addAll(label_Streamer, cb_streamer,label_date,date,label_heure,heure,label_duree,tf_duree, label_description, tf_description, label_idEvennement, tf_idEvennement, btnAjout);
 
             getToolbar()
                     .addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK,

@@ -18,8 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import utils.Statics;
 
 /**
@@ -118,7 +117,7 @@ public class ServicePlan {
                 float idPlan = Float.parseFloat(obj.get("idPlan").toString());
                 t.setIdPlan((int) idPlan);
                 float idStreamer = Float.parseFloat(obj.get("idStreamer").toString());
-                t.setIdStreamer((int) idPlan);
+                t.setIdStreamer((int) idStreamer);
                 
                 Date date1;
                 
@@ -137,7 +136,7 @@ public class ServicePlan {
                     t.setHeure(date2);
                 } catch (ParseException ex) {
                 }
-                
+                t.setNomstreamer(obj.get("nomstreamer").toString());
                 t.setDuree((int) Float.parseFloat(obj.get("duree").toString()));
                 t.setDescription(obj.get("description").toString());
                 t.setIdEvennement((int) Float.parseFloat(obj.get("idEvennement").toString()));
@@ -158,18 +157,18 @@ public class ServicePlan {
     }
 
     public ArrayList<Plan> getAllPlans() {
-        String url = Statics.BASE_URL + "/plan/getAll";
+        String url = Statics.BASE_URL + "/plan/getAll/";
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
                 try {
-                    plans = parsePlans(req.getResponseData().toString());
+                    plans = parsePlans(new String(req.getResponseData()));
                     req.removeResponseListener(this);
                 } catch (ParseException ex) {
-                    Logger.getLogger(ServicePlan.class.getName()).log(Level.SEVERE, null, ex);
                 }
+              
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(req);

@@ -47,15 +47,14 @@ class StreamerService extends AbstractController
     {
         $streamers = $streamerRepository->findAll();
         $listStreamer = array();
-        foreach ($streamers as $p) {
+        $stream = array();
+        foreach ($streamers as $s) {
 
-            $streamer = (array)$p;
-            foreach ($streamer as $k => $v) {
-                $newkey = substr($k, 21);
-                $streamer[$newkey] = $streamer[$k];
-                unset($streamer[$k]);
-            }
-            $listStreamer[] = $streamer;
+
+            $stream["idStreamer"] = $s->getIdstreamer()->getIdPersonne();
+            $stream["informations"] =$s->getInformations();
+            $stream["lienStreaming"] = $s->getLienstreaming();
+            $listStreamer[] = $stream;
 
         }
 

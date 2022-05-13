@@ -107,7 +107,7 @@ public class HomeForm extends Form {
                     new ListStreamerForm(menuForm).show();
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Plan", null, (gu) -> {
-                    //new ListPlanForm(menuForm).show();
+                    new ListPlanForm(menuForm).show();
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Evenements", null, (gm) -> {
 

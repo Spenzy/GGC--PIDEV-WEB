@@ -22,27 +22,31 @@ import gui.streamer.ListStreamerForm;
 public class DetailPlan extends Form {
 
     Form current;
-    Image imgg = null;
-    ImageViewer iv = null;
-    EncodedImage ec;
+    
 
     public DetailPlan(Plan p, Form previous) {
         setTitle("Detail Plan");
         setLayout(BoxLayout.yCenter());
         
-        Label l = new Label(" ");
+       /* Label l = new Label(" ");
         l.setUIID("Separator");
         
+        */
         
-        Label description=new Label("Informations : "+p.getDescription());
-        Label date=new Label("LienStreaming : "+p.getDate());
-        Label nonstreamer = new Label("Streamer: "+ p.getNomstreamer());
+        
+        Label nomstreamer = new Label("Streamer: "+ p.getNomstreamer());
+        Label description=new Label("Description : "+p.getDescription());
+        
+        
+        Label date=new Label("Date : "+p.getDate());
+        
+        Label heure = new Label("Heure "+ p.getHeure());
         Label duree = new Label("Duree "+ p.getDuree());
-        Label heure = new Label("Duree "+ p.getHeure());
+        
         Label idevent = new Label("Event id "+ p.getIdEvennement());
         
-        addAll(description,date,nonstreamer,duree,heure,idevent);
-        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> new ListStreamerForm(previous).showBack());
+        addAll(description,date,nomstreamer,duree,heure,idevent);
+        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> new ListPlanForm(previous).showBack());
 
     }
 
