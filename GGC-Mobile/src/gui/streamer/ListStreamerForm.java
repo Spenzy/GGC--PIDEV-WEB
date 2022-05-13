@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package gui.shop;
+package gui.streamer;
 
 import com.codename1.components.MultiButton;
 import com.codename1.ui.Button;
@@ -10,31 +10,31 @@ import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.layouts.BoxLayout;
-import entities.Produit;
-import services.ServiceProduit;
+import entities.Streamer;
+import services.ServiceStreamer;
 
 /**
  *
- * @author dell
+ * @author msi
  */
-public class ListProduitForm extends Form {
+public class ListStreamerForm extends Form {
 
-    public ListProduitForm(Form previous) {
-        setTitle("Liste des Produit");
+    public ListStreamerForm(Form previous) {
+        setTitle("Liste des Streamer");
         setLayout(BoxLayout.yCenter());
 
-        for (Produit p : ServiceProduit.getInstance().getAllProducts()) {
+        for (Streamer p : ServiceStreamer.getInstance().getAllStreamers()) {
             Container c = new Container(BoxLayout.yCenter());
             
-            MultiButton mb = new MultiButton("Libelle : " + p.getLibelle() +" Prix : "+p.getPrix());
-            mb.addActionListener(a -> new DetailProduit(p, previous).show());
+            MultiButton mb = new MultiButton("Informations : " + p.getInformations() +" LienStreaming : "+p.getLienStreaming());
+            mb.addActionListener(a -> new DetailStreamer(p, previous).show());
             //System.out.println(user.getId());
             Button update = new Button("Modifier");
 
-            update.addActionListener(e -> new ModifierProduit(p, previous).show());
+            update.addActionListener(e -> new ModifierStreamer(p, previous).show());
             Button delete = new Button("Supprimer");
 
-            delete.addActionListener(e -> new SupprimerProduit(p, previous).show());
+            delete.addActionListener(e -> new SupprimerStreamer(p, previous).show());
 
             
             Container c2 = new Container(BoxLayout.xCenter());

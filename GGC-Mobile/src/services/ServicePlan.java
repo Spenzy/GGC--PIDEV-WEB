@@ -9,40 +9,45 @@ import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
+import com.codename1.l10n.ParseException;
+import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.events.ActionListener;
-import entities.Avis;
-import entities.Produit;
+import entities.Plan;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import utils.Statics;
 
 /**
  *
- * @author dell
+ * @author msi
  */
-public class ServiceAvis {
+public class ServicePlan {
     
-    public ArrayList<Avis> avis;
+   
 
-    public static ServiceAvis instance = null;
+    public ArrayList<Plan> plans;
+
+    public static ServicePlan instance = null;
     public boolean resultOK;
     private ConnectionRequest req;
 
-    private ServiceAvis() {
+    private ServicePlan() {
         req = new ConnectionRequest();
     }
 
-    public static ServiceAvis getInstance() {
+    public static ServicePlan getInstance() {
         if (instance == null) {
-            instance = new ServiceAvis();
+            instance = new ServicePlan();
         }
         return instance;
     }
 
-    public boolean addAvis(Avis a) {
-        String url = Statics.BASE_URL + "/avis/new/" + "?referenceproduit="+ a.getReferenceProduit()+ "&idclient=" + a.getIdClient() + "&type=" + a.getType()+ "&description=" + a.getDescription()  ; //création de l'URL
+    public boolean addPlan(Plan p) {
+       
+        String url = Statics.BASE_URL + "/plan/new" + "?idPlan="+ p.getIdPlan()+ "&idStreamer=" + p.getIdStreamer() + "&date=" + p.getDate()+ "&heure=" + p.getHeure()  + "&duree=" + p.getDuree()+ "&description=" + p.getDescription()+ "&idEvennement=" + p.getIdEvennement(); //création de l'URL
         req.setUrl(url);// Insertion de l'URL de notre demande de connexion
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
@@ -61,9 +66,9 @@ public class ServiceAvis {
         return resultOK;
     }
     
-    public ArrayList<Avis> parseAvis(String jsonText) {
+    public ArrayList<Plan> parsePlans(String jsonText) throws ParseException {
         try {
-            avis = new ArrayList<>();
+            plans = new ArrayList<>();
             JSONParser j = new JSONParser();// Instanciation d'un objet JSONParser permettant le parsing du résultat json
 
             /*
@@ -96,17 +101,47 @@ public class ServiceAvis {
 
             //Parcourir la liste des tâches Json
             for (Map<String, Object> obj : list) {
+                
+                /*
+                
+                + "?idPlan="+ p.getIdPlan()+ "&idStreamer=" + p.getIdStreamer() + "&date=" + p.getDate()
+                + "&heure=" + p.getHeure()  + "&duree=" + p.getDuree()
+                + "&description=" + p.getDescription()+ "&idEvennement=" + p.getIdEvennement();
+                */
+                
+                
+                
                 //Création des tâches et récupération de leurs données
-                Avis t = new Avis();
-                float id = Float.parseFloat(obj.get("idavis").toString());
-                t.setIdAvis((int) id);
-                t.setIdClient((int) Float.parseFloat(obj.get("idclient").toString()));
-                t.setReferenceProduit((int) Float.parseFloat(obj.get("referenceproduit").toString()));
+                Plan t = new Plan();
+                float idPlan = Float.parseFloat(obj.get("idPlan").toString());
+                t.setIdPlan((int) idPlan);
+                float idStreamer = Float.parseFloat(obj.get("idStreamer").toString());
+                t.setIdStreamer((int) idPlan);
+                
+                Date date1;
+                
+                try {
+                    date1 = new SimpleDateFormat("yyyy-mm-dd").parse(obj.get("date").toString());
+                    t.setDate(date1);
+
+                } catch (ParseException ex) {
+                }
+                
+                
+                Date date2;            
+               
+                try {
+                date2 = new SimpleDateFormat("hh-mm-ss").parse(obj.get("heure").toString());
+                    t.setHeure(date2);
+                } catch (ParseException ex) {
+                }
+                
+                t.setDuree((int) Float.parseFloat(obj.get("duree").toString()));
                 t.setDescription(obj.get("description").toString());
-                t.setType(obj.get("type").toString());
-                t.nomclient=obj.get("nomclient").toString();
+                t.setIdEvennement((int) Float.parseFloat(obj.get("idEvennement").toString()));
+                
                 //Ajouter la tâche extraite de la réponse Json à la liste
-                avis.add(t);
+                plans.add(t);
             }
 
         } catch (IOException ex) {
@@ -117,26 +152,26 @@ public class ServiceAvis {
         de la base de données à travers un service web
         
          */
-        return avis;
+        return plans;
     }
 
-    public ArrayList<Avis> getAllAvis(Produit p) {
-        String url = Statics.BASE_URL + "/avis/getAll/"+p.getReference();
+    public ArrayList<Plan> getAllPlans() {
+        String url = Statics.BASE_URL + "/plan/getAll";
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
-                avis = parseAvis(new String(req.getResponseData()));
+                plans = parsePlans(new String(req.getResponseData()));
                 req.removeResponseListener(this);
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
-        return avis;
+        return plans;
     }
 
-    public boolean modifierAvis(Avis p) {
-        String url = Statics.BASE_URL + "/avis/edit/" +"?idavis="+p.getIdAvis()+"&type="+ p.getType()+ "&description=" + p.getDescription();
+    public boolean modifierPlan(Plan p) {
+        String url = Statics.BASE_URL + "?idPlan="+ p.getIdPlan()+ "&idStreamer=" + p.getIdStreamer() + "&date=" + p.getDate()+ "&heure=" + p.getHeure()  + "&duree=" + p.getDuree()+ "&description=" + p.getDescription()+ "&idEvennement=" + p.getIdEvennement();
         req.setUrl(url);
 
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -151,8 +186,8 @@ public class ServiceAvis {
         return resultOK;
     }
 
-    public boolean SupprimerAvis(Avis p) {
-        String url = Statics.BASE_URL + "/avis/delete/" +p.getIdAvis();
+    public boolean SupprimerPlan(Plan p) {
+        String url = Statics.BASE_URL + "/plan/delete/" +p.getIdPlan();
   
         req.setUrl(url);
         req.setPost(false);
@@ -168,4 +203,5 @@ public class ServiceAvis {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return resultOK;
     }
+    
 }

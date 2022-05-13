@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package gui.shop;
+package gui.streamer;
 
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
@@ -15,36 +15,50 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
-import services.ServiceProduit;
+import entities.Streamer;
+import services.ServiceStreamer;
 
 /**
  *
- * @author dell
+ * @author msi
  */
-public class RemiseProduitForm extends Form{
-
-    public RemiseProduitForm(Form previous) {
+public class AjouterStreamer extends Form {
+    
+    
+    public AjouterStreamer(Form previous) {
        
-            setTitle("Donner Remise");
+            /*
+            Le paramètre previous définit l'interface(Form) précédente.
+            Quelque soit l'interface faisant appel à AddTask, on peut y revenir
+            en utilisant le bouton back
+            */
+            setTitle("Ajouter un Streamer");
             setLayout(BoxLayout.y());
 
-            Label label_categorie = new Label("Categorie");
-            TextField tf_categorie = new TextField("", "", 20, TextArea.ANY);
-            Label label_montant = new Label("Montant");
-            TextField tf_montant = new TextField("", "", 20, TextArea.ANY);
+            Label label_idStreamer = new Label("Id Streamer");
+            TextField tf_idStreamer = new TextField("", "", 20, TextArea.ANY);
+            Label label_informations = new Label("informations");
+            TextField tf_informations = new TextField("", "", 20, TextArea.ANY);
+            Label label_lienStreaming = new Label("lienStreaming");
+            TextField tf_lienStreaming = new TextField("", "", 20, TextArea.ANY);
+    
+    
+    
 
-            Button btnRemise = new Button("Affecter");
+    
+            Button btnAjout = new Button("ajouter");
 
-            btnRemise.addActionListener(
+            btnAjout.addActionListener(
                     new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent evt
                         ) {
-                            if ((tf_categorie.getText().length() == 0) || (tf_montant.getText().length() == 0)) {
+                            if ((tf_idStreamer.getText().length() == 0) || (tf_informations.getText().length() == 0) || (tf_lienStreaming.getText().length() == 0) ) {
                                 Dialog.show("Alert", "Please fill all the fields", new Command("OK"));
                             } else {
                                 try {
-                                    if (ServiceProduit.getInstance().affecterRemise(tf_categorie.getText(),Float.parseFloat(tf_montant.getText()))) {
+                                    Streamer p = new Streamer(Integer.parseInt(tf_idStreamer.getText()), tf_informations.getText(), tf_lienStreaming.getText());
+                                    if (ServiceStreamer.getInstance().addStreamer(p)) {
                                         Dialog.show("Success", "Connection accepted", new Command("OK"));
                                         //previous.showBack();
                                     } else {
@@ -60,7 +74,7 @@ public class RemiseProduitForm extends Form{
                     }
             );
 
-            addAll(label_categorie, tf_categorie, label_montant, tf_montant, btnRemise);
+            addAll(label_idStreamer, tf_idStreamer, label_informations, tf_informations, label_lienStreaming, tf_lienStreaming, btnAjout);
 
             getToolbar()
                     .addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK,
@@ -68,6 +82,7 @@ public class RemiseProduitForm extends Form{
         
         
     
-    }
     
-}
+    
+    }
+    }
