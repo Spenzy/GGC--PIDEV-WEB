@@ -42,7 +42,7 @@ public class ServiceStreamer {
 
     public boolean addStreamer(Streamer p) {
        
-        String url = Statics.BASE_URL + "/produit/new" + "?reference="+ p.getIdStreamer()+ "&informations=" + p.getInformations() + "&lienStreaming=" + p.getLienStreaming(); //création de l'URL
+        String url = Statics.BASE_URL + "/streamer/new" + "?idStreamer="+ p.getIdStreamer()+ "&informations=" + p.getInformations() + "&lienStreaming=" + p.getLienStreaming(); //création de l'URL
         req.setUrl(url);// Insertion de l'URL de notre demande de connexion
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override

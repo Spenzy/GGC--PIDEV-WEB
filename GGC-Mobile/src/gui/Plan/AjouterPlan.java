@@ -72,7 +72,7 @@ public class AjouterPlan extends Form {
                         @Override
                         public void actionPerformed(ActionEvent evt
                         ) {
-                            if ((cb_streamer.getName().length() == 0) || (tf_description.getText().length() == 0) ) {
+                            if ((tf_description.getText().length() == 0) ) {
                                 Dialog.show("Alert", "Please fill all the fields", new Command("OK"));
                             } else {
                                 try {

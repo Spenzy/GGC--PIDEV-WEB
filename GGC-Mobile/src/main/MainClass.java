@@ -52,7 +52,7 @@ public class MainClass {
             current.show();
             return;
         }
-        new HomeForm().show();
+        new HomeForm(theme).show();
     }
 
     public void stop() {

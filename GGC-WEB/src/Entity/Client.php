@@ -4,6 +4,9 @@ namespace App\Entity;
 use App\Entity\Personne;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
+
+
 
 /**
  * Client
@@ -17,6 +20,8 @@ class Client
      * @var int
      *
      * @ORM\Column(name="nbrAvertissement", type="integer", nullable=true)
+     * @Groups({"cl"})
+
      */
     private $nbravertissement;
 
@@ -24,6 +29,8 @@ class Client
      * @var int
      *
      * @ORM\Column(name="ban", type="integer", nullable=true)
+     * @Groups({"cl"})
+
      */
     private $ban;
 
@@ -31,6 +38,8 @@ class Client
      * @var \DateTime|null
      *
      * @ORM\Column(name="dateDebutBlock", type="date", nullable=true)
+     * @Groups({"cl"})
+
      */
     private $datedebutblock;
 
@@ -38,6 +47,8 @@ class Client
      * @var \DateTime|null
      *
      * @ORM\Column(name="dateFinBlock", type="date", nullable=true)
+     * @Groups({"cl"})
+
      */
     private $datefinblock;
 
@@ -49,6 +60,8 @@ class Client
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idClient", referencedColumnName="id_personne")
      * })
+     * @Groups({"cl"})
+
      */
     private $idClient;
 

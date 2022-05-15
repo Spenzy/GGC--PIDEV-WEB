@@ -18,7 +18,10 @@ use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mime\Email;
 use Dompdf\Dompdf;
 use Dompdf\Options;
-
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 
 /**
@@ -56,7 +59,7 @@ class EvenementController extends AbstractController
     /**
      * @Route("/AffichEventPDF", name="affichEventPDF", methods={"GET"})
      */
-    public function pdf(EvenementRepository $evenementRepository ): Response
+    public function pdf(EvenementRepository $evenementRepository )
     {
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
@@ -84,6 +87,7 @@ class EvenementController extends AbstractController
         $dompdf->stream("mypdf.pdf", [
             "Attachment" => true
         ]);
+
     }
 
 
@@ -223,5 +227,9 @@ class EvenementController extends AbstractController
         ]);
 
     }
+
+
+
+
 
 }

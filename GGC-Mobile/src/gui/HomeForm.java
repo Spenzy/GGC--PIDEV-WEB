@@ -14,14 +14,19 @@ import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.util.Resources;
 import gui.Plan.ListPlanForm;
+import gui.client.HomeClient;
 import gui.commande.HomeLivraison;
 import gui.commande.ListeCommande;
+import gui.evenement.AffichEventClient;
+import gui.evenement.HomeEvenement;
 import gui.forum.ListArchivageForm;
 import gui.shop.HomeProduit;
 import gui.shop.HomeShop;
 import utils.Statics;
 import gui.forum.ListPublicationForm;
+import gui.personne.HomePersonne;
 import gui.streamer.ListStreamerForm;
+import services.ServicePersonne;
 
 /**
  *
@@ -35,7 +40,7 @@ public class HomeForm extends Form {
     /*Garder traçe de la Form en cours pour la passer en paramètres 
     aux interfaces suivantes pour pouvoir y revenir plus tard en utilisant
     la méthode showBack*/
-    public HomeForm() {
+    public HomeForm(Resources res) {
         current = this; //Récupération de l'interface(Form) en cours
         setTitle("Sign in");
         setLayout(BoxLayout.y());
@@ -43,12 +48,21 @@ public class HomeForm extends Form {
         TextField address = new TextField("", "E-Mail", 40, TextArea.EMAILADDR);
         TextField password = new TextField("", "Password", 30, TextField.PASSWORD);
         Button connect = new Button("Se Connecter");
-        addAll(address, password, connect);
+        
+        Button register = new Button("register");
+        addAll(address, password, connect, register);
+        register.addActionListener(e -> {
+        Form menuFormm = new Form("Sign in", BoxLayout.y());
+        new HomePersonne(menuFormm).show();
+        showBack();
+        });
+        
 
         //Tester asresse et password
         connect.addActionListener((connexion) -> {
-            if (address.getText().equals("admin") && password.getText().equals("admin")) {
+            if (address.getText().equals("admin@gmail.com") && password.getText().equals("pwd")) {
                 //adresse et mot de passe valide welcome menu
+                Statics.userid=1;
                 Form menuForm = new Form("Espace Administrateur", BoxLayout.y());
                 menuForm.getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, (e) -> {
                     showBack();
@@ -65,28 +79,38 @@ public class HomeForm extends Form {
 
                 //remplir les modules            
                 menuForm.getToolbar().addCommandToSideMenu("Gestion des utilisateurs", null, (gu) -> {
-
-                });
-                menuForm.getToolbar().addCommandToSideMenu("Gestion des modérateurs", null, (gm) -> {
-
+                     new HomeClient(menuForm).show();
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Gestion du forum", null, (gf) -> {
                     new ListArchivageForm(current).show();
 
                 });
+                menuForm.getToolbar().addCommandToSideMenu("Gestion des evennements", null, (gp) -> {
+                    new HomeEvenement(menuForm,res).show();
+
+                });
                 menuForm.getToolbar().addCommandToSideMenu("Gestion des produits", null, (gp) -> {
                     new HomeProduit(menuForm).show();
-
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Gestion des livraisons", null, (gl) -> {
                     new HomeLivraison(menuForm).show();
                 });
+                menuForm.getToolbar().addCommandToSideMenu("Gestion des streamers", null, (gl) -> {
+                    new ListStreamerForm(menuForm).show();
+                });
+                menuForm.getToolbar().addCommandToSideMenu("Gestion des plans", null, (gl) -> {
+                    new ListPlanForm(menuForm).show();
+                });
 
                 menuForm.show();
 
-            } else if (address.getText().equals("client") && password.getText().equals("client")) {
+            } else {
                 
-                Statics.userid=2;
+                //Session
+                ServicePersonne.getInstance().login(address.getText(),password.getText());
+                System.out.println("useerid ");
+                System.out.println(Statics.userid);
+                if(Statics.userid!=0){
                 
                 Form menuForm = new Form("Bienvenue", BoxLayout.y());
                 menuForm.getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, (e) -> {
@@ -94,14 +118,18 @@ public class HomeForm extends Form {
                 });
 
                 Toolbar tb = menuForm.getToolbar();
-
-                
-                menuForm.getToolbar().addMaterialCommandToRightBar("Déconnexion", FontImage.MATERIAL_LOGOUT, (evt4) -> {
+                //Image logo = theme.getImage("LogoGGC.png");
+                //logo.scaledSmallerRatio(10 , 10);
+                //   Container topBar = BorderLayout.east(new Label(logo));
+                //topBar.add(BorderLayout.SOUTH, new Label("Cool App Tagline...", "SidemenuTagline"));
+                //  topBar.setUIID("SideCommand");
+                //   tb.addComponentToSideMenu(topBar);
+                menuForm.getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_LOGOUT, (evt4) -> {
                     address.setText("");
                     password.setText("");
                     showBack();
-                });
 
+                });
                 //remplir les modules            
                 menuForm.getToolbar().addCommandToSideMenu("Streamers", null, (gu) -> {
                     new ListStreamerForm(menuForm).show();
@@ -109,11 +137,12 @@ public class HomeForm extends Form {
                 menuForm.getToolbar().addCommandToSideMenu("Plan", null, (gu) -> {
                     new ListPlanForm(menuForm).show();
                 });
-                menuForm.getToolbar().addCommandToSideMenu("Evenements", null, (gm) -> {
-
-                });
+                
                 menuForm.getToolbar().addCommandToSideMenu("Forum", null, (gf) -> {
                     new ListPublicationForm(menuForm).show();
+                });
+                menuForm.getToolbar().addCommandToSideMenu("Evennement", null, (gf) -> {
+                    new AffichEventClient(menuForm).show();
                 });
                 menuForm.getToolbar().addCommandToSideMenu("Shop", null, (gp) -> {
                     int uid=Statics.userid;
@@ -125,11 +154,14 @@ public class HomeForm extends Form {
                 });
 
                 menuForm.show();
-            } else {
-                Dialog.show("Warning", "Invalid login or password!", "OK", null);
+            } else{
+                   
+                Dialog.show("Alerte","Vos coordonnées sont incorrectes","OK",null);
+               
+                } 
+      
 
-            }
-        });
-
+    } } );
     }
+    
 }

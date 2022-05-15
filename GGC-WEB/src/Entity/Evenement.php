@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Evenement
@@ -21,7 +22,8 @@ class Evenement
      * @var int
      *
      * @ORM\Column(name="reference", type="integer", nullable=false)
-     * @ORM\Id     
+     * @ORM\Id
+     * @Groups("event:read")
      */
     private $reference;
 
@@ -29,6 +31,7 @@ class Evenement
 
      * @ORM\Column(name="dateDebut", type="date", nullable=false)
      * @Assert\GreaterThanOrEqual("today",message="La date du debut doit être supérieure à la date d'aujourd'hui"))
+     * @Groups("event:read")
      */
     private $datedebut;
 
@@ -38,6 +41,7 @@ class Evenement
      * @ORM\Column(name="dateFin", type="date", nullable=false)
      * @Assert\GreaterThanOrEqual(propertyPath="dateDebut",
     * message="La date du fin doit être supérieure à la date début")
+     * @Groups("event:read")
      */
     private $datefin;
 
@@ -51,6 +55,7 @@ class Evenement
      *      minMessage = "Your first name must be at least {{ limit }} characters long",
      *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
      * )
+     * @Groups("event:read")
      */
     private $localisation;
 
@@ -63,6 +68,7 @@ class Evenement
      *      max = 250,
      *      minMessage = "Your first name must be at least {{ limit }} characters long",
      *      maxMessage = "Your first name cannot be longer than {{ limit }} characters")
+     * @Groups("event:read")
      */
     private $description;
      /**
@@ -71,6 +77,7 @@ class Evenement
      * @ORM\Column(name="photo", type="string", length=50, nullable=true)
        * @Assert\NotBlank(message="Please, upload the photo.")
      *  @Assert\File(mimeTypes={ "image/png", "image/jpeg" , "image/jpg" })
+      * @Groups("event:read")
      */
     private $photo;
 
@@ -79,6 +86,7 @@ class Evenement
      *
      * @ORM\Column(name="nbrParticipant", type="integer", nullable=false)
      * @Assert\Positive(message="le nbr Participants doit etre positive")
+     * @Groups("event:read")
      */
     private $nbrparticipant;
 
@@ -86,6 +94,7 @@ class Evenement
      * @var string
      *
      * @ORM\Column(name="Titre", type="string", length=50, nullable=false)
+     * @Groups("event:read")
      */
     private $titre;
 

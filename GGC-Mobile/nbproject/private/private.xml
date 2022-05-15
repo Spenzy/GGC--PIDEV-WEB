@@ -3,11 +3,27 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/gui/forum/PublicationContainer.java</file>
-            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/gui/forum/PubArchiveContainer.java</file>
-            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/services/ServicePublication.java</file>
+            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/gui/evenement/MapForm.java</file>
+            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/services/ServicePlan.java</file>
+            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/services/ServiceLivraison.java</file>
+            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/entities/LigneCommande.java</file>
+            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/utils/Statics.java</file>
+            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/gui/commande/AjouterCommande.java</file>
+            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/gui/client/ListeClientForm.java</file>
+            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/entities/Plan.java</file>
+            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/gui/client/HomeClient.java</file>
+            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/gui/Plan/AjouterPlan.java</file>
+            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/services/ServiceEvenement.java</file>
             <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/gui/HomeForm.java</file>
-            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/gui/forum/ListArchivageForm.java</file>
+            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/gui/Plan/ListPlanForm.java</file>
+            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/gui/commande/HomeLivraison.java</file>
+            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/gui/commande/ListeLivraisons.java</file>
+            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/services/ServiceStreamer.java</file>
+            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/lib/impl/native/javase/com/codename1/googlemaps/InternalNativeMapsImpl.java</file>
+            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/gui/commande/AjouterLivraison.java</file>
+            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/services/ServicePersonne.java</file>
+            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/gui/shop/AjouterProduit.java</file>
+            <file>file:/C:/wamp64/www/GGC--PIDEV-Mobile/GGC-Mobile/src/gui/streamer/ListStreamerForm.java</file>
         </group>
     </open-files>
 </project-private>

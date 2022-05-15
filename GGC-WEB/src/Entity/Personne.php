@@ -7,6 +7,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Validator\Constraints\ComplexPassword;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * Personne
@@ -23,6 +25,8 @@ class Personne
      * @ORM\Column(name="id_personne", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups({"cl"})
+
      */
     private $idPersonne;
 
@@ -36,6 +40,8 @@ class Personne
      * )
      * @ORM\Column(name="nom", type="string", length=30, nullable=false)
      * @Assert\NotBlank(message="please enter your nom")
+     * @Groups({"cl"})
+
      */
     private $nom;
 
@@ -49,6 +55,8 @@ class Personne
      *      maxMessage = "cannot be longer than {{ limit }} characters"
      * )
      * @Assert\NotBlank(message="please enter your prenom")
+     * @Groups({"cl"})
+
 
      */
     private $prenom;
@@ -56,6 +64,8 @@ class Personne
     /**
      * @var \DateTime
      * @ORM\Column(name="dateNaissance", type="date", nullable=false)
+     * @Groups({"cl"})
+
      */
     private $datenaissance;
 
@@ -65,6 +75,8 @@ class Personne
      *  @ORM\Column(name="email", type="string", length=50, nullable=false)
      * @Assert\NotBlank(message="please enter your email")
      * @Assert\Email()
+     * @Groups({"cl"})
+
      * 
      * 
      */
@@ -81,6 +93,7 @@ class Personne
      *      minMessage = "least {{ limit }} characters long",
      *      maxMessage = "cannot be longer than {{ limit }} characters"
      * )
+     * @Groups({"cl"})
      */
     private $telephone;
 
@@ -90,13 +103,16 @@ class Personne
      * @Assert\NotBlank(message="entrer votre password")
      * @Assert\Length(min="6")
      * @var string The hashed password
-     * 
+     * @Groups({"cl"})
+
      */
     private $password;
      /**
      * @var string
      * @ORM\Column(type="string")
-     */
+      * @Groups({"cl"})
+
+      */
     private $roles;
 
 

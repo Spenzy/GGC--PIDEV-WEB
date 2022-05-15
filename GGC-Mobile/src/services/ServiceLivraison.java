@@ -260,7 +260,7 @@ public class ServiceLivraison {
     }
 
     public void retardLivraison() {
-        String url = Statics.BASE_URL + "/livraison/retard/";
+        String url = Statics.BASE_URL + "/livraison/excuse";
 
         req.setUrl(url);
         req.setPost(false);

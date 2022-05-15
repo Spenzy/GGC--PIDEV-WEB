@@ -18,7 +18,10 @@ use App\Repository\VoteRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -62,7 +65,7 @@ class PlanService extends AbstractController
     /**
      * @Route("/new", name="addPlan")
      */
-    public function new(Request $request, NormalizerInterface $Normalizer,PlanRepository $planRepository,StreamerRepository $streamerRepository): Response
+    public function new(Request $request,MailerInterface $mailer, NormalizerInterface $Normalizer,PlanRepository $planRepository,StreamerRepository $streamerRepository): Response
     {
         $plan = new Plan();
         $plan->setIdstreamer($streamerRepository->find($request->get('idStreamer')));
@@ -71,6 +74,7 @@ class PlanService extends AbstractController
         $plan->setDuree($request->get('duree'));
         $plan->setHeure($request->get('heure'));
         $plan->setIdevenement($request->get('idEvennement'));
+        $this->sendMailPlan($mailer, $plan, $plan->getIdstreamer()->getIdstreamer()->getEmail());
         $planRepository->add($plan);
 
         $pln["idStreamer"] = $plan->getIdstreamer()->getIdstreamer()->getIdPersonne();
@@ -109,6 +113,30 @@ class PlanService extends AbstractController
 
         $jsonContent = $Normalizer->normalize($plan, 'json', ['groups' => 'post: read']);
         return new Response ("Avis supprime avec succes".json_encode($jsonContent));
+    }
+
+    public function sendMailPlan(MailerInterface $mailer,Plan $plan, $email)
+        /*$client,$categorie,$montant)*/
+    {
+
+        $email = (new TemplatedEmail())
+            ->from('gamergeekscommunity@gmail.com')
+            ->to($email)
+            ->subject('C est le temps !')
+            ->text('Votre plan de streaming arrive, les gens vous attends !!')
+            ->embedFromPath('img/LogoGGC.png', 'logo')
+            ->htmlTemplate('emails/EmailPlan.html.twig')
+            ->context([
+                'plan'=>$plan,
+            ]);
+
+        try {
+            $mailer->send($email);
+        } catch (TransportExceptionInterface $e) {
+            var_dump($e->getMessage());
+        }
+
+
     }
 
 }

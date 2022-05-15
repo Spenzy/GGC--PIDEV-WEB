@@ -12,6 +12,7 @@ import com.codename1.ui.Form;
 import com.codename1.ui.layouts.BoxLayout;
 import entities.Streamer;
 import services.ServiceStreamer;
+import utils.Statics;
 
 /**
  *
@@ -22,7 +23,11 @@ public class ListStreamerForm extends Form {
     public ListStreamerForm(Form previous) {
         setTitle("Liste des Streamer");
         setLayout(BoxLayout.yCenter());
-
+        Button ajout=new Button("Ajouter");
+        if (Statics.userid == 1) {
+            add(ajout);
+        }
+        ajout.addActionListener(l->new AjouterStreamer(previous).show());
         for (Streamer p : ServiceStreamer.getInstance().getAllStreamers()) {
             Container c = new Container(BoxLayout.yCenter());
             
@@ -38,8 +43,9 @@ public class ListStreamerForm extends Form {
 
             
             Container c2 = new Container(BoxLayout.xCenter());
+            if(Statics.userid==1){
             c2.add(delete);
-            c2.add(update);
+            c2.add(update);}
             c.addAll(mb,c2);
             add(c);
 
